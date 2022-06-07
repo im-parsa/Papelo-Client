@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 import YekanWoff from './assets/fonts/yekan/IRANYekanWeb.woff';
 import YekanWoff2 from './assets/fonts/yekan/IRANYekanWeb.woff2';
@@ -77,6 +77,11 @@ export default createGlobalStyle
                 position: relative;
                 width: 14rem;
                 margin-right: 1rem;
+
+                &.passengers
+                {
+                    width: 11rem;
+                }
             }
 
             details[open]
@@ -93,16 +98,20 @@ export default createGlobalStyle
                 padding: 1.25rem;
                 cursor: pointer;
                 list-style: none;
-                font-size: 2rem;
-                color: #496192;
                 border-radius: 150rem;
-                font-family: 'Poppins', sans-serif;
                 border: #EBEFF4 solid .3rem;
+                font-size: 1.5rem;
+                color: #4A6192;
             }
 
             summary::-webkit-details-marker
             {
                 display: none;
+            }
+
+            details[open] summary
+            {
+                border-color: #4A6192;
             }
 
             details[open] summary:before
@@ -121,7 +130,6 @@ export default createGlobalStyle
             {
                 content: '';
                 display: inline-block;
-                float: left;
                 width: .75rem;
                 height: .75rem;
                 border-bottom: .15rem solid currentColor;
@@ -129,7 +137,10 @@ export default createGlobalStyle
                 border-bottom-left-radius: 2px;
                 transform: rotate(45deg) translate(50%, 0%);
                 transform-origin: center center;
-                transition: transform ease-in-out 100ms
+                transition: transform ease-in-out 100ms;
+                margin: auto;
+                margin-left: 0;
+                margin-top: .5rem;
             }
 
             summary:focus
@@ -155,13 +166,6 @@ export default createGlobalStyle
                 border-radius: 5px;
                 max-height: 200px;
                 overflow-y: auto;
-            }
-
-            li
-            {
-                margin: 0;
-                padding: 1rem 0;
-                border-bottom: 1px solid #ccc;
             }
 
             li:first-child
@@ -196,12 +200,47 @@ export default createGlobalStyle
             {
                 content: attr(title);
                 display: inline;
-                font-size: 1rem;
+                font-size: 1.5rem;
+                color: #4A6192;
             }
 
             ul.list
             {
+                display: flex;
+                flex-direction: column;
+
+                width: 20rem;
                 counter-reset: labels;
+                background: #FFFFFF;
+                border-radius: 1rem;
+                padding: 1.75rem;
+                gap: .5rem;
+                box-shadow: 0 0 4rem 0 rgba(44, 44, 52, .25);
+
+                & li
+                {
+                    display: flex;
+                    align-items: center;
+
+                    position: relative;
+                    border-radius: 1rem;
+                    font-size: 1.5rem;
+                    padding: 1rem;
+                    background: #F9FAFD;
+                    transition: all .2s;
+                    cursor: pointer;
+
+                    & label
+                    {
+                        height: 100%;
+                        width: 100%;
+                    }
+
+                    &:hover
+                    {
+                        background: #f2f2f6;
+                    }
+                }
             }
 
             label

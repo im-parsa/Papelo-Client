@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 import PlaneHeader from '../../assets/images/header-1.svg';
 import HotelHeader from '../../assets/images/header-2.svg';
@@ -68,8 +67,8 @@ export const HomeHeaderImageContentBoxContainer = styled.div
 export const HomeHeaderImageContentContainer = styled.div
     `
         display: flex;
-        align-items: center;
         flex-direction: column;
+        justify-content: flex-start;
 
         position: relative;
         width: 100%;
@@ -80,12 +79,157 @@ export const HomeHeaderImageContentItemContainer = styled.div
     `
         display: flex;
         align-items: center;
-        flex-direction: column;
         justify-content: right;
 
         position: relative;
         width: 100%;
-        height: 100%;
+        padding: 2rem 0;
+
+        & p
+        {
+            margin-left: 1rem;
+
+            [type='radio']:checked,
+            [type='radio']:not(:checked)
+            {
+                position: absolute;
+                right: -9999px;
+            }
+            [type='radio']:checked + label,
+            [type='radio']:not(:checked) + label
+            {
+                position: relative;
+                padding-right: 2.25rem;
+                cursor: pointer;
+                line-height: 2rem;
+                display: inline-block;
+                font-size: 1.5rem;
+                color: #4A6193;
+            }
+            [type='radio']:checked + label:before,
+            [type='radio']:not(:checked) + label:before
+            {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 18px;
+                height: 18px;
+                border: .25rem solid #4A6193;
+                border-radius: 100%;
+            }
+            [type='radio']:checked + label:after,
+            [type='radio']:not(:checked) + label:after
+            {
+                content: '';
+                width: 1rem;
+                height: 1rem;
+                background: #4A6193;
+                position: absolute;
+                top: 4px;
+                right: 4px;
+                border-radius: 100%;
+                -webkit-transition: all 0.2s ease;
+                transition: all 0.2s ease;
+            }
+            [type='radio']:not(:checked) + label:after
+            {
+                opacity: 0;
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+            [type='radio']:checked + label:after
+            {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+    `;
+
+export const HomeHeaderPassengersContainer = styled.div
+    `
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        position: absolute;
+        top: 8rem;
+        left: 0;
+
+        padding: 2rem;
+        width: 35rem;
+        border-radius: 2.5rem;
+        min-height: 10rem;
+        background: #ffffff;
+        box-shadow: 0 0 4rem 0 rgba(44, 44, 52, .25);
+    `;
+
+export const HomeHeaderPassengersItemContainer = styled.div
+    `
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & div
+        {
+            display: flex;
+            align-items: center;
+
+            *
+            {
+                fill: #4A6193;
+            }
+
+            & h2
+            {
+                font-size: 2rem;
+            }
+
+            & p
+            {
+                margin-right: .75rem;
+                font-size: 1.25rem;
+                color: #7b8393;
+            }
+        }
+    `;
+
+export const HomeHeaderPassengersButtonContainer = styled.div
+    `
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: #c1cad5 solid .2rem;
+        border-left: none;
+        border-right: none;
+        width: 2rem;
+        height: 4rem;
+        font-size: 1.75rem;
+
+        &.right
+        {
+            width: 4rem;
+            height: 4rem;
+            border: #c1cad5 solid .2rem;
+            border-left: none;
+            border-radius: 0 5rem 5rem 0;
+        }
+
+        &.left
+        {
+            width: 4rem;
+            height: 4rem;
+            border: #c1cad5 solid .2rem;
+            border-right: none;
+            border-radius: 5rem 0 0 5rem;
+        }
+
+        &.active
+        {
+            border-color: #4A6193;
+        }
     `;
 
 export const HomeHeaderImageBackgroundContainer = styled.div
@@ -148,6 +292,12 @@ export const HomeHeaderImageContentNavItemContainer = styled.li
         border-bottom: #F5F6F8 solid .25rem;
         font-size: 2rem;
         transition: all .3s;
+
+        & svg
+        {
+            margin-left: .75rem;
+            max-height: 2.2rem;
+        }
 
         &:hover
         {

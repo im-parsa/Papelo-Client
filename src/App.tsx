@@ -6,11 +6,9 @@ import Home from './pages/home/home.components';
 const App = () =>
 {
     return (
-        <>
-            <Routes>
-                <Route path='/' element={<Home/>}/>
-            </Routes>
-        </>
+        <Routes>
+            <Route path='/' element={<Home/>}/>
+        </Routes>
     );
 }
 
