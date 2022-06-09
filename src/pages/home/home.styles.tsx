@@ -6,7 +6,7 @@ import TourHeader from '../../assets/images/header-3.svg';
 import TrainHeader from '../../assets/images/header-4.svg';
 import BusHeader from '../../assets/images/header-5.svg';
 import ContentImage from '../../assets/images/texture.svg';
-import {text} from "stream/consumers";
+import NavbarBackground from '../../assets/icons/navbar-bg.svg';
 
 export const HomeHeaderContainer = styled.header
     `
@@ -32,9 +32,9 @@ export const HomeHeaderImageContentParentContainer = styled.div
 
         position: relative;
         margin: auto;
-        margin-top: 7rem;
+        margin-top: 11rem;
         width: 50rem;
-        height: 65rem;
+        height: 68rem;
 
         &::before
         {
@@ -75,6 +75,30 @@ export const HomeHeaderImageContentContainer = styled.div
         position: relative;
         width: 100%;
         height: 100%;
+
+        & > button
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+            margin: auto;
+            margin-bottom: 0;
+            color: #ffffff;
+            font-size: 1.75rem;
+            border: none;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: #4A6193;
+            transition: all .2s;
+
+            &:hover
+            {
+                cursor: pointer;
+                background: #394f80;
+            }
+        }
     `;
 
 export const HomeHeaderImageContentItemContainer = styled.div
@@ -85,7 +109,75 @@ export const HomeHeaderImageContentItemContainer = styled.div
 
         position: relative;
         width: 100%;
-        padding: 2rem 0;
+        padding: 0;
+
+        &:first-child
+        {
+            padding: 1.5rem 0 2.5rem 0;
+        }
+
+        & .date
+        {
+            display: flex;
+            flex-direction: column;
+
+            padding: 1.5rem;
+            border-radius: 2rem;
+            border: #EBEFF4 solid .2rem;
+
+            &:first-child
+            {
+                margin-left: 1.5rem;
+            }
+
+            & input
+            {
+                width: 100%;
+                color: #4A6193;
+                border: none;
+                outline: none;
+                transition: all .2s;
+                font-size: 2.5rem;
+                color: #4A6193;
+            }
+
+            & label
+            {
+
+                color: #a0a8b1;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+        }
+
+        & span
+        {
+            position: absolute;
+            z-index: 99;
+            bottom: 42%;
+            left: 4rem;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            background: #ffffff;
+            width: 5rem;
+            height: 5rem;
+            border: #EBEFF4 solid .2rem;
+            border-radius: 10rem;
+
+            & svg
+            {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            &.active
+            {
+              display: flex;
+            }
+        }
 
         & p
         {
@@ -147,6 +239,131 @@ export const HomeHeaderImageContentItemContainer = styled.div
                 transform: scale(1);
             }
         }
+
+        &.column
+        {
+            flex-direction: column;
+        }
+    `;
+
+export const HomeHeaderImageContentItemParentInputContainer = styled.div
+    `
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        position: relative;
+
+        width: 100%;
+        padding: 2rem;
+        padding-left: 3.5rem;
+        border-radius: 2rem;
+        outline: none;
+        margin-bottom: 1.25rem;
+        background: #ffffff;
+        border: #EBEFF4 solid .2rem;
+
+        & .origin_options,
+        & .destination_options
+        {
+            position: absolute;
+            z-index: 101;
+
+            display: none;
+
+            width: 100%;
+            height: 27rem;
+            top: 12rem;
+            right: 0;
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 2rem;
+            transition: all .2s;
+            box-shadow: 0 0 4rem 0 rgba(44, 44, 52, .25);
+
+            &.active
+            {
+                display: block;
+            }
+
+            & ul
+            {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                overflow: scroll;
+                width: 100%;
+                height: 100%;
+            }
+
+            & li
+            {
+                display: flex;
+                align-items: center;
+
+                padding: 2rem 1.5rem;
+                border-radius: 1rem;
+                font-size: 1.5rem;
+                color: #a0a8b1;
+                cursor: pointer;
+                transition: all .2s;
+
+                & svg
+                {
+                    margin-left: 1rem;
+                    width: 2rem;
+                }
+
+                &:hover,
+                &.active
+                {
+                    background: #f5f8ff;
+                    color: #c;
+                }
+
+                &.deactivate
+                {
+                    display: none;
+                }
+            }
+        }
+
+        & > svg
+        {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        & > div
+        {
+            display: flex;
+            flex-direction: column;
+
+            & input
+            {
+                font-size: 2.5rem;
+                width: 100%;
+                color: #4A6193;
+                border: none;
+                outline: none;
+                transition: all .2s;
+            }
+
+            & label
+            {
+                color: #a0a8b1;
+                font-size: 1.25rem;
+                margin-bottom: .75rem;
+            }
+        }
+
+        &.active
+        {
+            z-index: 100;
+            border-color: transparent;
+            box-shadow: 0 0 4rem 0 rgba(44, 44, 52, .25);
+        }
     `;
 
 export const HomeHeaderPassengersContainer = styled.div
@@ -156,6 +373,7 @@ export const HomeHeaderPassengersContainer = styled.div
         gap: 1.5rem;
 
         position: absolute;
+        z-index: 100;
         top: 8rem;
         left: 0;
 
@@ -241,7 +459,7 @@ export const HomeHeaderImageBackgroundContainer = styled.div
         border-radius: 0 0 11.5rem 0;
         background: #A8B2BF;
         background-size: cover;
-        height: 90%;
+        height: 97%;
         width: 100%;
 
         &.plane
@@ -327,7 +545,35 @@ export const HomeHeaderNavContainer = styled.nav
 
         width: 100%;
         height: auto;
-        padding: 4rem 12rem;
+        padding: 0 12rem;
+
+        & svg
+        {
+            margin-top: 2rem;
+        }
+    `;
+
+export const HomeHeaderAsideContainer = styled.nav
+    `
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        position: relative;
+        top: 0;
+
+background: red;
+
+        width: 15rem;
+        height: 100vh;
+        padding: 10rem 1.5rem;
+
+        & h3
+        {
+            margin: auto;
+            margin-top: 0;
+            transform: rotate(-90deg);
+        }
     `;
 
 export const HomeHeaderMainBackgroundContainer = styled.div
@@ -348,6 +594,7 @@ export const HomeHeaderNavItemsContainer = styled.ul
         align-items: center;
         justify-content: right;
 
+        padding-top: 3rem;
         gap: 2rem;
     `;
 
@@ -361,6 +608,7 @@ export const HomeHeaderNavItemContainer = styled.li
         font-size: 1.5rem;
         transition: all .2s;
         cursor: pointer;
+        height: 12rem;
 
         & svg
         {
@@ -383,13 +631,17 @@ export const HomeHeaderNavItemContainer = styled.li
                 transition: transform ease-in-out 100ms;
                 margin: auto;
                 margin-left: 0;
-                margin-top: .5rem;
                 margin-right: 1rem;
             }
 
             &:hover:after
             {
                 transform: rotate(-45deg) translate(0%, 0%);
+            }
+
+            &:hover > div
+            {
+                display: flex;
             }
         }
 
@@ -406,12 +658,12 @@ export const HomeHeaderNavItemContainer = styled.li
 
 export const HomeHeaderNavItemPopupContainer = styled.div
     `
-        display: flex;
+        display: none;
         flex-direction: column;
 
         position: absolute;
         z-index: 110;
-        top: 10rem;
+        top: 12rem;
         left: -15rem;
 
         cursor: auto;
@@ -440,6 +692,11 @@ export const HomeHeaderNavItemPopupContainer = styled.div
             padding: 2.75rem 4rem;
             color: #B7BAC6;
         }
+
+        &:hover
+        {
+            display: flex;
+        }
     `;
 
 export const HomeHeaderNavItemPopupItemsContainer = styled.ul
@@ -462,6 +719,12 @@ export const HomeHeaderNavItemPopupItemContainer = styled.li
             color: #4A6193;
             font-size: 1.75rem;
             margin-bottom: .5rem;
+            transition: all .2s;
+
+            &:hover
+            {
+                color: #354b7c;
+            }
         }
 
         & p
@@ -478,7 +741,7 @@ export const HomeHeaderNavItemPopupItemContainer = styled.li
             margin-left: 1.5rem;
             width: 5rem;
             height: 5rem;
-            background: red;
+            background: url(${NavbarBackground});
             border-radius: 10rem;
         }
     `;

@@ -24,14 +24,7 @@ export default createGlobalStyle
             margin: 0;
             padding: 0;
             box-sizing: inherit;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
             font-family: 'Yekan', sans-serif;
-
-            &::-webkit-scrollbar
-            {
-                display: none;
-            }
         }
 
         html
