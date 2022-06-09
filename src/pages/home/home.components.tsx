@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React, { useCallback, useState } from 'react';
 
 import Main from '../../components/layouts/main/main.components'
@@ -14,7 +15,14 @@ import {
     HomeHeaderPassengersContainer,
     HomeHeaderPassengersItemContainer,
     HomeHeaderImageContentParentContainer,
-    HomeHeaderPassengersButtonContainer
+    HomeHeaderPassengersButtonContainer,
+    HomeHeaderNavContainer,
+    HomeHeaderNavItemsContainer,
+    HomeHeaderNavItemContainer,
+    HomeHeaderMainBackgroundContainer,
+    HomeHeaderNavItemPopupContainer,
+    HomeHeaderNavItemPopupItemsContainer,
+    HomeHeaderNavItemPopupItemContainer
 } from './home.styles';
 
 import { ReactComponent as Plane } from '../../assets/icons/plane.svg';
@@ -24,6 +32,8 @@ import { ReactComponent as Train } from '../../assets/icons/train.svg';
 import { ReactComponent as Bus } from '../../assets/icons/bus.svg';
 import { ReactComponent as Plus } from '../../assets/icons/plus.svg';
 import { ReactComponent as Minus } from '../../assets/icons/minus.svg';
+import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
+import { ReactComponent as ThreeDots } from '../../assets/icons/three-dots.svg';
 
 const Home = () =>
 {
@@ -44,7 +54,96 @@ const Home = () =>
         <Main>
             <HomeHeaderContainer>
                 <HomeHeaderMainContainer>
-
+                    <HomeHeaderMainBackgroundContainer />
+                    <HomeHeaderNavContainer>
+                        <Logo />
+                        <HomeHeaderNavItemsContainer>
+                            <HomeHeaderNavItemContainer className='active'>
+                                صفحه اصلی
+                            </HomeHeaderNavItemContainer>
+                            <HomeHeaderNavItemContainer className='arrow'>
+                                خدمات سفر
+                                <HomeHeaderNavItemPopupContainer>
+                                    <h3>
+                                        خدمات سفر
+                                    </h3>
+                                    <HomeHeaderNavItemPopupItemsContainer>
+                                        <HomeHeaderNavItemPopupItemContainer>
+                                            <span>
+                                                <Plane />
+                                            </span>
+                                            <div>
+                                                <Link to='/'>
+                                                    بلیط هواپیما
+                                                </Link>
+                                                <p>
+                                                    تجربه خریدی ارزان
+                                                </p>
+                                            </div>
+                                        </HomeHeaderNavItemPopupItemContainer>
+                                        <HomeHeaderNavItemPopupItemContainer>
+                                            <span>
+                                                <Bus />
+                                            </span>
+                                            <div>
+                                                <Link to='/'>
+                                                    بلیط اتوبوس
+                                                </Link>
+                                                <p>
+                                                    همکاری با سازمان اتوبوس رانی
+                                                </p>
+                                            </div>
+                                        </HomeHeaderNavItemPopupItemContainer>
+                                        <HomeHeaderNavItemPopupItemContainer>
+                                            <span>
+                                                <Train />
+                                            </span>
+                                            <div>
+                                                <Link to='/'>
+                                                    بلیط قطار
+                                                </Link>
+                                                <p>
+                                                    با خیالی راحت سفر کنید
+                                                </p>
+                                            </div>
+                                        </HomeHeaderNavItemPopupItemContainer>
+                                        <HomeHeaderNavItemPopupItemContainer>
+                                            <span>
+                                                <Hotel />
+                                            </span>
+                                            <div>
+                                                <Link to='/'>
+                                                    رزرو هتل
+                                                </Link>
+                                                <p>
+                                                    رتبه بندی برترین هتل ها
+                                                </p>
+                                            </div>
+                                        </HomeHeaderNavItemPopupItemContainer>
+                                        <HomeHeaderNavItemPopupItemContainer>
+                                            <span>
+                                                <Tour />
+                                            </span>
+                                            <div>
+                                                <Link to='/'>
+                                                    رزرو تور
+                                                </Link>
+                                                <p>
+                                                    در سفر باشید
+                                                </p>
+                                            </div>
+                                        </HomeHeaderNavItemPopupItemContainer>
+                                    </HomeHeaderNavItemPopupItemsContainer>
+                                </HomeHeaderNavItemPopupContainer>
+                            </HomeHeaderNavItemContainer>
+                            <HomeHeaderNavItemContainer>
+                                راهنمایی و پشتیبانی
+                            </HomeHeaderNavItemContainer>
+                            <HomeHeaderNavItemContainer>
+                                <ThreeDots />
+                            </HomeHeaderNavItemContainer>
+                        </HomeHeaderNavItemsContainer>
+                    </HomeHeaderNavContainer>
                 </HomeHeaderMainContainer>
                 <HomeHeaderImageContainer>
                     <HomeHeaderImageBackgroundContainer className={page} />

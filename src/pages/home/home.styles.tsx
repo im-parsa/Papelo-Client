@@ -5,6 +5,8 @@ import HotelHeader from '../../assets/images/header-2.svg';
 import TourHeader from '../../assets/images/header-3.svg';
 import TrainHeader from '../../assets/images/header-4.svg';
 import BusHeader from '../../assets/images/header-5.svg';
+import ContentImage from '../../assets/images/texture.svg';
+import {text} from "stream/consumers";
 
 export const HomeHeaderContainer = styled.header
     `
@@ -266,7 +268,7 @@ export const HomeHeaderImageBackgroundContainer = styled.div
 
 export const HomeHeaderMainContainer = styled.div
     `
-
+        position: relative;
     `;
 
 export const HomeHeaderImageContentNavContainer = styled.ul
@@ -311,5 +313,172 @@ export const HomeHeaderImageContentNavItemContainer = styled.li
             padding: 0 0 2.75rem 0;
             color: #4A6192;
             border-color: #4A6192;
+        }
+    `;
+
+export const HomeHeaderNavContainer = styled.nav
+    `
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        position: relative;
+        top: 0;
+
+        width: 100%;
+        height: auto;
+        padding: 4rem 12rem;
+    `;
+
+export const HomeHeaderMainBackgroundContainer = styled.div
+    `
+        position: absolute;
+
+        background-image: url(${ContentImage});
+        background-position-x: 20rem;
+        background-position-y: 10rem;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+    `;
+
+export const HomeHeaderNavItemsContainer = styled.ul
+    `
+        display: flex;
+        align-items: center;
+        justify-content: right;
+
+        gap: 2rem;
+    `;
+
+export const HomeHeaderNavItemContainer = styled.li
+    `
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: #A5AFC4;
+        font-size: 1.5rem;
+        transition: all .2s;
+        cursor: pointer;
+
+        & svg
+        {
+            width: 2rem;
+        }
+
+        &.arrow
+        {
+            &:after
+            {
+                content: '';
+                display: inline-block;
+                width: .75rem;
+                height: .75rem;
+                border-bottom: .15rem solid currentColor;
+                border-left: .15rem solid currentColor;
+                border-bottom-left-radius: 2px;
+                transform: rotate(45deg) translate(50%, 0%);
+                transform-origin: center center;
+                transition: transform ease-in-out 100ms;
+                margin: auto;
+                margin-left: 0;
+                margin-top: .5rem;
+                margin-right: 1rem;
+            }
+
+            &:hover:after
+            {
+                transform: rotate(-45deg) translate(0%, 0%);
+            }
+        }
+
+        &:hover
+        {
+            color: #838da1;
+        }
+
+        &.active
+        {
+            color: #4A6193;
+        }
+    `;
+
+export const HomeHeaderNavItemPopupContainer = styled.div
+    `
+        display: flex;
+        flex-direction: column;
+
+        position: absolute;
+        z-index: 110;
+        top: 10rem;
+        left: -15rem;
+
+        cursor: auto;
+        width: 60rem;
+        min-height: 10rem;
+        background: #ffffff;
+        border-radius: 2rem;
+        box-shadow: 0 0 4rem 0 rgba(44, 44, 52, .25);
+
+        &:before
+        {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: .5rem;
+            transform: rotate(45deg) translate(50%, 0%);
+            top: -1rem;
+            right: 5rem;
+            background: #ffffff;
+        }
+
+        & h3
+        {
+            padding: 2.75rem 4rem;
+            color: #B7BAC6;
+        }
+    `;
+
+export const HomeHeaderNavItemPopupItemsContainer = styled.ul
+    `
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 2rem;
+
+        padding: 2.75rem 4rem;
+        padding-top: 0;
+    `;
+
+export const HomeHeaderNavItemPopupItemContainer = styled.li
+    `
+        display: flex;
+        align-items: center;
+
+        & a
+        {
+            color: #4A6193;
+            font-size: 1.75rem;
+            margin-bottom: .5rem;
+        }
+
+        & p
+        {
+            font-size: 1.35rem;
+        }
+
+        & span
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-left: 1.5rem;
+            width: 5rem;
+            height: 5rem;
+            background: red;
+            border-radius: 10rem;
         }
     `;

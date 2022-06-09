@@ -95,7 +95,7 @@ export default createGlobalStyle
                 align-items: center;
                 justify-content: space-between;
 
-                padding: 1.25rem;
+                padding: 1.25rem 1.55rem;
                 cursor: pointer;
                 list-style: none;
                 border-radius: 150rem;
