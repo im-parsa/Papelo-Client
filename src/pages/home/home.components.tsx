@@ -24,9 +24,11 @@ import {
     HomeHeaderNavItemPopupItemsContainer,
     HomeHeaderNavItemPopupItemContainer,
     HomeHeaderAsideContainer,
+    HomeHeaderContentContainer,
     HomeHeaderImageContentItemParentInputContainer
 } from './home.styles';
 
+import { ReactComponent as Bell } from '../../assets/icons/bell.svg';
 import { ReactComponent as Plane } from '../../assets/icons/plane.svg';
 import { ReactComponent as Hotel } from '../../assets/icons/hotel.svg';
 import { ReactComponent as Tour } from '../../assets/icons/tour.svg';
@@ -39,6 +41,10 @@ import { ReactComponent as ThreeDots } from '../../assets/icons/three-dots.svg';
 import { ReactComponent as Plane2 } from '../../assets/icons/plane-2.svg';
 import { ReactComponent as Plane3 } from '../../assets/icons/plane-3.svg';
 import { ReactComponent as Exchange } from '../../assets/icons/exchange.svg';
+import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
+import { ReactComponent as User } from '../../assets/icons/user.svg';
+import { ReactComponent as Instagram } from '../../assets/icons/instagram.svg';
+import { ReactComponent as Reserve } from '../../assets/icons/reserve.svg';
 
 const Home = () =>
 {
@@ -76,7 +82,6 @@ const Home = () =>
                 if (cityName.includes(origin))
                 {
                     city.classList.add('active');
-                    city.scrollIntoView();
                 }
                 else
                 {
@@ -101,7 +106,6 @@ const Home = () =>
                 if (cityName.includes(origin))
                 {
                     city.classList.add('active');
-                    city.scrollIntoView();
                 }
                 else
                 {
@@ -139,7 +143,6 @@ const Home = () =>
                 inputParent?.classList.add('active');
                 options?.classList.add('active');
                 exchangeIcon?.classList.remove('active');
-
             }
         }, []);
 
@@ -238,10 +241,43 @@ const Home = () =>
                         </HomeHeaderNavItemsContainer>
                     </HomeHeaderNavContainer>
                     <HomeHeaderAsideContainer>
-                        <h3>
+                        <Link to='/'>
                             مشاهده پیشنهادات
-                        </h3>
+                            <Arrow />
+                        </Link>
+                        <div>
+                            <Link to='/'>
+                                <User />
+                            </Link>
+                            <a href='/'>
+                                <Instagram />
+                            </a>
+                        </div>
                     </HomeHeaderAsideContainer>
+                    <HomeHeaderContentContainer>
+                        <h1>
+                            <strong>خرید ارزان</strong> و بصرفه بلیط پرواز داخلی و خارجی
+                        </h1>
+                        <p>
+                            با خیالی آسوده بلیط پرواز خود را رزرو کنید
+                        </p>
+                        <div>
+                            <Link to='/'>
+                                جستجوی سریع
+                            </Link>
+                            <Link to='/'>
+                                <Reserve />
+                                پیگیری رزرو
+                            </Link>
+                        </div>
+                        <span>
+                            <i>
+                                <Bell />
+                            </i>
+                            اطلاع از آخرین شرایط سفر و استرداد با توجه به شیوع کرونا
+                            <Arrow />
+                        </span>
+                    </HomeHeaderContentContainer>
                 </HomeHeaderMainContainer>
                 <HomeHeaderImageContainer>
                     <HomeHeaderImageBackgroundContainer className={page} />

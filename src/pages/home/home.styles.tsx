@@ -21,6 +21,8 @@ export const HomeHeaderImageContainer = styled.div
     `
         display: flex;
         position: relative;
+
+        height: 100vh;
     `;
 
 export const HomeHeaderImageContentParentContainer = styled.div
@@ -123,7 +125,7 @@ export const HomeHeaderImageContentItemContainer = styled.div
 
             padding: 1.5rem;
             border-radius: 2rem;
-            border: #EBEFF4 solid .2rem;
+            border: 2px solid #EDEFF6;
 
             &:first-child
             {
@@ -138,12 +140,10 @@ export const HomeHeaderImageContentItemContainer = styled.div
                 outline: none;
                 transition: all .2s;
                 font-size: 2.5rem;
-                color: #4A6193;
             }
 
             & label
             {
-
                 color: #a0a8b1;
                 font-size: 1.5rem;
                 margin-bottom: 1rem;
@@ -164,7 +164,7 @@ export const HomeHeaderImageContentItemContainer = styled.div
             background: #ffffff;
             width: 5rem;
             height: 5rem;
-            border: #EBEFF4 solid .2rem;
+            border: 2px solid #EDEFF6;
             border-radius: 10rem;
 
             & svg
@@ -261,7 +261,7 @@ export const HomeHeaderImageContentItemParentInputContainer = styled.div
         outline: none;
         margin-bottom: 1.25rem;
         background: #ffffff;
-        border: #EBEFF4 solid .2rem;
+        border: 2px solid #EDEFF6;
 
         & .origin_options,
         & .destination_options
@@ -279,7 +279,7 @@ export const HomeHeaderImageContentItemParentInputContainer = styled.div
             padding: 2.5rem;
             border-radius: 2rem;
             transition: all .2s;
-            box-shadow: 0 0 4rem 0 rgba(44, 44, 52, .25);
+            box-shadow: 0px 30px 70px #48609233;
 
             &.active
             {
@@ -319,7 +319,7 @@ export const HomeHeaderImageContentItemParentInputContainer = styled.div
                 &.active
                 {
                     background: #f5f8ff;
-                    color: #c;
+                    color: #4A6193;
                 }
 
                 &.deactivate
@@ -362,7 +362,7 @@ export const HomeHeaderImageContentItemParentInputContainer = styled.div
         {
             z-index: 100;
             border-color: transparent;
-            box-shadow: 0 0 4rem 0 rgba(44, 44, 52, .25);
+            box-shadow: 0px 30px 70px #48609233;
         }
     `;
 
@@ -382,7 +382,7 @@ export const HomeHeaderPassengersContainer = styled.div
         border-radius: 2.5rem;
         min-height: 10rem;
         background: #ffffff;
-        box-shadow: 0 0 4rem 0 rgba(44, 44, 52, .25);
+        box-shadow: 0px 30px 70px #48609233;
     `;
 
 export const HomeHeaderPassengersItemContainer = styled.div
@@ -421,18 +421,23 @@ export const HomeHeaderPassengersButtonContainer = styled.div
         align-items: center;
         justify-content: center;
 
-        border: #c1cad5 solid .2rem;
+        border: #EDEFF6 solid .2rem;
         border-left: none;
         border-right: none;
         width: 2rem;
         height: 4rem;
-        font-size: 1.75rem;
+        font-size: 1.5rem;
+
+        & svg
+        {
+            width: 1rem;
+        }
 
         &.right
         {
             width: 4rem;
             height: 4rem;
-            border: #c1cad5 solid .2rem;
+            border: #EDEFF6 solid .2rem;
             border-left: none;
             border-radius: 0 5rem 5rem 0;
         }
@@ -441,7 +446,7 @@ export const HomeHeaderPassengersButtonContainer = styled.div
         {
             width: 4rem;
             height: 4rem;
-            border: #c1cad5 solid .2rem;
+            border: #EDEFF6 solid .2rem;
             border-right: none;
             border-radius: 5rem 0 0 5rem;
         }
@@ -459,7 +464,7 @@ export const HomeHeaderImageBackgroundContainer = styled.div
         border-radius: 0 0 11.5rem 0;
         background: #A8B2BF;
         background-size: cover;
-        height: 97%;
+        height: 92.25%;
         width: 100%;
 
         &.plane
@@ -486,7 +491,12 @@ export const HomeHeaderImageBackgroundContainer = styled.div
 
 export const HomeHeaderMainContainer = styled.div
     `
+        display: grid;
+        grid-template-columns: auto 1fr;
+
         position: relative;
+
+        height: 100vh;
     `;
 
 export const HomeHeaderImageContentNavContainer = styled.ul
@@ -540,12 +550,13 @@ export const HomeHeaderNavContainer = styled.nav
         align-items: center;
         justify-content: space-between;
 
-        position: relative;
+        position: absolute;
         top: 0;
 
         width: 100%;
         height: auto;
         padding: 0 12rem;
+        padding-left: 5rem;
 
         & svg
         {
@@ -553,26 +564,72 @@ export const HomeHeaderNavContainer = styled.nav
         }
     `;
 
-export const HomeHeaderAsideContainer = styled.nav
+export const HomeHeaderAsideContainer = styled.aside
     `
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        flex-direction: column;
 
         position: relative;
         top: 0;
 
-background: red;
-
         width: 15rem;
         height: 100vh;
-        padding: 10rem 1.5rem;
+        padding: 28rem 1.5rem 1.5rem 1.5rem;
 
-        & h3
+        & a
         {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             margin: auto;
             margin-top: 0;
-            transform: rotate(-90deg);
+            color: #96A5C6;
+            transition: all .2s;
+            transform: rotate(-90deg) scale(1.5);
+
+            &:hover
+            {
+                color: #7486af;
+            }
+
+            & svg
+            {
+                max-width: 1rem;
+                margin-right: .5rem;
+            }
+        }
+
+        & > div
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+
+            width: 100%;
+            margin: auto;
+            margin-bottom: 1.5rem;
+
+            & a
+            {
+                width: 5rem;
+                height: 5rem;
+
+                *
+                {
+                    transition: all .2s;
+                }
+
+                &:hover *
+                {
+                    fill: #7486af !important;
+                }
+            }
+
+            & svg
+            {
+                transform: rotate(90deg) scale(1.75);
+            }
         }
     `;
 
@@ -594,8 +651,7 @@ export const HomeHeaderNavItemsContainer = styled.ul
         align-items: center;
         justify-content: right;
 
-        padding-top: 3rem;
-        gap: 2rem;
+        gap: 3.5rem;
     `;
 
 export const HomeHeaderNavItemContainer = styled.li
@@ -605,10 +661,10 @@ export const HomeHeaderNavItemContainer = styled.li
         justify-content: center;
 
         color: #A5AFC4;
-        font-size: 1.5rem;
+        font-size: 1.75rem;
         transition: all .2s;
         cursor: pointer;
-        height: 12rem;
+        height: 10rem;
 
         & svg
         {
@@ -631,6 +687,7 @@ export const HomeHeaderNavItemContainer = styled.li
                 transition: transform ease-in-out 100ms;
                 margin: auto;
                 margin-left: 0;
+                margin-top: 4.25rem;
                 margin-right: 1rem;
             }
 
@@ -663,15 +720,15 @@ export const HomeHeaderNavItemPopupContainer = styled.div
 
         position: absolute;
         z-index: 110;
-        top: 12rem;
-        left: -15rem;
+        top: 10rem;
+        left: -20rem;
 
         cursor: auto;
         width: 60rem;
         min-height: 10rem;
         background: #ffffff;
         border-radius: 2rem;
-        box-shadow: 0 0 4rem 0 rgba(44, 44, 52, .25);
+        box-shadow: 0px 30px 70px #48609233;
 
         &:before
         {
@@ -743,5 +800,135 @@ export const HomeHeaderNavItemPopupItemContainer = styled.li
             height: 5rem;
             background: url(${NavbarBackground});
             border-radius: 10rem;
+
+            & svg
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                margin: auto;
+            }
+        }
+    `;
+
+export const HomeHeaderContentContainer = styled.div
+    `
+        display: flex;
+        flex-direction: column;
+
+        position: relative;
+
+        padding-left: 10rem;
+        padding-top: 10rem;
+        margin-top: 12rem;
+        height: 100%;
+        width: 100%;
+
+        & span
+        {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+
+            color: #496193;
+            font-size: 1.5rem;
+            margin-top: 10rem;
+            letter-spacing: -0.27px;
+
+            & i
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 4rem;
+                height: 4rem;
+                border-radius: 5rem;
+                background: transparent linear-gradient(180deg, #FFFFFF 0%, #F5F6FA 100%) 0% 0% no-repeat padding-box;
+
+                & svg
+                {
+                    width: 2rem;
+                }
+            }
+
+            & > svg
+            {
+                width: 2rem;
+            }
+        }
+
+        & > div
+        {
+            display: flex;
+            align-items: center;
+
+            gap: 2rem;
+
+            margin-top: 4rem;
+
+            & a
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+
+                height: 8rem;
+                width: auto;
+                padding: 0 5rem;
+                font-size: 2rem;
+                border-radius: 10rem;
+
+                &:first-child
+                {
+                    color: #ffffff;
+                    background: #496193;
+                }
+                &:last-child
+                {
+                    color: #496193;
+                    background: #f5f6fa;
+                    border: 5px solid #EDEFF6;
+                    position: relative;
+
+                    &:before
+                    {
+                        content: 'جدید';
+                        position: absolute;
+                        padding: .25rem 1.5rem;
+                        top: 0;
+                        left: -2rem;
+                        font-size: 1.75rem;
+                        letter-spacing: -0.27px;
+                        color: #ffffff;
+                        background: #09BAB5;
+                        border-radius: 21px 21px 5px 21px;
+                    }
+                }
+            }
+        }
+
+        & p
+        {
+            font-family: 'YekanBakhRegular', sans-serif;
+            font-size: 4rem;
+            letter-spacing: -0.6px;
+            color: #96A5C6;
+            margin-top: 4rem;
+            font-weight: bold;
+        }
+
+        & h1
+        {
+            font-family: 'YekanBakhMedium', sans-serif;
+            font-size: 7.75rem;
+            letter-spacing: -1.26px;
+
+            & strong
+            {
+                font-family: 'YekanBakhHeavy', sans-serif;
+            }
         }
     `;

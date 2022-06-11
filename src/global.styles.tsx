@@ -1,19 +1,57 @@
 import { createGlobalStyle } from 'styled-components';
 
-import YekanWoff from './assets/fonts/yekan/IRANYekanWeb.woff';
-import YekanWoff2 from './assets/fonts/yekan/IRANYekanWeb.woff2';
-import YekanTtf from './assets/fonts/yekan/IRANYekanWeb.ttf';
+import YekanBakhFaRegularT from './assets/fonts/FaNum/YekanBakhFaRegular.ttf';
+import YekanBakhFaRegularW from './assets/fonts/FaNum/YekanBakhFaRegular.woff';
+import YekanBakhFaT from './assets/fonts/FaNum/YekanBakhFa.ttf';
+import YekanBakhFaW from './assets/fonts/FaNum/YekanBakhFa.woff';
+import YekanBakhFaMediumT from './assets/fonts/FaNum/YekanBakhFaMedium.ttf';
+import YekanBakhFaMediumW from './assets/fonts/FaNum/YekanBakhFaMedium.woff';
+import YekanBakhFaBoldT from './assets/fonts/FaNum/YekanBakhFaBold.ttf';
+import YekanBakhFaBoldW from './assets/fonts/FaNum/YekanBakhFaBold.woff';
+import YekanBakhFaHeavyT from './assets/fonts/FaNum/YekanBakhFaHeavy.ttf';
+import YekanBakhFaHeavyW from './assets/fonts/FaNum/YekanBakhFaHeavy.woff';
 
 export default createGlobalStyle
     `
         @font-face
         {
-            font-family: 'Yekan';
-            src: local('Yekan'), local('Yekan'),
-            url(${YekanWoff}) format('woff'),
-            url(${YekanWoff2}) format('woff2'),
-            url(${YekanTtf}) format('truetype');
-            font-weight: 300;
+            font-family: 'YekanBakh';
+            src: local('YekanBakh'), local('YekanBakh'),
+            url(${YekanBakhFaT}) format('woff'),
+            url(${YekanBakhFaW}) format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
+        @font-face
+        {
+            font-family: 'YekanBakhMedium';
+            src: local('YekanBakhMedium'), local('YekanBakhMedium'),
+            url(${YekanBakhFaMediumT}) format('woff'),
+            url(${YekanBakhFaMediumW}) format('truetype');
+            font-style: normal;
+        }
+        @font-face
+        {
+            font-family: 'YekanBakhBold';
+            src: local('YekanBakhBold'), local('YekanBakhBold'),
+            url(${YekanBakhFaBoldT}) format('woff'),
+            url(${YekanBakhFaBoldW}) format('truetype');
+            font-style: normal;
+        }
+        @font-face
+        {
+            font-family: 'YekanBakhHeavy';
+            src: local('YekanBakhHeavy'), local('YekanBakhHeavy'),
+            url(${YekanBakhFaHeavyT}) format('woff'),
+            url(${YekanBakhFaHeavyW}) format('truetype');
+            font-style: normal;
+        }
+        @font-face
+        {
+            font-family: 'YekanBakhRegular';
+            src: local('YekanBakhRegular'), local('YekanBakhRegular'),
+            url(${YekanBakhFaRegularW}) format('woff'),
+            url(${YekanBakhFaRegularT}) format('truetype');
             font-style: normal;
         }
 
@@ -24,7 +62,7 @@ export default createGlobalStyle
             margin: 0;
             padding: 0;
             box-sizing: inherit;
-            font-family: 'Yekan', sans-serif;
+            font-family: 'YekanBakh', sans-serif;
         }
 
         html
@@ -46,8 +84,12 @@ export default createGlobalStyle
 
         strong
         {
-            font-weight: 500;
-            color: white;
+            font-family: 'YekanBakhHeavy', sans-serif;
+        }
+
+        b
+        {
+            font-family: 'YekanBakhBold', sans-serif;
         }
 
         li
@@ -59,7 +101,6 @@ export default createGlobalStyle
         {
             color: #4A6193;
             overflow: hidden;
-            height: 100vh;
             background: #F5F6FA;
         }
 
