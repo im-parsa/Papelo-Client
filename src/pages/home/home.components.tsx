@@ -25,6 +25,8 @@ import {
     HomeHeaderNavItemPopupItemContainer,
     HomeHeaderAsideContainer,
     HomeHeaderContentContainer,
+    HomeHeaderBoxesContainer,
+    HomeHeaderBoxContainer,
     HomeHeaderImageContentItemParentInputContainer
 } from './home.styles';
 
@@ -45,6 +47,9 @@ import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Instagram } from '../../assets/icons/instagram.svg';
 import { ReactComponent as Reserve } from '../../assets/icons/reserve.svg';
+import { ReactComponent as Box1 } from '../../assets/icons/box-1.svg';
+import { ReactComponent as Box2 } from '../../assets/icons/box-2.svg';
+import { ReactComponent as Box3 } from '../../assets/icons/box-3.svg';
 
 const Home = () =>
 {
@@ -337,13 +342,13 @@ const Home = () =>
                                     پیگیری رزرو
                                 </Link>
                             </div>
-                            <span>
-                            <i>
-                                <Bell />
-                            </i>
-                            اطلاع از آخرین شرایط سفر و استرداد با توجه به شیوع کرونا
-                            <Arrow />
-                        </span>
+                            <Link to='/'>
+                                <i>
+                                    <Bell />
+                                </i>
+                                اطلاع از آخرین شرایط سفر و استرداد با توجه به شیوع کرونا
+                                <Arrow />
+                            </Link>
                         </HomeHeaderContentContainer>
                     </div>
                 </HomeHeaderMainContainer>
@@ -1520,6 +1525,41 @@ const Home = () =>
                     </HomeHeaderImageContentParentContainer>
                 </HomeHeaderImageContainer>
             </HomeHeaderContainer>
+            <HomeHeaderBoxesContainer>
+                <HomeHeaderBoxContainer>
+                    <Box1 />
+                    <div>
+                        <h4>
+                            ارسال اطلاعات بلیط خریداری شده
+                        </h4>
+                        <p>
+                            به تلفن همراه، ایمیل یا فاکس
+                        </p>
+                    </div>
+                </HomeHeaderBoxContainer>
+                <HomeHeaderBoxContainer>
+                    <Box2 />
+                    <div>
+                        <h4>
+                            به سادگی برنامه سفر بچینید
+                        </h4>
+                        <p>
+                            با راهکارهای مختلف رزرو انجام دهید
+                        </p>
+                    </div>
+                </HomeHeaderBoxContainer>
+                <HomeHeaderBoxContainer>
+                    <Box3 />
+                    <div>
+                        <h4>
+                            تجربه دلنشین با پشتیبانی 24/7
+                        </h4>
+                        <p>
+                            در تمام ساعات پاسخ گوی شماییم
+                        </p>
+                    </div>
+                </HomeHeaderBoxContainer>
+            </HomeHeaderBoxesContainer>
         </Main>
     );
 };

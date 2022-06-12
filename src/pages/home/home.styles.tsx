@@ -579,7 +579,7 @@ export const HomeHeaderAsideContainer = styled.aside
 
         width: 15rem;
         height: 100vh;
-        padding: 20rem 0 0 0;
+        padding: 20rem 0 10rem 0;
 
         & a
         {
@@ -833,12 +833,13 @@ export const HomeHeaderContentContainer = styled.div
         height: 100%;
         width: 100%;
 
-        & span
+        & > a
         {
             display: flex;
             align-items: center;
             gap: 1.5rem;
 
+            cursor: pointer;
             color: #496193;
             font-size: 1.5rem;
             margin-top: 10rem;
@@ -937,6 +938,49 @@ export const HomeHeaderContentContainer = styled.div
             & strong
             {
                 font-family: 'YekanBakhHeavy', sans-serif;
+            }
+        }
+    `;
+
+export const HomeHeaderBoxesContainer = styled.div
+    `
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 3rem;
+
+        margin-top: 10rem;
+        margin-bottom: 10rem;
+    `;
+
+export const HomeHeaderBoxContainer = styled.div
+    `
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+
+        padding: 1rem 7rem;
+        width: 525px;
+        height: 177px;
+        border: 5px solid #EDEFF6;
+        border-radius: 30px;
+
+        & > div
+        {
+            display: flex;
+            flex-direction: column;
+
+            & h4
+            {
+                font-size: 2.4rem;
+                margin-bottom: 1.5rem;
+            }
+            & p
+            {
+                font-size: 1.8rem;
+                color: #96A5C6;
             }
         }
     `;
