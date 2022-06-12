@@ -492,11 +492,17 @@ export const HomeHeaderImageBackgroundContainer = styled.div
 export const HomeHeaderMainContainer = styled.div
     `
         display: grid;
-        grid-template-columns: auto 1fr;
+        grid-template-rows: 10rem 1fr;
 
         position: relative;
 
         height: 100vh;
+
+        & > div
+        {
+            display: grid;
+            grid-template-columns: 15rem 1fr;
+        }
     `;
 
 export const HomeHeaderImageContentNavContainer = styled.ul
@@ -550,11 +556,13 @@ export const HomeHeaderNavContainer = styled.nav
         align-items: center;
         justify-content: space-between;
 
-        position: absolute;
+        position: fixed;
+        z-index: 110;
         top: 0;
 
-        width: 100%;
-        height: auto;
+        background: #f5f6fa;
+        height: 10rem;
+        width: 55.5%;
         padding: 0 12rem;
         padding-left: 5rem;
 
@@ -569,12 +577,9 @@ export const HomeHeaderAsideContainer = styled.aside
         display: flex;
         flex-direction: column;
 
-        position: relative;
-        top: 0;
-
         width: 15rem;
         height: 100vh;
-        padding: 28rem 1.5rem 1.5rem 1.5rem;
+        padding: 20rem 0 0 0;
 
         & a
         {
@@ -633,7 +638,7 @@ export const HomeHeaderAsideContainer = styled.aside
         }
     `;
 
-export const HomeHeaderMainBackgroundContainer = styled.div
+export const HomeHeaderMainBackgroundContainer = styled.span
     `
         position: absolute;
 
@@ -649,9 +654,11 @@ export const HomeHeaderNavItemsContainer = styled.ul
     `
         display: flex;
         align-items: center;
-        justify-content: right;
-
+        justify-content: left;
         gap: 3.5rem;
+
+        width: 100%;
+        height: 100%;
     `;
 
 export const HomeHeaderNavItemContainer = styled.li
@@ -660,11 +667,13 @@ export const HomeHeaderNavItemContainer = styled.li
         align-items: center;
         justify-content: center;
 
+        position: relative;
+
         color: #A5AFC4;
         font-size: 1.75rem;
         transition: all .2s;
         cursor: pointer;
-        height: 10rem;
+        height: 100%;
 
         & svg
         {
@@ -721,7 +730,7 @@ export const HomeHeaderNavItemPopupContainer = styled.div
         position: absolute;
         z-index: 110;
         top: 10rem;
-        left: -20rem;
+        left: -40rem;
 
         cursor: auto;
         width: 60rem;
@@ -740,7 +749,7 @@ export const HomeHeaderNavItemPopupContainer = styled.div
             border-radius: .5rem;
             transform: rotate(45deg) translate(50%, 0%);
             top: -1rem;
-            right: 5rem;
+            right: 15rem;
             background: #ffffff;
         }
 
@@ -820,8 +829,7 @@ export const HomeHeaderContentContainer = styled.div
         position: relative;
 
         padding-left: 10rem;
-        padding-top: 10rem;
-        margin-top: 12rem;
+        padding-top: 20rem;
         height: 100%;
         width: 100%;
 

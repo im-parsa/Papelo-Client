@@ -82,6 +82,7 @@ const Home = () =>
                 if (cityName.includes(origin))
                 {
                     city.classList.add('active');
+                    city.scrollIntoView();
                 }
                 else
                 {
@@ -106,6 +107,7 @@ const Home = () =>
                 if (cityName.includes(origin))
                 {
                     city.classList.add('active');
+                    city.scrollIntoView();
                 }
                 else
                 {
@@ -240,44 +242,46 @@ const Home = () =>
                             </HomeHeaderNavItemContainer>
                         </HomeHeaderNavItemsContainer>
                     </HomeHeaderNavContainer>
-                    <HomeHeaderAsideContainer>
-                        <Link to='/'>
-                            مشاهده پیشنهادات
-                            <Arrow />
-                        </Link>
-                        <div>
+                    <div>
+                        <HomeHeaderAsideContainer>
                             <Link to='/'>
-                                <User />
+                                مشاهده پیشنهادات
+                                <Arrow />
                             </Link>
-                            <a href='/'>
-                                <Instagram />
-                            </a>
-                        </div>
-                    </HomeHeaderAsideContainer>
-                    <HomeHeaderContentContainer>
-                        <h1>
-                            <strong>خرید ارزان</strong> و بصرفه بلیط پرواز داخلی و خارجی
-                        </h1>
-                        <p>
-                            با خیالی آسوده بلیط پرواز خود را رزرو کنید
-                        </p>
-                        <div>
-                            <Link to='/'>
-                                جستجوی سریع
-                            </Link>
-                            <Link to='/'>
-                                <Reserve />
-                                پیگیری رزرو
-                            </Link>
-                        </div>
-                        <span>
+                            <div>
+                                <Link to='/'>
+                                    <User />
+                                </Link>
+                                <a href='/'>
+                                    <Instagram />
+                                </a>
+                            </div>
+                        </HomeHeaderAsideContainer>
+                        <HomeHeaderContentContainer>
+                            <h1>
+                                <strong>خرید ارزان</strong> و بصرفه بلیط پرواز داخلی و خارجی
+                            </h1>
+                            <p>
+                                با خیالی آسوده بلیط پرواز خود را رزرو کنید
+                            </p>
+                            <div>
+                                <Link to='/'>
+                                    جستجوی سریع
+                                </Link>
+                                <Link to='/'>
+                                    <Reserve />
+                                    پیگیری رزرو
+                                </Link>
+                            </div>
+                            <span>
                             <i>
                                 <Bell />
                             </i>
                             اطلاع از آخرین شرایط سفر و استرداد با توجه به شیوع کرونا
                             <Arrow />
                         </span>
-                    </HomeHeaderContentContainer>
+                        </HomeHeaderContentContainer>
+                    </div>
                 </HomeHeaderMainContainer>
                 <HomeHeaderImageContainer>
                     <HomeHeaderImageBackgroundContainer className={page} />
