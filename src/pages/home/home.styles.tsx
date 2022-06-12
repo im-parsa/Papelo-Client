@@ -252,7 +252,7 @@ export const HomeHeaderImageContentItemParentInputContainer = styled.div
         align-items: center;
         justify-content: space-between;
 
-        position: relative;
+        position: static;
 
         width: 100%;
         padding: 2rem;

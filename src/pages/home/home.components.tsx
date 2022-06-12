@@ -258,12 +258,76 @@ const Home = () =>
                             </div>
                         </HomeHeaderAsideContainer>
                         <HomeHeaderContentContainer>
-                            <h1>
-                                <strong>خرید ارزان</strong> و بصرفه بلیط پرواز داخلی و خارجی
-                            </h1>
-                            <p>
-                                با خیالی آسوده بلیط پرواز خود را رزرو کنید
-                            </p>
+                            {
+                                page === 'plane'
+                                    ?
+                                    <>
+                                        <h1>
+                                            <strong>خرید ارزان</strong> و بصرفه بلیط پرواز داخلی و خارجی
+                                        </h1>
+                                        <p>
+                                            با خیالی آسوده بلیط پرواز خود را رزرو کنید
+                                        </p>
+                                    </>
+                                    :
+                                    null
+                            }
+                            {
+                                page === 'hotel'
+                                    ?
+                                    <>
+                                        <h1>
+                                            پرستاره ترین اقامتگاه ها <strong>برای رزرو هتل</strong>
+                                        </h1>
+                                        <p>
+                                            با خیالی آسوده اتاق هتل خود را رزرو کنید
+                                        </p>
+                                    </>
+                                    :
+                                    null
+                            }
+                            {
+                                page === 'tour'
+                                    ?
+                                    <>
+                                        <h1>
+                                            <strong>با ما در همه حال سفر</strong> با رزرو تور پاپلو
+                                        </h1>
+                                        <p>
+                                            با خیالی آسوده بلیط تور خود را رزرو کنید
+                                        </p>
+                                    </>
+                                    :
+                                    null
+                            }
+                            {
+                                page === 'train'
+                                    ?
+                                    <>
+                                        <h1>
+                                            <strong>آسوده سفر کنید</strong> با رزرو بلیط قطار از پاپلو
+                                        </h1>
+                                        <p>
+                                            با خیالی آسوده بلیط قطار خود را رزرو کنید
+                                        </p>
+                                    </>
+                                    :
+                                    null
+                            }
+                            {
+                                page === 'bus'
+                                    ?
+                                    <>
+                                        <h1>
+                                            <strong>سرویع ترین</strong> روش برای رزرو بلیط اتوبوس
+                                        </h1>
+                                        <p>
+                                            با خیالی آسوده بلیط اتوبوس خود را رزرو کنید
+                                        </p>
+                                    </>
+                                    :
+                                    null
+                            }
                             <div>
                                 <Link to='/'>
                                     جستجوی سریع
@@ -458,9 +522,9 @@ const Home = () =>
                                             </div>
                                         </HomeHeaderImageContentItemContainer>
                                         <HomeHeaderImageContentItemContainer className='column'>
-                                    <span className='active' id='exchange_icon'>
-                                        <Exchange />
-                                    </span>
+                                            <span className='active' id='exchange_icon'>
+                                                <Exchange />
+                                            </span>
                                             <HomeHeaderImageContentItemParentInputContainer id='origin_input_parent'>
                                                 <div>
                                                     <label>
