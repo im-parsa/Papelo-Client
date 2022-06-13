@@ -1,6 +1,0 @@
-export const GuildActionTypes =
-{
-    SET_PIN_GUILD: 'SET_PIN_USER',
-    SET_COUNT_GUILD: 'SET_COUNT_GUILD',
-    SET_SINGLE_GUILD: 'SET_SINGLE_GUILD'
-};

@@ -1,0 +1,1995 @@
+import { Link } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import classNames from 'classnames';
+
+import { ReactComponent as Box4 } from '../../assets/icons/box-4.svg';
+import { ReactComponent as Blogs } from '../../assets/icons/blogs.svg';
+import { ReactComponent as News } from '../../assets/images/latest-news.svg';
+import { ReactComponent as Bell } from '../../assets/icons/bell.svg';
+import { ReactComponent as Plane } from '../../assets/icons/plane.svg';
+import { ReactComponent as Hotel } from '../../assets/icons/hotel.svg';
+import { ReactComponent as Tour } from '../../assets/icons/tour.svg';
+import { ReactComponent as Train } from '../../assets/icons/train.svg';
+import { ReactComponent as Bus } from '../../assets/icons/bus.svg';
+import { ReactComponent as Plus } from '../../assets/icons/plus.svg';
+import { ReactComponent as Minus } from '../../assets/icons/minus.svg';
+import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
+import { ReactComponent as ThreeDots } from '../../assets/icons/three-dots.svg';
+import { ReactComponent as Plane2 } from '../../assets/icons/plane-2.svg';
+import { ReactComponent as Plane3 } from '../../assets/icons/plane-3.svg';
+import { ReactComponent as Exchange } from '../../assets/icons/exchange.svg';
+import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
+import { ReactComponent as User } from '../../assets/icons/user.svg';
+import { ReactComponent as Instagram } from '../../assets/icons/instagram.svg';
+import { ReactComponent as Reserve } from '../../assets/icons/reserve.svg';
+import { ReactComponent as Box1 } from '../../assets/icons/box-1.svg';
+import { ReactComponent as Box2 } from '../../assets/icons/box-2.svg';
+import { ReactComponent as Box3 } from '../../assets/icons/box-3.svg';
+import Texture from '../../assets/images/texture.svg';
+import Image3 from '../../assets/images/image-3.svg';
+
+import styles from './home.module.scss';
+
+const Home = () =>
+{
+    const [page, setPage] = useState('plane');
+    const [passengers, setPassengers] = useState(false);
+    const [international, setInternational] = useState(false);
+    const [adultCount, setAdultCount] = useState(0);
+    const [childCount, setChildCount] = useState(0);
+    const [babyCount, setBabyCount] = useState(0);
+    const [roomCount, setRoomCount] = useState(0);
+    const [origin, setOrigin] = useState<string>('');
+    const [destination, setDestination] = useState('');
+    const [countActive, setCountActive] = useState('');
+    const [departureDate, setDepartureDate] = useState('');
+    const [returnDate, setReturnDate] = useState('');
+    const handlePage = useCallback(
+        (page: string) =>
+        {
+            setPage(page);
+        }, [setPage]);
+    const onChangeOrigin = useCallback(
+        (event: any) =>
+        {
+            event?.persist();
+
+            setOrigin(event.target.value);
+
+            const cities: NodeListOf<any> | any[] = document.querySelectorAll('#origin_options ul li') || [];
+
+            // @ts-ignore
+            for (const city of cities)
+            {
+                const cityName = city.getAttribute('data-name');
+
+                if (cityName.includes(origin))
+                {
+                    city?.setAttribute('data-activate', 'true');
+                }
+                else
+                {
+                    city?.setAttribute('data-activate', 'false');
+                }
+            }
+        }, [origin, setOrigin]);
+    const onChangeDestination = useCallback(
+        (event: any) =>
+        {
+            event?.persist();
+
+            setDestination(event.target.value);
+
+            const cities: NodeListOf<any> | any[] = document.querySelectorAll('#destination_options ul li') || [];
+
+            // @ts-ignore
+            for (const city of cities)
+            {
+                const cityName = city.getAttribute('data-name');
+
+                if (cityName.includes(destination))
+                {
+                    city?.setAttribute('data-activate', 'true');
+                }
+                else
+                {
+                    city?.setAttribute('data-activate', 'false');
+                }
+            }
+        }, [destination, setDestination]);
+    const onFocusOrigin = useCallback(
+        () =>
+        {
+            const destinationInputParent = document.querySelector('#destination_input_parent');
+
+            if (destinationInputParent?.getAttribute('data-activate') !== 'true')
+            {
+                const inputParent = document.querySelector('#origin_input_parent');
+                const options = document.querySelector('#origin_options');
+                const exchangeIcon = document.querySelector('#exchange_icon');
+
+                inputParent?.setAttribute('data-activate', 'true');
+                options?.setAttribute('data-activate', 'true');
+                exchangeIcon?.setAttribute('data-activate', 'false');
+            }
+        }, []);
+    const onFocusDestination = useCallback(
+        () =>
+        {
+            const originInputParent = document.querySelector('#origin_input_parent');
+
+            if (originInputParent?.getAttribute('data-activate') !== 'true')
+            {
+                const inputParent = document.querySelector('#destination_input_parent');
+                const options = document.querySelector('#destination_options');
+                const exchangeIcon = document.querySelector('#exchange_icon');
+
+                inputParent?.setAttribute('data-activate', 'true');
+                options?.setAttribute('data-activate', 'true');
+                exchangeIcon?.setAttribute('data-activate', 'false');
+            }
+        }, []);
+
+    return (
+        <main className={styles.home}>
+            <header className={styles.homeHeader}>
+                <div className={styles.homeHeaderMain}>
+                    <span className={styles.homeHeaderMainBackground}/>
+                    <nav className={styles.homeHeaderMainNav}>
+                        <Logo />
+                        <ul className={styles.homeHeaderMainNavList}>
+                            <li className={styles.homeHeaderMainNavItem}>
+                                صفحه اصلی
+                            </li>
+                            <li className={styles.homeHeaderMainNavItem} data-type='arrow'>
+                                خدمات سفر
+                                <div className={styles.homeHeaderMainNavPopup}>
+                                    <h3>
+                                        خدمات سفر
+                                    </h3>
+                                    <ul className={styles.homeHeaderMainNavPopupList}>
+                                        <li className={styles.homeHeaderMainNavPopupItem}>
+                                            <span>
+                                                <Plane />
+                                            </span>
+                                            <div>
+                                                <Link to='/'>
+                                                    بلیط هواپیما
+                                                </Link>
+                                                <p>
+                                                    تجربه خریدی ارزان
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li className={styles.homeHeaderMainNavPopupItem}>
+                                            <span>
+                                                <Bus />
+                                            </span>
+                                            <div>
+                                                <Link to='/'>
+                                                    بلیط اتوبوس
+                                                </Link>
+                                                <p>
+                                                    همکاری با سازمان اتوبوس رانی
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li className={styles.homeHeaderMainNavPopupItem}>
+                                            <span>
+                                                <Train />
+                                            </span>
+                                            <div>
+                                                <Link to='/'>
+                                                    بلیط قطار
+                                                </Link>
+                                                <p>
+                                                    با خیالی راحت سفر کنید
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li className={styles.homeHeaderMainNavPopupItem}>
+                                            <span>
+                                                <Hotel />
+                                            </span>
+                                            <div>
+                                                <Link to='/'>
+                                                    رزرو هتل
+                                                </Link>
+                                                <p>
+                                                    رتبه بندی برترین هتل ها
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li className={styles.homeHeaderMainNavPopupItem}>
+                                            <span>
+                                                <Tour />
+                                            </span>
+                                            <div>
+                                                <Link to='/'>
+                                                    رزرو تور
+                                                </Link>
+                                                <p>
+                                                    در سفر باشید
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li className={styles.homeHeaderMainNavItem}>
+                                راهنمایی و پشتیبانی
+                            </li>
+                            <li className={styles.homeHeaderMainNavItem}>
+                                <ThreeDots />
+                            </li>
+                        </ul>
+                    </nav>
+                    <div>
+                        <aside className={styles.homeHeaderMainAside}>
+                            <Link to='/'>
+                                مشاهده پیشنهادات
+                                <Arrow />
+                            </Link>
+                            <div>
+                                <Link to='/'>
+                                    <User />
+                                </Link>
+                                <a href='/'>
+                                    <Instagram />
+                                </a>
+                            </div>
+                        </aside>
+                        <main className={styles.homeHeaderMainContent}>
+                            {
+                                page === 'plane'
+                                    ?
+                                    <>
+                                        <h1>
+                                            <strong>خرید ارزان</strong> و بصرفه بلیط پرواز داخلی و خارجی
+                                        </h1>
+                                        <p>
+                                            با خیالی آسوده بلیط پرواز خود را رزرو کنید
+                                        </p>
+                                    </>
+                                    :
+                                    null
+                            }
+                            {
+                                page === 'hotel'
+                                    ?
+                                    <>
+                                        <h1>
+                                            پرستاره ترین اقامتگاه ها <strong>برای رزرو هتل</strong>
+                                        </h1>
+                                        <p>
+                                            با خیالی آسوده اتاق هتل خود را رزرو کنید
+                                        </p>
+                                    </>
+                                    :
+                                    null
+                            }
+                            {
+                                page === 'tour'
+                                    ?
+                                    <>
+                                        <h1>
+                                            <strong>با ما در همه حال سفر</strong> با رزرو تور پاپلو
+                                        </h1>
+                                        <p>
+                                            با خیالی آسوده بلیط تور خود را رزرو کنید
+                                        </p>
+                                    </>
+                                    :
+                                    null
+                            }
+                            {
+                                page === 'train'
+                                    ?
+                                    <>
+                                        <h1>
+                                            <strong>آسوده سفر کنید</strong> با رزرو بلیط قطار از پاپلو
+                                        </h1>
+                                        <p>
+                                            با خیالی آسوده بلیط قطار خود را رزرو کنید
+                                        </p>
+                                    </>
+                                    :
+                                    null
+                            }
+                            {
+                                page === 'bus'
+                                    ?
+                                    <>
+                                        <h1>
+                                            <strong>سرویع ترین</strong> روش برای رزرو بلیط اتوبوس
+                                        </h1>
+                                        <p>
+                                            با خیالی آسوده بلیط اتوبوس خود را رزرو کنید
+                                        </p>
+                                    </>
+                                    :
+                                    null
+                            }
+                            <div>
+                                <Link to='/'>
+                                    جستجوی سریع
+                                </Link>
+                                <Link to='/'>
+                                    <Reserve />
+                                    پیگیری رزرو
+                                </Link>
+                            </div>
+                            <Link to='/'>
+                                <i>
+                                    <Bell />
+                                </i>
+                                اطلاع از آخرین شرایط سفر و استرداد با توجه به شیوع کرونا
+                                <Arrow />
+                            </Link>
+                        </main>
+                    </div>
+                </div>
+                <div className={styles.homeHeaderImage}>
+                    <div className={styles.homeHeaderImageBackground} data-page={page}/>
+                    <div className={styles.homeHeaderImageContentParent}>
+                        <div className={styles.homeHeaderImageContentBox}>
+                            <nav className={styles.homeHeaderImageContentBoxNav}>
+                                <div className={styles.homeHeaderImageContentBoxNavItem} data-activate={page ===  'plane' ? 'active' : ''} onClick={() => handlePage('plane')}>
+                                    {
+                                        page ===  'plane'
+                                            ?
+                                            <Plane />
+                                            :
+                                            null
+                                    }
+                                    هواپیما
+                                </div>
+                                <div className={styles.homeHeaderImageContentBoxNavItem} data-activate={page ===  'hotel' ? 'active' : ''} onClick={() => handlePage('hotel')}>
+                                    {
+                                        page ===  'hotel'
+                                            ?
+                                            <Hotel />
+                                            :
+                                            null
+                                    }
+                                    هتل
+                                </div>
+                                <div className={styles.homeHeaderImageContentBoxNavItem} data-activate={page ===  'tour' ? 'active' : ''} onClick={() => handlePage('tour')}>
+                                    {
+                                        page ===  'tour'
+                                            ?
+                                            <Tour />
+                                            :
+                                            null
+                                    }
+                                    تور
+                                </div>
+                                <div className={styles.homeHeaderImageContentBoxNavItem} data-activate={page ===  'train' ? 'active' : ''} onClick={() => handlePage('train')}>
+                                    {
+                                        page ===  'train'
+                                            ?
+                                            <Train />
+                                            :
+                                            null
+                                    }
+                                    قطار
+                                </div>
+                                <div className={styles.homeHeaderImageContentBoxNavItem} data-activate={page ===  'bus' ? 'active' : ''} onClick={() => handlePage('bus')}>
+                                    {
+                                        page ===  'bus'
+                                            ?
+                                            <Bus />
+                                            :
+                                            null
+                                    }
+                                    اتوبوس
+                                </div>
+                            </nav>
+                            {
+                                page ===  'plane'
+                                    ?
+                                    <div className={styles.homeHeaderImageContentList}>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <p>
+                                                <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
+                                                <label htmlFor='domestic'>
+                                                    داخلی
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type='radio' id='international' onChange={() => { setInternational(true) }} checked={international}/>
+                                                <label htmlFor='international'>
+                                                    خارجی
+                                                </label>
+                                            </p>
+                                            <div className='custom-select-menu'>
+                                                <details className='custom-select'>
+                                                    <summary className='radios'>
+                                                        <input type='radio' name='item' id='item1' title='یک طرفه' onChange={(event: any) => event.preventDefault()} checked={true}/>
+                                                        <input type='radio' name='item' id='item2' title='رفت و برگشت' onChange={(event: any) => event.preventDefault()}/>
+                                                    </summary>
+                                                    <ul className='list'>
+                                                        <li>
+                                                            <label htmlFor='item1'>
+                                                                یک طرفه
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <label htmlFor='item2'>
+                                                                رفت و برگشت
+                                                            </label>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </div>
+                                            <div>
+                                                <div className='custom-select-menu' onClick={() => setPassengers(!passengers)}>
+                                                    <details className='custom-select passengers'>
+                                                        <summary className='radios'>
+                                                            مسافران
+                                                        </summary>
+                                                    </details>
+                                                </div>
+                                                {
+                                                    passengers
+                                                        ?
+                                                        <div className={styles.homeHeaderPassengers}>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        بزرگسال
+                                                                    </h2>
+                                                                    <p>
+                                                                        بزرگتر از 12 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setAdultCount(adultCount + 1); setCountActive('adult') }} data-direction='right' data-activate={countActive === 'adult' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                                        {adultCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setAdultCount(adultCount <= 0 ? 0 : adultCount - 1); setCountActive('adult') }} data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        کودک
+                                                                    </h2>
+                                                                    <p>
+                                                                        بین ۲ الی 12 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setChildCount(childCount + 1); setCountActive('child') }} data-direction='right' data-activate={countActive === 'child' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                                        {childCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }} data-direction='left' data-activate={countActive === 'child' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        نوزاد
+                                                                    </h2>
+                                                                    <p>
+                                                                        کوچکتر از 2 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setBabyCount(babyCount + 1); setCountActive('baby') }} data-direction='right' data-activate={countActive === 'baby' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
+                                                                        {babyCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }} data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className={styles.homeHeaderImageContentItem} data-direction='column'>
+                                            <span className='active' id='exchange_icon'>
+                                                <Exchange />
+                                            </span>
+                                            <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
+                                                <div>
+                                                    <label>
+                                                        مبدا(شهر)
+                                                    </label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder=''
+                                                        autoComplete='off'
+                                                        spellCheck='false'
+                                                        name='origin'
+                                                        onFocus={ onFocusOrigin }
+                                                        // onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
+                                                        onChange={ onChangeOrigin }
+                                                        defaultValue={ origin || '' }
+                                                    />
+                                                </div>
+                                                <Plane2 />
+                                                <div data-options='origin_options' id='origin_options' onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                    <ul>
+                                                        <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            شیراز - Shiraz
+                                                        </li>
+                                                        <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setOrigin('تهران - Tehran'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            تهران - Tehran
+                                                        </li>
+                                                        <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setOrigin('مشهد - Mashhad'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            مشهد - Mashhad
+                                                        </li>
+                                                        <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { setOrigin('کیش - Kish'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            کیش - Kish
+                                                        </li>
+                                                        <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setOrigin('آبادان - Abadan'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            آبادان - Abadan
+                                                        </li>
+                                                        <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setOrigin('اهواز - Ahwaz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            اهواز - Ahwaz
+                                                        </li>
+                                                        <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setOrigin('رشت - Rasht'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            رشت - Rasht
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
+                                                <div>
+                                                    <label>
+                                                        مقصد(شهر)
+                                                    </label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder=''
+                                                        autoComplete='off'
+                                                        spellCheck='false'
+                                                        name='destination'
+                                                        onFocus={ onFocusDestination }
+                                                        // onBlur={() => { const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
+                                                        onChange={ onChangeDestination }
+                                                        defaultValue={ destination || '' }
+                                                    />
+                                                </div>
+                                                <Plane3 />
+                                                <div data-options='destination_options' id='destination_options'>
+                                                    <ul>
+                                                        <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setDestination('شیراز - Shiraz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            شیراز - Shiraz
+                                                        </li>
+                                                        <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setDestination('تهران - Tehran'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            تهران - Tehran
+                                                        </li>
+                                                        <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setDestination('مشهد - Mashhad'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            مشهد - Mashhad
+                                                        </li>
+                                                        <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { setDestination('کیش - Kish'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            کیش - Kish
+                                                        </li>
+                                                        <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setDestination('آبادان - Abadan'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            آبادان - Abadan
+                                                        </li>
+                                                        <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setDestination('اهواز - Ahwaz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            اهواز - Ahwaz
+                                                        </li>
+                                                        <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setDestination('رشت - Rasht'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            رشت - Rasht
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ رفت
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    placeholder=''
+                                                    autoComplete='off'
+                                                    spellCheck='false'
+                                                    onChange={(event: any) => { setDepartureDate(event.target.value); }}
+                                                    defaultValue={ departureDate || '' }
+                                                />
+                                            </div>
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ برگشت
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    placeholder=''
+                                                    autoComplete='off'
+                                                    spellCheck='false'
+                                                    onChange={(event: any) => { setReturnDate(event.target.value); }}
+                                                    defaultValue={ returnDate || '' }
+                                                />
+                                            </div>
+                                        </div>
+                                        <button>
+                                            یافتن بلیط
+                                        </button>
+                                    </div>
+                                    :
+                                    null
+                            }
+                            {
+                                page ===  'hotel'
+                                    ?
+                                    <div className={styles.homeHeaderImageContentList}>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <p>
+                                                <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
+                                                <label htmlFor='domestic'>
+                                                    داخلی
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type='radio' id='international' onChange={() => { setInternational(true) }} checked={international}/>
+                                                <label htmlFor='international'>
+                                                    خارجی
+                                                </label>
+                                            </p>
+                                            <div>
+                                                <div className='custom-select-menu' onClick={() => setPassengers(!passengers)}>
+                                                    <details className='custom-select passengers'>
+                                                        <summary className='radios'>
+                                                            اطلاعات
+                                                        </summary>
+                                                    </details>
+                                                </div>
+                                                {
+                                                    passengers
+                                                        ?
+                                                        <div className={styles.homeHeaderPassengers}>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        بزرگسال
+                                                                    </h2>
+                                                                    <p>
+                                                                        بزرگتر از 12 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setAdultCount(adultCount + 1); setCountActive('adult') }} data-direction='right' data-activate={countActive === 'adult' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                                        {adultCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setAdultCount(adultCount <= 0 ? 0 : adultCount - 1); setCountActive('adult') }} data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        کودک
+                                                                    </h2>
+                                                                    <p>
+                                                                        بین ۲ الی 12 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setChildCount(childCount + 1); setCountActive('child') }} data-direction='right' data-activate={countActive === 'child' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                                        {childCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }} data-direction='left' data-activate={countActive === 'child' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        اتاق
+                                                                    </h2>
+                                                                    <p>
+                                                                        تعداد اتاق برای اسکان
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setRoomCount(babyCount + 1); setCountActive('room') }} data-direction='right' data-activate={countActive === 'room' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('room')} data-activate={countActive === 'room' ? 'active' : ''}>
+                                                                        {roomCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setRoomCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('room') }} data-direction='left' data-activate={countActive === 'room' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className={styles.homeHeaderImageContentItem} data-direction='column'>
+                                            <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
+                                                <div>
+                                                    <label>
+                                                        مبدا(شهر)
+                                                    </label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder=''
+                                                        autoComplete='off'
+                                                        spellCheck='false'
+                                                        name='origin'
+                                                        onFocus={ onFocusOrigin }
+                                                        // onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
+                                                        onChange={ onChangeOrigin }
+                                                        defaultValue={ origin || '' }
+                                                    />
+                                                </div>
+                                                <Plane2 />
+                                                <div data-options='origin_options' id='origin_options' onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                    <ul>
+                                                        <li data-name='شیراز - Shiraz' data-activate={origin === 'شیراز - Shiraz' ? 'active' : ''} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            شیراز - Shiraz
+                                                        </li>
+                                                        <li data-name='تهران - Tehran' data-activate={origin === 'تهران - Tehran' ? 'active' : ''} onClick={() => { setOrigin('تهران - Tehran'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            تهران - Tehran
+                                                        </li>
+                                                        <li data-name='مشهد - Mashhad' data-activate={origin === 'مشهد - Mashhad' ? 'active' : ''} onClick={() => { setOrigin('مشهد - Mashhad'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            مشهد - Mashhad
+                                                        </li>
+                                                        <li data-name='کیش - Kish' data-activate={origin === 'کیش - Kish' ? 'active' : ''} onClick={() => { setOrigin('کیش - Kish'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            کیش - Kish
+                                                        </li>
+                                                        <li data-name='آبادان - Abadan' data-activate={origin === 'آبادان - Abadan' ? 'active' : ''} onClick={() => { setOrigin('آبادان - Abadan'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            آبادان - Abadan
+                                                        </li>
+                                                        <li data-name='اهواز - Ahwaz' data-activate={origin === 'اهواز - Ahwaz' ? 'active' : ''} onClick={() => { setOrigin('اهواز - Ahwaz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            اهواز - Ahwaz
+                                                        </li>
+                                                        <li data-name='رشت - Rasht' data-activate={origin === 'رشت - Rasht' ? 'active' : ''} onClick={() => { setOrigin('رشت - Rasht'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            رشت - Rasht
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ ورود
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    placeholder=''
+                                                    autoComplete='off'
+                                                    spellCheck='false'
+                                                    onChange={(event: any) => { setDepartureDate(event.target.value); }}
+                                                    defaultValue={ departureDate || '' }
+                                                />
+                                            </div>
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ خروچ
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    placeholder=''
+                                                    autoComplete='off'
+                                                    spellCheck='false'
+                                                    onChange={(event: any) => { setReturnDate(event.target.value); }}
+                                                    defaultValue={ returnDate || '' }
+                                                />
+                                            </div>
+                                        </div>
+                                        <button>
+                                            یافتن بلیط
+                                        </button>
+                                    </div>
+                                    :
+                                    null
+                            }
+                            {
+                                page ===  'tour'
+                                    ?
+                                    <div className={styles.homeHeaderImageContentList}>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <p>
+                                                <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
+                                                <label htmlFor='domestic'>
+                                                    داخلی
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type='radio' id='international' onChange={() => { setInternational(true) }} checked={international}/>
+                                                <label htmlFor='international'>
+                                                    خارجی
+                                                </label>
+                                            </p>
+                                            <div>
+                                                <div className='custom-select-menu' onClick={() => setPassengers(!passengers)}>
+                                                    <details className='custom-select passengers'>
+                                                        <summary className='radios'>
+                                                            مسافران
+                                                        </summary>
+                                                    </details>
+                                                </div>
+                                                {
+                                                    passengers
+                                                        ?
+                                                        <div className={styles.homeHeaderPassengers}>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        بزرگسال
+                                                                    </h2>
+                                                                    <p>
+                                                                        بزرگتر از 12 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setAdultCount(adultCount + 1); setCountActive('adult') }} data-direction='right' data-activate={countActive === 'adult' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                                        {adultCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setAdultCount(adultCount <= 0 ? 0 : adultCount - 1); setCountActive('adult') }} data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        کودک
+                                                                    </h2>
+                                                                    <p>
+                                                                        بین ۲ الی 12 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setChildCount(childCount + 1); setCountActive('child') }} data-direction='right' data-activate={countActive === 'child' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                                        {childCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }} data-direction='left' data-activate={countActive === 'child' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        نوزاد
+                                                                    </h2>
+                                                                    <p>
+                                                                        کوچکتر از 2 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setBabyCount(babyCount + 1); setCountActive('baby') }} data-direction='right' data-activate={countActive === 'baby' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
+                                                                        {babyCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }} data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className={styles.homeHeaderImageContentItem} data-direction='column'>
+                                            <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
+                                                <div>
+                                                    <label>
+                                                        مبدا(شهر)
+                                                    </label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder=''
+                                                        autoComplete='off'
+                                                        spellCheck='false'
+                                                        name='origin'
+                                                        onFocus={ onFocusOrigin }
+                                                        // onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
+                                                        onChange={ onChangeOrigin }
+                                                        defaultValue={ origin || '' }
+                                                    />
+                                                </div>
+                                                <Plane2 />
+                                                <div data-options='origin_options' id='origin_options' onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                    <ul>
+                                                        <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            شیراز - Shiraz
+                                                        </li>
+                                                        <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setOrigin('تهران - Tehran'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            تهران - Tehran
+                                                        </li>
+                                                        <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setOrigin('مشهد - Mashhad'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            مشهد - Mashhad
+                                                        </li>
+                                                        <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { setOrigin('کیش - Kish'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            کیش - Kish
+                                                        </li>
+                                                        <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setOrigin('آبادان - Abadan'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            آبادان - Abadan
+                                                        </li>
+                                                        <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setOrigin('اهواز - Ahwaz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            اهواز - Ahwaz
+                                                        </li>
+                                                        <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setOrigin('رشت - Rasht'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            رشت - Rasht
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
+                                                <div>
+                                                    <label>
+                                                        مقصد(شهر)
+                                                    </label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder=''
+                                                        autoComplete='off'
+                                                        spellCheck='false'
+                                                        name='destination'
+                                                        onFocus={ onFocusDestination }
+                                                        // onBlur={() => { const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
+                                                        onChange={ onChangeDestination }
+                                                        defaultValue={ destination || '' }
+                                                    />
+                                                </div>
+                                                <Plane3 />
+                                                <div data-options='destination_options' id='destination_options'>
+                                                    <ul>
+                                                        <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setDestination('شیراز - Shiraz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            شیراز - Shiraz
+                                                        </li>
+                                                        <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setDestination('تهران - Tehran'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            تهران - Tehran
+                                                        </li>
+                                                        <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setDestination('مشهد - Mashhad'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            مشهد - Mashhad
+                                                        </li>
+                                                        <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { setDestination('کیش - Kish'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            کیش - Kish
+                                                        </li>
+                                                        <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setDestination('آبادان - Abadan'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            آبادان - Abadan
+                                                        </li>
+                                                        <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setDestination('اهواز - Ahwaz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            اهواز - Ahwaz
+                                                        </li>
+                                                        <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setDestination('رشت - Rasht'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            رشت - Rasht
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ رفت
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    placeholder=''
+                                                    autoComplete='off'
+                                                    spellCheck='false'
+                                                    onChange={(event: any) => { setDepartureDate(event.target.value); }}
+                                                    defaultValue={ departureDate || '' }
+                                                />
+                                            </div>
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ برگشت
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    placeholder=''
+                                                    autoComplete='off'
+                                                    spellCheck='false'
+                                                    onChange={(event: any) => { setReturnDate(event.target.value); }}
+                                                    defaultValue={ returnDate || '' }
+                                                />
+                                            </div>
+                                        </div>
+                                        <button>
+                                            یافتن بلیط
+                                        </button>
+                                    </div>
+                                    :
+                                    null
+                            }
+                            {
+                                page ===  'train'
+                                    ?
+                                    <div className={styles.homeHeaderImageContentList}>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <div className='custom-select-menu'>
+                                                <details className='custom-select'>
+                                                    <summary className='radios'>
+                                                        <input type='radio' name='item' id='item1' title='دربست' onChange={(event: any) => event.preventDefault()} checked={true}/>
+                                                        <input type='radio' name='item' id='item2' title='درنسبت' onChange={(event: any) => event.preventDefault()}/>
+                                                    </summary>
+                                                    <ul className='list'>
+                                                        <li>
+                                                            <label htmlFor='item1'>
+                                                                دربست
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <label htmlFor='item2'>
+                                                                درنبست
+                                                            </label>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </div>
+                                            <div className='custom-select-menu'>
+                                                <details className='custom-select'>
+                                                    <summary className='radios'>
+                                                        <input type='radio' name='item2' id='item3' title='یک طرفه' onChange={(event: any) => event.preventDefault()} checked={true}/>
+                                                        <input type='radio' name='item2' id='item4' title='رفت و برگشت' onChange={(event: any) => event.preventDefault()}/>
+                                                    </summary>
+                                                    <ul className='list'>
+                                                        <li>
+                                                            <label htmlFor='item3'>
+                                                                یک طرفه
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <label htmlFor='item4'>
+                                                                رفت و برگشت
+                                                            </label>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </div>
+                                            <div>
+                                                <div className='custom-select-menu' onClick={() => setPassengers(!passengers)}>
+                                                    <details className='custom-select passengers'>
+                                                        <summary className='radios'>
+                                                            مسافران
+                                                        </summary>
+                                                    </details>
+                                                </div>
+                                                {
+                                                    passengers
+                                                        ?
+                                                        <div className={styles.homeHeaderPassengers}>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        بزرگسال
+                                                                    </h2>
+                                                                    <p>
+                                                                        بزرگتر از 12 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setAdultCount(adultCount + 1); setCountActive('adult') }} data-direction='right' data-activate={countActive === 'adult' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                                        {adultCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setAdultCount(adultCount <= 0 ? 0 : adultCount - 1); setCountActive('adult') }} data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        کودک
+                                                                    </h2>
+                                                                    <p>
+                                                                        بین ۲ الی 12 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setChildCount(childCount + 1); setCountActive('child') }} data-direction='right' data-activate={countActive === 'child' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                                        {childCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }} data-direction='left' data-activate={countActive === 'child' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div className={styles.homeHeaderPassengersItem}>
+                                                                <div>
+                                                                    <h2>
+                                                                        نوزاد
+                                                                    </h2>
+                                                                    <p>
+                                                                        کوچکتر از 2 سال
+                                                                    </p>
+                                                                </div>
+                                                                <div>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setBabyCount(babyCount + 1); setCountActive('baby') }} data-direction='right' data-activate={countActive === 'baby' ? 'active' : null}>
+                                                                        <Plus />
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
+                                                                        {babyCount}
+                                                                    </button>
+                                                                    <button className={styles.homeHeaderPassengersItemButton} onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }} data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}>
+                                                                        <Minus />
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className={styles.homeHeaderImageContentItem} data-direction='column'>
+                                            <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
+                                                <div>
+                                                    <label>
+                                                        مبدا(شهر)
+                                                    </label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder=''
+                                                        autoComplete='off'
+                                                        spellCheck='false'
+                                                        name='origin'
+                                                        onFocus={ onFocusOrigin }
+                                                        // onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
+                                                        onChange={ onChangeOrigin }
+                                                        defaultValue={ origin || '' }
+                                                    />
+                                                </div>
+                                                <Plane2 />
+                                                <div data-options='origin_options' id='origin_options' onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                    <ul>
+                                                        <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            شیراز - Shiraz
+                                                        </li>
+                                                        <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setOrigin('تهران - Tehran'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            تهران - Tehran
+                                                        </li>
+                                                        <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setOrigin('مشهد - Mashhad'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            مشهد - Mashhad
+                                                        </li>
+                                                        <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { setOrigin('کیش - Kish'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            کیش - Kish
+                                                        </li>
+                                                        <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setOrigin('آبادان - Abadan'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            آبادان - Abadan
+                                                        </li>
+                                                        <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setOrigin('اهواز - Ahwaz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            اهواز - Ahwaz
+                                                        </li>
+                                                        <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setOrigin('رشت - Rasht'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            رشت - Rasht
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
+                                                <div>
+                                                    <label>
+                                                        مقصد(شهر)
+                                                    </label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder=''
+                                                        autoComplete='off'
+                                                        spellCheck='false'
+                                                        name='destination'
+                                                        onFocus={ onFocusDestination }
+                                                        // onBlur={() => { const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
+                                                        onChange={ onChangeDestination }
+                                                        defaultValue={ destination || '' }
+                                                    />
+                                                </div>
+                                                <Plane3 />
+                                                <div data-options='destination_options' id='destination_options'>
+                                                    <ul>
+                                                        <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setDestination('شیراز - Shiraz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            شیراز - Shiraz
+                                                        </li>
+                                                        <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setDestination('تهران - Tehran'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            تهران - Tehran
+                                                        </li>
+                                                        <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setDestination('مشهد - Mashhad'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            مشهد - Mashhad
+                                                        </li>
+                                                        <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { setDestination('کیش - Kish'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            کیش - Kish
+                                                        </li>
+                                                        <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setDestination('آبادان - Abadan'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            آبادان - Abadan
+                                                        </li>
+                                                        <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setDestination('اهواز - Ahwaz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            اهواز - Ahwaz
+                                                        </li>
+                                                        <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setDestination('رشت - Rasht'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            رشت - Rasht
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ رفت
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    placeholder=''
+                                                    autoComplete='off'
+                                                    spellCheck='false'
+                                                    onChange={(event: any) => { setDepartureDate(event.target.value); }}
+                                                    defaultValue={ departureDate || '' }
+                                                />
+                                            </div>
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ برگشت
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    placeholder=''
+                                                    autoComplete='off'
+                                                    spellCheck='false'
+                                                    onChange={(event: any) => { setReturnDate(event.target.value); }}
+                                                    defaultValue={ returnDate || '' }
+                                                />
+                                            </div>
+                                        </div>
+                                        <button>
+                                            یافتن بلیط
+                                        </button>
+                                    </div>
+                                    :
+                                    null
+                            }
+                            {
+                                page ===  'bus'
+                                    ?
+                                    <div className={styles.homeHeaderImageContentList}>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <div className='custom-select-menu'>
+                                                <details className='custom-select'>
+                                                    <summary className='radios'>
+                                                        <input type='radio' name='item' id='item1' title='یک طرفه' onChange={(event: any) => event.preventDefault()} checked={true}/>
+                                                        <input type='radio' name='item' id='item2' title='رفت و برگشت' onChange={(event: any) => event.preventDefault()}/>
+                                                    </summary>
+                                                    <ul className='list'>
+                                                        <li>
+                                                            <label htmlFor='item1'>
+                                                                یک طرفه
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <label htmlFor='item2'>
+                                                                رفت و برگشت
+                                                            </label>
+                                                        </li>
+                                                    </ul>
+                                                </details>
+                                            </div>
+                                        </div>
+                                        <div className={styles.homeHeaderImageContentItem} data-direction='column'>
+                                            <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
+                                                <div>
+                                                    <label>
+                                                        مبدا(شهر)
+                                                    </label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder=''
+                                                        autoComplete='off'
+                                                        spellCheck='false'
+                                                        name='origin'
+                                                        onFocus={ onFocusOrigin }
+                                                        // onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
+                                                        onChange={ onChangeOrigin }
+                                                        defaultValue={ origin || '' }
+                                                    />
+                                                </div>
+                                                <Plane2 />
+                                                <div data-options='origin_options' id='origin_options' onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                    <ul>
+                                                        <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            شیراز - Shiraz
+                                                        </li>
+                                                        <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setOrigin('تهران - Tehran'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            تهران - Tehran
+                                                        </li>
+                                                        <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setOrigin('مشهد - Mashhad'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            مشهد - Mashhad
+                                                        </li>
+                                                        <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { setOrigin('کیش - Kish'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            کیش - Kish
+                                                        </li>
+                                                        <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setOrigin('آبادان - Abadan'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            آبادان - Abadan
+                                                        </li>
+                                                        <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setOrigin('اهواز - Ahwaz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            اهواز - Ahwaz
+                                                        </li>
+                                                        <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setOrigin('رشت - Rasht'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            رشت - Rasht
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
+                                                <div>
+                                                    <label>
+                                                        مقصد(شهر)
+                                                    </label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder=''
+                                                        autoComplete='off'
+                                                        spellCheck='false'
+                                                        name='destination'
+                                                        onFocus={ onFocusDestination }
+                                                        // onBlur={() => { const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
+                                                        onChange={ onChangeDestination }
+                                                        defaultValue={ destination || '' }
+                                                    />
+                                                </div>
+                                                <Plane3 />
+                                                <div data-options='destination_options' id='destination_options'>
+                                                    <ul>
+                                                        <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setDestination('شیراز - Shiraz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            شیراز - Shiraz
+                                                        </li>
+                                                        <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setDestination('تهران - Tehran'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            تهران - Tehran
+                                                        </li>
+                                                        <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setDestination('مشهد - Mashhad'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            مشهد - Mashhad
+                                                        </li>
+                                                        <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { setDestination('کیش - Kish'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            کیش - Kish
+                                                        </li>
+                                                        <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setDestination('آبادان - Abadan'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            آبادان - Abadan
+                                                        </li>
+                                                        <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setDestination('اهواز - Ahwaz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            اهواز - Ahwaz
+                                                        </li>
+                                                        <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setDestination('رشت - Rasht'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                            <Plane />
+                                                            رشت - Rasht
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ رفت
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    placeholder=''
+                                                    autoComplete='off'
+                                                    spellCheck='false'
+                                                    onChange={(event: any) => { setDepartureDate(event.target.value); }}
+                                                    defaultValue={ departureDate || '' }
+                                                />
+                                            </div>
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ برگشت
+                                                </label>
+                                                <input
+                                                    type='text'
+                                                    placeholder=''
+                                                    autoComplete='off'
+                                                    spellCheck='false'
+                                                    onChange={(event: any) => { setReturnDate(event.target.value); }}
+                                                    defaultValue={ returnDate || '' }
+                                                />
+                                            </div>
+                                        </div>
+                                        <button>
+                                            یافتن بلیط
+                                        </button>
+                                    </div>
+                                    :
+                                    null
+                            }
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section className={styles.homeHeaderBoxList}>
+                <div className={styles.homeHeaderBoxItem}>
+                    <Box1 />
+                    <div>
+                        <h4>
+                            ارسال اطلاعات بلیط خریداری شده
+                        </h4>
+                        <p>
+                            به تلفن همراه، ایمیل یا فاکس
+                        </p>
+                    </div>
+                </div>
+                <div className={styles.homeHeaderBoxItem}>
+                    <Box2 />
+                    <div>
+                        <h4>
+                            به سادگی برنامه سفر بچینید
+                        </h4>
+                        <p>
+                            با راهکارهای مختلف رزرو انجام دهید
+                        </p>
+                    </div>
+                </div>
+                <div className={styles.homeHeaderBoxItem}>
+                    <Box3 />
+                    <div>
+                        <h4>
+                            تجربه دلنشین با پشتیبانی 24/7
+                        </h4>
+                        <p>
+                            در تمام ساعات پاسخ گوی شماییم
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section className={styles.homeFastSearch}>
+                <div className="container">
+                    <div className={styles.homeFastSearchTopBar}>
+                        <div className={styles.homeFastSearchRightHeading}>
+                            <h2 className='headingPrimary'>جستجوی سریع <span>پرواز داخلی</span></h2>
+                            <p>تهران به مقاصد داخلی (مبدا به مقصد)</p>
+                        </div>
+
+                        <div className={styles.homeFastSearchLeftContent}>
+                            <h2>انتخاب مبدا</h2>
+
+                            <ul>
+                                <li>
+                                    <button data-activate='true'>تهران</button>
+                                </li>
+                                <li>
+                                    <button>مشهد</button>
+                                </li>
+                                <li>
+                                    <button>شیراز</button>
+                                </li>
+                                <li>
+                                    <button>اصفهان</button>
+                                </li>
+                                <li>
+                                    <button>کیش</button>
+                                </li>
+                                <li>
+                                    <button>رشت</button>
+                                </li>
+                                <li>
+                                    <button>اهواز</button>
+                                </li>
+                                <li>
+                                    <Link to='/more'>بیشتر</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className={styles.homeFastSearchBoxes}>
+                        <div>
+                            <div className={styles.homeFastSearchBoxesBox}>
+                                <div className={styles.homeFastSearchBoxesBoxTop}>
+                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
+                                        <Box4 />
+                                        <span>هواپیمایی آسمان</span>
+                                    </div>
+
+                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                </div>
+
+                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
+                                <p>شروع قیمت از</p>
+                                <span>13/479/400 ریال</span>
+                            </Link>
+                        </div>
+                        <div>
+                            <div className={styles.homeFastSearchBoxesBox}>
+                                <div className={styles.homeFastSearchBoxesBoxTop}>
+                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
+                                        <Box4 />
+                                        <span>هواپیمایی آسمان</span>
+                                    </div>
+
+                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                </div>
+
+                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
+                                <p>شروع قیمت از</p>
+                                <span>13/479/400 ریال</span>
+                            </Link>
+                        </div>
+                        <div>
+                            <div className={styles.homeFastSearchBoxesBox}>
+                                <div className={styles.homeFastSearchBoxesBoxTop}>
+                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
+                                        <Box4 />
+                                        <span>هواپیمایی آسمان</span>
+                                    </div>
+
+                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                </div>
+
+                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
+                                <p>شروع قیمت از</p>
+                                <span>13/479/400 ریال</span>
+                            </Link>
+                        </div>
+                        <div>
+                            <div className={styles.homeFastSearchBoxesBox}>
+                                <div className={styles.homeFastSearchBoxesBoxTop}>
+                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
+                                        <Box4 />
+                                        <span>هواپیمایی آسمان</span>
+                                    </div>
+
+                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                </div>
+
+                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
+                                <p>شروع قیمت از</p>
+                                <span>13/479/400 ریال</span>
+                            </Link>
+                        </div>
+                        <div>
+                            <div className={styles.homeFastSearchBoxesBox}>
+                                <div className={styles.homeFastSearchBoxesBoxTop}>
+                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
+                                        <Box4 />
+                                        <span>هواپیمایی آسمان</span>
+                                    </div>
+
+                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                </div>
+
+                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
+                                <p>شروع قیمت از</p>
+                                <span>13/479/400 ریال</span>
+                            </Link>
+                        </div>
+                        <div>
+                            <div className={styles.homeFastSearchBoxesBox}>
+                                <div className={styles.homeFastSearchBoxesBoxTop}>
+                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
+                                        <Box4 />
+                                        <span>هواپیمایی آسمان</span>
+                                    </div>
+
+                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                </div>
+
+                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
+                                <p>شروع قیمت از</p>
+                                <span>13/479/400 ریال</span>
+                            </Link>
+                        </div>
+                        <div>
+                            <div className={styles.homeFastSearchBoxesBox}>
+                                <div className={styles.homeFastSearchBoxesBoxTop}>
+                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
+                                        <Box4 />
+                                        <span>هواپیمایی آسمان</span>
+                                    </div>
+
+                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                </div>
+
+                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
+                                <p>شروع قیمت از</p>
+                                <span>13/479/400 ریال</span>
+                            </Link>
+                        </div>
+                        <div>
+                            <div className={styles.homeFastSearchBoxesBox}>
+                                <div className={styles.homeFastSearchBoxesBoxTop}>
+                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
+                                        <Box4 />
+                                        <span>هواپیمایی آسمان</span>
+                                    </div>
+
+                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                </div>
+
+                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
+                                <p>شروع قیمت از</p>
+                                <span>13/479/400 ریال</span>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className={styles.homeProposal} style={{ backgroundImage: `url(${Texture})` }}>
+                <div className="container">
+                    <h2 className='headingPrimary'>پیشنهاد <span>لحظه آخری</span></h2>
+
+                    <div className={styles.homeProposalItems}>
+                        <button>ارزان ترین بلیط ها</button>
+                        <button>پرفروش ترین بلیط ها</button>
+                        <button>تخفیف خوردها</button>
+                    </div>
+
+                    <div className={styles.homeProposalBoxes}>
+                        <div>
+                            <div className={styles.homeProposalBoxesBox}>
+                                <div className={styles.homeProposalBoxesBoxTop}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeProposalBoxesBoxMiddle}>
+                                    <span>TEH</span>
+                                    <span>اکونومی</span>
+                                    <span>MHD</span>
+                                </div>
+                                <div className={styles.homeProposalBoxesBoxBottom}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeProposalBoxesLink}>
+                                <span>13/479/400 ریال</span>
+                                <p>رزرو</p>
+                            </Link>
+                        </div>
+                        <div>
+                            <div className={styles.homeProposalBoxesBox}>
+                                <div className={styles.homeProposalBoxesBoxTop}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeProposalBoxesBoxMiddle}>
+                                    <span>TEH</span>
+                                    <span>اکونومی</span>
+                                    <span>MHD</span>
+                                </div>
+                                <div className={styles.homeProposalBoxesBoxBottom}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeProposalBoxesLink}>
+                                <span>13/479/400 ریال</span>
+                                <p>رزرو</p>
+                            </Link>
+                        </div>
+                        <div>
+                            <div className={styles.homeProposalBoxesBox}>
+                                <div className={styles.homeProposalBoxesBoxTop}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeProposalBoxesBoxMiddle}>
+                                    <span>TEH</span>
+                                    <span>اکونومی</span>
+                                    <span>MHD</span>
+                                </div>
+                                <div className={styles.homeProposalBoxesBoxBottom}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeProposalBoxesLink}>
+                                <span>13/479/400 ریال</span>
+                                <p>رزرو</p>
+                            </Link>
+                        </div>
+                        <div>
+                            <div className={styles.homeProposalBoxesBox}>
+                                <div className={styles.homeProposalBoxesBoxTop}>
+                                    <span>تهران</span>
+                                    <Plane />
+                                    <span>مشهد</span>
+                                </div>
+                                <div className={styles.homeProposalBoxesBoxMiddle}>
+                                    <span>TEH</span>
+                                    <span>اکونومی</span>
+                                    <span>MHD</span>
+                                </div>
+                                <div className={styles.homeProposalBoxesBoxBottom}>
+                                    <span>16:45</span>
+                                    <span>یک‌شنبه 30 آبان</span>
+                                    <span>17:25</span>
+                                </div>
+                            </div>
+                            <Link to='#' className={styles.homeProposalBoxesLink}>
+                                <span>13/479/400 ریال</span>
+                                <p>رزرو</p>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className={styles.homeProposalLatestNews}>
+                        <div className={styles.homeProposalLatestNewsImage}>
+                            <News />
+                        </div>
+
+                        <div className={styles.homeProposalLatestNewsContent}>
+                            <h2 className='headingPrimary'>اطلاع رسانی <span>لحظه آخری</span></h2>
+                            <p>
+                                برای دریافت پیامک پیشنهادهای لحظه آخری با تخفیف بیش از 50٪ در پروازهای رفت و برگشت مسیر مورد نظر و شماره تلفن همراه خود را وارد کنید
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className={styles.homeMagazine}>
+                <div className="container">
+                    <div className={styles.homeMagazineTop}>
+                        <div>
+                            <Blogs />
+                            <h2 className='headingPrimary'>از مجله <span>پاپلو</span></h2>
+                        </div>
+                        <Link to='#'>بیشتر</Link>
+                    </div>
+
+                    <div className={styles.homeMagazineGallery}>
+                        <Link to='#'>
+                            <div />
+                            <div>
+                                <span>
+                                    اخبار گردشگری
+                                </span>
+                                <h3>
+                                    سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
+                                </h3>
+                                <p>
+                                    احسان غلام پور
+                                </p>
+                            </div>
+                            <img src={Image3}  alt='homeMagazineGallery'/>
+                        </Link>
+                        <Link to='#'>
+                            <div />
+                            <div>
+                                 <span>
+                                    اخبار گردشگری
+                                </span>
+                                <h3>
+                                    سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
+                                </h3>
+                            </div>
+                            <img src={Image3}  alt='homeMagazineGallery'/>
+                        </Link>
+                        <Link to='#'>
+                            <div />
+                            <div>
+                                 <span>
+                                    اخبار گردشگری
+                                </span>
+                                <h3>
+                                    سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
+                                </h3>
+                            </div>
+                            <img src={Image3}  alt='homeMagazineGallery'/>
+                        </Link>
+                        <Link to='#'>
+                            <div />
+                            <div>
+                                <span>
+                                    اخبار گردشگری
+                                </span>
+                                <h3>
+                                    سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
+                                </h3>
+                                <p>
+                                    احسان غلام پور
+                                </p>
+                            </div>
+                            <img src={Image3}  alt='homeMagazineGallery'/>
+                        </Link>
+                    </div>
+                </div>
+            </section>
+        </main>
+    );
+};
+
+export default Home;

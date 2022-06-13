@@ -1,28 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import axios from 'axios';
-import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom/client';
 
-import store from './redux/store';
-
-import GlobalStyles from './global.styles';
+import './index.scss';
 import App from './App';
+
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from "react-router-dom";
 
-axios.defaults.baseURL = 'https://api.discords.city/api/v1/';
-axios.defaults.withCredentials = true;
-
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <BrowserRouter>
-                <GlobalStyles />
-                <App/>
-            </BrowserRouter>
-        </Provider>
-    </React.StrictMode>,
-    document.getElementById('root')
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

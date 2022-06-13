@@ -1,6 +1,0 @@
-export const UserActionTypes =
-{
-    SET_COUNT_USER: 'SET_COUNT_USER',
-    SET_SINGLE_USER: 'SET_SINGLE_USER',
-    SET_CURRENT_USER: 'SET_CURRENT_USER'
-};
