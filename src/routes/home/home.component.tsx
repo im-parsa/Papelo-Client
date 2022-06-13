@@ -61,22 +61,22 @@ const Home = () =>
 
             setOrigin(event.target.value);
 
-            const cities: NodeListOf<any> | any[] = document.querySelectorAll('#origin_options ul li') || [];
-
-            // @ts-ignore
-            for (const city of cities)
-            {
-                const cityName = city.getAttribute('data-name');
-
-                if (cityName.includes(origin))
-                {
-                    city?.setAttribute('data-activate', 'true');
-                }
-                else
-                {
-                    city?.setAttribute('data-activate', 'false');
-                }
-            }
+            // const cities: NodeListOf<any> | any[] = document.querySelectorAll('#origin_options ul li') || [];
+            //
+            // // @ts-ignore
+            // for (const city of cities)
+            // {
+            //     const cityName = city.getAttribute('data-name');
+            //
+            //     if (cityName.includes(origin))
+            //     {
+            //         city?.setAttribute('data-activate', 'true');
+            //     }
+            //     else
+            //     {
+            //         city?.setAttribute('data-activate', 'false');
+            //     }
+            // }
         }, [origin, setOrigin]);
     const onChangeDestination = useCallback(
         (event: any) =>
@@ -85,22 +85,22 @@ const Home = () =>
 
             setDestination(event.target.value);
 
-            const cities: NodeListOf<any> | any[] = document.querySelectorAll('#destination_options ul li') || [];
-
-            // @ts-ignore
-            for (const city of cities)
-            {
-                const cityName = city.getAttribute('data-name');
-
-                if (cityName.includes(destination))
-                {
-                    city?.setAttribute('data-activate', 'true');
-                }
-                else
-                {
-                    city?.setAttribute('data-activate', 'false');
-                }
-            }
+            // const cities: NodeListOf<any> | any[] = document.querySelectorAll('#destination_options ul li') || [];
+            //
+            // // @ts-ignore
+            // for (const city of cities)
+            // {
+            //     const cityName = city.getAttribute('data-name');
+            //
+            //     if (cityName.includes(destination))
+            //     {
+            //         city?.setAttribute('data-activate', 'true');
+            //     }
+            //     else
+            //     {
+            //         city?.setAttribute('data-activate', 'false');
+            //     }
+            // }
         }, [destination, setDestination]);
     const onFocusOrigin = useCallback(
         () =>
