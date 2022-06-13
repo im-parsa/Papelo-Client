@@ -49,6 +49,14 @@
                         cursor: pointer;
                         transition: all .2s;
 
+                        &:hover
+                        {
+                            cursor: pointer;
+                            background: #FFFFFF;
+                            border-color: transparent;
+                            box-shadow: 0 30px 70px #48609233;
+                        }
+
                         &[data-activate='true']
                         {
                             border-color: #4A6192;
@@ -80,12 +88,14 @@
                 border-radius: 2rem 2rem 0 0;
                 padding: 2.2rem;
 
-                &Top                {
+                &Top
+                {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
 
-                    &Inner                    {
+                    &Inner
+                    {
                         display: flex;
                         align-items: center;
 
@@ -94,6 +104,7 @@
                             width: 4rem;
                             height: 3rem;
                             margin-left: 1rem;
+                            transition: all .2s;
                         }
 
                         span
@@ -102,7 +113,7 @@
                         }
                     }
 
-                    &Badget
+                    &Budget
                     {
                         background: white;
                         padding: 0.6rem 1.2rem;
@@ -147,23 +158,84 @@
                 align-items: center;
                 justify-content: space-between;
 
-                padding: 2.4rem;
+                position: relative;
 
+                transition: all .2s;
                 background: #496193 0 0 no-repeat padding-box;
-                color: #FFFFFF;
-                font-family: 'YekanBakhBold', sans-serif;
-                font-size: 1.4rem;
-                letter-spacing: 1px;
-
                 border-bottom-right-radius: 2rem;
                 border-bottom-left-radius: 2rem;
+
+                & > div
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    position: relative;
+
+                    padding: 2.4rem;
+                    width: 100%;
+                    height: 100%;
+                    color: #FFFFFF;
+                    font-family: 'YekanBakhBold', sans-serif;
+                    font-size: 1.4rem;
+                    letter-spacing: 1px;
+                }
+
+                & > i
+                {
+                    position: absolute;
+
+                    background: #f5f6fa;
+                    width: 2rem;
+                    height: 2rem;
+                    border-radius: 2rem;
+
+                    &:first-child
+                    {
+                        top: -1rem;
+                        left: -1rem;
+                    }
+
+                    &:nth-child(2)
+                    {
+                        top: -1rem;
+                        right: -1rem;
+                    }
+                }
+
+                & > hr
+                {
+                    position: absolute;
+                    top: -.25rem;
+                    border-width: .25rem;
+
+                    width: 100%;
+                    border-color: #f5f6fa;
+                    border-style: dashed;
+                }
+            }
+
+            & > div:hover
+            {
+                cursor: pointer;
+
+                & svg:nth-child(2) path
+                {
+                    fill: #09BAB5;
+                }
+
+                & a
+                {
+                    background: #09BAB5;
+                }
             }
         }
     }
 
     &Proposal
     {
-        background-color: #ffffff;
+        background-color: #FAFBFD;
         background-position-x: -40rem;
         background-position-y: 10rem;
         background-repeat: no-repeat;
@@ -185,6 +257,17 @@
                 font-size: 1.6rem;
                 margin-top: 2rem;
                 cursor: pointer;
+                transition: all .2s;
+
+                &:hover
+                {
+                    color: #7a8aae;
+                }
+
+                &[data-activate='true']
+                {
+                    color: #4A6192;
+                }
             }
         }
 
@@ -195,6 +278,11 @@
             gap: 2rem;
 
             padding-top: 3rem;
+
+            & > div > div
+            {
+                transition: all .2s;
+            }
 
             &Box
             {
@@ -251,16 +339,71 @@
                 align-items: center;
                 justify-content: space-between;
 
-                padding: 2.4rem;
+                position: relative;
 
                 background: transparent linear-gradient(103deg, #09BAB5 0%, #2FE587 100%) 0 0 no-repeat padding-box;
-                color: #FFFFFF;
-                font-family: 'YekanBakhBold', sans-serif;
-                font-size: 1.4rem;
-                letter-spacing: 1px;
-
                 border-bottom-right-radius: 2rem;
                 border-bottom-left-radius: 2rem;
+
+                & > div
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    position: relative;
+
+                    padding: 2.4rem;
+                    width: 100%;
+                    height: 100%;
+                    color: #FFFFFF;
+                    font-family: 'YekanBakhBold', sans-serif;
+                    font-size: 1.4rem;
+                    letter-spacing: 1px;
+                }
+
+                & > i
+                {
+                    position: absolute;
+
+                    background: #f5f6fa;
+                    width: 2rem;
+                    height: 2rem;
+                    border-radius: 2rem;
+
+                    &:first-child
+                    {
+                        top: -1rem;
+                        left: -1rem;
+                    }
+
+                    &:nth-child(2)
+                    {
+                        top: -1rem;
+                        right: -1rem;
+                    }
+                }
+
+                & > hr
+                {
+                    position: absolute;
+                    top: -.25rem;
+                    border-width: .25rem;
+
+                    width: 100%;
+                    border-color: #f5f6fa;
+                    border-style: dashed;
+                }
+            }
+
+            & > div:hover
+            {
+                cursor: pointer;
+
+                & > div
+                {
+                    background: #FFFFFF;
+                }
             }
         }
 
@@ -1398,6 +1541,8 @@
     height: 177px;
     border: 5px solid #EDEFF6;
     border-radius: 30px;
+    transition: all .2s;
+    box-shadow: 0 30px 70px transparent;
 
     & > div
     {
@@ -1415,5 +1560,13 @@
             font-size: 1.8rem;
             color: #96A5C6;
         }
+    }
+
+    &:hover
+    {
+        cursor: pointer;
+        background: #FFFFFF;
+        border-color: transparent;
+        box-shadow: 0 30px 70px #48609233;
     }
 }

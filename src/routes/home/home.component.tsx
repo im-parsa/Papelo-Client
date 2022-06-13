@@ -1588,7 +1588,7 @@ const Home = () =>
                                         <span>هواپیمایی آسمان</span>
                                     </div>
 
-                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
                                 </div>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
@@ -1603,8 +1603,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <p>شروع قیمت از</p>
-                                <span>13/479/400 ریال</span>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <p>شروع قیمت از</p>
+                                    <span>13/479/400 ریال</span>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -1615,7 +1620,7 @@ const Home = () =>
                                         <span>هواپیمایی آسمان</span>
                                     </div>
 
-                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
                                 </div>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
@@ -1630,8 +1635,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <p>شروع قیمت از</p>
-                                <span>13/479/400 ریال</span>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <p>شروع قیمت از</p>
+                                    <span>13/479/400 ریال</span>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -1642,7 +1652,7 @@ const Home = () =>
                                         <span>هواپیمایی آسمان</span>
                                     </div>
 
-                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
                                 </div>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
@@ -1657,8 +1667,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <p>شروع قیمت از</p>
-                                <span>13/479/400 ریال</span>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <p>شروع قیمت از</p>
+                                    <span>13/479/400 ریال</span>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -1669,7 +1684,7 @@ const Home = () =>
                                         <span>هواپیمایی آسمان</span>
                                     </div>
 
-                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
                                 </div>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
@@ -1684,8 +1699,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <p>شروع قیمت از</p>
-                                <span>13/479/400 ریال</span>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <p>شروع قیمت از</p>
+                                    <span>13/479/400 ریال</span>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -1696,7 +1716,7 @@ const Home = () =>
                                         <span>هواپیمایی آسمان</span>
                                     </div>
 
-                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
                                 </div>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
@@ -1711,8 +1731,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <p>شروع قیمت از</p>
-                                <span>13/479/400 ریال</span>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <p>شروع قیمت از</p>
+                                    <span>13/479/400 ریال</span>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -1723,7 +1748,7 @@ const Home = () =>
                                         <span>هواپیمایی آسمان</span>
                                     </div>
 
-                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
                                 </div>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
@@ -1738,8 +1763,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <p>شروع قیمت از</p>
-                                <span>13/479/400 ریال</span>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <p>شروع قیمت از</p>
+                                    <span>13/479/400 ریال</span>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -1750,7 +1780,7 @@ const Home = () =>
                                         <span>هواپیمایی آسمان</span>
                                     </div>
 
-                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
                                 </div>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
@@ -1765,8 +1795,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <p>شروع قیمت از</p>
-                                <span>13/479/400 ریال</span>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <p>شروع قیمت از</p>
+                                    <span>13/479/400 ریال</span>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -1777,7 +1812,7 @@ const Home = () =>
                                         <span>هواپیمایی آسمان</span>
                                     </div>
 
-                                    <span className={styles.homeFastSearchBoxesBoxTopBadget}>اکونومی</span>
+                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
                                 </div>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
@@ -1792,8 +1827,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <p>شروع قیمت از</p>
-                                <span>13/479/400 ریال</span>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <p>شروع قیمت از</p>
+                                    <span>13/479/400 ریال</span>
+                                </div>
                             </Link>
                         </div>
                     </div>
@@ -1805,7 +1845,7 @@ const Home = () =>
                     <h2 className='headingPrimary'>پیشنهاد <span>لحظه آخری</span></h2>
 
                     <div className={styles.homeProposalItems}>
-                        <button>ارزان ترین بلیط ها</button>
+                        <button data-activate='true'>ارزان ترین بلیط ها</button>
                         <button>پرفروش ترین بلیط ها</button>
                         <button>تخفیف خوردها</button>
                     </div>
@@ -1830,8 +1870,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeProposalBoxesLink}>
-                                <span>13/479/400 ریال</span>
-                                <p>رزرو</p>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <span>13/479/400 ریال</span>
+                                    <p>رزرو</p>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -1853,8 +1898,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeProposalBoxesLink}>
-                                <span>13/479/400 ریال</span>
-                                <p>رزرو</p>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <span>13/479/400 ریال</span>
+                                    <p>رزرو</p>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -1876,8 +1926,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeProposalBoxesLink}>
-                                <span>13/479/400 ریال</span>
-                                <p>رزرو</p>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <span>13/479/400 ریال</span>
+                                    <p>رزرو</p>
+                                </div>
                             </Link>
                         </div>
                         <div>
@@ -1899,8 +1954,13 @@ const Home = () =>
                                 </div>
                             </div>
                             <Link to='#' className={styles.homeProposalBoxesLink}>
-                                <span>13/479/400 ریال</span>
-                                <p>رزرو</p>
+                                <i />
+                                <i />
+                                <hr />
+                                <div>
+                                    <span>13/479/400 ریال</span>
+                                    <p>رزرو</p>
+                                </div>
                             </Link>
                         </div>
                     </div>
