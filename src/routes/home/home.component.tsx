@@ -27,6 +27,11 @@ import { ReactComponent as Box2 } from '../../assets/icons/box-2.svg';
 import { ReactComponent as Box3 } from '../../assets/icons/box-3.svg';
 import Texture from '../../assets/images/texture.svg';
 import Image3 from '../../assets/images/image-3.svg';
+import Header1 from '../../assets/images/header-1.svg';
+import Header2 from '../../assets/images/header-2.svg';
+import Header3 from '../../assets/images/header-3.svg';
+import Header4 from '../../assets/images/header-4.svg';
+import Header5 from '../../assets/images/header-5.svg';
 
 import styles from './home.module.scss';
 
@@ -330,7 +335,7 @@ const Home = () =>
                     </div>
                 </div>
                 <div className={styles.homeHeaderImage}>
-                    <div className={styles.homeHeaderImageBackground} data-page={page}/>
+                    <div className={styles.homeHeaderImageBackground} style={{ backgroundImage: `url(${page === 'plane' ? Header1 : page === 'hotel' ? Header2 : page === 'tour' ? Header3 : page === 'train' ? Header4 : page === 'bus' ? Header5 : 0})` }}/>
                     <div className={styles.homeHeaderImageContentParent}>
                         <div className={styles.homeHeaderImageContentBox}>
                             <nav className={styles.homeHeaderImageContentBoxNav}>
