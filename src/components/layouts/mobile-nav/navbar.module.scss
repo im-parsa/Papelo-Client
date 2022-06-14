@@ -49,18 +49,13 @@
         transform: translate(-50%, 0);
         z-index: 110;
 
+        overflow: hidden;
         border-radius: 2rem;
         height: 0;
         width: 94%;
         background: #FFFFFF;
-        transition: all .2s;
-        padding: 2rem 3rem;
+        transition: height .2s;
         box-shadow: 0 30px 70px #48609233;
-
-        &[data-open='true']
-        {
-            height: auto;
-        }
 
         & li
         {
@@ -95,6 +90,12 @@
                 border-left-color: #364a76;
                 border-bottom-color: #364a76;
             }
+        }
+
+        &[data-open='true']
+        {
+            height: auto;
+            padding: 2rem 3rem;
         }
     }
 }

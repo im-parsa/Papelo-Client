@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import React, { useCallback, useState } from 'react';
-import classNames from 'classnames';
+import { DatePicker } from 'jalali-react-datepicker';
 
 import { ReactComponent as Box4 } from '../../assets/icons/box-4.svg';
 import { ReactComponent as Blogs } from '../../assets/icons/blogs.svg';
@@ -66,23 +66,23 @@ const Home = () =>
 
             setOrigin(event.target.value);
 
-            // const cities: NodeListOf<any> | any[] = document.querySelectorAll('#origin_options ul li') || [];
-            //
-            // // @ts-ignore
-            // for (const city of cities)
-            // {
-            //     const cityName = city.getAttribute('data-name');
-            //
-            //     if (cityName.includes(origin))
-            //     {
-            //         city?.setAttribute('data-activate', 'true');
-            //     }
-            //     else
-            //     {
-            //         city?.setAttribute('data-activate', 'false');
-            //     }
-            // }
-        }, [origin, setOrigin]);
+            const cities: NodeListOf<any> | any[] = document.querySelectorAll('#origin_options ul li') || [];
+
+            // @ts-ignore
+            for (const city of cities)
+            {
+                const cityName = city.getAttribute('data-name');
+
+                if (event.target.value && !cityName.includes(event.target.value))
+                {
+                    city?.setAttribute('data-activate', 'false');
+                }
+                else
+                {
+                    city?.setAttribute('data-activate', '');
+                }
+            }
+        }, [setOrigin]);
     const onChangeDestination = useCallback(
         (event: any) =>
         {
@@ -90,23 +90,23 @@ const Home = () =>
 
             setDestination(event.target.value);
 
-            // const cities: NodeListOf<any> | any[] = document.querySelectorAll('#destination_options ul li') || [];
-            //
-            // // @ts-ignore
-            // for (const city of cities)
-            // {
-            //     const cityName = city.getAttribute('data-name');
-            //
-            //     if (cityName.includes(destination))
-            //     {
-            //         city?.setAttribute('data-activate', 'true');
-            //     }
-            //     else
-            //     {
-            //         city?.setAttribute('data-activate', 'false');
-            //     }
-            // }
-        }, [destination, setDestination]);
+            const cities: NodeListOf<any> | any[] = document.querySelectorAll('#destination_options ul li') || [];
+
+            // @ts-ignore
+            for (const city of cities)
+            {
+                const cityName = city.getAttribute('data-name');
+
+                if (event.target.value && !cityName.includes(event.target.value))
+                {
+                    city?.setAttribute('data-activate', 'false');
+                }
+                else
+                {
+                    city?.setAttribute('data-activate', '');
+                }
+            }
+        }, [setDestination]);
     const onFocusOrigin = useCallback(
         () =>
         {
@@ -139,6 +139,38 @@ const Home = () =>
                 exchangeIcon?.setAttribute('data-activate', 'false');
             }
         }, []);
+    const handleDetail = useCallback(
+        (listener?: boolean) =>
+        {
+            // @ts-ignore
+            const details = [...document.querySelectorAll('details')];
+
+            if (listener)
+            {
+                document.addEventListener('click', function(e)
+                {
+                    if (!details.some(f => f.contains(e.target)))
+                    {
+                        setPassengers(false);
+                        details.forEach(f => f.removeAttribute('open'));
+                    }
+                    else
+                    {
+                        details.forEach(f => !f.contains(e.target) ? f.removeAttribute('open') : '');
+                    }
+                })
+            }
+            else
+            {
+                setPassengers(false);
+                details.forEach(f => f.removeAttribute('open'));
+            }
+        }, [])
+
+    React.useEffect(() =>
+    {
+        handleDetail(true);
+    }, [handleDetail]);
 
     return (
         <main className={styles.home}>
@@ -321,7 +353,7 @@ const Home = () =>
                                     null
                             }
                             <div>
-                                <Link to='/'>
+                                <Link to='#fastSearch'>
                                     جستجوی سریع
                                 </Link>
                                 <Link to='/'>
@@ -415,16 +447,16 @@ const Home = () =>
                                             <div className='custom-select-menu'>
                                                 <details className='custom-select'>
                                                     <summary className='radios'>
-                                                        <input type='radio' name='item' id='item1' title='یک طرفه' onChange={(event: any) => event.preventDefault()} checked={true}/>
-                                                        <input type='radio' name='item' id='item2' title='رفت و برگشت' onChange={(event: any) => event.preventDefault()}/>
+                                                        <input type='radio' name='item' id='item1' title='یک طرفه' onChange={(event: any) => { event.preventDefault() }} checked={true}/>
+                                                        <input type='radio' name='item' id='item2' title='رفت و برگشت' onChange={(event: any) => { event.preventDefault() }}/>
                                                     </summary>
                                                     <ul className='list'>
-                                                        <li>
+                                                        <li onClick={(event: any) => handleDetail() }>
                                                             <label htmlFor='item1'>
                                                                 یک طرفه
                                                             </label>
                                                         </li>
-                                                        <li>
+                                                        <li onClick={(event: any) => handleDetail() }>
                                                             <label htmlFor='item2'>
                                                                 رفت و برگشت
                                                             </label>
@@ -625,26 +657,18 @@ const Home = () =>
                                                 <label>
                                                     تاریخ رفت
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='off'
-                                                    spellCheck='false'
-                                                    onChange={(event: any) => { setDepartureDate(event.target.value); }}
-                                                    defaultValue={ departureDate || '' }
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
                                                 />
                                             </div>
                                             <div data-type='date'>
                                                 <label>
                                                     تاریخ برگشت
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='off'
-                                                    spellCheck='false'
-                                                    onChange={(event: any) => { setReturnDate(event.target.value); }}
-                                                    defaultValue={ returnDate || '' }
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setReturnDate(value); }}
                                                 />
                                             </div>
                                         </div>
@@ -809,28 +833,20 @@ const Home = () =>
                                         <div className={styles.homeHeaderImageContentItem}>
                                             <div data-type='date'>
                                                 <label>
-                                                    تاریخ ورود
+                                                    تاریخ رفت
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='off'
-                                                    spellCheck='false'
-                                                    onChange={(event: any) => { setDepartureDate(event.target.value); }}
-                                                    defaultValue={ departureDate || '' }
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
                                                 />
                                             </div>
                                             <div data-type='date'>
                                                 <label>
-                                                    تاریخ خروچ
+                                                    تاریخ برگشت
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='off'
-                                                    spellCheck='false'
-                                                    onChange={(event: any) => { setReturnDate(event.target.value); }}
-                                                    defaultValue={ returnDate || '' }
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setReturnDate(value); }}
                                                 />
                                             </div>
                                         </div>
@@ -1048,26 +1064,18 @@ const Home = () =>
                                                 <label>
                                                     تاریخ رفت
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='off'
-                                                    spellCheck='false'
-                                                    onChange={(event: any) => { setDepartureDate(event.target.value); }}
-                                                    defaultValue={ departureDate || '' }
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
                                                 />
                                             </div>
                                             <div data-type='date'>
                                                 <label>
                                                     تاریخ برگشت
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='off'
-                                                    spellCheck='false'
-                                                    onChange={(event: any) => { setReturnDate(event.target.value); }}
-                                                    defaultValue={ returnDate || '' }
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setReturnDate(value); }}
                                                 />
                                             </div>
                                         </div>
@@ -1313,26 +1321,18 @@ const Home = () =>
                                                 <label>
                                                     تاریخ رفت
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='off'
-                                                    spellCheck='false'
-                                                    onChange={(event: any) => { setDepartureDate(event.target.value); }}
-                                                    defaultValue={ departureDate || '' }
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
                                                 />
                                             </div>
                                             <div data-type='date'>
                                                 <label>
                                                     تاریخ برگشت
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='off'
-                                                    spellCheck='false'
-                                                    onChange={(event: any) => { setReturnDate(event.target.value); }}
-                                                    defaultValue={ returnDate || '' }
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setReturnDate(value); }}
                                                 />
                                             </div>
                                         </div>
@@ -1478,26 +1478,18 @@ const Home = () =>
                                                 <label>
                                                     تاریخ رفت
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='off'
-                                                    spellCheck='false'
-                                                    onChange={(event: any) => { setDepartureDate(event.target.value); }}
-                                                    defaultValue={ departureDate || '' }
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
                                                 />
                                             </div>
                                             <div data-type='date'>
                                                 <label>
                                                     تاریخ برگشت
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='off'
-                                                    spellCheck='false'
-                                                    onChange={(event: any) => { setReturnDate(event.target.value); }}
-                                                    defaultValue={ returnDate || '' }
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setReturnDate(value); }}
                                                 />
                                             </div>
                                         </div>
@@ -1553,7 +1545,7 @@ const Home = () =>
                 </div>
             </section>
 
-            <section className={styles.homeFastSearch}>
+            <section className={styles.homeFastSearch} id='fastSearch'>
                 <div className="container">
                     <div className={styles.homeFastSearchTopBar}>
                         <div className={styles.homeFastSearchRightHeading}>
