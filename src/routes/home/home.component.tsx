@@ -353,9 +353,9 @@ const Home = () =>
                                     null
                             }
                             <div>
-                                <Link to='#fastSearch'>
+                                <a href='#fastSearch'>
                                     جستجوی سریع
-                                </Link>
+                                </a>
                                 <Link to='/'>
                                     <Reserve />
                                     پیگیری رزرو

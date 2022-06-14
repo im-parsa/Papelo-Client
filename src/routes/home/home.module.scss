@@ -449,6 +449,14 @@
                     margin-top: 2rem;
                     font-size: 2rem;
                 }
+
+                & > div
+                {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    gap: 1rem;
+                }
             }
 
             @media only screen and (max-width: 1110px)
