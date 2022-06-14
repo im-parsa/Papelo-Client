@@ -1,0 +1,100 @@
+.nav
+{
+    display: none;
+
+    position: absolute;
+    top: 0;
+    z-index: 109;
+
+    width: 100%;
+    height: 7rem;
+
+    @media only screen and (max-width: 1110px)
+    {
+        display: block;
+    }
+
+    & svg
+    {
+        height: 3.5rem;
+        width: auto;
+
+        &:nth-child(2)
+        {
+            width: 3.5rem;
+        }
+    }
+
+    & > div:first-child
+    {
+        display: flex;
+        justify-content: space-between;
+
+        position: relative;
+
+        padding: 1.5rem 3rem;
+        height: 100%;
+        width: 100%;
+    }
+
+    &Popup
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        position: absolute;
+        top: 8rem;
+        left: 50%;
+        transform: translate(-50%, 0);
+        z-index: 110;
+
+        border-radius: 2rem;
+        height: 0;
+        width: 94%;
+        background: #FFFFFF;
+        transition: all .2s;
+        padding: 2rem 3rem;
+        box-shadow: 0 30px 70px #48609233;
+
+        &[data-open='true']
+        {
+            height: auto;
+        }
+
+        & li
+        {
+            width: 100%;
+
+            &:after
+            {
+                content: '';
+                display: inline-block;
+                width: .75rem;
+                height: .75rem;
+                border-bottom: .15rem solid #838da1;
+                border-left: .15rem solid #838da1;
+                border-bottom-left-radius: 2px;
+                transform: rotate(45deg) translate(50%, 0%);
+                transform-origin: center center;
+                transition: transform ease-in-out 100ms;
+                margin: 0;
+            }
+
+            & a
+            {
+                color: #838da1;
+                font-size: 1.5rem;
+                margin-left: 1rem;
+            }
+
+            &[data-activate='true'] a,
+            &[data-activate='true']:after
+            {
+                color: #364a76;
+                border-left-color: #364a76;
+                border-bottom-color: #364a76;
+            }
+        }
+    }
+}

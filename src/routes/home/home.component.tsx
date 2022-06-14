@@ -35,7 +35,6 @@ import Header2 from '../../assets/images/header-2.svg';
 import Header3 from '../../assets/images/header-3.svg';
 import Header4 from '../../assets/images/header-4.svg';
 import Header5 from '../../assets/images/header-5.svg';
-import AppBackground from '../../assets/images/app-bg.svg';
 
 import styles from './home.module.scss';
 import Footer from '../../components/layouts/footer/footer.component';

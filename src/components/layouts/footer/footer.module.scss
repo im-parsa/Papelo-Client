@@ -115,6 +115,11 @@
                         font-size: 1.5rem;
                         border-radius: 17px 17px 4px 17px;
                     }
+
+                    @media only screen and (max-width: 600px)
+                    {
+                        display: none;
+                    }
                 }
             }
 
@@ -246,6 +251,12 @@
 
             display: flex;
             justify-content: space-between;
+
+            @media only screen and (max-width: 1110px)
+            {
+                flex: auto;
+                flex-wrap: wrap;
+            }
 
             &Box
             {

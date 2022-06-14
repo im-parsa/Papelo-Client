@@ -1054,7 +1054,8 @@
     width: 100%;
     height: 100%;
 
-    & > button    {
+    & > button
+    {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1069,7 +1070,8 @@
         background: #4A6193;
         transition: all .2s;
 
-        &:hover        {
+        &:hover
+        {
             cursor: pointer;
             background: #394f80;
         }
@@ -1103,6 +1105,11 @@
         &:first-child
         {
             margin-left: 1.5rem;
+
+            @media only screen and (max-width: 1110px)
+            {
+                margin-left: 0;
+            }
         }
 
         & input
@@ -1222,10 +1229,21 @@
         flex-direction: column;
     }
 
-
     @media only screen and (max-width: 1110px)
     {
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 1rem;
+
+        &:first-child
+        {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        & [data-type='date']
+        {
+            width: 100%;
+        }
     }
 }
 
@@ -1508,7 +1526,7 @@
     width: 100%;
     height: 10rem;
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-width: 600px)
     {
         flex-wrap: wrap;
     }
@@ -1531,6 +1549,11 @@
     {
         padding: 0 1rem 2rem 1rem;
         font-size: 1.5rem;
+        width: 100%;
+    }
+
+    @media only screen and (max-width: 600px)
+    {
         width: auto;
     }
 
