@@ -89,7 +89,7 @@
         &Boxes
         {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
             gap: 2rem;
 
             padding-top: 3rem;
@@ -456,6 +456,7 @@
     &Magazine
     {
         padding: 10rem 1.5rem;
+        background: transparent linear-gradient(180deg, #FAFBFD 0%, #F5F6FA 100%) 0 0 no-repeat padding-box;
 
         &Top
         {
@@ -643,6 +644,294 @@
                 {
                     grid-row: 4 / 5;
                 }
+            }
+        }
+    }
+
+    &Application
+    {
+        padding: 15rem 1.5rem;
+
+        &Box
+        {
+            position: relative;
+
+            width: 100%;
+            min-height: 40rem;
+            background: #496193 0 0 no-repeat padding-box;
+            border-radius: 30px;
+
+            & > svg
+            {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
+                height: 46rem;
+
+                @media only screen and (max-width: 1300px)
+                {
+                    height: 30rem;
+                    left: -10rem;
+                }
+
+                @media only screen and (max-width: 1110px)
+                {
+                    display: none;
+                }
+            }
+
+            & > div
+            {
+                display: flex;
+                flex-direction: column;
+
+                position: relative;
+                right: 0;
+
+                padding: 8rem 12rem;
+                max-width: 50%;
+                height: 100%;
+
+                & *
+                {
+                    color: #FFFFFF;
+                }
+
+                & h2
+                {
+                    font-size: 3.5rem;
+                }
+
+                & a
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+
+                    background: #09BAB5 0% 0% no-repeat padding-box;
+                    transition: all .2s;
+                    padding: 2rem 3.5rem;
+                    border-radius: 10rem;
+                    font-size: 2rem;
+                    width: fit-content;
+
+                    &:hover
+                    {
+                        background: #15a09c 0% 0% no-repeat padding-box;
+                    }
+
+                    & svg *
+                    {
+                        fill: #FFFFFF;
+                    }
+                }
+
+                & > h2 > span
+                {
+                    position: relative;
+
+                    &:before
+                    {
+                        content: 'مطمئن‌تر به سفر بروید';
+                        position: absolute;
+                        padding: .15rem 1rem;
+                        top: -1.75rem;
+                        left: -8rem;
+                        font-size: 1.5rem;
+                        letter-spacing: -0.27px;
+                        color: #ffffff;
+                        background: #09BAB5;
+                        border-radius: 21px 21px 5px 21px;
+
+                        @media only screen and (max-width: 1200px)
+                        {
+                            font-size: 1.5rem;
+                            border-radius: 17px 17px 4px 17px;
+                        }
+                    }
+                }
+
+                & ul
+                {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    gap: 2rem;
+
+                    margin: 3rem 0;
+
+                    & li
+                    {
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+
+                        font-family: 'YekanBakhRegular', sans-serif;
+                        font-weight: 600;
+                        font-size: 1.5rem;
+                    }
+                }
+
+                @media only screen and (max-width: 1110px)
+                {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+
+    &Reserve
+    {
+        padding-bottom: 10rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+
+        &Side
+        {
+            display: flex;
+
+            @media only screen and (max-width: 1110px)
+            {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            &Right
+            {
+                flex: 0 0 50%;
+
+                h3
+                {
+                    letter-spacing: -0.36px;
+                    font-size: 1.8rem;
+                    margin: 2rem 0;
+                }
+
+                p
+                {
+                    letter-spacing: -0.36px;
+                    color: #96A5C6;
+                    font-size: 1.8rem;
+                    width: 95%;
+
+                    &:not(:last-child)
+                    {
+                        margin-bottom: 2rem;
+                    }
+                }
+            }
+
+            &Left
+            {
+                flex: 0 0 50%;
+
+                ul
+                {
+                    li
+                    {
+                        cursor: pointer;
+                        background: #EDEFF6 0 0 no-repeat padding-box;
+                        padding: 1.75rem 2.75rem;
+                        border-radius: 1.5rem;
+                        height: 6.5rem;
+                        overflow: hidden;
+                        transition: all .2s;
+
+                        position: relative;
+
+                        &[data-activate='true']
+                        {
+                            height: auto;
+
+                            & svg:nth-child(1)
+                            {
+                                display: none;
+                            }
+                        }
+
+                        &[data-activate='false']
+                        {
+                            & svg:nth-child(2)
+                            {
+                                display: none;
+                            }
+                        }
+
+                        &:not(:last-child)
+                        {
+                            margin-bottom: 1rem;
+                        }
+
+                        div
+                        {
+                            display: flex;
+                            align-items: center;
+
+                            height: 3rem;
+
+                            span
+                            {
+                                letter-spacing: -0.36px;
+                                color: #496193;
+                                font-family: 'YekanBakhMedium', sans-serif;
+                                font-size: 2rem;
+                                margin-right: 1.5rem;
+                            }
+                        }
+
+                        p
+                        {
+                            padding: 2.2rem;
+                            letter-spacing: -0.3px;
+                            color: #96A5C6;
+                            text-align: right;
+                            font-size: 1.5rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        &More
+        {
+            padding-top: 10rem;
+
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+            gap: 2rem;
+
+            &Box
+            {
+                display: flex;
+                flex-direction: column;
+
+                h5
+                {
+                    letter-spacing: -0.36px;
+                    font-size: 1.7rem;
+                    margin-bottom: 1rem;
+                }
+
+                span
+                {
+                    letter-spacing: -0.3px;
+                    color: #96A5C6;
+                    font-size: 1.4rem;
+                    margin-bottom: 0.2rem;
+                }
+            }
+
+            &Link
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-top: 2rem;
+                letter-spacing: -0.3px;
+                color: #496093;
+                font-size: 1.5rem;
             }
         }
     }

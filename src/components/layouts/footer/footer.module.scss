@@ -1,0 +1,208 @@
+.footer
+{
+    background: #FAFBFD 0 0 no-repeat padding-box;
+    padding-top: 5rem;
+    padding-bottom: 10rem;
+
+    &Divider
+    {
+        border-bottom: 3px solid #F5F6FA;
+        margin: 5rem 0 8rem 0;
+    }
+
+    &Boxes
+    {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+        gap: 2rem;
+
+        padding: 0 1.5rem;
+
+        &Box
+        {
+            display: flex;
+
+            &Icon
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                position: relative;
+
+                border: 3px solid #EDEFF6;
+                border-radius: 15px;
+                width: 6.5rem;
+                height: 6.5rem;
+
+                &:before
+                {
+                    content: '';
+                    position: absolute;
+                    border-radius: 5rem;
+                    width: 2.25rem;
+                    height: 2.25rem;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-10%, -25%);
+                    background: #FFCE3A;
+                }
+
+                & svg
+                {
+                    position: relative;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    margin: auto;
+                    width: 2.25rem;
+                }
+            }
+
+            &Content
+            {
+                margin-right: 2rem;
+
+                h4
+                {
+                    font-size: 1.6rem;
+                }
+
+                p
+                {
+                    letter-spacing: -0.3px;
+                    color: #96A5C6;
+                    font-size: 1.4rem;
+                    margin-top: 0.5rem;
+                }
+            }
+        }
+    }
+
+    &App
+    {
+        display: flex;
+        align-items: center;
+
+        &Content
+        {
+            flex: 0 0 60%;
+
+            & > h2 > span
+            {
+                position: relative;
+
+                &:before
+                {
+                    content: 'مطمئن‌تر به سفر بروید';
+                    position: absolute;
+                    padding: .15rem 1rem;
+                    top: -1.75rem;
+                    left: -8rem;
+                    font-size: 1.5rem;
+                    letter-spacing: -0.27px;
+                    color: #ffffff;
+                    background: #09BAB5;
+                    border-radius: 21px 21px 5px 21px;
+
+                    @media only screen and (max-width: 1200px)
+                    {
+                        top: -1rem;
+                        left: -1.5rem;
+                        font-size: 1.5rem;
+                        border-radius: 17px 17px 4px 17px;
+                    }
+                }
+            }
+
+            p
+            {
+                display: flex;
+                align-items: center;
+
+                margin-top: 1rem;
+
+                & > span:nth-child(1)
+                {
+                    letter-spacing: -0.36px;
+                    color: #496193;
+                    font-size: 1.8rem;
+                }
+
+                & > a
+                {
+                    display: flex;
+                    align-items: center;
+
+                    letter-spacing: -0.36px;
+                    color: #96A5C6;
+                    font-size: 1.6rem;
+                    margin-right: 5rem;
+                    transition: all .2s;
+
+                    &:hover
+                    {
+                        color: #7484a7;
+                    }
+
+                    & svg
+                    {
+                        display: flex;
+                        align-items: center;
+
+                        margin-right: 1rem;
+                        width: 1.75rem;
+                    }
+                }
+            }
+        }
+
+        &Download
+        {
+            flex: 0 0 40%;
+
+            &Boxes
+            {
+                display: flex;
+                align-items: center;
+
+                &Box
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    border: 3px solid #EDEFF6;
+                    border-radius: 20px;
+                    padding: 1.6rem 3rem;
+                    margin-right: 2rem;
+
+                    transition: all .2s;
+
+                    &:hover
+                    {
+                        cursor: pointer;
+                        background: #FFFFFF;
+                        border-color: transparent;
+                        box-shadow: 0 30px 70px #48609233;
+                    }
+
+                    & svg
+                    {
+                        position: relative;
+                        fill: #4A6192;
+                        height: 3rem;
+                    }
+
+                    span
+                    {
+                        font-size: 1.6rem;
+                        margin-right: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}

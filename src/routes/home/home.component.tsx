@@ -6,6 +6,7 @@ import { ReactComponent as Box4 } from '../../assets/icons/box-4.svg';
 import { ReactComponent as Blogs } from '../../assets/icons/blogs.svg';
 import { ReactComponent as News } from '../../assets/images/latest-news.svg';
 import { ReactComponent as Bell } from '../../assets/icons/bell.svg';
+import { ReactComponent as Check } from '../../assets/icons/check.svg';
 import { ReactComponent as Plane } from '../../assets/icons/plane.svg';
 import { ReactComponent as Hotel } from '../../assets/icons/hotel.svg';
 import { ReactComponent as Tour } from '../../assets/icons/tour.svg';
@@ -25,6 +26,8 @@ import { ReactComponent as Reserve } from '../../assets/icons/reserve.svg';
 import { ReactComponent as Box1 } from '../../assets/icons/box-1.svg';
 import { ReactComponent as Box2 } from '../../assets/icons/box-2.svg';
 import { ReactComponent as Box3 } from '../../assets/icons/box-3.svg';
+import { ReactComponent as AppPhone } from '../../assets/images/app-phone.svg';
+import { ReactComponent as Download } from '../../assets/icons/download-2.svg';
 import Texture from '../../assets/images/texture.svg';
 import Image3 from '../../assets/images/image-3.svg';
 import Header1 from '../../assets/images/header-1.svg';
@@ -32,14 +35,17 @@ import Header2 from '../../assets/images/header-2.svg';
 import Header3 from '../../assets/images/header-3.svg';
 import Header4 from '../../assets/images/header-4.svg';
 import Header5 from '../../assets/images/header-5.svg';
+import AppBackground from '../../assets/images/app-bg.svg';
 
 import styles from './home.module.scss';
+import Footer from '../../components/layouts/footer/footer.component';
 
 const Home = () =>
 {
     const [page, setPage] = useState('plane');
     const [passengers, setPassengers] = useState(false);
     const [international, setInternational] = useState(false);
+    const [faq, setFaq] = useState(0);
     const [adultCount, setAdultCount] = useState(0);
     const [childCount, setChildCount] = useState(0);
     const [babyCount, setBabyCount] = useState(0);
@@ -2053,6 +2059,171 @@ const Home = () =>
                     </div>
                 </div>
             </section>
+
+            <section className={styles.homeApplication}>
+                <div className="container">
+                    <div className={styles.homeApplicationBox}>
+                        <AppPhone />
+                        <div>
+                            <h2 className='headingPrimary'>دریافت<span> اپلیکیشن مِستربلیط </span></h2>
+                            <ul>
+                                <li>
+                                    <Check />
+                                    تقویم ارزان‌ترین بلیط
+                                </li>
+                                <li>
+                                    <Check />
+                                    مسیرهای جایگزین
+                                </li>
+                                <li>
+                                    <Check />
+                                    ارزیابی قیمت
+                                </li>
+                                <li>
+                                    <Check />
+                                    مشاهده صورت‌حساب قبل از پرداخت
+                                </li>
+                            </ul>
+                            <Link to='/'>
+                                <Download />
+                                راهنمای دانلود
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className={styles.homeReserve}>
+                <div className="container">
+                    <div className={styles.homeReserveSide}>
+                        <div className={styles.homeReserveSideRight}>
+                            <h2 className='headingPrimary'>رزرو<span>بلیط هواپیما</span></h2>
+                            <h3>خرید بلیط هواپیما برای تمام مقاصد داخلی و خارجی</h3>
+                            <p>علی‌بابا بزرگترین و معتبرترین سایت خرید اینترنتی بلیط هواپیما ، قطار و اتوبوس در کشور است که از سال ۱۳۹۳ کار خود را شروع کرده و در این مدت توانسته رضایت درصد قابل توجهی ز کاربران را به دست بیاورد. در ابتدا، فروش بلیط پرواز داخلی در دستور کار علی‌بابا قرار داشت اما به مرور امکان خرید سایر محصولات گردشگری نیز به علی‌بابا اضافه شد</p>
+                            <p>علی‌بابا بزرگترین و معتبرترین سایت خرید اینترنتی بلیط هواپیما ، قطار و اتوبوس در کشور است که از سال ۱۳۹۳ کار خود را شروع کرده و در این مدت توانسته رضایت درصد قابل توجهی ز کاربران را به دست بیاورد. در ابتدا، فروش بلیط پرواز داخلی در دستور کار علی‌بابا قرار داشت اما به مرور امکان خرید سایر محصولات گردشگری نیز به علی‌بابا اضافه شد</p>
+                        </div>
+                        <div className={styles.homeReserveSideLeft}>
+                            <ul>
+                                <li data-activate={faq === 0 ? 'true' : 'false'}>
+                                    <div>
+                                        <Plus onClick={() => setFaq(0)} />
+                                        <Minus onClick={() => setFaq(-1)} />
+                                        <span>چند روز قبل از پرواز، بلیط هواپیما را بخریم؟</span>
+                                    </div>
+                                    <p>
+                                        خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
+                                    </p>
+                                </li>
+                                <li data-activate={faq === 1 ? 'true' : 'false'}>
+                                    <div>
+                                        <Plus onClick={() => setFaq(1)} />
+                                        <Minus onClick={() => setFaq(-1)} />
+                                        <span>در هر پرواز، میزان بار مجاز چقدر است؟</span>
+                                    </div>
+                                    <p>
+                                        خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
+                                    </p>
+                                </li>
+                                <li data-activate={faq === 2 ? 'true' : 'false'}>
+                                    <div>
+                                        <Plus onClick={() => setFaq(2)} />
+                                        <Minus onClick={() => setFaq(-1)} />
+                                        <span>نرخ بلیط هواپیما برای نوزادان و کودکان زیر ۱۲ سال چگونه است؟</span>
+                                    </div>
+                                    <p>
+                                        خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
+                                    </p>
+                                </li>
+                                <li data-activate={faq === 3 ? 'true' : 'false'}>
+                                    <div>
+                                        <Plus onClick={() => setFaq(3)} />
+                                        <Minus onClick={() => setFaq(-1)} />
+                                        <span>رزرو آنلاین بلیط هواپیما هزینه بیشتری از خرید حضوری دارد؟</span>
+                                    </div>
+                                    <p>
+                                        خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
+                                    </p>
+                                </li>
+                                <li data-activate={faq === 4 ? 'true' : 'false'}>
+                                    <div>
+                                        <Plus onClick={() => setFaq(4)} />
+                                        <Minus onClick={() => setFaq(-1)} />
+                                        <span>آیا پس از خرید اینترنتی بلیط هواپیما امکان استرداد آن وجود دارد؟</span>
+                                    </div>
+                                    <p>
+                                        خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
+                                    </p>
+                                </li>
+                                <li data-activate={faq === 5 ? 'true' : 'false'}>
+                                    <div>
+                                        <Plus onClick={() => setFaq(5)} />
+                                        <Minus onClick={() => setFaq(-1)} />
+                                        <span>آیا پس از خرید بلیط هواپیما، امکان تغییر نام یا نام خانوادگی وجود دارد؟</span>
+                                    </div>
+                                    <p>
+                                        خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className={styles.homeReserveMore}>
+                        <div className={styles.homeReserveMoreBox}>
+                            <h5>بلیط هواپیما</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                        </div>
+                        <div className={styles.homeReserveMoreBox}>
+                            <h5>بلیط هواپیما</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                        </div>
+                        <div className={styles.homeReserveMoreBox}>
+                            <h5>بلیط هواپیما</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                        </div>
+                        <div className={styles.homeReserveMoreBox}>
+                            <h5>بلیط هواپیما</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                        </div>
+                        <div className={styles.homeReserveMoreBox}>
+                            <h5>بلیط هواپیما</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                        </div>
+                        <div className={styles.homeReserveMoreBox}>
+                            <h5>بلیط هواپیما</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                        </div>
+                        <div className={styles.homeReserveMoreBox}>
+                            <h5>بلیط هواپیما</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                        </div>
+                    </div>
+                    <Link to='#' className={styles.homeReserveMoreLink}>نمایش بیشتر</Link>
+                </div>
+            </section>
+
+            <Footer />
         </main>
     );
 };
