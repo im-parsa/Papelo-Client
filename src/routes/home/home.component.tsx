@@ -1513,38 +1513,42 @@ const Home = () =>
                 </div>
             </header>
 
-            <section className={styles.homeHeaderBoxList}>
-                <div className={styles.homeHeaderBoxItem}>
-                    <Box1 />
-                    <div>
-                        <h4>
-                            ارسال اطلاعات بلیط خریداری شده
-                        </h4>
-                        <p>
-                            به تلفن همراه، ایمیل یا فاکس
-                        </p>
-                    </div>
-                </div>
-                <div className={styles.homeHeaderBoxItem}>
-                    <Box2 />
-                    <div>
-                        <h4>
-                            به سادگی برنامه سفر بچینید
-                        </h4>
-                        <p>
-                            با راهکارهای مختلف رزرو انجام دهید
-                        </p>
-                    </div>
-                </div>
-                <div className={styles.homeHeaderBoxItem}>
-                    <Box3 />
-                    <div>
-                        <h4>
-                            تجربه دلنشین با پشتیبانی 24/7
-                        </h4>
-                        <p>
-                            در تمام ساعات پاسخ گوی شماییم
-                        </p>
+            <section className={styles.homeHeaderBox}>
+                <div className="container">
+                    <div className={styles.homeHeaderBoxList}>
+                        <div className={styles.homeHeaderBoxItem}>
+                            <Box1 />
+                            <div>
+                                <h4>
+                                    ارسال اطلاعات بلیط خریداری شده
+                                </h4>
+                                <p>
+                                    به تلفن همراه، ایمیل یا فاکس
+                                </p>
+                            </div>
+                        </div>
+                        <div className={styles.homeHeaderBoxItem}>
+                            <Box2 />
+                            <div>
+                                <h4>
+                                    به سادگی برنامه سفر بچینید
+                                </h4>
+                                <p>
+                                    با راهکارهای مختلف رزرو انجام دهید
+                                </p>
+                            </div>
+                        </div>
+                        <div className={styles.homeHeaderBoxItem}>
+                            <Box3 />
+                            <div>
+                                <h4>
+                                    تجربه دلنشین با پشتیبانی 24/7
+                                </h4>
+                                <p>
+                                    در تمام ساعات پاسخ گوی شماییم
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
