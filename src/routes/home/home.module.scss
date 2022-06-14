@@ -450,6 +450,11 @@
                     font-size: 2rem;
                 }
             }
+
+            @media only screen and (max-width: 1110px)
+            {
+                flex-direction: column;
+            }
         }
     }
 
@@ -750,6 +755,11 @@
                             font-size: 1.5rem;
                             border-radius: 17px 17px 4px 17px;
                         }
+
+                        @media only screen and (max-width: 900px)
+                        {
+                            display: none;
+                        }
                     }
                 }
 
@@ -777,6 +787,7 @@
                 @media only screen and (max-width: 1110px)
                 {
                     max-width: 100%;
+                    padding: 2.5rem 4rem;
                 }
             }
         }

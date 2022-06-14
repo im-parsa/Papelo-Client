@@ -9,6 +9,16 @@ import { ReactComponent as Bazaar } from '../../../assets/icons/bazaar.svg';
 import { ReactComponent as Myket } from '../../../assets/icons/myket.svg';
 import { ReactComponent as Download } from '../../../assets/icons/download-2.svg';
 import { ReactComponent as Arrow } from '../../../assets/icons/arrow.svg';
+import { ReactComponent as Logo } from '../../../assets/icons/logo.svg';
+import { ReactComponent as Telegram } from '../../../assets/icons/telegram.svg';
+import { ReactComponent as Instagram } from '../../../assets/icons/instagram.svg';
+import { ReactComponent as Whatsapp } from '../../../assets/icons/whatsapp.svg';
+import { ReactComponent as Footer1 } from '../../../assets/images/footer-1.svg';
+import { ReactComponent as Footer2 } from '../../../assets/images/footer-2.svg';
+import { ReactComponent as Footer3 } from '../../../assets/images/footer-3.svg';
+import { ReactComponent as Footer4 } from '../../../assets/images/footer-4.svg';
+import { ReactComponent as Footer5 } from '../../../assets/images/footer-5.svg';
+import { ReactComponent as Footer6 } from '../../../assets/images/footer-6.svg';
 
 import styles from './footer.module.scss';
 
@@ -89,6 +99,69 @@ const Footer = () =>
                 </div>
 
                 <div className={styles.footerDivider} />
+
+                <div className={styles.footerAchievement}>
+                    <div className={styles.footerAchievementRight}>
+                        <div className={styles.footerAchievementRightBox}>
+                            <h5>راهنمایی و پشتیبان</h5>
+                            <span>پیگیری و کنسلی</span>
+                            <span>پرسش های متداول</span>
+                            <span>راهنمای خرید اینترنتی</span>
+                            <span>پیشنهادها و شکایات</span>
+                            <span>شرایط و مقررات</span>
+                            <span>درباره مِستربلیط</span>
+                            <span>شرایط و مقررات</span>
+                        </div>
+                        <div className={styles.footerAchievementRightBox}>
+                            <h5>پاپلو</h5>
+                            <span>صفحه اصلی</span>
+                            <span>مجله خبری</span>
+                            <span>درباره ما</span>
+                            <span>تماس با ما</span>
+                            <span>صفحه اصلی</span>
+                            <span>مجله خبری</span>
+                        </div>
+                        <div className={styles.footerAchievementRightBox}>
+                            <h5>&nbsp;</h5>
+                            <span>بلیط چارتر</span>
+                            <span>تور کیش</span>
+                            <span>تور استانبول</span>
+                            <span>بلیط هواپیمای خارجی</span>
+                        </div>
+                    </div>
+                    <div className={styles.footerAchievementLeft}>
+                        <div className={styles.footerAchievementLeftTop}>
+                            <Logo />
+                            <Link to='#'>
+                                چرا خرید بلیط از پاپلو؟ درباره ما بیشتر بدانید
+                            </Link>
+                        </div>
+                        <div className={styles.footerAchievementLeftMiddle}>
+                            <p>تلفن پشتیبانی: 61300500800-021</p>
+                            <p>دفتر فروش: قیطریه، بلوار اندرزگو، نبش کوچه‌ی بلوچ شمالی، پلاک ۴</p>
+                        </div>
+                        <div className={styles.footerAchievementLeftBottom}>
+                            <Footer1 />
+                            <Footer2 />
+                            <Footer3 />
+                            <Footer4 />
+                            <Footer5 />
+                            <Footer6 />
+                        </div>
+                    </div>
+                </div>
+
+                <div className={styles.footerDivider} />
+
+                <div className={styles.footerCopyright}>
+                    <p>کلیه حقوق این سرویس (وب‌سایت و اپلیکیشن‌های موبایل) محفوظ می‌باشد</p>
+
+                    <div className={styles.footerCopyrightIcons}>
+                        <div className={styles.footerCopyrightIconsBG}><Telegram /></div>
+                        <div className={styles.footerCopyrightIconsBG}><Instagram /></div>
+                        <div className={styles.footerCopyrightIconsBG}><Whatsapp /></div>
+                    </div>
+                </div>
             </div>
         </footer>
     );
