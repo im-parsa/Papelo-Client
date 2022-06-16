@@ -455,7 +455,53 @@
                     display: flex;
                     flex-wrap: wrap;
                     align-items: center;
-                    gap: 1rem;
+                    gap: 2rem;
+
+                    margin-top: 2rem;
+
+                    & input
+                    {
+                        padding: 1.5rem;
+                        border-radius: 1rem;
+                        outline: none;
+                        background: transparent;
+                        border: #EBEFF4 solid .3rem;
+                        font-size: 1.5rem;
+                        color: #4A6192;
+
+                        &:focus
+                        {
+                            border-color: #4A6192;
+                        }
+                    }
+
+                    & button
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 1rem;
+
+                        cursor: pointer;
+                        width: fit-content;
+                        border: none;
+                        outline: none;
+                        background: transparent;
+                        font-size: 1.5rem;
+                        color: #4A6192;
+
+                        & svg
+                        {
+                            width: 2rem;
+                        }
+
+                        &:hover,
+                        &:hover *
+                        {
+                            color: #3a5182;
+                            fill: #3a5182;
+                        }
+                    }
                 }
             }
 
@@ -1436,10 +1482,16 @@
     width: 2rem;
     height: 4rem;
     font-size: 1.5rem;
+    color: #4A6193;
 
     & svg
     {
         width: 1rem;
+    }
+
+    &:hover
+    {
+        background: #e9e9ed;
     }
 
     &[data-direction='right']
@@ -1449,6 +1501,12 @@
         border: #EDEFF6 solid .2rem;
         border-left: none;
         border-radius: 0 5rem 5rem 0;
+        cursor: pointer;
+
+        &:hover
+        {
+            background: #c3c3cc;
+        }
     }
 
     &[data-direction='left']
@@ -1458,6 +1516,27 @@
         border: #EDEFF6 solid .2rem;
         border-right: none;
         border-radius: 5rem 0 0 5rem;
+        cursor: pointer;
+
+        &:hover
+        {
+            background: #c3c3cc;
+        }
+    }
+
+    &[data-disabled='true']
+    {
+        cursor: auto;
+
+        &:hover
+        {
+            background: #e9e9ed;
+        }
+
+        & *
+        {
+            fill: #ccd0df;
+        }
     }
 
     &[data-activate='active']
@@ -1626,15 +1705,20 @@
     height: 100vh;
     padding: 20rem 0 10rem 0;
 
-    & a
+    & a,
+    & button
     {
         display: flex;
         align-items: center;
         justify-content: center;
 
+        background: transparent;
+        border: none;
+        outline: none;
         margin: 0 auto auto;
         color: #96A5C6;
         transition: all .2s;
+        cursor: pointer;
         transform: rotate(-90deg) scale(1.5);
 
         &:hover
