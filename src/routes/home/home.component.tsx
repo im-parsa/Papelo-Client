@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import React, { useCallback, useState } from 'react';
-import { DatePicker } from 'jalali-react-datepicker';
 
 import { togglePopupHiddenLogin } from '../../redux/popup/popup.actions';
 
@@ -288,6 +287,15 @@ const Home = () =>
                                             </div>
                                         </li>
                                     </ul>
+                                    <div>
+                                        <h2>
+                                            قوانین و مقررات کنسلی را بخوانید
+                                        </h2>
+                                        <Link to='/'>
+                                            ضوابط استفاده از سامانه خرید بلیط
+                                            <Arrow2 />
+                                        </Link>
+                                    </div>
                                 </div>
                             </li>
                             <li className={styles.homeHeaderMainNavItem}>
@@ -720,19 +728,13 @@ const Home = () =>
                                                 <label>
                                                     تاریخ رفت
                                                 </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                                />
+                                                <input />
                                             </div>
                                             <div data-type='date'>
                                                 <label>
                                                     تاریخ برگشت
                                                 </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setReturnDate(value); }}
-                                                />
+                                                <input />
                                             </div>
                                         </div>
                                         <button>
@@ -930,19 +932,13 @@ const Home = () =>
                                                 <label>
                                                     تاریخ رفت
                                                 </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                                />
+                                                <input />
                                             </div>
                                             <div data-type='date'>
                                                 <label>
                                                     تاریخ برگشت
                                                 </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setReturnDate(value); }}
-                                                />
+                                                <input />
                                             </div>
                                         </div>
                                         <button>
@@ -1191,19 +1187,13 @@ const Home = () =>
                                                 <label>
                                                     تاریخ رفت
                                                 </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                                />
+                                                <input />
                                             </div>
                                             <div data-type='date'>
                                                 <label>
                                                     تاریخ برگشت
                                                 </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setReturnDate(value); }}
-                                                />
+                                                <input />
                                             </div>
                                         </div>
                                         <button>
@@ -1479,19 +1469,13 @@ const Home = () =>
                                                 <label>
                                                     تاریخ رفت
                                                 </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                                />
+                                                <input />
                                             </div>
                                             <div data-type='date'>
                                                 <label>
                                                     تاریخ برگشت
                                                 </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setReturnDate(value); }}
-                                                />
+                                                <input />
                                             </div>
                                         </div>
                                         <button>
@@ -1634,19 +1618,13 @@ const Home = () =>
                                                 <label>
                                                     تاریخ رفت
                                                 </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                                />
+                                                <input />
                                             </div>
                                             <div data-type='date'>
                                                 <label>
                                                     تاریخ برگشت
                                                 </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setReturnDate(value); }}
-                                                />
+                                                <input />
                                             </div>
                                         </div>
                                         <button>
