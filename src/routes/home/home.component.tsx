@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import React, { useCallback, useState } from 'react';
 import { DatePicker } from 'jalali-react-datepicker';
+
+import { togglePopupHiddenLogin } from '../../redux/popup/popup.actions';
 
 import { ReactComponent as Box4 } from '../../assets/icons/box-4.svg';
 import { ReactComponent as Blogs } from '../../assets/icons/blogs.svg';
@@ -20,6 +23,8 @@ import { ReactComponent as Plane2 } from '../../assets/icons/plane-2.svg';
 import { ReactComponent as Plane3 } from '../../assets/icons/plane-3.svg';
 import { ReactComponent as Exchange } from '../../assets/icons/exchange.svg';
 import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
+import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
+import { ReactComponent as Arrow3 } from '../../assets/icons/arrow-3.svg';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Instagram } from '../../assets/icons/instagram.svg';
 import { ReactComponent as Reserve } from '../../assets/icons/reserve.svg';
@@ -38,12 +43,11 @@ import Header5 from '../../assets/images/header-5.svg';
 
 import styles from './home.module.scss';
 import Footer from '../../components/layouts/footer/footer.component';
-import {useDispatch} from "react-redux";
-import {togglePopupHiddenLogin} from "../../redux/popup/popup.actions";
 
 const Home = () =>
 {
     const [page, setPage] = useState('plane');
+    const [reserveMore, setReserveMore] = useState(false);
     const [passengers, setPassengers] = useState(false);
     const [international, setInternational] = useState(false);
     const [faq, setFaq] = useState(0);
@@ -113,34 +117,24 @@ const Home = () =>
     const onFocusOrigin = useCallback(
         () =>
         {
-            const destinationInputParent = document.querySelector('#destination_input_parent');
+            const inputParent = document.querySelector('#origin_input_parent');
+            const options = document.querySelector('#origin_options');
+            const exchangeIcon = document.querySelector('#exchange_icon');
 
-            if (destinationInputParent?.getAttribute('data-activate') !== 'true')
-            {
-                const inputParent = document.querySelector('#origin_input_parent');
-                const options = document.querySelector('#origin_options');
-                const exchangeIcon = document.querySelector('#exchange_icon');
-
-                inputParent?.setAttribute('data-activate', 'true');
-                options?.setAttribute('data-activate', 'true');
-                exchangeIcon?.setAttribute('data-activate', 'false');
-            }
+            inputParent?.setAttribute('data-activate', 'true');
+            options?.setAttribute('data-activate', 'true');
+            exchangeIcon?.setAttribute('data-activate', 'false');
         }, []);
     const onFocusDestination = useCallback(
         () =>
         {
-            const originInputParent = document.querySelector('#origin_input_parent');
+            const inputParent = document.querySelector('#destination_input_parent');
+            const options = document.querySelector('#destination_options');
+            const exchangeIcon = document.querySelector('#exchange_icon');
 
-            if (originInputParent?.getAttribute('data-activate') !== 'true')
-            {
-                const inputParent = document.querySelector('#destination_input_parent');
-                const options = document.querySelector('#destination_options');
-                const exchangeIcon = document.querySelector('#exchange_icon');
-
-                inputParent?.setAttribute('data-activate', 'true');
-                options?.setAttribute('data-activate', 'true');
-                exchangeIcon?.setAttribute('data-activate', 'false');
-            }
+            inputParent?.setAttribute('data-activate', 'true');
+            options?.setAttribute('data-activate', 'true');
+            exchangeIcon?.setAttribute('data-activate', 'false');
         }, []);
     const handleDetail = useCallback(
         (listener?: boolean) =>
@@ -150,15 +144,15 @@ const Home = () =>
 
             if (listener)
             {
-                document.addEventListener('click', function(e: any)
+                document.addEventListener('click', (event: any) =>
                 {
-                    if (!details.some(f => f.contains(e?.target)))
+                    if (!details.some((element) => element.contains(event?.target)))
                     {
                         for (let detail of details)
                         {
                             if (!detail?.classList?.contains('passengers'))
                             {
-                                detail.removeAttribute('open')
+                                detail.removeAttribute('open');
                             }
                         }
                     }
@@ -173,7 +167,42 @@ const Home = () =>
     React.useEffect(() =>
     {
         handleDetail(true);
-    }, [handleDetail]);
+
+        const passengersParent = document.querySelector('#passengers_parent');
+        const originInputParent = document.querySelector('#origin_input_parent');
+        const destinationInputParent = document.querySelector('#destination_input_parent');
+
+        document.addEventListener('click', (event: any) =>
+        {
+            if (!originInputParent?.contains(event?.target))
+            {
+                const inputParent = document.querySelector('#origin_input_parent');
+                const options = document.querySelector('#origin_options');
+                const exchangeIcon = document.querySelector('#exchange_icon');
+
+                inputParent?.setAttribute('data-activate', 'false');
+                options?.setAttribute('data-activate', 'false');
+                exchangeIcon?.setAttribute('data-activate', 'true');
+            }
+            if (!destinationInputParent?.contains(event?.target))
+            {
+                const inputParent = document.querySelector('#destination_input_parent');
+                const options = document.querySelector('#destination_options');
+                const exchangeIcon = document.querySelector('#exchange_icon');
+
+                inputParent?.setAttribute('data-activate', 'false');
+                options?.setAttribute('data-activate', 'false');
+                exchangeIcon?.setAttribute('data-activate', 'true');
+            }
+            if (!passengersParent?.contains(event?.target))
+            {
+                const passengersDetails = document.querySelector('.passengers');
+
+                setPassengers(false);
+                passengersDetails?.removeAttribute('open');
+            }
+        })
+    }, [handleDetail, setPassengers]);
 
     return (
         <main className={styles.home}>
@@ -467,7 +496,7 @@ const Home = () =>
                                                     </ul>
                                                 </details>
                                             </div>
-                                            <div>
+                                            <div id='passengers_parent'>
                                                 <div className='custom-select-menu' onClick={() => setPassengers(!passengers)}>
                                                     <details className='custom-select passengers'>
                                                         <summary className='radios'>
@@ -582,7 +611,7 @@ const Home = () =>
                                             </div>
                                         </div>
                                         <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                            <span className='active' id='exchange_icon'>
+                                            <span id='exchange_icon' data-activate="true">
                                                 <Exchange />
                                             </span>
                                             <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
@@ -597,13 +626,12 @@ const Home = () =>
                                                         spellCheck='false'
                                                         name='origin'
                                                         onFocus={ onFocusOrigin }
-                                                        // onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
                                                         onChange={ onChangeOrigin }
                                                         defaultValue={ origin || '' }
                                                     />
                                                 </div>
                                                 <Plane2 />
-                                                <div data-options='origin_options' id='origin_options' onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <div data-options='origin_options' id='origin_options'>
                                                     <ul>
                                                         <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
                                                             <Plane />
@@ -648,7 +676,6 @@ const Home = () =>
                                                         spellCheck='false'
                                                         name='destination'
                                                         onFocus={ onFocusDestination }
-                                                        // onBlur={() => { const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
                                                         onChange={ onChangeDestination }
                                                         defaultValue={ destination || '' }
                                                     />
@@ -732,8 +759,8 @@ const Home = () =>
                                                     خارجی
                                                 </label>
                                             </p>
-                                            <div>
-                                                <div className='custom-select-menu' onClick={() => setPassengers(!passengers)}>
+                                            <div onClick={() => setPassengers(!passengers)}>
+                                                <div className='custom-select-menu'>
                                                     <details className='custom-select passengers'>
                                                         <summary className='radios'>
                                                             اطلاعات
@@ -859,13 +886,12 @@ const Home = () =>
                                                         spellCheck='false'
                                                         name='origin'
                                                         onFocus={ onFocusOrigin }
-                                                        // onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
                                                         onChange={ onChangeOrigin }
                                                         defaultValue={ origin || '' }
                                                     />
                                                 </div>
                                                 <Plane2 />
-                                                <div data-options='origin_options' id='origin_options' onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <div data-options='origin_options' id='origin_options'>
                                                     <ul>
                                                         <li data-name='شیراز - Shiraz' data-activate={origin === 'شیراز - Shiraz' ? 'active' : ''} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
                                                             <Plane />
@@ -1070,13 +1096,12 @@ const Home = () =>
                                                         spellCheck='false'
                                                         name='origin'
                                                         onFocus={ onFocusOrigin }
-                                                        // onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
                                                         onChange={ onChangeOrigin }
                                                         defaultValue={ origin || '' }
                                                     />
                                                 </div>
                                                 <Plane2 />
-                                                <div data-options='origin_options' id='origin_options' onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <div data-options='origin_options' id='origin_options'>
                                                     <ul>
                                                         <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
                                                             <Plane />
@@ -1360,13 +1385,12 @@ const Home = () =>
                                                         spellCheck='false'
                                                         name='origin'
                                                         onFocus={ onFocusOrigin }
-                                                        // onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
                                                         onChange={ onChangeOrigin }
                                                         defaultValue={ origin || '' }
                                                     />
                                                 </div>
                                                 <Plane2 />
-                                                <div data-options='origin_options' id='origin_options' onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <div data-options='origin_options' id='origin_options'>
                                                     <ul>
                                                         <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
                                                             <Plane />
@@ -1411,7 +1435,6 @@ const Home = () =>
                                                         spellCheck='false'
                                                         name='destination'
                                                         onFocus={ onFocusDestination }
-                                                        // onBlur={() => { const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
                                                         onChange={ onChangeDestination }
                                                         defaultValue={ destination || '' }
                                                     />
@@ -1517,13 +1540,12 @@ const Home = () =>
                                                         spellCheck='false'
                                                         name='origin'
                                                         onFocus={ onFocusOrigin }
-                                                        // onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
                                                         onChange={ onChangeOrigin }
                                                         defaultValue={ origin || '' }
                                                     />
                                                 </div>
                                                 <Plane2 />
-                                                <div data-options='origin_options' id='origin_options' onBlur={() => { const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <div data-options='origin_options' id='origin_options'>
                                                     <ul>
                                                         <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
                                                             <Plane />
@@ -1568,7 +1590,6 @@ const Home = () =>
                                                         spellCheck='false'
                                                         name='destination'
                                                         onFocus={ onFocusDestination }
-                                                        // onBlur={() => { const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.classList.add('active') }}
                                                         onChange={ onChangeDestination }
                                                         defaultValue={ destination || '' }
                                                     />
@@ -1714,7 +1735,10 @@ const Home = () =>
                                     <button>اهواز</button>
                                 </li>
                                 <li>
-                                    <Link to='/more'>بیشتر</Link>
+                                    <Link to='/more'>
+                                        بیشتر
+                                        <Arrow2 />
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
@@ -1995,9 +2019,9 @@ const Home = () =>
                         <div>
                             <div className={styles.homeProposalBoxesBox}>
                                 <div className={styles.homeProposalBoxesBoxTop}>
-                                    <span>تهران</span>
+                                    <p>تهران</p>
                                     <Plane />
-                                    <span>مشهد</span>
+                                    <p>مشهد</p>
                                 </div>
                                 <div className={styles.homeProposalBoxesBoxMiddle}>
                                     <span>TEH</span>
@@ -2023,9 +2047,9 @@ const Home = () =>
                         <div>
                             <div className={styles.homeProposalBoxesBox}>
                                 <div className={styles.homeProposalBoxesBoxTop}>
-                                    <span>تهران</span>
+                                    <p>تهران</p>
                                     <Plane />
-                                    <span>مشهد</span>
+                                    <p>مشهد</p>
                                 </div>
                                 <div className={styles.homeProposalBoxesBoxMiddle}>
                                     <span>TEH</span>
@@ -2051,9 +2075,9 @@ const Home = () =>
                         <div>
                             <div className={styles.homeProposalBoxesBox}>
                                 <div className={styles.homeProposalBoxesBoxTop}>
-                                    <span>تهران</span>
+                                    <p>تهران</p>
                                     <Plane />
-                                    <span>مشهد</span>
+                                    <p>مشهد</p>
                                 </div>
                                 <div className={styles.homeProposalBoxesBoxMiddle}>
                                     <span>TEH</span>
@@ -2079,9 +2103,9 @@ const Home = () =>
                         <div>
                             <div className={styles.homeProposalBoxesBox}>
                                 <div className={styles.homeProposalBoxesBoxTop}>
-                                    <span>تهران</span>
+                                    <p>تهران</p>
                                     <Plane />
-                                    <span>مشهد</span>
+                                    <p>مشهد</p>
                                 </div>
                                 <div className={styles.homeProposalBoxesBoxMiddle}>
                                     <span>TEH</span>
@@ -2138,7 +2162,10 @@ const Home = () =>
                             <Blogs />
                             <h2 className='headingPrimary'>از مجله <span>پاپلو</span></h2>
                         </div>
-                        <Link to='#'>بیشتر</Link>
+                        <Link to='#'>
+                            بیشتر
+                            <Arrow />
+                        </Link>
                     </div>
 
                     <div className={styles.homeMagazineGallery}>
@@ -2244,60 +2271,60 @@ const Home = () =>
                         </div>
                         <div className={styles.homeReserveSideLeft}>
                             <ul>
-                                <li data-activate={faq === 0 ? 'true' : 'false'}>
+                                <li data-activate={faq === 0 ? 'true' : 'false'} onClick={() => setFaq(faq === 0 ? -1 : 0)}>
                                     <div>
-                                        <Plus onClick={() => setFaq(0)} />
-                                        <Minus onClick={() => setFaq(-1)} />
+                                        <Plus />
+                                        <Minus />
                                         <span>چند روز قبل از پرواز، بلیط هواپیما را بخریم؟</span>
                                     </div>
                                     <p>
                                         خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
                                     </p>
                                 </li>
-                                <li data-activate={faq === 1 ? 'true' : 'false'}>
+                                <li data-activate={faq === 1 ? 'true' : 'false'} onClick={() => setFaq(faq === 1 ? -1 : 1)}>
                                     <div>
-                                        <Plus onClick={() => setFaq(1)} />
-                                        <Minus onClick={() => setFaq(-1)} />
+                                        <Plus />
+                                        <Minus />
                                         <span>در هر پرواز، میزان بار مجاز چقدر است؟</span>
                                     </div>
                                     <p>
                                         خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
                                     </p>
                                 </li>
-                                <li data-activate={faq === 2 ? 'true' : 'false'}>
+                                <li data-activate={faq === 2 ? 'true' : 'false'} onClick={() => setFaq(faq === 2 ? -1 : 2)}>
                                     <div>
-                                        <Plus onClick={() => setFaq(2)} />
-                                        <Minus onClick={() => setFaq(-1)} />
+                                        <Plus />
+                                        <Minus />
                                         <span>نرخ بلیط هواپیما برای نوزادان و کودکان زیر ۱۲ سال چگونه است؟</span>
                                     </div>
                                     <p>
                                         خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
                                     </p>
                                 </li>
-                                <li data-activate={faq === 3 ? 'true' : 'false'}>
+                                <li data-activate={faq === 3 ? 'true' : 'false'} onClick={() => setFaq(faq === 3 ? -1 : 3)}>
                                     <div>
-                                        <Plus onClick={() => setFaq(3)} />
-                                        <Minus onClick={() => setFaq(-1)} />
+                                        <Plus />
+                                        <Minus />
                                         <span>رزرو آنلاین بلیط هواپیما هزینه بیشتری از خرید حضوری دارد؟</span>
                                     </div>
                                     <p>
                                         خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
                                     </p>
                                 </li>
-                                <li data-activate={faq === 4 ? 'true' : 'false'}>
+                                <li data-activate={faq === 4 ? 'true' : 'false'} onClick={() => setFaq(faq === 4 ? -1 : 4)}>
                                     <div>
-                                        <Plus onClick={() => setFaq(4)} />
-                                        <Minus onClick={() => setFaq(-1)} />
+                                        <Plus />
+                                        <Minus />
                                         <span>آیا پس از خرید اینترنتی بلیط هواپیما امکان استرداد آن وجود دارد؟</span>
                                     </div>
                                     <p>
                                         خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
                                     </p>
                                 </li>
-                                <li data-activate={faq === 5 ? 'true' : 'false'}>
+                                <li data-activate={faq === 5 ? 'true' : 'false'} onClick={() => setFaq(faq === 5 ? -1 : 5)}>
                                     <div>
-                                        <Plus onClick={() => setFaq(5)} />
-                                        <Minus onClick={() => setFaq(-1)} />
+                                        <Plus />
+                                        <Minus />
                                         <span>آیا پس از خرید بلیط هواپیما، امکان تغییر نام یا نام خانوادگی وجود دارد؟</span>
                                     </div>
                                     <p>
@@ -2308,58 +2335,198 @@ const Home = () =>
                         </div>
                     </div>
 
-                    <div className={styles.homeReserveMore}>
+                    <div className={styles.homeReserveMore} data-open={reserveMore}>
                         <div className={styles.homeReserveMoreBox}>
                             <h5>بلیط هواپیما</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                        </div>
+                        <div className={styles.homeReserveMoreBox} >
+                            <h5>ایرلاین</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                         </div>
                         <div className={styles.homeReserveMoreBox}>
-                            <h5>بلیط هواپیما</h5>
+                            <h5>رزرو هتل</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                        </div>
+                        <div className={styles.homeReserveMoreBox} >
+                            <h5>پرواز داخلی</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                        </div>
+                        <div className={styles.homeReserveMoreBox} >
+                            <h5>پرواز خارجی</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                         </div>
                         <div className={styles.homeReserveMoreBox}>
-                            <h5>بلیط هواپیما</h5>
+                            <h5>بلیط قطار</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                         </div>
                         <div className={styles.homeReserveMoreBox}>
-                            <h5>بلیط هواپیما</h5>
+                            <h5>بلیط اتوبوس</h5>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
-                        </div>
-                        <div className={styles.homeReserveMoreBox}>
-                            <h5>بلیط هواپیما</h5>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
-                        </div>
-                        <div className={styles.homeReserveMoreBox}>
-                            <h5>بلیط هواپیما</h5>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
-                        </div>
-                        <div className={styles.homeReserveMoreBox}>
-                            <h5>بلیط هواپیما</h5>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
+                            <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                             <span>خرید بلیط هواپیما</span>
                         </div>
                     </div>
-                    <Link to='#' className={styles.homeReserveMoreLink}>نمایش بیشتر</Link>
+                    <p data-open={reserveMore} className={styles.homeReserveMoreButton} onClick={() => setReserveMore(true)}>
+                        نمایش بیشتر
+                        <Arrow3 />
+                    </p>
+                    <p data-open={reserveMore} className={styles.homeReserveMoreButton} onClick={() => setReserveMore(false)}>
+                        نمایش کمتر
+                        <Arrow3 />
+                    </p>
                 </div>
             </section>
 

@@ -134,6 +134,7 @@ const Footer = () =>
                             <Logo />
                             <Link to='#'>
                                 چرا خرید بلیط از پاپلو؟ درباره ما بیشتر بدانید
+                                <Arrow />
                             </Link>
                         </div>
                         <div className={styles.footerAchievementLeftMiddle}>
@@ -141,12 +142,12 @@ const Footer = () =>
                             <p>دفتر فروش: قیطریه، بلوار اندرزگو، نبش کوچه‌ی بلوچ شمالی، پلاک ۴</p>
                         </div>
                         <div className={styles.footerAchievementLeftBottom}>
-                            <Footer1 />
-                            <Footer2 />
-                            <Footer3 />
-                            <Footer4 />
-                            <Footer5 />
-                            <Footer6 />
+                            <div className={styles.footerAchievementLeftBottomBG}><Footer1 /></div>
+                            <div className={styles.footerAchievementLeftBottomBG}><Footer2 /></div>
+                            <div className={styles.footerAchievementLeftBottomBG}><Footer3 /></div>
+                            <div className={styles.footerAchievementLeftBottomBG}><Footer4 /></div>
+                            <div className={styles.footerAchievementLeftBottomBG}><Footer5 /></div>
+                            <div className={styles.footerAchievementLeftBottomBG}><Footer6 /></div>
                         </div>
                     </div>
                 </div>

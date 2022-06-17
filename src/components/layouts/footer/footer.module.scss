@@ -1,7 +1,7 @@
 .footer
 {
     background: #FAFBFD 0 0 no-repeat padding-box;
-    padding: 5rem 1.5rem 10rem;
+    padding: 5rem 1.5rem;
 
     &Divider
     {
@@ -291,6 +291,11 @@
             flex-wrap: wrap;
             padding-right: 12rem;
 
+            @media only screen and (max-width: 1400px)
+            {
+                padding-right: 8rem;
+            }
+
             @media only screen and (max-width: 1110px)
             {
                 padding: 0;
@@ -310,9 +315,29 @@
 
                 a
                 {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: .5rem;
+
                     letter-spacing: -0.36px;
                     color: #96A5C6;
                     font-size: 2rem;
+
+                    & svg
+                    {
+                        width: 2rem;
+                    }
+
+                    &:hover
+                    {
+                        color: #7484a7;
+
+                        & svg *
+                        {
+                            fill: #7484a7;
+                        }
+                    }
                 }
 
                 @media only screen and (max-width: 1110px)
@@ -341,8 +366,26 @@
             &Bottom
             {
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
                 justify-content: space-between;
+
+                padding-top: 2rem;
+
+                &BG
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    background: #FFFFFF 0 0 no-repeat padding-box;
+                    transition: all .2s;
+                    border-radius: 1rem;
+                    padding: 1.5rem;
+                    margin: 0.5rem;
+                    width: 10rem;
+                    height: 12rem;
+                }
 
                 @media only screen and (max-width: 1110px)
                 {
@@ -377,18 +420,37 @@
             align-items: center;
             justify-content: center;
 
+            gap: 1rem;
+
             &BG
             {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                cursor: pointer;
                 background: #EDEFF6 0 0 no-repeat padding-box;
+                transition: all .2s;
                 border-radius: 4.2rem;
-                padding: 1.2rem;
                 margin: 0.5rem;
+                width: 5rem;
+                height: 5rem;
+
+                &:hover
+                {
+                    background: #ffffff 0 0 no-repeat padding-box;
+                }
             }
 
             svg
             {
                 width: 2.5rem;
                 height: 2.5rem;
+
+                & *
+                {
+                    fill: #4A6192;
+                }
             }
         }
     }
