@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
 import Home from './routes/home/home.component';
+import SearchTrain from './routes/search/train/train.component';
 import Navbar from './components/layouts/mobile-nav/navbar.component';
 import PopupLogin from "./components/popup/popup-login";
 
@@ -16,6 +17,7 @@ function App()
             <Navbar />
             <Routes>
                 <Route path='/' element={ <Home /> }/>
+                <Route path='/search/train' element={ <SearchTrain /> }/>
             </Routes>
         </>
     );

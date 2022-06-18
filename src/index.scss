@@ -1,3 +1,44 @@
+@font-face
+{
+    font-family: 'YekanBakh';
+    src: local('YekanBakh'), local('YekanBakh'),
+    url('assets/fonts/yekanBakhFa/YekanBakhFa.ttf') format('woff'),
+    url('assets/fonts/yekanBakhFa/YekanBakhFa.woff') format('truetype');
+    font-style: normal;
+}
+@font-face
+{
+    font-family: 'YekanBakhMedium';
+    src: local('YekanBakhMedium'), local('YekanBakhMedium'),
+    url('assets/fonts/yekanBakhFa/YekanBakhFaMedium.ttf') format('woff'),
+    url('assets/fonts/yekanBakhFa/YekanBakhFaMedium.woff') format('truetype');
+    font-style: normal;
+}
+@font-face
+{
+    font-family: 'YekanBakhBold';
+    src: local('YekanBakhBold'), local('YekanBakhBold'),
+    url('assets/fonts/yekanBakhFa/YekanBakhFaBold.ttf') format('woff'),
+    url('assets/fonts/yekanBakhFa/YekanBakhFaBold.woff') format('truetype');
+    font-style: normal;
+}
+@font-face
+{
+    font-family: 'YekanBakhHeavy';
+    src: local('YekanBakhHeavy'), local('YekanBakhHeavy'),
+    url('assets/fonts/yekanBakhFa/YekanBakhFaHeavy.ttf') format('woff'),
+    url('assets/fonts/yekanBakhFa/YekanBakhFaHeavy.woff') format('truetype');
+    font-style: normal;
+}
+@font-face
+{
+    font-family: 'YekanBakhRegular';
+    src: local('YekanBakhRegular'), local('YekanBakhRegular'),
+    url('assets/fonts/yekanBakhFa/YekanBakhFaRegular.ttf') format('woff'),
+    url('assets/fonts/yekanBakhFa/YekanBakhFaRegular.woff') format('truetype');
+    font-style: normal;
+}
+
 *,
 *::after,
 *::before
@@ -51,6 +92,11 @@ li
 {
     max-width: 140rem;
     margin: 0 auto;
+
+    @media only screen and (max-width: 140rem)
+    {
+        padding: 0 1.5rem;
+    }
 }
 
 .headingPrimary
