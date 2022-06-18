@@ -27,10 +27,46 @@
 
         &LeftContent
         {
+            max-width: 60%;
+
             h2
             {
                 font-size: 2rem;
                 font-weight: 400;
+            }
+
+            & > div
+            {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+
+                & button
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+
+                    cursor: pointer;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    color: #496193;
+                    font-size: 1.6rem;
+
+                    & svg *
+                    {
+                        fill: #496193;
+                    }
+
+                    &:hover,
+                    &:hover *
+                    {
+                        color: #3a4f7d;
+                        fill: #3a4f7d;
+                    }
+                }
             }
 
             ul
@@ -39,11 +75,11 @@
 
                 display: flex;
                 align-items: center;
+                overflow: scroll;
 
                 @media only screen and (max-width: 1110px)
                 {
                     width: 100%;
-                    overflow: scroll;
                     padding: 1rem 0;
                 }
 
@@ -74,22 +110,6 @@
                             border-color: #4A6192;
                             background: #4A6192;
                             color: #FFFFFF;
-                        }
-                    }
-
-                    a
-                    {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: .5rem;
-
-                        color: #496193;
-                        font-size: 1.6rem;
-
-                        & svg *
-                        {
-                            fill: #496193;
                         }
                     }
                 }
@@ -1192,16 +1212,15 @@
     border-radius: 4rem;
     margin: auto;
     max-width: 80%;
-    max-height: 90%;
     min-width: 50rem;
-    min-height: 70rem;
+    height: 90%;
     transform: scale(.9);
 
     @media only screen and (max-width: 1110px)
     {
-        margin: 3rem 1.5rem;
+        max-width: 90%;
         width: 100%;
-        height: auto;
+        min-width: 1rem;
         transform: scale(1);
     }
 
@@ -1260,7 +1279,6 @@
 
         width: 100%;
         margin: auto auto 0;
-        margin-top: 10rem;
         color: #ffffff;
         font-size: 1.75rem;
         border: none;
@@ -1274,6 +1292,11 @@
             cursor: pointer;
             background: #394f80;
         }
+    }
+
+    &[data-activate='false']
+    {
+        display: none;
     }
 }
 
@@ -1785,9 +1808,7 @@
 
     @media only screen and (max-width: 1110px)
     {
-        padding: 0 1rem 2rem 1rem;
         font-size: 1.5rem;
-        width: 100%;
     }
 
     @media only screen and (max-width: 600px)
