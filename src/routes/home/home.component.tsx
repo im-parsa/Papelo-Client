@@ -136,6 +136,12 @@ const Home = () =>
             options.forEach(f => f.setAttribute('data-activate', 'true'));
             exchangeIcon.forEach(f => f.setAttribute('data-activate', 'false'));
         }, []);
+    const onClickExchange = useCallback(
+        () =>
+        {
+            setOrigin(destination);
+            setDestination(origin);
+        }, [destination, setDestination, origin, setOrigin]);
     const handleDetail = useCallback(
         (listener?: boolean) =>
         {
@@ -619,9 +625,9 @@ const Home = () =>
                                     </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                            <span id='exchange_icon' data-activate="true">
-                                                <Exchange />
-                                            </span>
+                                    <span id='exchange_icon' data-activate="true" onClick={ onClickExchange }>
+                                        <Exchange />
+                                    </span>
                                     <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
                                         <div>
                                             <label>

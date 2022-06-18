@@ -77,6 +77,13 @@
                 align-items: center;
                 overflow: scroll;
 
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+                &::-webkit-scrollbar
+                {
+                    display: none;
+                }
+
                 @media only screen and (max-width: 1110px)
                 {
                     width: 100%;
