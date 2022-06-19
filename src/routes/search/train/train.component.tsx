@@ -1,13 +1,14 @@
 import React from 'react';
 
-import styles from './train.module.scss';
 import Navbar from '../../../components/layouts/navbar/navbar.component';
 import Footer from '../../../components/layouts/footer/footer.component';
+
+import styles from './train.module.scss';
 
 const SearchTrain = () =>
 {
     return (
-        <>
+        <main>
             <Navbar />
             <section className={styles.trainHeader}>
                 <div className='container'>
@@ -18,7 +19,7 @@ const SearchTrain = () =>
                 </div>
             </section>
             <Footer />
-        </>
+        </main>
     );
 };
 

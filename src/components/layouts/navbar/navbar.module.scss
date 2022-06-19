@@ -1,18 +1,25 @@
 .navbar
 {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 
     position: relative;
 
     background: transparent;
-    height: 12rem;
+    height: auto;
     width: 100%;
+
+    &[data-header='true']
+    {
+        padding-bottom: 0;
+    }
 
     @media only screen and (max-width: 1110px)
     {
-       display: none;
+        & > div:first-child
+        {
+            display: none;
+        }
     }
 
     & > div
@@ -21,6 +28,7 @@
         align-items: center;
         justify-content: center;
 
+        padding: 3rem 0;
         height: 100%;
         width: 100%;
     }
@@ -30,24 +38,44 @@
         width: 15rem;
     }
 
-    & > div > button
+    & > div > div
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    & > div > div > button
     {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 1rem;
 
+        white-space: nowrap;
+        word-wrap: anywhere;
         cursor: pointer;
-        width: 21rem;
-        height: 7rem;
-        font-size: 1.75rem;
+        height: 6.5rem;
+        width: fit-content;
+        font-size: 1.8rem;
         color: #4A6192;
         outline: none;
         border-radius: 10rem;
-        padding: 1rem 2rem;
+        padding: 0 2.5rem;
         background: transparent;
         border: 5px solid #EDEFF6;
         transition: all .2s;
+
+        & > svg
+        {
+            width: 1.8rem;
+
+            *
+            {
+                fill: #4A6192;
+            }
+        }
 
         &:hover
         {
@@ -63,7 +91,7 @@
         gap: 3.5rem;
 
         width: 100%;
-        height: 100%;
+        height: 6rem;
         padding: 0 12rem 0 2rem;
 
         @media only screen and (max-width: 1200px)
@@ -105,7 +133,7 @@
                 transform: rotate(45deg) translate(50%, 0%);
                 transform-origin: center center;
                 transition: transform ease-in-out 100ms;
-                margin: 5.25rem 1rem auto auto;
+                margin: 2.4rem 1rem auto auto;
             }
 
             &:hover:after
@@ -119,7 +147,8 @@
             }
         }
 
-        &:hover    {
+        &:hover
+        {
             color: #838da1;
         }
 
@@ -136,7 +165,7 @@
 
         position: absolute;
         z-index: 110;
-        top: 10rem;
+        top: 6rem;
         left: -40rem;
 
         cursor: auto;
@@ -275,6 +304,153 @@
                 justify-content: center;
 
                 margin: auto;
+            }
+        }
+    }
+
+    &Header
+    {
+       & > div
+       {
+           display: grid;
+           grid-template-rows: 35rem;
+           grid-template-columns: repeat(2, 1fr);
+
+           @media only screen and (max-width: 1000px)
+           {
+               grid-template-rows: 1fr 30rem;
+               grid-template-columns: repeat(1, 1fr);
+           }
+       }
+
+        & > div > div
+        {
+            display: flex;
+            flex-direction: column;
+
+            padding-top: 5rem;
+
+            & span
+            {
+                display: flex;
+
+                border-radius: 4rem 4rem 0 0;
+                width: 100%;
+                height: 100%;
+                background-color: #4A6192;
+                background-size: cover;
+
+                position: relative;
+
+                &:before
+                {
+                    content: '';
+                    position: absolute;
+                    z-index: -1;
+                    bottom: 0;
+                    right: -8rem;
+                    width: 100%;
+                    height: 55%;
+                    background: transparent linear-gradient(180deg, #FFFFFF 0%, #F5F6FA 100%) 0 0 no-repeat padding-box;
+                    border-radius: 4rem 4rem 0 0;
+                }
+
+                &:after
+                {
+                    content: '';
+                    position: absolute;
+                    z-index: -1;
+                    bottom: 0;
+                    right: -5rem;
+                    width: 100%;
+                    height: 90%;
+                    background: transparent linear-gradient(180deg, #FFFFFF 0%, #F5F6FA 100%) 0 0 no-repeat padding-box;
+                    border-radius: 4rem 4rem 0 0;
+                }
+
+                @media only screen and (max-width: 1000px)
+                {
+                    width: 100%;
+
+                    &:after,
+                    &:before
+                    {
+                        display: none;
+                    }
+                }
+            }
+
+            & h2
+            {
+                font-size: 7rem;
+                font-family: 'YekanBakhHeavy', sans-serif;
+
+                @media only screen and (max-width: 1000px)
+                {
+                    font-size: 4rem;
+                }
+            }
+
+            & h3
+            {
+                font-size: 3rem;
+                font-family: 'YekanBakhRegular', sans-serif;
+
+                @media only screen and (max-width: 1000px)
+                {
+                    font-size: 2rem;
+                }
+            }
+        }
+
+        &Nav
+        {
+            border: 1.5px solid #E3E6F0;
+            border-left: none;
+            border-right: none;
+
+            & > div {
+                display: flex;
+                justify-content: space-between;
+
+                padding: 2rem 0;
+
+                * {
+                    fill: #96A5C6;
+                    color: #96A5C6;
+                }
+
+                & > a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+
+                    font-size: 1.5rem;
+
+                    &:hover,
+                    &:hover * {
+                        fill: #808eac;
+                        color: #808eac;
+                    }
+                }
+
+                & > div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+
+                    font-size: 1.5rem;
+
+                    & > svg {
+                        width: .7rem;
+                    }
+
+                    & p[data-activate='true'] {
+                        color: #4A6192;
+                    }
+                }
             }
         }
     }
