@@ -1220,15 +1220,15 @@
     margin: auto;
     max-width: 80%;
     min-width: 50rem;
-    height: 90%;
-    transform: scale(.9);
+    height: 100%;
+    transform: scale(.8);
 
     @media only screen and (max-width: 1110px)
     {
         max-width: 90%;
         width: 100%;
         min-width: 1rem;
-        transform: scale(1);
+        transform: scale(.95);
     }
 
     &::before
@@ -1263,7 +1263,6 @@
 
     @media only screen and (max-width: 1110px)
     {
-        border-radius: 2rem;
         padding: 2rem;
     }
 }

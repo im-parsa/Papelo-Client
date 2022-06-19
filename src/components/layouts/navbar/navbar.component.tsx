@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './navbar.module.scss';
-import {ReactComponent as Logo} from "../../../assets/icons/logo.svg";
-import {ReactComponent as Plane} from "../../../assets/icons/plane.svg";
-import {ReactComponent as Bus} from "../../../assets/icons/bus.svg";
-import {ReactComponent as Train} from "../../../assets/icons/train.svg";
-import {ReactComponent as Hotel} from "../../../assets/icons/hotel.svg";
-import {ReactComponent as Tour} from "../../../assets/icons/tour.svg";
-import {ReactComponent as Arrow2} from "../../../assets/icons/arrow-2.svg";
-import {ReactComponent as ThreeDots} from "../../../assets/icons/three-dots.svg";
+import { ReactComponent as Logo } from '../../../assets/icons/logo.svg';
+import { ReactComponent as Plane } from '../../../assets/icons/plane.svg';
+import { ReactComponent as Bus } from '../../../assets/icons/bus.svg';
+import { ReactComponent as Train } from '../../../assets/icons/train.svg';
+import { ReactComponent as Blogs } from '../../../assets/icons/blogs.svg';
+import { ReactComponent as Hotel } from '../../../assets/icons/hotel.svg';
+import { ReactComponent as Tour } from '../../../assets/icons/tour.svg';
+import { ReactComponent as Arrow2 } from '../../../assets/icons/arrow-2.svg';
+import { ReactComponent as ThreeDots } from '../../../assets/icons/three-dots.svg';
 
 const Footer = () =>
 {
@@ -113,7 +114,7 @@ const Footer = () =>
                     </li>
                 </ul>
                 <button>
-                    <Train />
+                    <Blogs />
                     پیگیری رزرو
                 </button>
             </div>

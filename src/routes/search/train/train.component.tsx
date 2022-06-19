@@ -1,13 +1,10 @@
 import React from 'react';
 
-import { ReactComponent as Box4 } from '../../assets/icons/box-4.svg';
-import Texture from '../../assets/images/texture.svg';
-
 import styles from './train.module.scss';
 import Navbar from '../../../components/layouts/navbar/navbar.component';
 import Footer from '../../../components/layouts/footer/footer.component';
 
-const Home = () =>
+const SearchTrain = () =>
 {
     return (
         <>
@@ -25,4 +22,4 @@ const Home = () =>
     );
 };
 
-export default Home;
+export default SearchTrain;
