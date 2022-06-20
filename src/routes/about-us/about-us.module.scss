@@ -1,0 +1,271 @@
+.aboutUs
+{
+    &Features
+    {
+        background: #f5f6fa;
+
+        & > div
+        {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            @media only screen and (max-width: 1110px)
+            {
+                grid-template-rows: repeat(3, 1fr);
+                grid-template-columns: 1fr;
+            }
+
+            & > div
+            {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+
+                padding: 8rem 5rem;
+
+                @media only screen and (max-width: 1110px)
+                {
+                    padding: 6rem 3rem;
+                }
+
+                &:nth-child(2)
+                {
+                    border-left: 2px solid #E3E6F0;
+                    border-right: 2px solid #E3E6F0;
+
+                    @media only screen and (max-width: 1110px)
+                    {
+                        border: none;
+                        border-top: 2px solid #E3E6F0;
+                        border-bottom: 2px solid #E3E6F0;
+                    }
+                }
+
+                & h2
+                {
+                    font-size: 3rem;
+                    text-align: center;
+                    font-family: 'YekanBakhMedium', sans-serif;
+                    margin-bottom: 1rem;
+                }
+
+                & h3
+                {
+                    color: #96A5C6;
+                    font-size: 2rem;
+                    text-align: center;
+                    font-family: 'YekanBakhRegular', sans-serif;
+                }
+
+                & i
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 10rem;
+                    height: 10rem;
+                    border-radius: 10rem;
+                    background: transparent linear-gradient(180deg, #FFFFFF 0%, #F5F6FA 100%) 0% 0% no-repeat padding-box;
+
+                    & svg
+                    {
+                        height: 5rem;
+                        width: 5rem;
+                        fill: #4A6193;
+                    }
+                }
+            }
+        }
+    }
+
+    &Content
+    {
+        width: 100%;
+        background: #FFFFFF;
+
+        padding: 5rem 0;
+
+        & > div
+        {
+            max-width: 90rem;
+            font-size: 3rem;
+
+            & h4
+            {
+                font-size: 2rem;
+                font-family: 'YekanBakhRegular', sans-serif;
+                color: #96A5C6;
+            }
+        }
+    }
+
+    &Faq > div
+    {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        border-top: 2px solid #E3E6F0;
+        padding: 8rem 1.5rem;
+
+        & h3
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        ul
+        {
+            display: flex;
+            flex-direction: column;
+
+            max-width: 70rem;
+
+            li
+            {
+                cursor: pointer;
+                background: #EDEFF6 0 0 no-repeat padding-box;
+                padding: 1.75rem 2.75rem;
+                border-radius: 1.5rem;
+                height: 6.5rem;
+                overflow: hidden;
+                transition: all .2s;
+
+                position: relative;
+
+                &[data-activate='true']
+                {
+                    height: auto;
+
+                    & svg:nth-child(1)
+                    {
+                        display: none;
+                    }
+                }
+
+                &[data-activate='false']
+                {
+                    & svg:nth-child(2)
+                    {
+                        display: none;
+                    }
+                }
+
+                &:not(:last-child)
+                {
+                    margin-bottom: 1rem;
+                }
+
+                div
+                {
+                    display: flex;
+                    align-items: center;
+
+                    height: 3rem;
+
+                    span
+                    {
+                        letter-spacing: -0.36px;
+                        color: #496193;
+                        font-family: 'YekanBakhMedium', sans-serif;
+                        font-size: 2rem;
+                        margin-right: 1.5rem;
+                    }
+                }
+
+                p
+                {
+                    padding: 2.2rem;
+                    letter-spacing: -0.3px;
+                    color: #96A5C6;
+                    text-align: right;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+    &Footer > div
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 2rem;
+
+        min-height: 32rem;
+        background-color: #4A6192;
+        background-size: cover;
+        background-image: url(../../assets/images/texture-2.svg);
+        background-repeat: no-repeat;
+
+        & > h3
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 3rem;
+            color: #FFFFFF;
+
+            @media only screen and (max-width: 1000px)
+            {
+                font-size: 2.5rem;
+                padding: 0 1rem;
+            }
+        }
+
+        & > div
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+
+            @media only screen and (max-width: 1000px)
+            {
+                flex-wrap: wrap;
+            }
+
+            & a
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                font-size: 2rem;
+                transition: all .2s;
+
+                &:first-child
+                {
+                    padding: 1.5rem 3rem;
+                    color: #4A6192;
+                    background: #FFFFFF;
+                    border-radius: 10rem;
+
+                    &:hover
+                    {
+                        background: #d8dbe1;
+                    }
+                }
+
+                &:last-child
+                {
+                    padding: 1rem 0;
+                    color: #FFFFFF;
+                    border-bottom: 2px dashed #FFFFFF;
+
+                    &:hover
+                    {
+                        border-color: #d8dbe1;
+                        color: #d8dbe1;
+                    }
+                }
+            }
+        }
+    }
+}

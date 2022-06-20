@@ -109,6 +109,11 @@ li
         padding-left: 1.5rem !important;
         padding-right: 1.5rem !important;
     }
+
+    &.no-padding
+    {
+        padding: 0;
+    }
 }
 
 .headingPrimary

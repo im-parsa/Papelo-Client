@@ -4,6 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 
 import Home from './routes/home/home.component';
 import Rules from './routes/rules/rules.component';
+import Contact from './routes/contact/contact.component';
+import AboutUs from './routes/about-us/about-us.component';
 import SearchHotel from './routes/search/hotel/hotel.component';
 import SearchTrain from './routes/search/train/train.component';
 
@@ -21,6 +23,8 @@ function App()
             <Routes>
                 <Route path='/' element={ <Home /> }/>
                 <Route path='/rules' element={ <Rules /> }/>
+                <Route path='/contact' element={ <Contact /> }/>
+                <Route path='/about-us' element={ <AboutUs /> }/>
                 <Route path='/search/hotel' element={ <SearchHotel /> }/>
                 <Route path='/search/train' element={ <SearchTrain /> }/>
             </Routes>

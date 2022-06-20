@@ -150,10 +150,10 @@ const Footer = (props: any) =>
                             <div className='container'>
                                 <div>
                                     <h2>
-                                        قوانین و مقررات
+                                        { props.title }
                                     </h2>
                                     <h3>
-                                        خط مشی های سایت
+                                        { props.description }
                                     </h3>
                                 </div>
                                 <div>
