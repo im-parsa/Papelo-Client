@@ -93,6 +93,122 @@ li
     }
 }
 
+.line-container
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+}
+.line-container .progress-line
+{
+    display: flex;
+    justify-content: space-between;
+
+    position: relative;
+
+    padding: 0 10rem;
+    margin: 0 auto;
+    border-radius: 10px;
+    width: 90%;
+    background: transparent linear-gradient(270deg, #F5F6FA 0%, #E3E6F0 49%, #F5F6FA 100%) 0% 0% no-repeat padding-box;
+    height: 3.5px;
+    z-index: -1;
+
+    @media only screen and (max-width: 1110px)
+    {
+        width: 100%;
+    }
+}
+.line-container .progress-line .progress
+{
+    position: absolute;
+    left: 0;
+    width: 75%;
+    height: 100%;
+    background: transparent linear-gradient(270deg, #09BAB5 0%, #F5F6FA 100%) 0% 0% no-repeat padding-box;
+    transition: width 1s ease-in-out;
+}
+.line-container .status
+{
+    position: relative;
+    top: -5.5px;
+}
+.line-container .status .dot
+{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #E5E8F1;
+    border: 2px solid #F5F6FA;
+    cursor: pointer;
+    position: relative;
+
+    &::before
+    {
+        content: attr(data-text);
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+        bottom: -3rem;
+        white-space: nowrap;
+        word-wrap: anywhere;
+        font-size: 1.25rem;
+        color: #496193;
+        font-family: 'YekanBakhMedium', sans-serif;
+    }
+}
+.line-container .status .dot.current
+{
+    background: #CFEEED;
+    height: 28px;
+    width: 28px;
+    top: -6px;
+    left: -5rem;
+    border: 2px solid #F5F6FA;
+
+    &::before
+    {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+        top: -5rem;
+        bottom: auto;
+        white-space: nowrap;
+        word-wrap: anywhere;
+        font-size: 1.25rem;
+        color: #496193;
+        background: #FFFFFF;
+        padding: 1rem 2rem;
+        border-radius: 5rem;
+        box-shadow: 0 30px 70px #48609233;
+        font-family: 'YekanBakhMedium', sans-serif;
+    }
+
+    &::after
+    {
+        content: '';
+        background: #09BAB5;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+}
+.line-container .status .dot.completed
+{
+    position: relative;
+    background: #09BAB5;
+    border: 2px solid #F5F6FA;
+}
+
 .container
 {
     max-width: 140rem;

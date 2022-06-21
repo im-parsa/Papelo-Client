@@ -12,9 +12,15 @@ import { ReactComponent as Blogs } from '../../../assets/icons/blogs.svg';
 import { ReactComponent as Hotel } from '../../../assets/icons/hotel.svg';
 import { ReactComponent as Tour } from '../../../assets/icons/tour.svg';
 import { ReactComponent as Arrow2 } from '../../../assets/icons/arrow-2.svg';
+import { ReactComponent as Arrow } from '../../../assets/icons/arrow.svg';
+import { ReactComponent as ArrowRight } from '../../../assets/icons/arrow-right-line.svg';
+import { ReactComponent as Calendar } from '../../../assets/icons/calendar-line.svg';
+import { ReactComponent as Chat } from '../../../assets/icons/chat-1-line.svg';
+import { ReactComponent as Eye } from '../../../assets/icons/eye-line.svg';
+import { ReactComponent as Search } from '../../../assets/icons/search-line.svg';
 import { ReactComponent as ThreeDots } from '../../../assets/icons/three-dots.svg';
 
-const Footer = (props: any) =>
+const Navbar = (props: any) =>
 {
     return (
         <nav className={styles.navbar} data-header={!!props.header}>
@@ -115,16 +121,27 @@ const Footer = (props: any) =>
                         <ThreeDots />
                     </li>
                 </ul>
-                <div>
-                    <button>
-                        <User />
-                        حساب کاربری
-                    </button>
-                    <button>
-                        <Blogs />
-                        پیگیری رزرو
-                    </button>
-                </div>
+                {
+                    props.blog
+                        ?
+                        <form>
+                            <input placeholder='موضوع مقاله یا حتی نام جاذبه گردشگری' type='text'/>
+                            <button type='submit'>
+                                <Search />
+                            </button>
+                        </form>
+                        :
+                        <div>
+                            <button>
+                                <User />
+                                حساب کاربری
+                            </button>
+                            <button>
+                                <Blogs />
+                                پیگیری رزرو
+                            </button>
+                        </div>
+                }
             </div>
             {
                 props.header
@@ -157,6 +174,8 @@ const Footer = (props: any) =>
                                     </h3>
                                 </div>
                                 <div>
+                                    <span />
+                                    <span />
                                     <span style={{ backgroundImage: `url(${props.headerImage})` }} />
                                 </div>
                             </div>
@@ -165,8 +184,103 @@ const Footer = (props: any) =>
                     :
                     null
             }
+            {
+                props.blog
+                    ?
+                    <>
+                        <nav className={styles.navbarHeaderNav}>
+                            <div className='container'>
+                                <Link to='/'>
+                                    بازگشت به صفحه اصلی
+                                </Link>
+                                <div>
+                                    <p>
+                                        صفحه اصلی
+                                    </p>
+                                    <Arrow2 />
+                                    <p>
+                                        وبلاگ
+                                    </p>
+                                    <Arrow2 />
+                                    <p>
+                                        اخبار گردشگری
+                                    </p>
+                                    <Arrow2 />
+                                    <p>
+                                        تهران
+                                    </p>
+                                    <Arrow />
+                                    <p data-activate='true'>
+                                        { props.blog }
+                                    </p>
+                                </div>
+                            </div>
+                        </nav>
+                        <header className={styles.navbarHeaderBlog}>
+                            <nav>
+                                <div>
+                                    <i>
+                                        <ArrowRight />
+                                    </i>
+                                    <div>
+                                        <p>
+                                            مطلب قبلی
+                                        </p>
+                                        <h2>
+                                            ...فشم تهران؛ هر نوع تفریح
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>
+                                        <p>
+                                            مطلب بعدی
+                                        </p>
+                                        <h2>
+                                            ...فشم تهران؛ هر نوع تفریح
+                                        </h2>
+                                    </div>
+                                    <i>
+                                        <Arrow />
+                                    </i>
+                                </div>
+                            </nav>
+                            <div className='container'>
+                                <h1>
+                                    { props.blog }
+                                </h1>
+                                <span style={{ backgroundImage: `url(${props.blogImage})` }} />
+                                <footer>
+                                    <div>
+                                        <span style={{ backgroundImage: `url(${props.blogImage})` }} />
+                                        <h3>
+                                            احسان غلام پور
+                                        </h3>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <Calendar/>
+                                            منتشر شده در 25 دی ماه 1400
+                                        </div>
+                                        <div>
+                                            <Chat/>
+                                            بدون دیدگاه
+                                        </div>
+                                        <div>
+                                            <Eye/>
+                                            حدود 12236 بازدید
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                        </header>
+                    </>
+                    :
+                    null
+
+            }
         </nav>
     );
 };
 
-export default Footer;
+export default Navbar;

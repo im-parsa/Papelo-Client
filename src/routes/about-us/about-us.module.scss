@@ -78,6 +78,83 @@
         }
     }
 
+    &Story
+    {
+        & > div
+        {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            padding: 5rem 0;
+            font-size: 3rem;
+
+            & section
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 90%;
+                padding: 10rem 0;
+                padding-right: 0;
+
+                @media only screen and (max-width: 1110px)
+                {
+                    width: 100%;
+                    padding: 5rem 0;
+                    padding-right: 0;
+                }
+
+                & > button
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    border: none;
+                    outline: none;
+                    width: 5rem;
+                    height: 5rem;
+                    min-width: 5rem;
+                    min-height: 5rem;
+                    background: #FFFFFF 0 0 no-repeat padding-box;
+                    border-radius: 10rem;
+                    transition: all .2s;
+                    cursor: pointer;
+
+                    &:hover
+                    {
+                        background: #f2f2f6 0 0 no-repeat padding-box;
+                    }
+
+                    & > svg
+                    {
+                        width: 3rem;
+                        height: 3rem;
+                        fill: #96A5C6;
+                    }
+                }
+            }
+
+            & h4
+            {
+                text-align: center;
+                max-width: 70rem;
+                font-size: 2rem;
+                font-family: 'YekanBakhRegular', sans-serif;
+                color: #96A5C6;
+            }
+            & h3
+            {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                max-width: 70rem;
+                text-align: center;
+            }
+        }
+    }
+
     &Content
     {
         width: 100%;
