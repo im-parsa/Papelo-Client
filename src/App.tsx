@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import Home from './routes/home/home.component';
 import Blog from './routes/blog/blog.component';
+import Blogs from './routes/blogs/blogs.component';
 import Rules from './routes/rules/rules.component';
 import Contact from './routes/contact/contact.component';
 import AboutUs from './routes/about-us/about-us.component';
@@ -27,7 +28,7 @@ function App()
                 <Route path='/contact' element={ <Contact /> }/>
                 <Route path='/about-us' element={ <AboutUs /> }/>
                 <Route path='/blog/:id' element={ <Blog /> }/>
-                <Route path='/blogs' element={ <AboutUs /> }/>
+                <Route path='/blogs' element={ <Blogs /> }/>
                 <Route path='/search/hotel' element={ <SearchHotel /> }/>
                 <Route path='/search/train' element={ <SearchTrain /> }/>
             </Routes>

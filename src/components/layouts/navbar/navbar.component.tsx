@@ -19,6 +19,7 @@ import { ReactComponent as Chat } from '../../../assets/icons/chat-1-line.svg';
 import { ReactComponent as Eye } from '../../../assets/icons/eye-line.svg';
 import { ReactComponent as Search } from '../../../assets/icons/search-line.svg';
 import { ReactComponent as ThreeDots } from '../../../assets/icons/three-dots.svg';
+import Image3 from '../../../assets/images/image-3.svg';
 
 const Navbar = (props: any) =>
 {
@@ -122,7 +123,7 @@ const Navbar = (props: any) =>
                     </li>
                 </ul>
                 {
-                    props.blog
+                    props.blog || props.blogs
                         ?
                         <form>
                             <input placeholder='موضوع مقاله یا حتی نام جاذبه گردشگری' type='text'/>
@@ -275,6 +276,78 @@ const Navbar = (props: any) =>
                             </div>
                         </header>
                     </>
+                    :
+                    null
+            }
+            {
+                props.blogs
+                    ?
+                    <header className={styles.navbarHeaderBlogs}>
+                        <nav>
+                            <i>
+                                <ArrowRight />
+                            </i>
+                            <i>
+                                <Arrow />
+                            </i>
+                        </nav>
+                        <div className='container'>
+                            <Link to='#'>
+                                <div />
+                                <div>
+                                <span>
+                                    اخبار گردشگری
+                                </span>
+                                    <h3>
+                                        سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
+                                    </h3>
+                                    <p>
+                                        احسان غلام پور
+                                    </p>
+                                </div>
+                                <img src={Image3}  alt='homeMagazineGallery'/>
+                            </Link>
+                            <Link to='#'>
+                                <div />
+                                <div>
+                                 <span>
+                                    اخبار گردشگری
+                                </span>
+                                    <h3>
+                                        سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
+                                    </h3>
+                                </div>
+                                <img src={Image3}  alt='homeMagazineGallery'/>
+                            </Link>
+                            <Link to='#'>
+                                <div />
+                                <div>
+                                 <span>
+                                    اخبار گردشگری
+                                </span>
+                                    <h3>
+                                        سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
+                                    </h3>
+                                </div>
+                                <img src={Image3}  alt='homeMagazineGallery'/>
+                            </Link>
+                            <Link to='#'>
+                                <div />
+                                <div>
+                                <span>
+                                    اخبار گردشگری
+                                </span>
+                                    <h3>
+                                        سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
+                                    </h3>
+                                    <p>
+                                        احسان غلام پور
+                                    </p>
+                                </div>
+                                <img src={Image3}  alt='homeMagazineGallery'/>
+                            </Link>
+                        </div>
+                    </header>
                     :
                     null
 
