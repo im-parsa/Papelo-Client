@@ -70,4 +70,135 @@
             }
         }
     }
+
+    &Content
+    {
+        padding-top: 5rem;
+        padding-bottom: 10rem;
+
+        display: flex;
+
+        &Filter
+        {
+            flex: 0 0 30%;
+
+            border: 5px solid #EDEFF6;
+            border-radius: 30px;
+            padding: 2.5rem 3rem;
+
+            &Header
+            {
+                div
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    h4
+                    {
+                        color: #496193;
+                        font-size: 1.6rem;
+                    }
+
+                    span
+                    {
+                        background: #EDEFF6 0 0 no-repeat padding-box;
+                        border-radius: 21px;
+                        padding: 1rem;
+                        font-size: 1.2rem;
+                    }
+                }
+
+                ul
+                {
+
+                    width: max-content;
+                    margin-top: 1rem;
+
+                    li
+                    {
+                        padding: 0.5rem 1rem;
+                        border: 2px solid #EDEFF6;
+                        border-radius: 20px;
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+
+            &Type
+            {
+
+            }
+        }
+
+        &Boxes
+        {
+            flex: 1;
+            margin-right: 4rem;
+
+            &Header
+            {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                h4
+                {
+                    letter-spacing: -0.48px;
+                    color: #496193;
+                    font-size: 2rem;
+                    padding-top: 2.5rem;
+                }
+
+                span
+                {
+                    border: 3px solid #EDEFF6;
+                    border-radius: 90px;
+                    padding: 1rem;
+                    font-size: 1.4rem;
+                }
+            }
+
+            &Days
+            {
+                border: 5px solid #EDEFF6;
+                border-radius: 20px;
+                margin-top: 3rem;
+                margin-bottom: 1rem;
+
+                display: flex;
+                justify-content: space-between;
+
+                &Box
+                {
+                    padding: 2rem 3rem;
+
+                    &:not(:last-child)
+                    {
+                        border-left: 5px solid #EDEFF6;
+                    }
+
+                    p
+                    {
+                        letter-spacing: -0.36px;
+                        color: #496193;
+                        font-size: 1.6rem;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    span
+                    {
+                        letter-spacing: -0.3px;
+                        color: #96A5C6;
+                        font-size: 1.4rem;
+                    }
+                }
+            }
+
+            &Ticket
+            {
+
+            }
+        }
+    }
 }
