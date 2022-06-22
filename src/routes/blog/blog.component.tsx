@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './blog.module.scss';
 
 import Navbar from '../../components/layouts/navbar/navbar.component';
 import Footer from '../../components/layouts/footer/footer.component';
 
+import Image3 from "../../assets/images/image-3.svg";
 import BlogImage from '../../assets/images/image-3.svg';
 import { ReactComponent as Plus } from "../../assets/icons/plus.svg";
 import { ReactComponent as Minus } from "../../assets/icons/minus.svg";
 import { ReactComponent as Navigate } from "../../assets/icons/navigation-line.svg";
 import { ReactComponent as Save } from "../../assets/icons/save-line.svg";
 import { ReactComponent as Print } from "../../assets/icons/printer-line.svg";
-import {Link} from "react-router-dom";
-import Image3 from "../../assets/images/image-3.svg";
-import {ReactComponent as User} from "../../assets/icons/user.svg";
-import {ReactComponent as Comment} from "../../assets/icons/chat-1-line.svg";
-import {ReactComponent as Arrow2} from "../../assets/icons/arrow-2.svg";
+import { ReactComponent as User } from "../../assets/icons/user.svg";
+import { ReactComponent as Comment } from "../../assets/icons/chat-1-line.svg";
+import { ReactComponent as Arrow2 } from "../../assets/icons/arrow-2.svg";
 
 const Blog = () =>
 {
