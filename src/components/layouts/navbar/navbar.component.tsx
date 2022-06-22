@@ -20,6 +20,7 @@ import { ReactComponent as Eye } from '../../../assets/icons/eye-line.svg';
 import { ReactComponent as Search } from '../../../assets/icons/search-line.svg';
 import { ReactComponent as ThreeDots } from '../../../assets/icons/three-dots.svg';
 import Image3 from '../../../assets/images/image-3.svg';
+import BlogImage from "../../../assets/images/image-3.svg";
 
 const Navbar = (props: any) =>
 {
@@ -189,7 +190,7 @@ const Navbar = (props: any) =>
                 props.blog
                     ?
                     <>
-                        <nav className={styles.navbarHeaderNav}>
+                        <nav data-blog='true' className={styles.navbarHeaderNav}>
                             <div className='container'>
                                 <Link to='/'>
                                     بازگشت به صفحه اصلی
@@ -218,6 +219,36 @@ const Navbar = (props: any) =>
                             </div>
                         </nav>
                         <header className={styles.navbarHeaderBlog}>
+                            <div className='container'>
+                                <h1>
+                                    { props.blog }
+                                </h1>
+                                <span style={{ backgroundImage: `url(${props.blogImage})` }} />
+                                <footer>
+                                    <div>
+                                       <span>
+                                            <img src={BlogImage} alt='profile'/>
+                                        </span>
+                                        <h3>
+                                            احسان غلام پور
+                                        </h3>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <Calendar/>
+                                            منتشر شده در 25 دی ماه 1400
+                                        </div>
+                                        <div>
+                                            <Chat/>
+                                            بدون دیدگاه
+                                        </div>
+                                        <div>
+                                            <Eye/>
+                                            حدود 12236 بازدید
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
                             <nav>
                                 <div>
                                     <i>
@@ -246,34 +277,6 @@ const Navbar = (props: any) =>
                                     </i>
                                 </div>
                             </nav>
-                            <div className='container'>
-                                <h1>
-                                    { props.blog }
-                                </h1>
-                                <span style={{ backgroundImage: `url(${props.blogImage})` }} />
-                                <footer>
-                                    <div>
-                                        <span style={{ backgroundImage: `url(${props.blogImage})` }} />
-                                        <h3>
-                                            احسان غلام پور
-                                        </h3>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <Calendar/>
-                                            منتشر شده در 25 دی ماه 1400
-                                        </div>
-                                        <div>
-                                            <Chat/>
-                                            بدون دیدگاه
-                                        </div>
-                                        <div>
-                                            <Eye/>
-                                            حدود 12236 بازدید
-                                        </div>
-                                    </div>
-                                </footer>
-                            </div>
                         </header>
                     </>
                     :
@@ -283,14 +286,6 @@ const Navbar = (props: any) =>
                 props.blogs
                     ?
                     <header className={styles.navbarHeaderBlogs}>
-                        <nav>
-                            <i>
-                                <ArrowRight />
-                            </i>
-                            <i>
-                                <Arrow />
-                            </i>
-                        </nav>
                         <div className='container'>
                             <Link to='#'>
                                 <div />
@@ -347,6 +342,14 @@ const Navbar = (props: any) =>
                                 <img src={Image3}  alt='homeMagazineGallery'/>
                             </Link>
                         </div>
+                        <nav>
+                            <i>
+                                <ArrowRight />
+                            </i>
+                            <i>
+                                <Arrow />
+                            </i>
+                        </nav>
                     </header>
                     :
                     null

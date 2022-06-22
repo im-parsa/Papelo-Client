@@ -475,18 +475,29 @@
             border-left: none;
             border-right: none;
 
-            & > div {
+            @media only screen and (max-width: 1000px)
+            {
+                &[data-blog='true']
+                {
+                    display: none;
+                }
+            }
+
+            & > div
+            {
                 display: flex;
                 justify-content: space-between;
 
                 padding: 2rem 0;
 
-                * {
+                *
+                {
                     fill: #96A5C6;
                     color: #96A5C6;
                 }
 
-                & > a {
+                & > a
+                {
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -495,7 +506,8 @@
                     font-size: 1.5rem;
 
                     &:hover,
-                    &:hover * {
+                    &:hover *
+                    {
                         fill: #808eac;
                         color: #808eac;
                     }
@@ -522,10 +534,6 @@
 
         &Blog
         {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
             position: relative;
             width: 100%;
 
@@ -536,9 +544,24 @@
                 justify-content: space-between;
 
                 position: absolute;
+                top: 50%;
+                transform: translate(0, -50%);
 
                 width: 100%;
                 padding: 0 5rem;
+
+                @media only screen and (max-width: 1500px)
+                {
+                    position: relative;
+
+                    padding-top: 10rem;
+                    margin-bottom: -5rem;
+
+                    & h2
+                    {
+                        display: none;
+                    }
+                }
 
                 & > div
                 {
@@ -631,8 +654,10 @@
                 & > footer
                 {
                     display: flex;
+                    flex-wrap: wrap;
                     align-items: center;
                     justify-content: space-between;
+                    gap: 1rem;
 
                     & > div
                     {
@@ -646,15 +671,23 @@
 
                             & > span
                             {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+
                                 width: 4rem;
                                 height: 4rem;
                                 border-radius: 5rem;
                                 border: 4px solid #FFFFFF;
-                                box-shadow: 0 5px 10px #C4C9DA;
-                                background-repeat: no-repeat;
-                                background-size: cover;
-                                background-color: #4A6193;
+
+                                & > img
+                                {
+                                    width: 100%;
+                                    height: 100%;
+                                    border-radius: 15rem;
+                                }
                             }
+
                         }
 
                         &:last-child
@@ -700,7 +733,15 @@
                 transform: translate(0, -50%);
 
                 width: 100%;
-                padding: 0 5rem;
+                padding: 0 1.5rem;
+
+                @media only screen and (max-width: 1500px)
+                {
+                    position: relative;
+
+                    padding-top: 10rem;
+                    margin-bottom: -5rem;
+                }
 
                 & i
                 {
