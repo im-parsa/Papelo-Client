@@ -22,6 +22,7 @@ const SearchTrain = () =>
 
             <section className={styles.train}>
                 <div className='container'>
+
                     <div className={styles.trainContent}>
                         <div className={styles.trainContentFilter}>
                             <div className={styles.trainContentFilterHeader}>
@@ -69,7 +70,15 @@ const SearchTrain = () =>
                             </div>
 
                             <div className={styles.trainContentBoxesTicket}>
+                                <div className={styles.trainContentBoxesTicketContent}>
+                                    <button>نمایش کمتر</button>
+                                    <div>
 
+                                    </div>
+                                </div>
+                                <div className={styles.trainContentBoxesTicketPrice}>
+                                    Price
+                                </div>
                             </div>
                         </div>
                     </div>

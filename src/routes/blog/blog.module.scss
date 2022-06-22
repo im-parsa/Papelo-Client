@@ -1,5 +1,76 @@
 .blog
 {
+    &Header
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: relative;
+
+        min-height: 18rem;
+        margin: 3rem 0;
+        width: 100%;
+
+        & > div
+        {
+            width: 100%;
+        }
+
+        &:before
+        {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -.75rem;
+            height: 2rem;
+            transform: translate(-50%, 0);
+            border-radius: 1rem;
+            background: #09BAB5 0 0 no-repeat padding-box;
+            min-width: 3rem;
+            width: 20rem;
+            max-width: 50%;
+        }
+
+        &Box
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+
+            border-radius: 1.5rem;
+            background-color: #4A6192;
+            background-image: url(../../../assets/images/header-10.svg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 100%;
+            min-height: 18rem;
+
+
+            & > i
+            {
+                position: absolute;
+                top: calc(50% - 1rem);
+
+                width: 4rem;
+                height: 4rem;
+                border-radius: 5rem;
+                background: #F5F6FA;
+
+                &:first-child
+                {
+                    right: -2rem;
+                }
+                &:last-child
+                {
+                    left: -2rem;
+                }
+            }
+        }
+    }
+
     &Main
     {
         & > div
