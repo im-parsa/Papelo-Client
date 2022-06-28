@@ -321,10 +321,12 @@ const Home = () =>
                                 مشاهده پیشنهادات
                                 <Arrow />
                             </Link>
+
                             <div>
                                 <button onClick={() => dispatch(togglePopupHiddenLogin())}>
                                     <User />
                                 </button>
+
                                 <a href='/'>
                                     <Instagram />
                                 </a>
