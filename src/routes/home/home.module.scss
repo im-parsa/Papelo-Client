@@ -158,6 +158,7 @@
 
                         span
                         {
+                            font-weight: 1000;
                             font-size: 1.3rem;
                         }
                     }
@@ -167,7 +168,8 @@
                         background: white;
                         padding: 0.6rem 1.2rem;
                         border-radius: 0.7rem;
-                        font-size: 1.2rem;
+                        font-size: 1.5rem;
+                        font-weight: 1000;
                     }
                 }
 
@@ -177,18 +179,62 @@
                     align-items: center;
                     justify-content: space-between;
 
+                    position: relative;
+
                     margin-top: 2rem;
+
+                    i
+                    {
+                        position: absolute;
+                        left: 50%;
+                        transform: translate(-50%, 0);
+
+                        width: 12rem;
+                        border-bottom: 2px dashed #CED2E3;
+
+                        &:before
+                        {
+                            content: '';
+
+                            position: absolute;
+                            right: 0;
+                            top: -.2rem;
+
+                            border-radius: 1rem;
+                            width: .6rem;
+                            height: .6rem;
+                            background: #CED2E3;
+                        }
+
+                        &:after
+                        {
+                            content: '';
+
+                            position: absolute;
+                            left: 0;
+                            top: -.2rem;
+
+                            border-radius: 1rem;
+                            width: .6rem;
+                            height: .6rem;
+                            border: .15rem solid #CED2E3;
+                        }
+                    }
 
                     span
                     {
+                        position: relative;
+
                         font-size: 2rem;
                         font-family: 'YekanBakhBold', sans-serif;
                     }
 
                     svg
                     {
-                        width: 2rem;
-                        height: 2rem;
+                        position: relative;
+
+                        width: 2.5rem;
+                        height: 2.5rem;
                     }
                 }
 
@@ -197,7 +243,14 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+
                     margin-top: 0.5rem;
+
+                    & > span
+                    {
+                        font-family: YekanBakhMedium, serif;
+                        font-size: 1.6rem;
+                    }
                 }
             }
 
@@ -222,13 +275,28 @@
 
                     position: relative;
 
-                    padding: 2.4rem;
+                    padding: 2.1rem 2.4rem;
                     width: 100%;
                     height: 100%;
                     color: #FFFFFF;
                     font-family: 'YekanBakhBold', sans-serif;
-                    font-size: 1.4rem;
-                    letter-spacing: 1px;
+                    font-size: 1.6rem;
+
+                    & > span
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: .8rem;
+
+                        font-size: 1.8rem;
+
+                        & > svg
+                        {
+                            width: 1.3rem;
+                            height: 1.3rem;
+                        }
+                    }
                 }
 
                 & > i
@@ -344,6 +412,8 @@
                 border-radius: 2rem 2rem 0 0;
                 padding: 2.2rem;
 
+                position: relative;
+
                 &Top,
                 &Middle,
                 &Bottom
@@ -355,8 +425,48 @@
 
                 &Top
                 {
+                    i
+                    {
+                        position: absolute;
+                        left: 50%;
+                        transform: translate(-50%, 0);
+
+                        width: 12rem;
+                        border-bottom: 2px dashed #CED2E3;
+
+                        &:before
+                        {
+                            content: '';
+
+                            position: absolute;
+                            right: 0;
+                            top: -.2rem;
+
+                            border-radius: 1rem;
+                            width: .6rem;
+                            height: .6rem;
+                            background: #CED2E3;
+                        }
+
+                        &:after
+                        {
+                            content: '';
+
+                            position: absolute;
+                            left: 0;
+                            top: -.2rem;
+
+                            border-radius: 1rem;
+                            width: .6rem;
+                            height: .6rem;
+                            border: .15rem solid #CED2E3;
+                        }
+                    }
+
                     svg
                     {
+                        position: relative;
+
                         width: 2rem;
                         height: 2rem;
                         margin-left: 1rem;
@@ -373,14 +483,18 @@
                 &Middle
                 {
                     margin-top: 0.5rem;
-                    font-size: 1.1rem;
+                    font-size: 1.25rem;
                 }
 
                 &Bottom
                 {
                     margin-top: 1rem;
 
-                    font-size: 1.2rem;
+                    & > span
+                    {
+                        font-family: YekanBakhMedium, serif;
+                        font-size: 1.6rem;
+                    }
 
                     & span:nth-child(1)
                     {
@@ -409,13 +523,31 @@
 
                     position: relative;
 
-                    padding: 2.4rem;
+                    padding: 2rem 2.4rem;
                     width: 100%;
                     height: 100%;
                     color: #FFFFFF;
                     font-family: 'YekanBakhBold', sans-serif;
-                    font-size: 1.4rem;
-                    letter-spacing: 1px;
+                    font-size: 1.5rem;
+
+                    & > span
+                    {
+                        font-size: 2rem;
+                    }
+
+                    & > p
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: .8rem;
+
+                        & > svg
+                        {
+                            width: 1.2rem;
+                            height: 1.2rem;
+                        }
+                    }
                 }
 
                 & > i

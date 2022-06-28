@@ -176,6 +176,8 @@ const Home = () =>
 
         const passengersParent = [...document.querySelectorAll('#passengers_parent')];
         const originInputParent = [...document.querySelectorAll('#origin_input_parent')];
+        const selectMenu1Parent = [...document.querySelectorAll('#select_menu-1')];
+        const selectMenu2Parent = [...document.querySelectorAll('#select_menu-2')];
         const destinationInputParent = [...document.querySelectorAll('#destination_input_parent')];
 
         document.addEventListener('click', (event: any) =>
@@ -202,12 +204,22 @@ const Home = () =>
             }
             if (!passengersParent?.some((element) => element?.contains(event?.target)))
             {
-                // console.log(passengersParent)
-
                 const passengersDetails = document.querySelectorAll('.passengers');
 
                 setPassengers(false);
                 passengersDetails.forEach(f => f.removeAttribute('open'));
+            }
+            if (!selectMenu1Parent?.some((element) => element?.contains(event?.target)))
+            {
+                const selectMenu1Details = document.querySelectorAll('#select_menu-1 details');
+
+                selectMenu1Details.forEach(f => f.removeAttribute('open'));
+            }
+            if (!selectMenu2Parent?.some((element) => element?.contains(event?.target)))
+            {
+                const selectMenu1Details = document.querySelectorAll('#select_menu-2 details');
+
+                selectMenu1Details.forEach(f => f.removeAttribute('open'));
             }
         })
     }, [handleDetail, setPassengers, setPassengers]);
@@ -492,8 +504,8 @@ const Home = () =>
                                             خارجی
                                         </label>
                                     </p>
-                                    <div className='custom-select-menu'>
-                                        <details className='custom-select'>
+                                    <div className='custom-select-menu' id='select_menu-1'>
+                                        <details className='custom-select' id='select_menu-1'>
                                             <summary className='radios'>
                                                 <input type='radio' name='item1' id='item1' title='یک طرفه' onChange={(event: any) => { event.preventDefault() }} checked={true}/>
                                                 <input type='radio' name='item1' id='item2' title='رفت و برگشت' onChange={(event: any) => { event.preventDefault() }}/>
@@ -1215,7 +1227,7 @@ const Home = () =>
                             </div>
                             <div className={styles.homeHeaderImageContentList} data-activate={page ===  'train' ? 'true' : 'false'}>
                                 <div className={styles.homeHeaderImageContentItem}>
-                                    <div className='custom-select-menu'>
+                                    <div className='custom-select-menu' id='select_menu-1'>
                                         <details className='custom-select detail_2'>
                                             <summary className='radios'>
                                                 <input type='radio' name='item2' id='item3' title='دربست' onChange={(event: any) => event.preventDefault()} checked={true}/>
@@ -1235,7 +1247,7 @@ const Home = () =>
                                             </ul>
                                         </details>
                                     </div>
-                                    <div className='custom-select-menu'>
+                                    <div className='custom-select-menu' id='select_menu-2'>
                                         <details className='custom-select detail_1'>
                                             <summary className='radios'>
                                                 <input type='radio' name='item4' id='item9' title='یک طرفه' onChange={(event: any) => event.preventDefault()} checked={true}/>
@@ -1762,6 +1774,7 @@ const Home = () =>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
                                     <span>تهران</span>
+                                    <i />
                                     <Plane />
                                     <span>مشهد</span>
                                 </div>
@@ -1777,10 +1790,14 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <p>شروع قیمت از</p>
-                                    <span>13/479/400 ریال</span>
+                                    <span>
+                                        13/479/400 ریال
+                                        <Arrow2 />
+                                    </span>
                                 </div>
                             </Link>
                         </div>
+
                         <div>
                             <div className={styles.homeFastSearchBoxesBox}>
                                 <div className={styles.homeFastSearchBoxesBoxTop}>
@@ -1794,6 +1811,7 @@ const Home = () =>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
                                     <span>تهران</span>
+                                    <i />
                                     <Plane />
                                     <span>مشهد</span>
                                 </div>
@@ -1809,10 +1827,14 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <p>شروع قیمت از</p>
-                                    <span>13/479/400 ریال</span>
+                                    <span>
+                                        13/479/400 ریال
+                                        <Arrow2 />
+                                    </span>
                                 </div>
                             </Link>
                         </div>
+
                         <div>
                             <div className={styles.homeFastSearchBoxesBox}>
                                 <div className={styles.homeFastSearchBoxesBoxTop}>
@@ -1826,6 +1848,7 @@ const Home = () =>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
                                     <span>تهران</span>
+                                    <i />
                                     <Plane />
                                     <span>مشهد</span>
                                 </div>
@@ -1841,10 +1864,14 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <p>شروع قیمت از</p>
-                                    <span>13/479/400 ریال</span>
+                                    <span>
+                                        13/479/400 ریال
+                                        <Arrow2 />
+                                    </span>
                                 </div>
                             </Link>
                         </div>
+
                         <div>
                             <div className={styles.homeFastSearchBoxesBox}>
                                 <div className={styles.homeFastSearchBoxesBoxTop}>
@@ -1858,6 +1885,7 @@ const Home = () =>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
                                     <span>تهران</span>
+                                    <i />
                                     <Plane />
                                     <span>مشهد</span>
                                 </div>
@@ -1873,10 +1901,14 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <p>شروع قیمت از</p>
-                                    <span>13/479/400 ریال</span>
+                                    <span>
+                                        13/479/400 ریال
+                                        <Arrow2 />
+                                    </span>
                                 </div>
                             </Link>
                         </div>
+
                         <div>
                             <div className={styles.homeFastSearchBoxesBox}>
                                 <div className={styles.homeFastSearchBoxesBoxTop}>
@@ -1890,6 +1922,7 @@ const Home = () =>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
                                     <span>تهران</span>
+                                    <i />
                                     <Plane />
                                     <span>مشهد</span>
                                 </div>
@@ -1905,10 +1938,14 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <p>شروع قیمت از</p>
-                                    <span>13/479/400 ریال</span>
+                                    <span>
+                                        13/479/400 ریال
+                                        <Arrow2 />
+                                    </span>
                                 </div>
                             </Link>
                         </div>
+
                         <div>
                             <div className={styles.homeFastSearchBoxesBox}>
                                 <div className={styles.homeFastSearchBoxesBoxTop}>
@@ -1922,6 +1959,7 @@ const Home = () =>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
                                     <span>تهران</span>
+                                    <i />
                                     <Plane />
                                     <span>مشهد</span>
                                 </div>
@@ -1937,10 +1975,14 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <p>شروع قیمت از</p>
-                                    <span>13/479/400 ریال</span>
+                                    <span>
+                                        13/479/400 ریال
+                                        <Arrow2 />
+                                    </span>
                                 </div>
                             </Link>
                         </div>
+
                         <div>
                             <div className={styles.homeFastSearchBoxesBox}>
                                 <div className={styles.homeFastSearchBoxesBoxTop}>
@@ -1954,6 +1996,7 @@ const Home = () =>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
                                     <span>تهران</span>
+                                    <i />
                                     <Plane />
                                     <span>مشهد</span>
                                 </div>
@@ -1969,10 +2012,14 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <p>شروع قیمت از</p>
-                                    <span>13/479/400 ریال</span>
+                                    <span>
+                                        13/479/400 ریال
+                                        <Arrow2 />
+                                    </span>
                                 </div>
                             </Link>
                         </div>
+
                         <div>
                             <div className={styles.homeFastSearchBoxesBox}>
                                 <div className={styles.homeFastSearchBoxesBoxTop}>
@@ -1986,6 +2033,7 @@ const Home = () =>
 
                                 <div className={styles.homeFastSearchBoxesBoxMiddle}>
                                     <span>تهران</span>
+                                    <i />
                                     <Plane />
                                     <span>مشهد</span>
                                 </div>
@@ -2001,7 +2049,10 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <p>شروع قیمت از</p>
-                                    <span>13/479/400 ریال</span>
+                                    <span>
+                                        13/479/400 ریال
+                                        <Arrow2 />
+                                    </span>
                                 </div>
                             </Link>
                         </div>
@@ -2024,6 +2075,7 @@ const Home = () =>
                             <div className={styles.homeProposalBoxesBox}>
                                 <div className={styles.homeProposalBoxesBoxTop}>
                                     <p>تهران</p>
+                                    <i />
                                     <Plane />
                                     <p>مشهد</p>
                                 </div>
@@ -2044,14 +2096,19 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <span>13/479/400 ریال</span>
-                                    <p>رزرو</p>
+                                    <p>
+                                        رزرو
+                                        <Arrow2 />
+                                    </p>
                                 </div>
                             </Link>
                         </div>
+
                         <div>
                             <div className={styles.homeProposalBoxesBox}>
                                 <div className={styles.homeProposalBoxesBoxTop}>
                                     <p>تهران</p>
+                                    <i />
                                     <Plane />
                                     <p>مشهد</p>
                                 </div>
@@ -2072,14 +2129,19 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <span>13/479/400 ریال</span>
-                                    <p>رزرو</p>
+                                    <p>
+                                        رزرو
+                                        <Arrow2 />
+                                    </p>
                                 </div>
                             </Link>
                         </div>
+
                         <div>
                             <div className={styles.homeProposalBoxesBox}>
                                 <div className={styles.homeProposalBoxesBoxTop}>
                                     <p>تهران</p>
+                                    <i />
                                     <Plane />
                                     <p>مشهد</p>
                                 </div>
@@ -2100,14 +2162,19 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <span>13/479/400 ریال</span>
-                                    <p>رزرو</p>
+                                    <p>
+                                        رزرو
+                                        <Arrow2 />
+                                    </p>
                                 </div>
                             </Link>
                         </div>
+
                         <div>
                             <div className={styles.homeProposalBoxesBox}>
                                 <div className={styles.homeProposalBoxesBoxTop}>
                                     <p>تهران</p>
+                                    <i />
                                     <Plane />
                                     <p>مشهد</p>
                                 </div>
@@ -2128,7 +2195,10 @@ const Home = () =>
                                 <hr />
                                 <div>
                                     <span>13/479/400 ریال</span>
-                                    <p>رزرو</p>
+                                    <p>
+                                        رزرو
+                                        <Arrow2 />
+                                    </p>
                                 </div>
                             </Link>
                         </div>
