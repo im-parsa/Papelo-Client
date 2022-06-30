@@ -134,7 +134,7 @@
         display: grid;
         grid-template-rows: auto;
         grid-template-columns: 2.5fr 2fr;
-        grid-column-gap: 3rem;
+        grid-gap: 3rem;
 
         padding: 4rem 0;
 
@@ -167,6 +167,10 @@
                 &[data-activate='true']
                 {
                     display: flex;
+                    @media only screen and (max-width: 600px)
+                    {
+                        flex-wrap: wrap;
+                    }
                 }
 
                 & > header
@@ -180,6 +184,13 @@
                     width: 100%;
                     padding: 3rem 5rem;
                     border-bottom: 2px solid #f5f6fa;
+
+                    @media only screen and (max-width: 600px)
+                    {
+                        gap: 2rem;
+
+                        padding: 1.5rem 2.5rem;
+                    }
 
                     & > div
                     {
@@ -234,12 +245,23 @@
 
                     padding: 3rem 5rem;
 
+                    @media only screen and (max-width: 600px)
+                    {
+                        padding: 1.5rem 2.5rem;
+                    }
+
                     & > form
                     {
                         display: grid;
                         grid-template-rows: auto;
                         grid-template-columns: repeat(2, 1fr);
                         grid-gap: 2rem;
+
+                        @media only screen and (max-width: 600px)
+                        {
+                            grid-template-columns: 1fr;
+                            grid-template-rows: 1fr 1fr;
+                        }
 
                         & > div
                         {
@@ -437,6 +459,12 @@
                             align-items: center;
                             flex-direction: row;
                             justify-content: space-between;
+                            gap: 1rem;
+
+                            @media only screen and (max-width: 600px)
+                            {
+                                flex-wrap: wrap;
+                            }
                         }
 
                         &[data-add='true']
@@ -735,6 +763,11 @@
                 width: 100%;
                 padding: 5rem;
 
+                @media only screen and (max-width: 600px)
+                {
+                    padding: 1.5rem 2.5rem;
+                }
+
                 & > h2
                 {
                     display: flex;
@@ -752,8 +785,14 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    gap: 1rem;
 
                     width: 100%;
+
+                    @media only screen and (max-width: 600px)
+                    {
+                        flex-wrap: wrap;
+                    }
 
                     & > button
                     {
@@ -1081,10 +1120,16 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+                    gap: 1rem;
 
                     width: 100%;
                     font-size: 1.8rem;
                     color: #A4AEC4;
+
+                    @media only screen and (max-width: 600px)
+                    {
+                        flex-wrap: wrap;
+                    }
 
                     &[data-purchase='true']
                     {
