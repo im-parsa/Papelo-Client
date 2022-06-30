@@ -655,7 +655,7 @@ const Home = () =>
                                                 name='origin'
                                                 onFocus={ onFocusOrigin }
                                                 onChange={ onChangeOrigin }
-                                                defaultValue={ origin || '' }
+                                                value={ origin }
                                             />
                                         </div>
                                         <Plane2 />
@@ -705,7 +705,7 @@ const Home = () =>
                                                 name='destination'
                                                 onFocus={ onFocusDestination }
                                                 onChange={ onChangeDestination }
-                                                defaultValue={ destination || '' }
+                                                value={ destination }
                                             />
                                         </div>
                                         <Plane3 />
@@ -909,7 +909,7 @@ const Home = () =>
                                                 name='origin'
                                                 onFocus={ onFocusOrigin }
                                                 onChange={ onChangeOrigin }
-                                                defaultValue={ origin || '' }
+                                                value={ origin }
                                             />
                                         </div>
                                         <Plane2 />
@@ -1113,7 +1113,7 @@ const Home = () =>
                                                 name='origin'
                                                 onFocus={ onFocusOrigin }
                                                 onChange={ onChangeOrigin }
-                                                defaultValue={ origin || '' }
+                                                value={ origin }
                                             />
                                         </div>
                                         <Plane2 />
@@ -1163,7 +1163,7 @@ const Home = () =>
                                                 name='destination'
                                                 onFocus={ onFocusDestination }
                                                 onChange={ onChangeDestination }
-                                                defaultValue={ destination || '' }
+                                                value={ destination }
                                             />
                                         </div>
                                         <Plane3 />
@@ -1395,7 +1395,7 @@ const Home = () =>
                                                 name='origin'
                                                 onFocus={ onFocusOrigin }
                                                 onChange={ onChangeOrigin }
-                                                defaultValue={ origin || '' }
+                                                value={ origin }
                                             />
                                         </div>
                                         <Plane2 />
@@ -1445,7 +1445,7 @@ const Home = () =>
                                                 name='destination'
                                                 onFocus={ onFocusDestination }
                                                 onChange={ onChangeDestination }
-                                                defaultValue={ destination || '' }
+                                                value={ destination }
                                             />
                                         </div>
                                         <Plane3 />
@@ -1544,7 +1544,7 @@ const Home = () =>
                                                 name='origin'
                                                 onFocus={ onFocusOrigin }
                                                 onChange={ onChangeOrigin }
-                                                defaultValue={ origin || '' }
+                                                value={ origin }
                                             />
                                         </div>
                                         <Plane2 />
@@ -1594,7 +1594,7 @@ const Home = () =>
                                                 name='destination'
                                                 onFocus={ onFocusDestination }
                                                 onChange={ onChangeDestination }
-                                                defaultValue={ destination || '' }
+                                                value={ destination }
                                             />
                                         </div>
                                         <Plane3 />
@@ -2215,6 +2215,34 @@ const Home = () =>
                                 برای دریافت پیامک پیشنهادهای لحظه آخری با تخفیف بیش از 50٪ در پروازهای رفت و برگشت مسیر مورد نظر و شماره تلفن همراه خود را وارد کنید
                             </p>
                             <div>
+                                <div>
+                                    <span>
+                                        مبدا
+                                    </span>
+
+                                    <Arrow2 />
+
+                                    <ul>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <span>
+                                        مقصد
+                                    </span>
+
+                                    <Arrow2 />
+
+                                    <ul>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                    </ul>
+                                </div>
+
                                 <input
                                     type='number'
                                     placeholder='شماره موبایل'

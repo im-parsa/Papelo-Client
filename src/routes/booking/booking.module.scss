@@ -138,6 +138,12 @@
 
         padding: 4rem 0;
 
+        @media only screen and (max-width: 1000px)
+        {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+
         & > div
         {
             display: flex;
