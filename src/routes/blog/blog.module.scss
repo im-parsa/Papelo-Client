@@ -482,7 +482,7 @@
                         border-top: 1px solid #edeef4;
                         padding-top: 3rem;
 
-                        @media only screen and (max-width: 100rem)
+                        @media only screen and (max-width: 50rem)
                         {
                             flex-wrap: wrap;
                         }
@@ -492,7 +492,7 @@
                             width: 100%;
                             padding: 0 2rem;
 
-                            @media only screen and (max-width: 90rem)
+                            @media only screen and (max-width: 50rem)
                             {
                                 padding: 1rem 0;
                             }
@@ -502,7 +502,7 @@
                                 border-left: 1px solid #edeef4;
                                 border-right: 1px solid #edeef4;
 
-                                @media only screen and (max-width: 90rem)
+                                @media only screen and (max-width: 50rem)
                                 {
                                     border: none;
                                 }
@@ -519,6 +519,7 @@
                         font-size: 2rem;
                         color: #4A6192;
                         min-height: 20rem;
+                        width: 100%;
 
                         &::placeholder
                         {
@@ -706,6 +707,10 @@
 
                                 & svg
                                 {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
                                     width: .8rem;
                                     height: .8rem;
                                     fill: #496193;

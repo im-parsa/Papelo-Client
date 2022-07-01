@@ -87,9 +87,9 @@
         {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: .5rem;
 
-            border: 5px solid #ECEFF6;
+            border: 4px solid #dde0e8;
             width: 55rem;
             border-radius: 10rem;
             padding: .5rem;
@@ -107,7 +107,8 @@
 
                 &::placeholder
                 {
-                    color: #96A5C6;
+                    color: #8b9abc;
+                    font-size: 1.6rem;
                 }
             }
 
@@ -555,6 +556,13 @@
                     gap: 1rem;
 
                     font-size: 1.5rem;
+
+                    & > svg
+                    {
+                        width: 2rem;
+                        height: 2rem;
+                        transform: rotate(180deg);
+                    }
 
                     &:hover,
                     &:hover *

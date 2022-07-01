@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import React, { useCallback, useState } from 'react';
-import { DatePicker } from "jalali-react-datepicker";
+import { DatePicker } from 'jalali-react-datepicker';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
 
 import { togglePopupHiddenLogin } from '../../redux/popup/popup.actions';
 
@@ -47,6 +50,14 @@ import Footer from '../../components/layouts/footer/footer.component';
 const Home = () =>
 {
     const [page, setPage] = useState('plane');
+    const [proposalOrigin, setProposalOrigin] = useState('');
+    const [proposalOriginActivate, setProposalOriginActivate] = useState(false);
+    const [proposalDestination, setProposalDestination] = useState('');
+    const [proposalDestinationActivate, setProposalDestinationActivate] = useState(false);
+    const [unilateral, setUnilateral] = useState(true);
+    const [unilateralActivate, setUnilateralActivate] = useState(false);
+    const [exclusive, setExclusive] = useState(true);
+    const [exclusiveActivate, setExclusiveActivate] = useState(false);
     const [reserveMore, setReserveMore] = useState(false);
     const [passengers, setPassengers] = useState(false);
     const [international, setInternational] = useState(false);
@@ -142,43 +153,14 @@ const Home = () =>
             setOrigin(destination);
             setDestination(origin);
         }, [destination, setDestination, origin, setOrigin]);
-    const handleDetail = useCallback(
-        (listener?: boolean) =>
-        {
-            // @ts-ignore
-            const details = [...document.querySelectorAll('details')];
-
-            if (listener)
-            {
-                document.addEventListener('click', (event: any) =>
-                {
-                    if (!details.some((element) => element.contains(event?.target)))
-                    {
-                        for (let detail of details)
-                        {
-                            if (!detail?.classList?.contains('passengers'))
-                            {
-                                detail.removeAttribute('open');
-                            }
-                        }
-                    }
-                })
-            }
-            else
-            {
-                details.forEach(f => f.removeAttribute('open'));
-            }
-        }, [])
 
     React.useEffect(() =>
     {
-        handleDetail(true);
-
         const passengersParent = [...document.querySelectorAll('#passengers_parent')];
         const originInputParent = [...document.querySelectorAll('#origin_input_parent')];
-        const selectMenu1Parent = [...document.querySelectorAll('#select_menu-1')];
-        const selectMenu2Parent = [...document.querySelectorAll('#select_menu-2')];
         const destinationInputParent = [...document.querySelectorAll('#destination_input_parent')];
+        const unilateralParent = [...document.querySelectorAll('#unilateral_parent')];
+        const exclusiveParent = [...document.querySelectorAll('#exclusive_parent')];
 
         document.addEventListener('click', (event: any) =>
         {
@@ -204,25 +186,18 @@ const Home = () =>
             }
             if (!passengersParent?.some((element) => element?.contains(event?.target)))
             {
-                const passengersDetails = document.querySelectorAll('.passengers');
-
                 setPassengers(false);
-                passengersDetails.forEach(f => f.removeAttribute('open'));
             }
-            if (!selectMenu1Parent?.some((element) => element?.contains(event?.target)))
+            if (!unilateralParent?.some((element) => element?.contains(event?.target)))
             {
-                const selectMenu1Details = document.querySelectorAll('#select_menu-1 details');
-
-                selectMenu1Details.forEach(f => f.removeAttribute('open'));
+                setUnilateralActivate(false);
             }
-            if (!selectMenu2Parent?.some((element) => element?.contains(event?.target)))
+            if (!exclusiveParent?.some((element) => element?.contains(event?.target)))
             {
-                const selectMenu1Details = document.querySelectorAll('#select_menu-2 details');
-
-                selectMenu1Details.forEach(f => f.removeAttribute('open'));
+                setExclusiveActivate(false);
             }
         })
-    }, [handleDetail, setPassengers, setPassengers]);
+    }, [setPassengers, setUnilateralActivate, setExclusiveActivate]);
 
     return (
         <main className={styles.home}>
@@ -490,7 +465,7 @@ const Home = () =>
                                     اتوبوس
                                 </div>
                             </nav>
-                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'plane' ? 'true' : 'false'}>
+                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'plane'}>
                                 <div className={styles.homeHeaderImageContentItem}>
                                     <p>
                                         <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
@@ -504,139 +479,137 @@ const Home = () =>
                                             خارجی
                                         </label>
                                     </p>
-                                    <div className='custom-select-menu' id='select_menu-1'>
-                                        <details className='custom-select' id='select_menu-1'>
-                                            <summary className='radios'>
-                                                <input type='radio' name='item1' id='item1' title='یک طرفه' onChange={(event: any) => { event.preventDefault() }} checked={true}/>
-                                                <input type='radio' name='item1' id='item2' title='رفت و برگشت' onChange={(event: any) => { event.preventDefault() }}/>
-                                            </summary>
-                                            <ul className='list'>
-                                                <li onClick={(event: any) => handleDetail() }>
-                                                    <label htmlFor='item1'>
-                                                        یک طرفه
-                                                    </label>
-                                                </li>
-                                                <li onClick={(event: any) => handleDetail() }>
-                                                    <label htmlFor='item2'>
-                                                        رفت و برگشت
-                                                    </label>
-                                                </li>
-                                            </ul>
-                                        </details>
-                                    </div>
-                                    <div id='passengers_parent'>
-                                        <div className='custom-select-menu' onClick={() => setPassengers(!passengers)}>
-                                            <details className='custom-select passengers'>
-                                                <summary className='radios'>
-                                                    مسافران
-                                                </summary>
-                                            </details>
-                                        </div>
+                                    <div data-options={true} id='unilateral_parent' data-open={unilateralActivate} onClick={() => setUnilateralActivate(!unilateralActivate)}>
                                         {
-                                            passengers
+                                            unilateral
                                                 ?
-                                                <div className={styles.homeHeaderPassengers}>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                بزرگسال
-                                                            </h2>
-                                                            <p>
-                                                                بزرگتر از 12 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
-                                                                {adultCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
-                                                                data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount <= 1}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                کودک
-                                                            </h2>
-                                                            <p>
-                                                                بین ۲ الی 12 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'child' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
-                                                                {childCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
-                                                                data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
-                                                                data-disabled={childCount <= 0}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                نوزاد
-                                                            </h2>
-                                                            <p>
-                                                                کوچکتر از 2 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'baby' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
-                                                                {babyCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
-                                                                data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
-                                                                data-disabled={babyCount <= 0}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <span>
+                                                    یکطرفه
+                                                </span>
+                                                :
+                                                <span>
+                                                    رفت و برگشت
+                                                </span>
+                                        }
+                                        {
+                                            unilateralActivate
+                                                ?
+                                                <ul>
+                                                    <li data-activate={unilateral} onClick={() => setUnilateral(true)}>
+                                                        یکطرفه
+                                                    </li>
+
+                                                    <li data-activate={!unilateral} onClick={() => setUnilateral(false)}>
+                                                        رفت و برگشت
+                                                    </li>
+                                                </ul>
                                                 :
                                                 null
                                         }
                                     </div>
+                                    <div data-options={true} id='passengers_parent' data-open={passengers} onClick={() => setPassengers(!passengers)}>
+                                        <span>
+                                            مسافران
+                                        </span>
+                                    </div>
+                                    <div data-activate={passengers} id='passengers_parent' className={styles.homeHeaderPassengers}>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            بزرگسال
+                                                        </h2>
+                                                        <p>
+                                                            بزرگتر از 12 سال
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'adult' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                            {adultCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
+                                                            data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
+                                                            data-disabled={adultCount <= 1}
+                                                        >
+                                                            <Minus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            کودک
+                                                        </h2>
+                                                        <p>
+                                                            بین ۲ الی 12 سال
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'child' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                            {childCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
+                                                            data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
+                                                            data-disabled={childCount <= 0}
+                                                        >
+                                                            <Minus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            نوزاد
+                                                        </h2>
+                                                        <p>
+                                                            کوچکتر از 2 سال
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'baby' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
+                                                            {babyCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
+                                                            data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
+                                                            data-disabled={babyCount <= 0}
+                                                        >
+                                                            <Minus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
                                     <span id='exchange_icon' data-activate="true" onClick={ onClickExchange }>
@@ -767,7 +740,7 @@ const Home = () =>
                                     یافتن بلیط
                                 </button>
                             </div>
-                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'hotel' ? 'true' : 'false'}>
+                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'hotel'}>
                                 <div className={styles.homeHeaderImageContentItem}>
                                     <p>
                                         <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
@@ -781,119 +754,109 @@ const Home = () =>
                                             خارجی
                                         </label>
                                     </p>
-                                    <div id='passengers_parent'>
-                                        <div className='custom-select-menu' onClick={() => setPassengers(!passengers)}>
-                                            <details className='custom-select passengers'>
-                                                <summary className='radios'>
-                                                    اطلاعات
-                                                </summary>
-                                            </details>
-                                        </div>
-                                        {
-                                            passengers
-                                                ?
-                                                <div className={styles.homeHeaderPassengers}>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                بزرگسال
-                                                            </h2>
-                                                            <p>
-                                                                بزرگتر از 12 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
-                                                                {adultCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
-                                                                data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount <= 1}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
+                                    <div data-options={true} data-open={passengers} id='passengers_parent' onClick={() => setPassengers(!passengers)}>
+                                        <span>
+                                            اطلاعات
+                                        </span>
+                                    </div>
+                                    <div data-activate={passengers} id='passengers_parent' className={styles.homeHeaderPassengers}>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            بزرگسال
+                                                        </h2>
+                                                        <p>
+                                                            بزرگتر از 12 سال
+                                                        </p>
                                                     </div>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                کودک
-                                                            </h2>
-                                                            <p>
-                                                                بین ۲ الی 12 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'child' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
-                                                                {childCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
-                                                                data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
-                                                                data-disabled={childCount <= 0}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                نوزاد
-                                                            </h2>
-                                                            <p>
-                                                                کوچکتر از 2 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'baby' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
-                                                                {babyCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
-                                                                data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
-                                                                data-disabled={babyCount <= 0}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'adult' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                            {adultCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
+                                                            data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
+                                                            data-disabled={adultCount <= 1}
+                                                        >
+                                                            <Minus />
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                :
-                                                null
-                                        }
-                                    </div>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            کودک
+                                                        </h2>
+                                                        <p>
+                                                            بین ۲ الی 12 سال
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'child' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                            {childCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
+                                                            data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
+                                                            data-disabled={childCount <= 0}
+                                                        >
+                                                            <Minus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            نوزاد
+                                                        </h2>
+                                                        <p>
+                                                            کوچکتر از 2 سال
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'baby' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
+                                                            {babyCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
+                                                            data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
+                                                            data-disabled={babyCount <= 0}
+                                                        >
+                                                            <Minus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
                                     <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
@@ -971,7 +934,7 @@ const Home = () =>
                                     یافتن بلیط
                                 </button>
                             </div>
-                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'tour' ? 'true' : 'false'}>
+                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'tour'}>
                                 <div className={styles.homeHeaderImageContentItem}>
                                     <p>
                                         <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
@@ -985,119 +948,109 @@ const Home = () =>
                                             خارجی
                                         </label>
                                     </p>
-                                    <div id='passengers_parent'>
-                                        <div className='custom-select-menu' onClick={() => setPassengers(!passengers)}>
-                                            <details className='custom-select passengers'>
-                                                <summary className='radios'>
-                                                    مسافران
-                                                </summary>
-                                            </details>
-                                        </div>
-                                        {
-                                            passengers
-                                                ?
-                                                <div className={styles.homeHeaderPassengers}>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                بزرگسال
-                                                            </h2>
-                                                            <p>
-                                                                بزرگتر از 12 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
-                                                                {adultCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
-                                                                data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount <= 1}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
+                                    <div data-options={true} data-open={passengers} id='passengers_parent' onClick={() => setPassengers(!passengers)}>
+                                        <span>
+                                            مسافران
+                                        </span>
+                                    </div>
+                                    <div data-activate={passengers} id='passengers_parent' className={styles.homeHeaderPassengers}>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            بزرگسال
+                                                        </h2>
+                                                        <p>
+                                                            بزرگتر از 12 سال
+                                                        </p>
                                                     </div>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                کودک
-                                                            </h2>
-                                                            <p>
-                                                                بین ۲ الی 12 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'child' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
-                                                                {childCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
-                                                                data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
-                                                                data-disabled={childCount <= 0}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                نوزاد
-                                                            </h2>
-                                                            <p>
-                                                                کوچکتر از 2 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'baby' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
-                                                                {babyCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
-                                                                data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
-                                                                data-disabled={babyCount <= 0}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'adult' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                            {adultCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
+                                                            data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
+                                                            data-disabled={adultCount <= 1}
+                                                        >
+                                                            <Minus />
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                :
-                                                null
-                                        }
-                                    </div>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            کودک
+                                                        </h2>
+                                                        <p>
+                                                            بین ۲ الی 12 سال
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'child' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                            {childCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
+                                                            data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
+                                                            data-disabled={childCount <= 0}
+                                                        >
+                                                            <Minus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            نوزاد
+                                                        </h2>
+                                                        <p>
+                                                            کوچکتر از 2 سال
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'baby' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
+                                                            {babyCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
+                                                            data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
+                                                            data-disabled={babyCount <= 0}
+                                                        >
+                                                            <Minus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
                                     <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
@@ -1225,161 +1178,167 @@ const Home = () =>
                                     یافتن بلیط
                                 </button>
                             </div>
-                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'train' ? 'true' : 'false'}>
+                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'train'}>
                                 <div className={styles.homeHeaderImageContentItem}>
-                                    <div className='custom-select-menu' id='select_menu-1'>
-                                        <details className='custom-select detail_2'>
-                                            <summary className='radios'>
-                                                <input type='radio' name='item2' id='item3' title='دربست' onChange={(event: any) => event.preventDefault()} checked={true}/>
-                                                <input type='radio' name='item2' id='item4' title='درنسبت' onChange={(event: any) => event.preventDefault()}/>
-                                            </summary>
-                                            <ul className='list'>
-                                                <li>
-                                                    <label htmlFor='item3'>
+                                    <div data-options={true} id='exclusive_parent' data-open={exclusiveActivate} onClick={() => setExclusiveActivate(!exclusiveActivate)}>
+                                        {
+                                            exclusive
+                                                ?
+                                                <span>
+                                                    دربست
+                                                </span>
+                                                :
+                                                <span>
+                                                    درنبست
+                                                </span>
+                                        }
+                                        {
+                                            exclusiveActivate
+                                                ?
+                                                <ul>
+                                                    <li data-activate={exclusive} onClick={() => setExclusive(true)}>
                                                         دربست
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label htmlFor='item4'>
+                                                    </li>
+
+                                                    <li data-activate={!exclusive} onClick={() => setExclusive(false)}>
                                                         درنبست
-                                                    </label>
-                                                </li>
-                                            </ul>
-                                        </details>
-                                    </div>
-                                    <div className='custom-select-menu' id='select_menu-2'>
-                                        <details className='custom-select detail_1'>
-                                            <summary className='radios'>
-                                                <input type='radio' name='item4' id='item9' title='یک طرفه' onChange={(event: any) => event.preventDefault()} checked={true}/>
-                                                <input type='radio' name='item4' id='item10' title='رفت و برگشت' onChange={(event: any) => event.preventDefault()}/>
-                                            </summary>
-                                            <ul className='list'>
-                                                <li>
-                                                    <label htmlFor='item9'>
-                                                        یک طرفه
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label htmlFor='item10'>
-                                                        رفت و برگشت
-                                                    </label>
-                                                </li>
-                                            </ul>
-                                        </details>
-                                    </div>
-                                    <div id='passengers_parent'>
-                                        <div className='custom-select-menu' onClick={() => setPassengers(!passengers)}>
-                                            <details className='custom-select passengers'>
-                                                <summary className='radios'>
-                                                    مسافران
-                                                </summary>
-                                            </details>
-                                        </div>
-                                        {
-                                            passengers
-                                                ?
-                                                <div className={styles.homeHeaderPassengers}>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                بزرگسال
-                                                            </h2>
-                                                            <p>
-                                                                بزرگتر از 12 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
-                                                                {adultCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
-                                                                data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount <= 1}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                کودک
-                                                            </h2>
-                                                            <p>
-                                                                بین ۲ الی 12 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'child' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
-                                                                {childCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
-                                                                data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
-                                                                data-disabled={childCount <= 0}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                نوزاد
-                                                            </h2>
-                                                            <p>
-                                                                کوچکتر از 2 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'baby' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
-                                                                {babyCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
-                                                                data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
-                                                                data-disabled={babyCount <= 0}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                    </li>
+                                                </ul>
                                                 :
                                                 null
                                         }
                                     </div>
+                                    <div data-options={true} id='unilateral_parent' data-open={unilateralActivate} onClick={() => setUnilateralActivate(!unilateralActivate)}>
+                                        {
+                                            unilateral
+                                                ?
+                                                <span>
+                                                    یکطرفه
+                                                </span>
+                                                :
+                                                <span>
+                                                    رفت و برگشت
+                                                </span>
+                                        }
+                                        {
+                                            unilateralActivate
+                                                ?
+                                                <ul>
+                                                    <li data-activate={unilateral} onClick={() => setUnilateral(true)}>
+                                                        یکطرفه
+                                                    </li>
+
+                                                    <li data-activate={!unilateral} onClick={() => setUnilateral(false)}>
+                                                        رفت و برگشت
+                                                    </li>
+                                                </ul>
+                                                :
+                                                null
+                                        }
+                                    </div>
+                                    <div data-options={true} data-open={passengers} id='passengers_parent' onClick={() => setPassengers(!passengers)}>
+                                        <span>
+                                            مسافران
+                                        </span>
+                                    </div>
+                                    <div data-activate={passengers} id='passengers_parent' className={styles.homeHeaderPassengers}>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            بزرگسال
+                                                        </h2>
+                                                        <p>
+                                                            بزرگتر از 12 سال
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'adult' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                            {adultCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
+                                                            data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
+                                                            data-disabled={adultCount <= 1}
+                                                        >
+                                                            <Minus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            کودک
+                                                        </h2>
+                                                        <p>
+                                                            بین ۲ الی 12 سال
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'child' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                            {childCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
+                                                            data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
+                                                            data-disabled={childCount <= 0}
+                                                        >
+                                                            <Minus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className={styles.homeHeaderPassengersItem}>
+                                                    <div>
+                                                        <h2>
+                                                            نوزاد
+                                                        </h2>
+                                                        <p>
+                                                            کوچکتر از 2 سال
+                                                        </p>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
+                                                            data-direction='right'
+                                                            data-activate={countActive === 'baby' ? 'active' : null}
+                                                            data-disabled={adultCount + childCount + babyCount >= 9}
+                                                        >
+                                                            <Plus />
+                                                        </button>
+                                                        <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
+                                                            {babyCount}
+                                                        </button>
+                                                        <button
+                                                            className={styles.homeHeaderPassengersItemButton}
+                                                            onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
+                                                            data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
+                                                            data-disabled={babyCount <= 0}
+                                                        >
+                                                            <Minus />
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
                                     <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
@@ -1507,27 +1466,35 @@ const Home = () =>
                                     یافتن بلیط
                                 </button>
                             </div>
-                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'bus' ? 'true' : 'false'}>
+                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'bus'}>
                                 <div className={styles.homeHeaderImageContentItem}>
-                                    <div className='custom-select-menu'>
-                                        <details className='custom-select'>
-                                            <summary className='radios'>
-                                                <input type='radio' name='item3' id='item5' title='یک طرفه' onChange={(event: any) => event.preventDefault()} checked={true}/>
-                                                <input type='radio' name='item3' id='item6' title='رفت و برگشت' onChange={(event: any) => event.preventDefault()}/>
-                                            </summary>
-                                            <ul className='list'>
-                                                <li>
-                                                    <label htmlFor='item5'>
-                                                        یک طرفه
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label htmlFor='item6'>
+                                    <div data-options={true} id='unilateral_parent' data-open={unilateralActivate} onClick={() => setUnilateralActivate(!unilateralActivate)}>
+                                        {
+                                            unilateral
+                                                ?
+                                                <span>
+                                                یکطرفه
+                                            </span>
+                                                :
+                                                <span>
+                                                رفت و برگشت
+                                            </span>
+                                        }
+                                        {
+                                            unilateralActivate
+                                                ?
+                                                <ul>
+                                                    <li data-activate={unilateral} onClick={() => setUnilateral(true)}>
+                                                        یکطرفه
+                                                    </li>
+
+                                                    <li data-activate={!unilateral} onClick={() => setUnilateral(false)}>
                                                         رفت و برگشت
-                                                    </label>
-                                                </li>
-                                            </ul>
-                                        </details>
+                                                    </li>
+                                                </ul>
+                                                :
+                                                null
+                                        }
                                     </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
@@ -1713,46 +1680,46 @@ const Home = () =>
                             <h2>انتخاب مبدا</h2>
 
                             <div>
-                                <ul id='cities_parent'>
-                                    <li>
-                                        <button data-activate='true'>تهران</button>
-                                    </li>
-                                    <li>
-                                        <button>مشهد</button>
-                                    </li>
-                                    <li>
-                                        <button>شیراز</button>
-                                    </li>
-                                    <li>
-                                        <button>اصفهان</button>
-                                    </li>
-                                    <li>
-                                        <button>کیش</button>
-                                    </li>
-                                    <li>
-                                        <button>رشت</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                </ul>
+                                <Swiper>
+                                    <SwiperSlide data-activate={true}>
+                                        تهران
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        مشهد
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        اصفهان
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        شیراز
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        شیراز
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        شیراز
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        شیراز
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        شیراز
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        شیراز
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        اهواز
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        رشت
+                                    </SwiperSlide>
+                                    <SwiperSlide>
+                                        کیش
+                                    </SwiperSlide>
+                                </Swiper>
 
-                                <button onClick={(event: any) => { event.preventDefault(); const element: any = document.querySelector('#cities_parent'); element?.scroll({ left: element?.scrollLeft - 80, behavior: 'smooth' }) }}>
+                                <button>
                                     بیشتر
                                     <Arrow2 />
                                 </button>
@@ -2211,18 +2178,46 @@ const Home = () =>
 
                         <div className={styles.homeProposalLatestNewsContent}>
                             <h2 className='headingPrimary'>اطلاع رسانی <span>لحظه آخری</span></h2>
+
                             <p>
                                 برای دریافت پیامک پیشنهادهای لحظه آخری با تخفیف بیش از 50٪ در پروازهای رفت و برگشت مسیر مورد نظر و شماره تلفن همراه خود را وارد کنید
                             </p>
+
                             <div>
-                                <div>
-                                    <span>
-                                        مبدا
-                                    </span>
+                                <div id='proposal_origin_parent' data-open={proposalOriginActivate} onClick={() => setProposalOriginActivate(!proposalOriginActivate)}>
+                                    {
+                                        !proposalOrigin
+                                            ?
+                                            <span>
+                                                مبدا
+                                            </span>
+                                            :
+                                            <span data-activate={true}>
+                                                { proposalOrigin }
+                                            </span>
+                                    }
 
                                     <Arrow2 />
 
                                     <ul>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                        <li>
+                                            شیراز
+                                        </li>
                                         <li>
                                             شیراز
                                         </li>
@@ -2237,6 +2232,24 @@ const Home = () =>
                                     <Arrow2 />
 
                                     <ul>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                        <li>
+                                            شیراز
+                                        </li>
+                                        <li>
+                                            شیراز
+                                        </li>
                                         <li>
                                             شیراز
                                         </li>
@@ -2373,7 +2386,7 @@ const Home = () =>
                         </div>
                         <div className={styles.homeReserveSideLeft}>
                             <ul>
-                                <li data-activate={faq === 0 ? 'true' : 'false'} onClick={() => setFaq(faq === 0 ? -1 : 0)}>
+                                <li data-activate={faq === 0} onClick={() => setFaq(faq === 0 ? -1 : 0)}>
                                     <div>
                                         <Plus />
                                         <Minus />
@@ -2383,7 +2396,7 @@ const Home = () =>
                                         خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
                                     </p>
                                 </li>
-                                <li data-activate={faq === 1 ? 'true' : 'false'} onClick={() => setFaq(faq === 1 ? -1 : 1)}>
+                                <li data-activate={faq === 1} onClick={() => setFaq(faq === 1 ? -1 : 1)}>
                                     <div>
                                         <Plus />
                                         <Minus />
@@ -2393,7 +2406,7 @@ const Home = () =>
                                         خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
                                     </p>
                                 </li>
-                                <li data-activate={faq === 2 ? 'true' : 'false'} onClick={() => setFaq(faq === 2 ? -1 : 2)}>
+                                <li data-activate={faq === 2} onClick={() => setFaq(faq === 2 ? -1 : 2)}>
                                     <div>
                                         <Plus />
                                         <Minus />
@@ -2403,7 +2416,7 @@ const Home = () =>
                                         خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
                                     </p>
                                 </li>
-                                <li data-activate={faq === 3 ? 'true' : 'false'} onClick={() => setFaq(faq === 3 ? -1 : 3)}>
+                                <li data-activate={faq === 3} onClick={() => setFaq(faq === 3 ? -1 : 3)}>
                                     <div>
                                         <Plus />
                                         <Minus />
@@ -2413,7 +2426,7 @@ const Home = () =>
                                         خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
                                     </p>
                                 </li>
-                                <li data-activate={faq === 4 ? 'true' : 'false'} onClick={() => setFaq(faq === 4 ? -1 : 4)}>
+                                <li data-activate={faq === 4} onClick={() => setFaq(faq === 4 ? -1 : 4)}>
                                     <div>
                                         <Plus />
                                         <Minus />
@@ -2423,7 +2436,7 @@ const Home = () =>
                                         خیر؛ زمانی که از یک سایت معتبر خرید بلیط هواپیما، اقدام به خرید می‌کنید، نه تنها هزینه بیشتری پرداخت نمی‌کنید، حتی ممکن است تخفیف هم بگیرید. ضمنا با خرید آنلاین بلیط هواپیما از پشتیبانی نیز برخودار هستید
                                     </p>
                                 </li>
-                                <li data-activate={faq === 5 ? 'true' : 'false'} onClick={() => setFaq(faq === 5 ? -1 : 5)}>
+                                <li data-activate={faq === 5} onClick={() => setFaq(faq === 5 ? -1 : 5)}>
                                     <div>
                                         <Plus />
                                         <Minus />
