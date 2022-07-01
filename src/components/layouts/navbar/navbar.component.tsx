@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { togglePopupHiddenLogin } from '../../../redux/popup/popup.actions';
 
 import styles from './navbar.module.scss';
 
@@ -20,10 +23,12 @@ import { ReactComponent as Eye } from '../../../assets/icons/eye-line.svg';
 import { ReactComponent as Search } from '../../../assets/icons/search-line.svg';
 import { ReactComponent as ThreeDots } from '../../../assets/icons/three-dots.svg';
 import Image3 from '../../../assets/images/image-3.svg';
-import BlogImage from "../../../assets/images/image-3.svg";
+import BlogImage from '../../../assets/images/image-3.svg';
 
 const Navbar = (props: any) =>
 {
+    const dispatch = useDispatch();
+
     return (
         <nav className={styles.navbar} data-header={!!props.header} data-booking={!!props.booking}>
             <div className='container'>
@@ -149,7 +154,7 @@ const Navbar = (props: any) =>
                         </form>
                         :
                         <div>
-                            <button>
+                            <button onClick={() => dispatch(togglePopupHiddenLogin())}>
                                 <User />
                                 حساب کاربری
                             </button>
@@ -167,6 +172,7 @@ const Navbar = (props: any) =>
                         <nav className={styles.navbarHeaderNav}>
                             <div className='container'>
                                 <Link to='/'>
+                                    <Arrow />
                                     بازگشت به صفحه اصلی
                                 </Link>
                                 <div>
@@ -208,8 +214,10 @@ const Navbar = (props: any) =>
                         <nav data-blog='true' className={styles.navbarHeaderNav}>
                             <div className='container'>
                                 <Link to='/'>
-                                    بازگشت به صفحه اصلی
+                                    <Arrow />
+                                    بازگشت به وبلاگ
                                 </Link>
+
                                 <div>
                                     <p>
                                         صفحه اصلی
@@ -226,7 +234,7 @@ const Navbar = (props: any) =>
                                     <p>
                                         تهران
                                     </p>
-                                    <Arrow />
+                                    <Arrow2 />
                                     <p data-activate='true'>
                                         { props.blog }
                                     </p>
