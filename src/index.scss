@@ -64,7 +64,7 @@
     &::-webkit-scrollbar-thumb
     {
         border-radius: 10px;
-        background-image: #4A6193;
+        background: #4A6193;
     }
 }
 
@@ -73,12 +73,48 @@ html
     font-size: 62.5%;
     background: #f5f6fa;
     scroll-behavior: smooth;
+
+    &::-webkit-scrollbar-track
+    {
+        background-color: #F5F5F5;
+        border-radius: 6px;
+    }
+
+    &::-webkit-scrollbar
+    {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+        border-radius: 6px;
+        background: #4A6193;
+    }
 }
 
 body
 {
     box-sizing: border-box;
     font-weight: 300;
+
+    &::-webkit-scrollbar-track
+    {
+        background-color: #F5F5F5;
+        border-radius: 6px;
+    }
+
+    &::-webkit-scrollbar
+    {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+        border-radius: 6px;
+        background: #4A6193;
+    }
 }
 
 a

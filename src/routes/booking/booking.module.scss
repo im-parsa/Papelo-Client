@@ -151,6 +151,18 @@
             flex-direction: column;
             gap: 3rem;
 
+            height: auto;
+            width: 100%;
+        }
+
+        & > div > div
+        {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 1.8rem;
+
+            height: auto;
             width: 100%;
 
             & > section
@@ -167,6 +179,7 @@
                 &[data-activate='true']
                 {
                     display: flex;
+
                     @media only screen and (max-width: 600px)
                     {
                         flex-wrap: wrap;
@@ -257,7 +270,7 @@
                         grid-template-columns: repeat(2, 1fr);
                         grid-gap: 2rem;
 
-                        @media only screen and (max-width: 600px)
+                        @media only screen and (max-width: 1230px)
                         {
                             grid-template-columns: 1fr;
                             grid-template-rows: 1fr 1fr;
@@ -276,7 +289,7 @@
 
                             &:after
                             {
-                                content: 'پر کردن این فیلد الزامی است';
+                                content: attr(data-error_message);
 
                                 display: none;
 
@@ -438,11 +451,17 @@
                                     display: block;
                                 }
 
-                                & > input
+                                & > input,
+                                & > div
                                 {
                                     color: #FA5C5C;
                                     background: #FFF9F9 0 0 no-repeat padding-box;
                                     border: 2px solid #FA5C5C;
+
+                                    & > svg *
+                                    {
+                                        fill: #FA5C5C;
+                                    }
                                 }
                             }
                         }
