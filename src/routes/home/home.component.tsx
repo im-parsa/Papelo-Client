@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import React, { useCallback, useState } from 'react';
 import { DatePicker } from 'jalali-react-datepicker';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 
@@ -45,6 +44,7 @@ import Header4 from '../../assets/images/header-4.svg';
 import Header5 from '../../assets/images/header-5.svg';
 
 import styles from './home.module.scss';
+
 import Footer from '../../components/layouts/footer/footer.component';
 
 const Home = () =>
@@ -158,22 +158,19 @@ const Home = () =>
         {
             const inputParent = document.querySelectorAll('#origin_input_parent');
             const options = document.querySelectorAll('#origin_options');
-            const exchangeIcon = document.querySelectorAll('#exchange_icon');
+            const exchangeIcon: any = document.querySelectorAll('#exchange_icon');
 
             inputParent.forEach(f => f.setAttribute('data-activate', 'true'));
             options.forEach(f => f.setAttribute('data-activate', 'true'));
-            exchangeIcon.forEach(f => f.setAttribute('data-activate', 'false'));
         }, []);
     const onFocusDestination = useCallback(
         () =>
         {
             const inputParent = document.querySelectorAll('#destination_input_parent');
             const options = document.querySelectorAll('#destination_options');
-            const exchangeIcon = document.querySelectorAll('#exchange_icon');
 
             inputParent.forEach(f => f.setAttribute('data-activate', 'true'));
             options.forEach(f => f.setAttribute('data-activate', 'true'));
-            exchangeIcon.forEach(f => f.setAttribute('data-activate', 'false'));
         }, []);
     const onClickExchange = useCallback(
         () =>
@@ -181,6 +178,28 @@ const Home = () =>
             setOrigin(destination);
             setDestination(origin);
         }, [destination, setDestination, origin, setOrigin]);
+    const handleOrigin = useCallback(
+        (originName: string) =>
+        {
+            setOrigin(originName);
+
+            const inputParent = document.querySelectorAll('#origin_input_parent');
+            const options = document.querySelectorAll('#origin_options');
+
+            inputParent.forEach(f => f.setAttribute('data-activate', 'false'));
+            options.forEach(f => f.setAttribute('data-activate', 'false'));
+        }, [setOrigin]);
+    const handleDestination = useCallback(
+        (destinationName: string) =>
+        {
+            setDestination(destinationName);
+
+            const inputParent = document.querySelectorAll('#destination_input_parent');
+            const options = document.querySelectorAll('#destination_options');
+
+            inputParent.forEach(f => f.setAttribute('data-activate', 'false'));
+            options.forEach(f => f.setAttribute('data-activate', 'false'));
+        }, [setDestination]);
 
     React.useEffect(() =>
     {
@@ -342,10 +361,10 @@ const Home = () =>
                     </nav>
                     <div>
                         <aside className={styles.homeHeaderMainAside}>
-                            <Link to='/'>
+                            <a href='#fastSearch'>
                                 مشاهده پیشنهادات
                                 <Arrow />
-                            </Link>
+                            </a>
 
                             <div>
                                 <button onClick={() => dispatch(togglePopupHiddenLogin())}>
@@ -453,53 +472,23 @@ const Home = () =>
                         <div className={styles.homeHeaderImageContentBox}>
                             <nav className={styles.homeHeaderImageContentBoxNav}>
                                 <div className={styles.homeHeaderImageContentBoxNavItem} data-activate={page ===  'plane' ? 'active' : ''} onClick={() => handlePage('plane')}>
-                                    {
-                                        page ===  'plane'
-                                            ?
-                                            <Plane />
-                                            :
-                                            null
-                                    }
+                                    <Plane />
                                     هواپیما
                                 </div>
                                 <div className={styles.homeHeaderImageContentBoxNavItem} data-activate={page ===  'hotel' ? 'active' : ''} onClick={() => handlePage('hotel')}>
-                                    {
-                                        page ===  'hotel'
-                                            ?
-                                            <Hotel />
-                                            :
-                                            null
-                                    }
+                                    <Hotel />
                                     هتل
                                 </div>
                                 <div className={styles.homeHeaderImageContentBoxNavItem} data-activate={page ===  'tour' ? 'active' : ''} onClick={() => handlePage('tour')}>
-                                    {
-                                        page ===  'tour'
-                                            ?
-                                            <Tour />
-                                            :
-                                            null
-                                    }
+                                    <Tour />
                                     تور
                                 </div>
                                 <div className={styles.homeHeaderImageContentBoxNavItem} data-activate={page ===  'train' ? 'active' : ''} onClick={() => handlePage('train')}>
-                                    {
-                                        page ===  'train'
-                                            ?
-                                            <Train />
-                                            :
-                                            null
-                                    }
+                                    <Train />
                                     قطار
                                 </div>
                                 <div className={styles.homeHeaderImageContentBoxNavItem} data-activate={page ===  'bus' ? 'active' : ''} onClick={() => handlePage('bus')}>
-                                    {
-                                        page ===  'bus'
-                                            ?
-                                            <Bus />
-                                            :
-                                            null
-                                    }
+                                    <Bus />
                                     اتوبوس
                                 </div>
                             </nav>
@@ -672,31 +661,31 @@ const Home = () =>
                                         <Plane2 />
                                         <div data-options='origin_options' id='origin_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleOrigin('شیراز - Shiraz');  }}>
                                                     <Plane />
                                                     شیراز - Shiraz
                                                 </li>
-                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setOrigin('تهران - Tehran'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleOrigin('تهران - Tehran'); }}>
                                                     <Plane />
                                                     تهران - Tehran
                                                 </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setOrigin('مشهد - Mashhad'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleOrigin('مشهد - Mashhad'); }}>
                                                     <Plane />
                                                     مشهد - Mashhad
                                                 </li>
-                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { setOrigin('کیش - Kish'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleOrigin('کیش - Kish'); }}>
                                                     <Plane />
                                                     کیش - Kish
                                                 </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setOrigin('آبادان - Abadan'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleOrigin('آبادان - Abadan'); }}>
                                                     <Plane />
                                                     آبادان - Abadan
                                                 </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setOrigin('اهواز - Ahwaz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleOrigin('اهواز - Ahwaz'); }}>
                                                     <Plane />
                                                     اهواز - Ahwaz
                                                 </li>
-                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setOrigin('رشت - Rasht'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleOrigin('رشت - Rasht'); }}>
                                                     <Plane />
                                                     رشت - Rasht
                                                 </li>
@@ -722,31 +711,31 @@ const Home = () =>
                                         <Plane3 />
                                         <div data-options='destination_options' id='destination_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setDestination('شیراز - Shiraz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleDestination('شیراز - Shiraz'); }}>
                                                     <Plane />
                                                     شیراز - Shiraz
                                                 </li>
-                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setDestination('تهران - Tehran'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleDestination('تهران - Tehran'); }}>
                                                     <Plane />
                                                     تهران - Tehran
                                                 </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setDestination('مشهد - Mashhad'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleDestination('مشهد - Mashhad'); }}>
                                                     <Plane />
                                                     مشهد - Mashhad
                                                 </li>
-                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { setDestination('کیش - Kish'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleDestination('کیش - Kish'); }}>
                                                     <Plane />
                                                     کیش - Kish
                                                 </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setDestination('آبادان - Abadan'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleDestination('آبادان - Abadan'); }}>
                                                     <Plane />
                                                     آبادان - Abadan
                                                 </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setDestination('اهواز - Ahwaz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleDestination('اهواز - Ahwaz'); }}>
                                                     <Plane />
                                                     اهواز - Ahwaz
                                                 </li>
-                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setDestination('رشت - Rasht'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleDestination('رشت - Rasht'); }}>
                                                     <Plane />
                                                     رشت - Rasht
                                                 </li>
@@ -916,31 +905,31 @@ const Home = () =>
                                         <Plane2 />
                                         <div data-options='origin_options' id='origin_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={origin === 'شیراز - Shiraz' ? 'active' : ''} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='شیراز - Shiraz' data-activate={origin === 'شیراز - Shiraz' ? 'active' : ''} onClick={() => { handleOrigin('شیراز - Shiraz'); }}>
                                                     <Plane />
                                                     شیراز - Shiraz
                                                 </li>
-                                                <li data-name='تهران - Tehran' data-activate={origin === 'تهران - Tehran' ? 'active' : ''} onClick={() => { setOrigin('تهران - Tehran'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='تهران - Tehran' data-activate={origin === 'تهران - Tehran' ? 'active' : ''} onClick={() => { handleOrigin('تهران - Tehran'); }}>
                                                     <Plane />
                                                     تهران - Tehran
                                                 </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={origin === 'مشهد - Mashhad' ? 'active' : ''} onClick={() => { setOrigin('مشهد - Mashhad'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='مشهد - Mashhad' data-activate={origin === 'مشهد - Mashhad' ? 'active' : ''} onClick={() => { handleOrigin('مشهد - Mashhad'); }}>
                                                     <Plane />
                                                     مشهد - Mashhad
                                                 </li>
-                                                <li data-name='کیش - Kish' data-activate={origin === 'کیش - Kish' ? 'active' : ''} onClick={() => { setOrigin('کیش - Kish'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='کیش - Kish' data-activate={origin === 'کیش - Kish' ? 'active' : ''} onClick={() => { handleOrigin('کیش - Kish'); }}>
                                                     <Plane />
                                                     کیش - Kish
                                                 </li>
-                                                <li data-name='آبادان - Abadan' data-activate={origin === 'آبادان - Abadan' ? 'active' : ''} onClick={() => { setOrigin('آبادان - Abadan'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='آبادان - Abadan' data-activate={origin === 'آبادان - Abadan' ? 'active' : ''} onClick={() => { handleOrigin('آبادان - Abadan'); }}>
                                                     <Plane />
                                                     آبادان - Abadan
                                                 </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={origin === 'اهواز - Ahwaz' ? 'active' : ''} onClick={() => { setOrigin('اهواز - Ahwaz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='اهواز - Ahwaz' data-activate={origin === 'اهواز - Ahwaz' ? 'active' : ''} onClick={() => { handleOrigin('اهواز - Ahwaz'); }}>
                                                     <Plane />
                                                     اهواز - Ahwaz
                                                 </li>
-                                                <li data-name='رشت - Rasht' data-activate={origin === 'رشت - Rasht' ? 'active' : ''} onClick={() => { setOrigin('رشت - Rasht'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='رشت - Rasht' data-activate={origin === 'رشت - Rasht' ? 'active' : ''} onClick={() => { handleOrigin('رشت - Rasht'); }}>
                                                     <Plane />
                                                     رشت - Rasht
                                                 </li>
@@ -1110,31 +1099,31 @@ const Home = () =>
                                         <Plane2 />
                                         <div data-options='origin_options' id='origin_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleOrigin('شیراز - Shiraz'); }}>
                                                     <Plane />
                                                     شیراز - Shiraz
                                                 </li>
-                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setOrigin('تهران - Tehran'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleOrigin('تهران - Tehran'); }}>
                                                     <Plane />
                                                     تهران - Tehran
                                                 </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setOrigin('مشهد - Mashhad'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleOrigin('مشهد - Mashhad'); }}>
                                                     <Plane />
                                                     مشهد - Mashhad
                                                 </li>
-                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { setOrigin('کیش - Kish'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleOrigin('کیش - Kish'); }}>
                                                     <Plane />
                                                     کیش - Kish
                                                 </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setOrigin('آبادان - Abadan'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleOrigin('آبادان - Abadan'); }}>
                                                     <Plane />
                                                     آبادان - Abadan
                                                 </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setOrigin('اهواز - Ahwaz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleOrigin('اهواز - Ahwaz'); }}>
                                                     <Plane />
                                                     اهواز - Ahwaz
                                                 </li>
-                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setOrigin('رشت - Rasht'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleOrigin('رشت - Rasht'); }}>
                                                     <Plane />
                                                     رشت - Rasht
                                                 </li>
@@ -1160,31 +1149,31 @@ const Home = () =>
                                         <Plane3 />
                                         <div data-options='destination_options' id='destination_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setDestination('شیراز - Shiraz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleDestination('شیراز - Shiraz'); }}>
                                                     <Plane />
                                                     شیراز - Shiraz
                                                 </li>
-                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setDestination('تهران - Tehran'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleDestination('تهران - Tehran'); }}>
                                                     <Plane />
                                                     تهران - Tehran
                                                 </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setDestination('مشهد - Mashhad'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleDestination('مشهد - Mashhad'); }}>
                                                     <Plane />
                                                     مشهد - Mashhad
                                                 </li>
-                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { setDestination('کیش - Kish'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleDestination('کیش - Kish'); }}>
                                                     <Plane />
                                                     کیش - Kish
                                                 </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setDestination('آبادان - Abadan'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleDestination('آبادان - Abadan'); }}>
                                                     <Plane />
                                                     آبادان - Abadan
                                                 </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setDestination('اهواز - Ahwaz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleDestination('اهواز - Ahwaz'); }}>
                                                     <Plane />
                                                     اهواز - Ahwaz
                                                 </li>
-                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setDestination('رشت - Rasht'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleDestination('رشت - Rasht'); }}>
                                                     <Plane />
                                                     رشت - Rasht
                                                 </li>
@@ -1398,31 +1387,31 @@ const Home = () =>
                                         <Plane2 />
                                         <div data-options='origin_options' id='origin_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleOrigin('شیراز - Shiraz'); }}>
                                                     <Plane />
                                                     شیراز - Shiraz
                                                 </li>
-                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setOrigin('تهران - Tehran'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleOrigin('تهران - Tehran'); }}>
                                                     <Plane />
                                                     تهران - Tehran
                                                 </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setOrigin('مشهد - Mashhad'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleOrigin('مشهد - Mashhad'); }}>
                                                     <Plane />
                                                     مشهد - Mashhad
                                                 </li>
-                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { setOrigin('کیش - Kish'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleOrigin('کیش - Kish'); }}>
                                                     <Plane />
                                                     کیش - Kish
                                                 </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setOrigin('آبادان - Abadan'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleOrigin('آبادان - Abadan'); }}>
                                                     <Plane />
                                                     آبادان - Abadan
                                                 </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setOrigin('اهواز - Ahwaz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleOrigin('اهواز - Ahwaz'); }}>
                                                     <Plane />
                                                     اهواز - Ahwaz
                                                 </li>
-                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setOrigin('رشت - Rasht'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleOrigin('رشت - Rasht'); }}>
                                                     <Plane />
                                                     رشت - Rasht
                                                 </li>
@@ -1448,31 +1437,31 @@ const Home = () =>
                                         <Plane3 />
                                         <div data-options='destination_options' id='destination_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setDestination('شیراز - Shiraz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleDestination('شیراز - Shiraz'); }}>
                                                     <Plane />
                                                     شیراز - Shiraz
                                                 </li>
-                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setDestination('تهران - Tehran'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleDestination('تهران - Tehran'); }}>
                                                     <Plane />
                                                     تهران - Tehran
                                                 </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setDestination('مشهد - Mashhad'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleDestination('مشهد - Mashhad'); }}>
                                                     <Plane />
                                                     مشهد - Mashhad
                                                 </li>
-                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { setDestination('کیش - Kish'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleDestination('کیش - Kish'); }}>
                                                     <Plane />
                                                     کیش - Kish
                                                 </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setDestination('آبادان - Abadan'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleDestination('آبادان - Abadan'); }}>
                                                     <Plane />
                                                     آبادان - Abadan
                                                 </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setDestination('اهواز - Ahwaz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleDestination('اهواز - Ahwaz'); }}>
                                                     <Plane />
                                                     اهواز - Ahwaz
                                                 </li>
-                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setDestination('رشت - Rasht'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleDestination('رشت - Rasht'); }}>
                                                     <Plane />
                                                     رشت - Rasht
                                                 </li>
@@ -1555,31 +1544,31 @@ const Home = () =>
                                         <Plane2 />
                                         <div data-options='origin_options' id='origin_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setOrigin('شیراز - Shiraz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleOrigin('شیراز - Shiraz'); }}>
                                                     <Plane />
                                                     شیراز - Shiraz
                                                 </li>
-                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setOrigin('تهران - Tehran'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleOrigin('تهران - Tehran'); }}>
                                                     <Plane />
                                                     تهران - Tehran
                                                 </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setOrigin('مشهد - Mashhad'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleOrigin('مشهد - Mashhad'); }}>
                                                     <Plane />
                                                     مشهد - Mashhad
                                                 </li>
-                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { setOrigin('کیش - Kish'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleOrigin('کیش - Kish'); }}>
                                                     <Plane />
                                                     کیش - Kish
                                                 </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setOrigin('آبادان - Abadan'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleOrigin('آبادان - Abadan'); }}>
                                                     <Plane />
                                                     آبادان - Abadan
                                                 </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setOrigin('اهواز - Ahwaz'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleOrigin('اهواز - Ahwaz'); }}>
                                                     <Plane />
                                                     اهواز - Ahwaz
                                                 </li>
-                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setOrigin('رشت - Rasht'); const inputParent = document.querySelector('#origin_input_parent'); const options = document.querySelector('#origin_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleOrigin('رشت - Rasht'); }}>
                                                     <Plane />
                                                     رشت - Rasht
                                                 </li>
@@ -1605,31 +1594,31 @@ const Home = () =>
                                         <Plane3 />
                                         <div data-options='destination_options' id='destination_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { setDestination('شیراز - Shiraz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleDestination('شیراز - Shiraz'); }}>
                                                     <Plane />
                                                     شیراز - Shiraz
                                                 </li>
-                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { setDestination('تهران - Tehran'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleDestination('تهران - Tehran'); }}>
                                                     <Plane />
                                                     تهران - Tehran
                                                 </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { setDestination('مشهد - Mashhad'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleDestination('مشهد - Mashhad'); }}>
                                                     <Plane />
                                                     مشهد - Mashhad
                                                 </li>
-                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { setDestination('کیش - Kish'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleDestination('کیش - Kish'); }}>
                                                     <Plane />
                                                     کیش - Kish
                                                 </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { setDestination('آبادان - Abadan'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleDestination('آبادان - Abadan'); }}>
                                                     <Plane />
                                                     آبادان - Abadan
                                                 </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { setDestination('اهواز - Ahwaz'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleDestination('اهواز - Ahwaz'); }}>
                                                     <Plane />
                                                     اهواز - Ahwaz
                                                 </li>
-                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { setDestination('رشت - Rasht'); const inputParent = document.querySelector('#destination_input_parent'); const options = document.querySelector('#destination_options'); const exchangeIcon = document.querySelector('#exchange_icon'); inputParent?.setAttribute('data-activate', 'false'); options?.setAttribute('data-activate', 'false'); exchangeIcon?.setAttribute('data-activate', 'true'); }}>
+                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleDestination('رشت - Rasht'); }}>
                                                     <Plane />
                                                     رشت - Rasht
                                                 </li>
@@ -1718,46 +1707,46 @@ const Home = () =>
                             <h2>انتخاب مبدا</h2>
 
                             <div>
-                                <Swiper>
-                                    <SwiperSlide data-activate={true}>
-                                        تهران
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        مشهد
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        اصفهان
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        شیراز
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        شیراز
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        شیراز
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        شیراز
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        شیراز
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        شیراز
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        اهواز
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        رشت
-                                    </SwiperSlide>
-                                    <SwiperSlide>
-                                        کیش
-                                    </SwiperSlide>
-                                </Swiper>
+                                <ul id='cities_parent'>
+                                    <li>
+                                        <button data-activate='true'>تهران</button>
+                                    </li>
+                                    <li>
+                                        <button>مشهد</button>
+                                    </li>
+                                    <li>
+                                        <button>شیراز</button>
+                                    </li>
+                                    <li>
+                                        <button>اصفهان</button>
+                                    </li>
+                                    <li>
+                                        <button>کیش</button>
+                                    </li>
+                                    <li>
+                                        <button>رشت</button>
+                                    </li>
+                                    <li>
+                                        <button>اهواز</button>
+                                    </li>
+                                    <li>
+                                        <button>اهواز</button>
+                                    </li>
+                                    <li>
+                                        <button>اهواز</button>
+                                    </li>
+                                    <li>
+                                        <button>اهواز</button>
+                                    </li>
+                                    <li>
+                                        <button>اهواز</button>
+                                    </li>
+                                    <li>
+                                        <button>اهواز</button>
+                                    </li>
+                                </ul>
 
-                                <button>
+                                <button onClick={(event: any) => { event.preventDefault(); const element: any = document.querySelector('#cities_parent'); element?.scroll({ left: element?.scrollLeft - 80, behavior: 'smooth' }) }}>
                                     بیشتر
                                     <Arrow2 />
                                 </button>
