@@ -9,7 +9,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
 
-            @media only screen and (max-width: 1110px)
+            @media only screen and (max-width: 1115px)
             {
                 grid-template-rows: repeat(3, 1fr);
                 grid-template-columns: 1fr;
@@ -23,7 +23,7 @@
 
                 padding: 8rem 5rem;
 
-                @media only screen and (max-width: 1110px)
+                @media only screen and (max-width: 1115px)
                 {
                     padding: 6rem 3rem;
                 }
@@ -33,7 +33,7 @@
                     border-left: 2px solid #E3E6F0;
                     border-right: 2px solid #E3E6F0;
 
-                    @media only screen and (max-width: 1110px)
+                    @media only screen and (max-width: 1115px)
                     {
                         border: none;
                         border-top: 2px solid #E3E6F0;
@@ -99,7 +99,7 @@
                 padding: 10rem 0;
                 padding-right: 0;
 
-                @media only screen and (max-width: 1110px)
+                @media only screen and (max-width: 1115px)
                 {
                     width: 100%;
                     padding: 5rem 0;
