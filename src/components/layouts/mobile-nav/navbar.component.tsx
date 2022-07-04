@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
-import { ReactComponent as Logo } from '../../../assets/icons/logo.svg';
+import Logo from '../../../assets/icons/logo.png';
 import { ReactComponent as List } from '../../../assets/icons/list.svg';
 import { ReactComponent as ListNested } from '../../../assets/icons/list-nested.svg';
 
@@ -14,7 +14,7 @@ const Navbar = () =>
     return (
         <nav className={styles.nav}>
             <div>
-                <Logo />
+                <img src={Logo} alt='Logo'/>
                 {
                     open
                         ?

@@ -795,9 +795,19 @@
                                     padding: 1rem;
                                 }
 
+                                &:hover
+                                {
+                                    background: #fcfdff 0 0 no-repeat padding-box;
+                                }
+
                                 &[data-activate='true']
                                 {
-                                    background: #F9FAFD 0% 0% no-repeat padding-box;
+                                    background: #F9FAFD 0 0 no-repeat padding-box;
+                                }
+
+                                &[data-activate='false']
+                                {
+                                    display: none;
                                 }
                             }
                         }
@@ -2548,8 +2558,9 @@
     width: 100%;
     padding: 0 12rem 0 5rem;
 
-    & svg
+    & img
     {
+        height: 6rem;
         margin-top: 2rem;
     }
 
