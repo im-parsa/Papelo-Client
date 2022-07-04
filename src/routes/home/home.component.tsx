@@ -19,7 +19,6 @@ import { ReactComponent as Train } from '../../assets/icons/train.svg';
 import { ReactComponent as Bus } from '../../assets/icons/bus.svg';
 import { ReactComponent as Plus } from '../../assets/icons/plus.svg';
 import { ReactComponent as Minus } from '../../assets/icons/minus.svg';
-import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
 import { ReactComponent as ThreeDots } from '../../assets/icons/three-dots.svg';
 import { ReactComponent as Plane2 } from '../../assets/icons/flight-takeoff-line.svg';
 import { ReactComponent as Plane3 } from '../../assets/icons/flight-land-line.svg';
@@ -43,6 +42,7 @@ import Header2 from '../../assets/images/header-2.svg';
 import Header3 from '../../assets/images/header-3.svg';
 import Header4 from '../../assets/images/header-4.svg';
 import Header5 from '../../assets/images/header-5.svg';
+import Logo from '../../assets/icons/logo.png';
 
 import styles from './home.module.scss';
 
@@ -54,6 +54,7 @@ const Home = () =>
 {
     const [page, setPage] = useState('plane');
     const [proposalActivate, setProposalActivate] = useState(0);
+    const [fastSearchActivate, setFastSearchActivate] = useState('تهران');
     const [proposalOrigin, setProposalOrigin] = useState('');
     const [proposalOriginActivate, setProposalOriginActivate] = useState(false);
     const [proposalDestination, setProposalDestination] = useState('');
@@ -286,7 +287,8 @@ const Home = () =>
                 <div className={styles.homeHeaderMain}>
                     <span className={styles.homeHeaderMainBackground}/>
                     <nav className={styles.homeHeaderMainNav}>
-                        <Logo />
+                        <img src={Logo} alt='Logo' />
+
                         <ul className={styles.homeHeaderMainNavList}>
                             <Link to='/' className={styles.homeHeaderMainNavItem}>
                                 صفحه اصلی
@@ -1585,42 +1587,16 @@ const Home = () =>
 
                             <div>
                                 <ul id='cities_parent'>
-                                    <li data-activate='true'>
-                                        <button>تهران</button>
-                                    </li>
-                                    <li>
-                                        <button>مشهد</button>
-                                    </li>
-                                    <li>
-                                        <button>شیراز</button>
-                                    </li>
-                                    <li>
-                                        <button>اصفهان</button>
-                                    </li>
-                                    <li>
-                                        <button>کیش</button>
-                                    </li>
-                                    <li>
-                                        <button>رشت</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
-                                    <li>
-                                        <button>اهواز</button>
-                                    </li>
+                                    {
+                                        data.cities?.map((city: string, index: number) =>
+                                            (
+                                                <li key={index} data-activate={fastSearchActivate === city?.split(' ')[0]} onClick={() => setFastSearchActivate(city?.split(' ')[0])}>
+                                                    <button>
+                                                        { city?.split(' ')[0] }
+                                                    </button>
+                                                </li>
+                                            ))
+                                    }
                                 </ul>
 
                                 <button onClick={(event: any) => { event.preventDefault(); const element: any = document.querySelector('#cities_parent'); element?.scroll({ left: element?.scrollLeft - 80, behavior: 'smooth' }) }}>
@@ -2104,30 +2080,14 @@ const Home = () =>
                                     <Arrow2 />
 
                                     <ul>
-                                        <li data-activate={proposalOrigin === 'شیراز'} onClick={() => setProposalOrigin('شیراز')}>
-                                            شیراز
-                                        </li>
-                                        <li data-activate={proposalOrigin === 'تهران'} onClick={() => setProposalOrigin('تهران')}>
-                                            تهران
-                                        </li>
-                                        <li data-activate={proposalOrigin === 'آبادان'} onClick={() => setProposalOrigin('آبادان')}>
-                                            آبادان
-                                        </li>
-                                        <li data-activate={proposalOrigin === 'اهواز'} onClick={() => setProposalOrigin('اهواز')}>
-                                            اهواز
-                                        </li>
-                                        <li data-activate={proposalOrigin === 'کیش'} onClick={() => setProposalOrigin('کیش')}>
-                                            کیش
-                                        </li>
-                                        <li data-activate={proposalOrigin === 'یزد'} onClick={() => setProposalOrigin('یزد')}>
-                                            یزد
-                                        </li>
-                                        <li data-activate={proposalOrigin === 'کرمان'} onClick={() => setProposalOrigin('کرمان')}>
-                                            کرمان
-                                        </li>
-                                        <li data-activate={proposalOrigin === 'قم'} onClick={() => setProposalOrigin('قم')}>
-                                            قم
-                                        </li>
+                                        {
+                                            data.cities?.map((city: string, index: number) =>
+                                                (
+                                                    <li key={city?.split(' ')[0] + index} data-activate={(proposalOrigin === city?.split(' ')[0] ? 'active' : '') + (proposalDestination === city?.split(' ')[0] ? 'false' : '')} onClick={() => setProposalOrigin(city?.split(' ')[0])}>
+                                                        {city?.split(' ')[0]}
+                                                    </li>
+                                                ))
+                                        }
                                     </ul>
                                 </div>
 
@@ -2147,30 +2107,14 @@ const Home = () =>
                                     <Arrow2 />
 
                                     <ul>
-                                        <li data-activate={proposalDestination === 'شیراز'} onClick={() => setProposalDestination('شیراز')}>
-                                            شیراز
-                                        </li>
-                                        <li data-activate={proposalDestination === 'تهران'} onClick={() => setProposalDestination('تهران')}>
-                                            تهران
-                                        </li>
-                                        <li data-activate={proposalDestination === 'آبادان'} onClick={() => setProposalDestination('آبادان')}>
-                                            آبادان
-                                        </li>
-                                        <li data-activate={proposalDestination === 'اهواز'} onClick={() => setProposalDestination('اهواز')}>
-                                            اهواز
-                                        </li>
-                                        <li data-activate={proposalDestination === 'کیش'} onClick={() => setProposalDestination('کیش')}>
-                                            کیش
-                                        </li>
-                                        <li data-activate={proposalDestination === 'یزد'} onClick={() => setProposalDestination('یزد')}>
-                                            یزد
-                                        </li>
-                                        <li data-activate={proposalDestination === 'کرمان'} onClick={() => setProposalDestination('کرمان')}>
-                                            کرمان
-                                        </li>
-                                        <li data-activate={proposalDestination === 'قم'} onClick={() => setProposalDestination('قم')}>
-                                            قم
-                                        </li>
+                                        {
+                                            data.cities?.map((city: string, index: number) =>
+                                                (
+                                                    <li key={city?.split(' ')[0] + index} data-activate={(proposalDestination === city?.split(' ')[0] ? 'active' : '') + (proposalOrigin === city?.split(' ')[0] ? 'false' : '')} onClick={() => setProposalDestination(city?.split(' ')[0])}>
+                                                        {city?.split(' ')[0]}
+                                                    </li>
+                                                ))
+                                        }
                                     </ul>
                                 </div>
 

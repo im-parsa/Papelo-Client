@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Logo from '../../../assets/icons/logo.png';
 import { ReactComponent as Haedphone } from '../../../assets/icons/box-5.svg';
 import { ReactComponent as Dollar } from '../../../assets/icons/box-6.svg';
 import { ReactComponent as Home } from '../../../assets/icons/box-7.svg';
@@ -9,7 +10,6 @@ import { ReactComponent as Bazaar } from '../../../assets/icons/bazaar.svg';
 import { ReactComponent as Myket } from '../../../assets/icons/myket.svg';
 import { ReactComponent as Download } from '../../../assets/icons/download-2.svg';
 import { ReactComponent as Arrow } from '../../../assets/icons/arrow.svg';
-import { ReactComponent as Logo } from '../../../assets/icons/logo.svg';
 import { ReactComponent as Telegram } from '../../../assets/icons/telegram.svg';
 import { ReactComponent as Instagram } from '../../../assets/icons/instagram-line.svg';
 import { ReactComponent as Whatsapp } from '../../../assets/icons/whatsapp.svg';
@@ -74,6 +74,7 @@ const Footer = () =>
                         <h2 className='headingPrimary'>دریافت<span> اپلیکیشن اسکای&zwnj;رو </span></h2>
                         <p>
                             <span>با نصب اپلیکیشن اسکای&zwnj;رو بلیط همه سفرها در جیب شماست</span>
+
                             <Link to='/'>
                                 مشاهده قابلیت ها
                                 <Arrow />
@@ -83,18 +84,18 @@ const Footer = () =>
 
                     <div className={styles.footerAppDownload}>
                         <div className={styles.footerAppDownloadBoxes}>
-                            <div className={styles.footerAppDownloadBoxesBox}>
+                            <a href='#' className={styles.footerAppDownloadBoxesBox}>
                                 <Bazaar />
                                 <span>کافه بازار</span>
-                            </div>
-                            <div className={styles.footerAppDownloadBoxesBox}>
+                            </a>
+                            <a href='#' className={styles.footerAppDownloadBoxesBox}>
                                 <Myket />
                                 <span>مایکت</span>
-                            </div>
-                            <div className={styles.footerAppDownloadBoxesBox}>
+                            </a>
+                            <a href='#' className={styles.footerAppDownloadBoxesBox}>
                                 <Download />
                                 <span>دانلود مستقیم</span>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -105,34 +106,34 @@ const Footer = () =>
                     <div className={styles.footerAchievementRight}>
                         <div className={styles.footerAchievementRightBox}>
                             <h5>راهنمایی و پشتیبان</h5>
-                            <span>پیگیری و کنسلی</span>
-                            <span>پرسش های متداول</span>
-                            <span>راهنمای خرید اینترنتی</span>
-                            <span>پیشنهادها و شکایات</span>
-                            <span>شرایط و مقررات</span>
-                            <span>درباره اسکای&zwnj;رو</span>
-                            <span>شرایط و مقررات</span>
+                            <Link to='/'>پیگیری و کنسلی</Link>
+                            <Link to='/'>پرسش های متداول</Link>
+                            <Link to='/'>راهنمای خرید اینترنتی</Link>
+                            <Link to='/'>پیشنهادها و شکایات</Link>
+                            <Link to='/'>شرایط و مقررات</Link>
+                            <Link to='/'>درباره اسکای&zwnj;رو</Link>
+                            <Link to='/'>شرایط و مقررات</Link>
                         </div>
                         <div className={styles.footerAchievementRightBox}>
                             <h5>اسکای&zwnj;رو</h5>
-                            <span>صفحه اصلی</span>
-                            <span>مجله خبری</span>
-                            <span>درباره ما</span>
-                            <span>تماس با ما</span>
-                            <span>صفحه اصلی</span>
-                            <span>مجله خبری</span>
+                            <Link to='/'>صفحه اصلی</Link>
+                            <Link to='/'>مجله خبری</Link>
+                            <Link to='/'>درباره ما</Link>
+                            <Link to='/'>تماس با ما</Link>
+                            <Link to='/'>صفحه اصلی</Link>
+                            <Link to='/'>مجله خبری</Link>
                         </div>
                         <div className={styles.footerAchievementRightBox}>
                             <h5>&nbsp;</h5>
-                            <span>بلیط چارتر</span>
-                            <span>تور کیش</span>
-                            <span>تور استانبول</span>
-                            <span>بلیط هواپیمای خارجی</span>
+                            <Link to='/'>بلیط چارتر</Link>
+                            <Link to='/'>تور کیش</Link>
+                            <Link to='/'>تور استانبول</Link>
+                            <Link to='/'>بلیط هواپیمای خارجی</Link>
                         </div>
                     </div>
                     <div className={styles.footerAchievementLeft}>
                         <div className={styles.footerAchievementLeftTop}>
-                            <Logo />
+                            <img src={Logo} alt='Logo' />
                             <Link to='/about-us'>
                                 چرا خرید بلیط از اسکای&zwnj;رو؟ درباره ما بیشتر بدانید
                                 <Arrow />
@@ -143,12 +144,12 @@ const Footer = () =>
                             <p>دفتر فروش: قیطریه، بلوار اندرزگو، نبش کوچه‌ی بلوچ شمالی، پلاک ۴</p>
                         </div>
                         <div className={styles.footerAchievementLeftBottom}>
-                            <div className={styles.footerAchievementLeftBottomBG}><Footer1 /></div>
-                            <div className={styles.footerAchievementLeftBottomBG}><Footer2 /></div>
-                            <div className={styles.footerAchievementLeftBottomBG}><Footer3 /></div>
-                            <div className={styles.footerAchievementLeftBottomBG}><Footer4 /></div>
-                            <div className={styles.footerAchievementLeftBottomBG}><Footer5 /></div>
-                            <div className={styles.footerAchievementLeftBottomBG}><Footer6 /></div>
+                            <a href='#' className={styles.footerAchievementLeftBottomBG}><Footer1 /></a>
+                            <a href='#' className={styles.footerAchievementLeftBottomBG}><Footer2 /></a>
+                            <a href='#' className={styles.footerAchievementLeftBottomBG}><Footer3 /></a>
+                            <a href='#' className={styles.footerAchievementLeftBottomBG}><Footer4 /></a>
+                            <a href='#' className={styles.footerAchievementLeftBottomBG}><Footer5 /></a>
+                            <a href='#' className={styles.footerAchievementLeftBottomBG}><Footer6 /></a>
                         </div>
                     </div>
                 </div>

@@ -6,8 +6,8 @@ import { togglePopupHiddenLogin } from '../../../redux/popup/popup.actions';
 
 import styles from './navbar.module.scss';
 
+import Logo from '../../../assets/icons/logo.png';
 import { ReactComponent as User } from '../../../assets/icons/user.svg';
-import { ReactComponent as Logo } from '../../../assets/icons/logo.svg';
 import { ReactComponent as Plane } from '../../../assets/icons/plane.svg';
 import { ReactComponent as Bus } from '../../../assets/icons/bus.svg';
 import { ReactComponent as Train } from '../../../assets/icons/train.svg';
@@ -41,15 +41,15 @@ const Navbar = (props: any) =>
                                 بازگشت به صفحه پرواز
                             </Link>
 
-                            <Logo />
+                            <img src={Logo} alt='Logo'/>
                         </>
                         :
                         <>
-                            <Logo />
+                            <img src={Logo} alt='Logo'/>
                             <ul className={styles.navbarList}>
-                                <li className={styles.navbarItem}>
+                                <Link to='/' className={styles.navbarItem}>
                                     صفحه اصلی
-                                </li>
+                                </Link>
                                 <li className={styles.navbarItem} data-type='arrow'>
                                     خدمات سفر
                                     <div className={styles.navbarPopup}>
@@ -134,9 +134,9 @@ const Navbar = (props: any) =>
                                         </div>
                                     </div>
                                 </li>
-                                <li className={styles.navbarItem}>
+                                <Link to='/rules' className={styles.navbarItem}>
                                     راهنمایی و پشتیبانی
-                                </li>
+                                </Link>
                                 <li className={styles.navbarItem}>
                                     <ThreeDots />
                                 </li>
