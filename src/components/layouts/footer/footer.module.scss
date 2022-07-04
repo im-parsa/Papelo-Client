@@ -83,7 +83,7 @@
         display: flex;
         align-items: center;
 
-        @media only screen and (max-width: 1110px)
+        @media only screen and (max-width: 1115px)
         {
             flex-wrap: wrap;
             gap: .5rem;
@@ -164,7 +164,7 @@
                 }
             }
 
-            @media only screen and (max-width: 1110px)
+            @media only screen and (max-width: 1115px)
             {
                 flex: auto;
 
@@ -185,7 +185,7 @@
         {
             flex: 0 0 40%;
 
-            @media only screen and (max-width: 1110px)
+            @media only screen and (max-width: 1115px)
             {
                 padding-top: 2rem;
                 flex: auto;
@@ -239,7 +239,7 @@
     {
         display: flex;
 
-        @media only screen and (max-width: 1110px)
+        @media only screen and (max-width: 1115px)
         {
             flex-direction: column;
             gap: 2rem;
@@ -252,7 +252,7 @@
             display: flex;
             justify-content: space-between;
 
-            @media only screen and (max-width: 1110px)
+            @media only screen and (max-width: 1115px)
             {
                 flex: auto;
                 flex-wrap: wrap;
@@ -296,7 +296,7 @@
                 padding-right: 8rem;
             }
 
-            @media only screen and (max-width: 1110px)
+            @media only screen and (max-width: 1115px)
             {
                 padding: 0;
             }
@@ -340,7 +340,7 @@
                     }
                 }
 
-                @media only screen and (max-width: 1110px)
+                @media only screen and (max-width: 1115px)
                 {
                     flex-wrap: wrap;
                     gap: .5rem;
@@ -356,7 +356,7 @@
                 font-size: 1.8rem;
                 margin: 2rem 0;
 
-                @media only screen and (max-width: 1110px)
+                @media only screen and (max-width: 1115px)
                 {
                     flex-wrap: wrap;
                     gap: .5rem;
@@ -387,7 +387,7 @@
                     height: 12rem;
                 }
 
-                @media only screen and (max-width: 1110px)
+                @media only screen and (max-width: 1115px)
                 {
                     flex-wrap: wrap;
                     gap: 1rem;
@@ -402,7 +402,7 @@
         align-items: center;
         justify-content: space-between;
 
-        @media only screen and (max-width: 1110px)
+        @media only screen and (max-width: 1115px)
         {
             flex-wrap: wrap;
         }
@@ -446,11 +446,7 @@
             {
                 width: 2.5rem;
                 height: 2.5rem;
-
-                & *
-                {
-                    fill: #4A6192;
-                }
+                fill: #4A6192;
             }
         }
     }

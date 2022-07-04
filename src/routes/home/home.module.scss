@@ -10,7 +10,7 @@
             display: flex;
             justify-content: space-between;
 
-            @media only screen and (max-width: 1110px)
+            @media only screen and (max-width: 1115px)
             {
                 flex-direction: column;
             }
@@ -29,7 +29,7 @@
         {
             max-width: 60%;
 
-            @media only screen and (max-width: 1110px)
+            @media only screen and (max-width: 1115px)
             {
                 max-width: 100%;
             }
@@ -55,6 +55,7 @@
 
                     max-width: 100%;
                     padding: 2rem 0;
+                    padding-left: 5rem;
                     overflow-x: scroll;
                     scrollbar-color: #4A6193 #F5F5F5;
 
@@ -76,7 +77,7 @@
                         background: #4A6193;
                     }
 
-                    @media only screen and (max-width: 1110px)
+                    @media only screen and (max-width: 1115px)
                     {
                         width: 100%;
                         padding: 1.5rem 0;
@@ -108,7 +109,11 @@
                         {
                             border-color: #4A6192;
                             background: #4A6192;
-                            color: #FFFFFF;
+
+                            & > button
+                            {
+                                color: #FFFFFF !important;
+                            }
                         }
                     }
                 }
@@ -758,7 +763,7 @@
                                 background: #4A6193;
                             }
 
-                            @media only screen and (max-height: 815px)
+                            @media only screen and (max-height: 750px)
                             {
                                 gap: .5rem;
 
@@ -784,7 +789,7 @@
                                 transition: all .2s;
                                 border-radius: 1rem;
 
-                                @media only screen and (max-height: 815px)
+                                @media only screen and (max-height: 750px)
                                 {
                                     font-size: 1.4rem;
                                     padding: 1rem;
@@ -864,7 +869,7 @@
                 }
             }
 
-            @media only screen and (max-width: 1110px)
+            @media only screen and (max-width: 1115px)
             {
                 flex-direction: column;
             }
@@ -1115,7 +1120,7 @@
                     left: -10rem;
                 }
 
-                @media only screen and (max-width: 1110px)
+                @media only screen and (max-width: 1115px)
                 {
                     display: none;
                 }
@@ -1227,7 +1232,7 @@
                     }
                 }
 
-                @media only screen and (max-width: 1110px)
+                @media only screen and (max-width: 1115px)
                 {
                     max-width: 100%;
                     padding: 2.5rem 4rem;
@@ -1246,7 +1251,7 @@
         {
             display: flex;
 
-            @media only screen and (max-width: 1110px)
+            @media only screen and (max-width: 1115px)
             {
                 flex-direction: column;
                 gap: 2rem;
@@ -1490,11 +1495,18 @@
     margin-bottom: 3rem;
     background: #f5f6fa;
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-width: 1115px)
     {
         height: auto;
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    @media only screen and (max-height: 550px)
+    {
+        height: auto;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
     }
 }
 
@@ -1503,9 +1515,14 @@
     display: flex;
     position: relative;
 
-    height: 95%;
+    height: 100%;
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-height: 550px)
+    {
+        height: 110%;
+    }
+
+    @media only screen and (max-width: 1115px)
     {
         height: auto;
     }
@@ -1536,10 +1553,15 @@
         width: 90%;
     }
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-height: 550px)
     {
-        width: 90%;
-        height: 90%;
+        height: 95%;
+    }
+
+    @media only screen and (max-width: 1115px)
+    {
+        width: 95%;
+        height: 80%;
     }
 
     &::before
@@ -1552,8 +1574,13 @@
         bottom: -2rem;
         opacity: .5;
         width: 45rem;
-        height: 40rem;
+        height: 30rem;
         border-radius: 3.5rem;
+
+        @media only screen and (max-height: 700px)
+        {
+            bottom: -1.5rem;
+        }
 
         @media only screen and (max-width: 1420px)
         {
@@ -1577,12 +1604,12 @@
     padding: 3rem 5rem 5rem;
     background: #FEFFFF;
 
-    @media only screen and (max-height: 815px)
+    @media only screen and (max-height: 750px)
     {
         padding: 2rem 3rem;
     }
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-width: 1115px)
     {
         padding: 2rem;
     }
@@ -1614,10 +1641,10 @@
         background: #4A6193;
         transition: all .2s;
 
-        @media only screen and (max-height: 815px)
+        @media only screen and (max-height: 780px)
         {
-            padding: 1.25rem;
-            font-size: 1.25rem;
+            padding: 1.5rem;
+            font-size: 1.5rem;
             border-radius: 1.25rem;
         }
 
@@ -1647,7 +1674,7 @@
     padding: 0;
     margin-bottom: 1rem;
 
-    @media only screen and (max-height: 815px)
+    @media only screen and (max-height: 750px)
     {
         gap: .7rem;
     }
@@ -1656,15 +1683,23 @@
     {
         padding: 1.5rem 0 2.5rem 0;
 
-        @media only screen and (max-height: 815px)
+        @media only screen and (max-height: 700px)
         {
             padding: 1rem 0;
         }
 
-        @media only screen and (max-height: 650px)
+        @media only screen and (max-height: 600px)
         {
             padding: .5rem 0;
         }
+    }
+
+    &[data-date='true']
+    {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
     }
 
     & [data-type='date']
@@ -1676,7 +1711,7 @@
         border-radius: 2rem;
         border: 2px solid #EDEFF6;
 
-        @media only screen and (max-height: 815px)
+        @media only screen and (max-height: 750px)
         {
             padding: 1rem;
             border-radius: 1.5rem;
@@ -1695,7 +1730,7 @@
             transition: all .2s;
             font-size: 2.5rem;
 
-            @media only screen and (max-height: 815px)
+            @media only screen and (max-height: 750px)
             {
                 font-size: 2rem;
             }
@@ -1707,7 +1742,7 @@
             font-size: 1.5rem;
             margin-bottom: 1rem;
 
-            @media only screen and (max-height: 815px)
+            @media only screen and (max-height: 750px)
             {
                 font-size: 1rem;
                 margin-bottom: .5rem;
@@ -1732,7 +1767,7 @@
         border: 2px solid #EDEFF6;
         border-radius: 10rem;
 
-        @media only screen and (max-height: 815px)
+        @media only screen and (max-height: 750px)
         {
             bottom: 38%;
             width: 4rem;
@@ -1744,7 +1779,7 @@
             width: 2rem;
             height: 2rem;
 
-            @media only screen and (max-height: 815px)
+            @media only screen and (max-height: 750px)
             {
                 width: 1.5rem;
                 height: 1.5rem;
@@ -1779,7 +1814,7 @@
             font-size: 1.5rem;
             color: #4A6193;
 
-            @media only screen and (max-height: 815px)
+            @media only screen and (max-height: 750px)
             {
                 padding-right: 2rem;
             }
@@ -1852,7 +1887,7 @@
         font-size: 1.5rem;
         color: #4A6192;
 
-        @media only screen and (max-height: 815px)
+        @media only screen and (max-height: 750px)
         {
             padding: .5rem 1rem;
             padding-left: 1.25rem;
@@ -1895,7 +1930,7 @@
             box-shadow: 0px 30px 70px #48609233;
             border-radius: 1.3em;
 
-            @media only screen and (max-height: 815px)
+            @media only screen and (max-height: 750px)
             {
                 gap: .5rem;
 
@@ -1920,7 +1955,7 @@
                 transition: all .2s;
                 border-radius: 1rem;
 
-                @media only screen and (max-height: 815px)
+                @media only screen and (max-height: 750px)
                 {
                     font-size: 1.5rem;
                     padding: 1rem;
@@ -1949,7 +1984,7 @@
         flex-wrap: wrap;
     }
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-width: 1115px)
     {
         flex-direction: column;
         gap: 1rem;
@@ -1981,10 +2016,10 @@
     background: #ffffff;
     border: 2px solid #EDEFF6;
 
-    @media only screen and (max-height: 815px)
+    @media only screen and (max-height: 650px)
     {
         border-radius: 1.4rem;
-        padding: 1rem 2rem 1rem 2.5rem;
+        padding: 1.5rem 1.5rem 1.5rem 3rem;
     }
 
     & [data-options='origin_options'],
@@ -2005,9 +2040,9 @@
         transition: all .2s;
         box-shadow: 0 30px 70px #48609233;
 
-        @media only screen and (max-height: 815px)
+        @media only screen and (max-height: 780px)
         {
-            top: 8.5rem;
+            top: 11rem;
         }
 
         &[data-activate='true']
@@ -2051,6 +2086,7 @@
             display: flex;
             align-items: center;
 
+            user-select: none;
             padding: 2rem 1.5rem;
             border-radius: 1rem;
             font-size: 1.5rem;
@@ -2058,10 +2094,16 @@
             cursor: pointer;
             transition: all .2s;
 
-            & svg
+            &[data-plane='true'] > svg
+            {
+                transform: rotate(45deg);
+            }
+
+            & > svg
             {
                 margin-left: 1rem;
                 width: 2rem;
+                fill: #4A6193;
             }
 
             &:hover,
@@ -2082,11 +2124,58 @@
     {
         width: 3rem;
         height: 3rem;
+        fill: #96a5c6;
 
-        @media only screen and (max-height: 815px)
+        @media only screen and (max-height: 700px)
         {
             width: 2rem;
             height: 2rem;
+        }
+    }
+
+    &[data-error='true']
+    {
+        color: #FA5C5C;
+        background: #FFF9F9 0 0 no-repeat padding-box;
+        border: 2px solid #FA5C5C;
+
+        &:before
+        {
+            content: 'پرواز از این شهر به عنوان مبدا و یا مقصد امکان ندارد';
+
+            position: absolute;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+
+            text-align: center;
+            width: 100%;
+            font-size: 1.2rem;
+
+            @media only screen and (max-height: 1190px)
+            {
+                text-align: left;
+                left: 3.5rem;
+                transform: translateX(0);
+            }
+
+            @media only screen and (max-height: 650px)
+            {
+                top: 1rem;
+                text-align: left;
+                left: 2.5rem;
+                transform: translateX(0);
+            }
+        }
+
+        & input
+        {
+            color: #FA5C5C;
+        }
+
+        & > svg
+        {
+            fill: #c69696;
         }
     }
 
@@ -2103,8 +2192,9 @@
             border: none;
             outline: none;
             transition: all .2s;
+            background: transparent;
 
-            @media only screen and (max-height: 815px)
+            @media only screen and (max-height: 750px)
             {
                 font-size: 1.5rem;
             }
@@ -2116,7 +2206,7 @@
             font-size: 1.25rem;
             margin-bottom: .75rem;
 
-            @media only screen and (max-height: 815px)
+            @media only screen and (max-height: 750px)
             {
                 font-size: 1rem;
                 margin-bottom: .5rem;
@@ -2265,16 +2355,21 @@
 {
     position: absolute;
 
-    border-radius: 0 0 11.5rem 0;
+    border-radius: 0 0 10.5rem 0;
     background: #A8B2BF;
     background-size: cover;
     height: 100%;
     width: 100%;
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-height: 550px)
     {
         border-radius: 0;
-        padding: 2rem 0;
+        background-repeat: no-repeat;
+    }
+
+    @media only screen and (max-width: 1115px)
+    {
+        border-radius: 0;
         background-repeat: no-repeat;
     }
 }
@@ -2288,7 +2383,7 @@
 
     height: 100vh;
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-width: 1115px)
     {
         grid-template-rows: 0 1fr;
     }
@@ -2308,7 +2403,7 @@
             grid-template-columns: 10rem 1fr;
         }
 
-        @media only screen and (max-width: 1110px)
+        @media only screen and (max-width: 1115px)
         {
             grid-template-columns: 0 1fr;
         }
@@ -2347,23 +2442,33 @@
     align-items: center;
     justify-content: center;
 
+    position: relative;
+    z-index: 97;
+
     height: 6.25rem;
     color: #a8afba;
+    width: 100%;
     border-bottom: transparent solid .25rem;
-    padding: .5rem 1.5rem 2.75rem 1.5rem;
+    padding: 1rem 1.5rem 2.75rem 1.5rem;
     font-size: 2rem;
     transition: all .3s;
 
     @media only screen and (max-height: 800px)
     {
         font-size: 1.7rem;
-        height: 5.25rem;
+        height: 4.5rem;
         padding: .2rem .75rem .75rem .75rem;
     }
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-width: 1310px)
+    {
+        padding: 1rem 1rem 2.75rem 1rem;
+    }
+
+    @media only screen and (max-width: 1260px)
     {
         font-size: 1.5rem;
+        padding: .5rem .5rem 1.5rem .5rem;
     }
 
     @media only screen and (max-width: 600px)
@@ -2397,9 +2502,22 @@
         color: #4A6192;
         border-color: #4A6192;
 
-        @media only screen and (max-height: 710px)
+
+        @media only screen and (max-height: 800px)
         {
-            padding: .2rem 0 1rem 0;
+            font-size: 1.7rem;
+            height: 5.25rem;
+            padding: .2rem 0 .75rem 0;
+        }
+
+        @media only screen and (max-width: 1310px)
+        {
+            padding: 1rem 0 2.75rem 0;
+        }
+
+        @media only screen and (max-width: 1260px)
+        {
+            padding: .5rem 0 1.5rem 0;
         }
 
         & svg
@@ -2445,7 +2563,7 @@
         padding: 0 6.5rem 0 2rem;
     }
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-width: 1115px)
     {
         overflow: hidden;
     }
@@ -2459,7 +2577,7 @@
     height: 100vh;
     padding: 20rem 0 15rem 0;
 
-    @media only screen and (max-height: 815px)
+    @media only screen and (max-height: 750px)
     {
         padding: 10rem 0 12rem 0;
     }
@@ -2530,7 +2648,7 @@
         }
     }
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-width: 1115px)
     {
         overflow: hidden;
     }
@@ -2642,6 +2760,11 @@
     background: #ffffff;
     border-radius: 2rem;
     box-shadow: 0 30px 70px #48609233;
+
+    @media only screen and (max-height: 550px)
+    {
+        left: -20rem;
+    }
 
     &:before
     {
@@ -2846,7 +2969,7 @@
             gap: 1.5rem;
         }
 
-        @media only screen and (max-width: 1110px)
+        @media only screen and (max-width: 1115px)
         {
             flex-direction: column;
         }
@@ -2984,7 +3107,14 @@
         }
     }
 
-    @media only screen and (max-width: 1110px)
+    @media only screen and (max-height: 750px)
+    {
+        padding-left: 3rem;
+        padding-right: 3rem;
+        padding-top: 0;
+    }
+
+    @media only screen and (max-width: 1115px)
     {
         height: auto;
         padding: 10rem 1.5rem 1.5rem;
@@ -2994,6 +3124,7 @@
     {
         padding: 0;
         padding-left: 2rem;
+        padding-right: 2rem;
 
         & h1
         {
@@ -3004,12 +3135,6 @@
         {
             font-size: 2rem;
         }
-    }
-
-    @media only screen and (max-height: 815px)
-    {
-        padding-left: 3rem;
-        padding-top: 0;
     }
 }
 

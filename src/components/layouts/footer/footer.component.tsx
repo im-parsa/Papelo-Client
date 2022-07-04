@@ -11,7 +11,7 @@ import { ReactComponent as Download } from '../../../assets/icons/download-2.svg
 import { ReactComponent as Arrow } from '../../../assets/icons/arrow.svg';
 import { ReactComponent as Logo } from '../../../assets/icons/logo.svg';
 import { ReactComponent as Telegram } from '../../../assets/icons/telegram.svg';
-import { ReactComponent as Instagram } from '../../../assets/icons/instagram.svg';
+import { ReactComponent as Instagram } from '../../../assets/icons/instagram-line.svg';
 import { ReactComponent as Whatsapp } from '../../../assets/icons/whatsapp.svg';
 import { ReactComponent as Footer1 } from '../../../assets/images/footer-1.svg';
 import { ReactComponent as Footer2 } from '../../../assets/images/footer-2.svg';
@@ -19,6 +19,7 @@ import { ReactComponent as Footer3 } from '../../../assets/images/footer-3.svg';
 import { ReactComponent as Footer4 } from '../../../assets/images/footer-4.svg';
 import { ReactComponent as Footer5 } from '../../../assets/images/footer-5.svg';
 import { ReactComponent as Footer6 } from '../../../assets/images/footer-6.svg';
+import { ReactComponent as Twitter } from '../../../assets/icons/twitter-fill.svg';
 
 import styles from './footer.module.scss';
 
@@ -70,9 +71,9 @@ const Footer = () =>
 
                 <div className={styles.footerApp}>
                     <div className={styles.footerAppContent}>
-                        <h2 className='headingPrimary'>دریافت<span> اپلیکیشن مِستربلیط </span></h2>
+                        <h2 className='headingPrimary'>دریافت<span> اپلیکیشن اسکای&zwnj;رو </span></h2>
                         <p>
-                            <span>با نصب اپلیکیشن پاپلو بلیط همه سفرها در جیب شماست</span>
+                            <span>با نصب اپلیکیشن اسکای&zwnj;رو بلیط همه سفرها در جیب شماست</span>
                             <Link to='/'>
                                 مشاهده قابلیت ها
                                 <Arrow />
@@ -109,11 +110,11 @@ const Footer = () =>
                             <span>راهنمای خرید اینترنتی</span>
                             <span>پیشنهادها و شکایات</span>
                             <span>شرایط و مقررات</span>
-                            <span>درباره مِستربلیط</span>
+                            <span>درباره اسکای&zwnj;رو</span>
                             <span>شرایط و مقررات</span>
                         </div>
                         <div className={styles.footerAchievementRightBox}>
-                            <h5>پاپلو</h5>
+                            <h5>اسکای&zwnj;رو</h5>
                             <span>صفحه اصلی</span>
                             <span>مجله خبری</span>
                             <span>درباره ما</span>
@@ -132,8 +133,8 @@ const Footer = () =>
                     <div className={styles.footerAchievementLeft}>
                         <div className={styles.footerAchievementLeftTop}>
                             <Logo />
-                            <Link to='#'>
-                                چرا خرید بلیط از پاپلو؟ درباره ما بیشتر بدانید
+                            <Link to='/about-us'>
+                                چرا خرید بلیط از اسکای&zwnj;رو؟ درباره ما بیشتر بدانید
                                 <Arrow />
                             </Link>
                         </div>
@@ -158,9 +159,10 @@ const Footer = () =>
                     <p>کلیه حقوق این سرویس (وب‌سایت و اپلیکیشن‌های موبایل) محفوظ می‌باشد</p>
 
                     <div className={styles.footerCopyrightIcons}>
-                        <div className={styles.footerCopyrightIconsBG}><Telegram /></div>
-                        <div className={styles.footerCopyrightIconsBG}><Instagram /></div>
-                        <div className={styles.footerCopyrightIconsBG}><Whatsapp /></div>
+                        <a href='#' className={styles.footerCopyrightIconsBG}><Telegram /></a>
+                        <a href='#' className={styles.footerCopyrightIconsBG}><Instagram /></a>
+                        <a href='#' className={styles.footerCopyrightIconsBG}><Whatsapp /></a>
+                        <a href='#' className={styles.footerCopyrightIconsBG}><Twitter /></a>
                     </div>
                 </div>
             </div>

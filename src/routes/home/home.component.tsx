@@ -21,8 +21,9 @@ import { ReactComponent as Plus } from '../../assets/icons/plus.svg';
 import { ReactComponent as Minus } from '../../assets/icons/minus.svg';
 import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
 import { ReactComponent as ThreeDots } from '../../assets/icons/three-dots.svg';
-import { ReactComponent as Plane2 } from '../../assets/icons/plane-2.svg';
-import { ReactComponent as Plane3 } from '../../assets/icons/plane-3.svg';
+import { ReactComponent as Plane2 } from '../../assets/icons/flight-takeoff-line.svg';
+import { ReactComponent as Plane3 } from '../../assets/icons/flight-land-line.svg';
+import { ReactComponent as Pin } from '../../assets/icons/map-pin-2-fill.svg';
 import { ReactComponent as Exchange } from '../../assets/icons/exchange.svg';
 import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
 import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
@@ -47,9 +48,12 @@ import styles from './home.module.scss';
 
 import Footer from '../../components/layouts/footer/footer.component';
 
+const data = require('../../data/data.json');
+
 const Home = () =>
 {
     const [page, setPage] = useState('plane');
+    const [proposalActivate, setProposalActivate] = useState(0);
     const [proposalOrigin, setProposalOrigin] = useState('');
     const [proposalOriginActivate, setProposalOriginActivate] = useState(false);
     const [proposalDestination, setProposalDestination] = useState('');
@@ -119,7 +123,7 @@ const Home = () =>
             {
                 const cityName = city.getAttribute('data-name');
 
-                if (event.target.value && !cityName.includes(event.target.value))
+                if (event.target.value && (!cityName.split(' - ')[0]?.toLowerCase().startsWith(event.target.value?.toLowerCase()) && !cityName.split(' - ')[1]?.toLowerCase().startsWith(event.target.value?.toLowerCase())))
                 {
                     city?.setAttribute('data-activate', 'false');
                 }
@@ -143,7 +147,7 @@ const Home = () =>
             {
                 const cityName = city.getAttribute('data-name');
 
-                if (event.target.value && !cityName.includes(event.target.value))
+                if (event.target.value && (!cityName.split(' - ')[0]?.toLowerCase().startsWith(event.target.value?.toLowerCase()) && !cityName.split(' - ')[1]?.toLowerCase().startsWith(event.target.value?.toLowerCase())))
                 {
                     city?.setAttribute('data-activate', 'false');
                 }
@@ -158,9 +162,9 @@ const Home = () =>
         {
             const inputParent = document.querySelectorAll('#origin_input_parent');
             const options = document.querySelectorAll('#origin_options');
-            const exchangeIcon: any = document.querySelectorAll('#exchange_icon');
 
             inputParent.forEach(f => f.setAttribute('data-activate', 'true'));
+            inputParent.forEach(f => f.setAttribute('data-error', 'false'));
             options.forEach(f => f.setAttribute('data-activate', 'true'));
         }, []);
     const onFocusDestination = useCallback(
@@ -170,6 +174,7 @@ const Home = () =>
             const options = document.querySelectorAll('#destination_options');
 
             inputParent.forEach(f => f.setAttribute('data-activate', 'true'));
+            inputParent.forEach(f => f.setAttribute('data-error', 'false'));
             options.forEach(f => f.setAttribute('data-activate', 'true'));
         }, []);
     const onClickExchange = useCallback(
@@ -222,6 +227,16 @@ const Home = () =>
                 inputParent.forEach(f => f.setAttribute('data-activate', 'false'));
                 options.forEach(f => f.setAttribute('data-activate', 'false'));
                 exchangeIcon.forEach(f => f.setAttribute('data-activate', 'true'));
+
+                if (origin && !data?.cities?.includes(origin))
+                {
+                    console.log(origin)
+                    inputParent.forEach((f: any) => f.setAttribute('data-error', 'true'));
+                }
+                else
+                {
+                    inputParent.forEach((f: any) => f.setAttribute('data-error', 'false'));
+                }
             }
             if (!destinationInputParent?.some((element) => element?.contains(event?.target)))
             {
@@ -232,6 +247,15 @@ const Home = () =>
                 inputParent.forEach(f => f.setAttribute('data-activate', 'false'));
                 options.forEach(f => f.setAttribute('data-activate', 'false'));
                 exchangeIcon.forEach(f => f.setAttribute('data-activate', 'true'));
+
+                if (destination && !data?.cities?.includes(destination))
+                {
+                    inputParent.forEach((f: any) => f.setAttribute('data-error', 'true'));
+                }
+                else
+                {
+                    inputParent.forEach((f: any) => f.setAttribute('data-error', 'false'));
+                }
             }
             if (!passengersParent?.some((element) => element?.contains(event?.target)))
             {
@@ -254,7 +278,7 @@ const Home = () =>
                 setProposalDestinationActivate(false);
             }
         })
-    }, [setPassengers, setUnilateralActivate, setExclusiveActivate, setProposalOriginActivate, setProposalDestinationActivate]);
+    }, [setPassengers, setUnilateralActivate, setExclusiveActivate, setProposalOriginActivate, setProposalDestinationActivate, origin, destination]);
 
     return (
         <main className={styles.home}>
@@ -264,9 +288,9 @@ const Home = () =>
                     <nav className={styles.homeHeaderMainNav}>
                         <Logo />
                         <ul className={styles.homeHeaderMainNavList}>
-                            <li className={styles.homeHeaderMainNavItem}>
+                            <Link to='/' className={styles.homeHeaderMainNavItem}>
                                 صفحه اصلی
-                            </li>
+                            </Link>
                             <li className={styles.homeHeaderMainNavItem} data-type='arrow'>
                                 خدمات سفر
                                 <div className={styles.homeHeaderMainNavPopup}>
@@ -351,9 +375,9 @@ const Home = () =>
                                     </div>
                                 </div>
                             </li>
-                            <li className={styles.homeHeaderMainNavItem}>
+                            <Link to='/rules' className={styles.homeHeaderMainNavItem}>
                                 راهنمایی و پشتیبانی
-                            </li>
+                            </Link>
                             <li className={styles.homeHeaderMainNavItem}>
                                 <ThreeDots />
                             </li>
@@ -361,7 +385,7 @@ const Home = () =>
                     </nav>
                     <div>
                         <aside className={styles.homeHeaderMainAside}>
-                            <a href='#fastSearch'>
+                            <a href='#proposal'>
                                 مشاهده پیشنهادات
                                 <Arrow />
                             </a>
@@ -410,7 +434,7 @@ const Home = () =>
                                     ?
                                     <>
                                         <h1>
-                                            <strong>با ما در همه حال سفر</strong> با رزرو تور پاپلو
+                                            <strong>با ما در همه حال سفر</strong> با رزرو تور اسکای&zwnj;رو
                                         </h1>
                                         <p>
                                             با خیالی آسوده بلیط تور خود را رزرو کنید
@@ -424,7 +448,7 @@ const Home = () =>
                                     ?
                                     <>
                                         <h1>
-                                            <strong>آسوده سفر کنید</strong> با رزرو بلیط قطار از پاپلو
+                                            <strong>آسوده سفر کنید</strong> با رزرو بلیط قطار از اسکای&zwnj;رو
                                         </h1>
                                         <p>
                                             با خیالی آسوده بلیط قطار خود را رزرو کنید
@@ -642,7 +666,7 @@ const Home = () =>
                                     <span id='exchange_icon' data-activate="true" onClick={ onClickExchange }>
                                         <Exchange />
                                     </span>
-                                    <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
+                                    <label htmlFor='origin' className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
                                         <div>
                                             <label>
                                                 مبدا(شهر)
@@ -653,46 +677,27 @@ const Home = () =>
                                                 autoComplete='false'
                                                 spellCheck='false'
                                                 name='origin'
+                                                id='origin'
                                                 onFocus={ onFocusOrigin }
                                                 onChange={ onChangeOrigin }
                                                 value={ origin }
                                             />
                                         </div>
                                         <Plane2 />
-                                        <div data-options='origin_options' id='origin_options'>
+                                        <label htmlFor='nothing' data-options='origin_options' id='origin_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleOrigin('شیراز - Shiraz');  }}>
-                                                    <Plane />
-                                                    شیراز - Shiraz
-                                                </li>
-                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleOrigin('تهران - Tehran'); }}>
-                                                    <Plane />
-                                                    تهران - Tehran
-                                                </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleOrigin('مشهد - Mashhad'); }}>
-                                                    <Plane />
-                                                    مشهد - Mashhad
-                                                </li>
-                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleOrigin('کیش - Kish'); }}>
-                                                    <Plane />
-                                                    کیش - Kish
-                                                </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleOrigin('آبادان - Abadan'); }}>
-                                                    <Plane />
-                                                    آبادان - Abadan
-                                                </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleOrigin('اهواز - Ahwaz'); }}>
-                                                    <Plane />
-                                                    اهواز - Ahwaz
-                                                </li>
-                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleOrigin('رشت - Rasht'); }}>
-                                                    <Plane />
-                                                    رشت - Rasht
-                                                </li>
+                                                {
+                                                    data?.cities?.map((city: any) => (
+                                                        <li key={city} data-name={city} data-plane={true} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
+                                                            <Plane />
+                                                            {city}
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
-                                        </div>
-                                    </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
+                                        </label>
+                                    </label>
+                                    <label htmlFor='destination' className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
                                         <div>
                                             <label>
                                                 مقصد(شهر)
@@ -703,47 +708,28 @@ const Home = () =>
                                                 autoComplete='false'
                                                 spellCheck='false'
                                                 name='destination'
+                                                id='destination'
                                                 onFocus={ onFocusDestination }
                                                 onChange={ onChangeDestination }
                                                 value={ destination }
                                             />
                                         </div>
                                         <Plane3 />
-                                        <div data-options='destination_options' id='destination_options'>
+                                        <label htmlFor='nothing' data-options='destination_options' id='destination_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleDestination('شیراز - Shiraz'); }}>
-                                                    <Plane />
-                                                    شیراز - Shiraz
-                                                </li>
-                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleDestination('تهران - Tehran'); }}>
-                                                    <Plane />
-                                                    تهران - Tehran
-                                                </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleDestination('مشهد - Mashhad'); }}>
-                                                    <Plane />
-                                                    مشهد - Mashhad
-                                                </li>
-                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleDestination('کیش - Kish'); }}>
-                                                    <Plane />
-                                                    کیش - Kish
-                                                </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleDestination('آبادان - Abadan'); }}>
-                                                    <Plane />
-                                                    آبادان - Abadan
-                                                </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleDestination('اهواز - Ahwaz'); }}>
-                                                    <Plane />
-                                                    اهواز - Ahwaz
-                                                </li>
-                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleDestination('رشت - Rasht'); }}>
-                                                    <Plane />
-                                                    رشت - Rasht
-                                                </li>
+                                                {
+                                                    data?.cities?.map((city: any) => (
+                                                        <li key={city} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
+                                                            <Plane />
+                                                            {city}
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
-                                        </div>
-                                    </div>
+                                        </label>
+                                    </label>
                                 </div>
-                                <div className={styles.homeHeaderImageContentItem}>
+                                <div data-date={true} className={styles.homeHeaderImageContentItem}>
                                     <div data-type='date'>
                                         <label>
                                             تاریخ رفت
@@ -753,15 +739,21 @@ const Home = () =>
                                             onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
                                         />
                                     </div>
-                                    <div data-type='date'>
-                                        <label>
-                                            تاریخ برگشت
-                                        </label>
-                                        <DatePicker
-                                            timePicker={false}
-                                            onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                        />
-                                    </div>
+                                    {
+                                        !unilateral
+                                            ?
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ برگشت
+                                                </label>
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
+                                                />
+                                            </div>
+                                            :
+                                            null
+                                    }
                                 </div>
                                 <button>
                                     یافتن بلیط
@@ -886,7 +878,7 @@ const Home = () =>
                                     </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
+                                    <label htmlFor='hotel_origin' className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
                                         <div>
                                             <label>
                                                 مبدا(شهر)
@@ -897,47 +889,28 @@ const Home = () =>
                                                 autoComplete='false'
                                                 spellCheck='false'
                                                 name='origin'
+                                                id='hotel_origin'
                                                 onFocus={ onFocusOrigin }
                                                 onChange={ onChangeOrigin }
                                                 value={ origin }
                                             />
                                         </div>
-                                        <Plane2 />
-                                        <div data-options='origin_options' id='origin_options'>
+                                        <Pin />
+                                        <label htmlFor='nothing' data-options='origin_options' id='origin_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={origin === 'شیراز - Shiraz' ? 'active' : ''} onClick={() => { handleOrigin('شیراز - Shiraz'); }}>
-                                                    <Plane />
-                                                    شیراز - Shiraz
-                                                </li>
-                                                <li data-name='تهران - Tehran' data-activate={origin === 'تهران - Tehran' ? 'active' : ''} onClick={() => { handleOrigin('تهران - Tehran'); }}>
-                                                    <Plane />
-                                                    تهران - Tehran
-                                                </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={origin === 'مشهد - Mashhad' ? 'active' : ''} onClick={() => { handleOrigin('مشهد - Mashhad'); }}>
-                                                    <Plane />
-                                                    مشهد - Mashhad
-                                                </li>
-                                                <li data-name='کیش - Kish' data-activate={origin === 'کیش - Kish' ? 'active' : ''} onClick={() => { handleOrigin('کیش - Kish'); }}>
-                                                    <Plane />
-                                                    کیش - Kish
-                                                </li>
-                                                <li data-name='آبادان - Abadan' data-activate={origin === 'آبادان - Abadan' ? 'active' : ''} onClick={() => { handleOrigin('آبادان - Abadan'); }}>
-                                                    <Plane />
-                                                    آبادان - Abadan
-                                                </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={origin === 'اهواز - Ahwaz' ? 'active' : ''} onClick={() => { handleOrigin('اهواز - Ahwaz'); }}>
-                                                    <Plane />
-                                                    اهواز - Ahwaz
-                                                </li>
-                                                <li data-name='رشت - Rasht' data-activate={origin === 'رشت - Rasht' ? 'active' : ''} onClick={() => { handleOrigin('رشت - Rasht'); }}>
-                                                    <Plane />
-                                                    رشت - Rasht
-                                                </li>
+                                                {
+                                                    data?.cities?.map((city: any) => (
+                                                        <li key={city} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
+                                                            <Pin />
+                                                            {city}
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
-                                        </div>
-                                    </div>
+                                        </label>
+                                    </label>
                                 </div>
-                                <div className={styles.homeHeaderImageContentItem}>
+                                <div data-date={true} className={styles.homeHeaderImageContentItem}>
                                     <div data-type='date'>
                                         <label>
                                             تاریخ رفت
@@ -1080,7 +1053,7 @@ const Home = () =>
                                     </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
+                                    <label htmlFor='tour_origin' className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
                                         <div>
                                             <label>
                                                 مبدا(شهر)
@@ -1091,46 +1064,27 @@ const Home = () =>
                                                 autoComplete='false'
                                                 spellCheck='false'
                                                 name='origin'
+                                                id='tour_origin'
                                                 onFocus={ onFocusOrigin }
                                                 onChange={ onChangeOrigin }
                                                 value={ origin }
                                             />
                                         </div>
-                                        <Plane2 />
-                                        <div data-options='origin_options' id='origin_options'>
+                                        <Pin />
+                                        <label htmlFor='nothing' data-options='origin_options' id='origin_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleOrigin('شیراز - Shiraz'); }}>
-                                                    <Plane />
-                                                    شیراز - Shiraz
-                                                </li>
-                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleOrigin('تهران - Tehran'); }}>
-                                                    <Plane />
-                                                    تهران - Tehran
-                                                </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleOrigin('مشهد - Mashhad'); }}>
-                                                    <Plane />
-                                                    مشهد - Mashhad
-                                                </li>
-                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleOrigin('کیش - Kish'); }}>
-                                                    <Plane />
-                                                    کیش - Kish
-                                                </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleOrigin('آبادان - Abadan'); }}>
-                                                    <Plane />
-                                                    آبادان - Abadan
-                                                </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleOrigin('اهواز - Ahwaz'); }}>
-                                                    <Plane />
-                                                    اهواز - Ahwaz
-                                                </li>
-                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleOrigin('رشت - Rasht'); }}>
-                                                    <Plane />
-                                                    رشت - Rasht
-                                                </li>
+                                                {
+                                                    data?.cities?.map((city: any) => (
+                                                        <li key={city} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
+                                                            <Pin />
+                                                            {city}
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
-                                        </div>
-                                    </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
+                                        </label>
+                                    </label>
+                                    <label htmlFor='tour_destination' className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
                                         <div>
                                             <label>
                                                 مقصد(شهر)
@@ -1141,47 +1095,28 @@ const Home = () =>
                                                 autoComplete='false'
                                                 spellCheck='false'
                                                 name='destination'
+                                                id='tour_destination'
                                                 onFocus={ onFocusDestination }
                                                 onChange={ onChangeDestination }
                                                 value={ destination }
                                             />
                                         </div>
-                                        <Plane3 />
-                                        <div data-options='destination_options' id='destination_options'>
+                                        <Pin />
+                                        <label htmlFor='nothing' data-options='destination_options' id='destination_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleDestination('شیراز - Shiraz'); }}>
-                                                    <Plane />
-                                                    شیراز - Shiraz
-                                                </li>
-                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleDestination('تهران - Tehran'); }}>
-                                                    <Plane />
-                                                    تهران - Tehran
-                                                </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleDestination('مشهد - Mashhad'); }}>
-                                                    <Plane />
-                                                    مشهد - Mashhad
-                                                </li>
-                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleDestination('کیش - Kish'); }}>
-                                                    <Plane />
-                                                    کیش - Kish
-                                                </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleDestination('آبادان - Abadan'); }}>
-                                                    <Plane />
-                                                    آبادان - Abadan
-                                                </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleDestination('اهواز - Ahwaz'); }}>
-                                                    <Plane />
-                                                    اهواز - Ahwaz
-                                                </li>
-                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleDestination('رشت - Rasht'); }}>
-                                                    <Plane />
-                                                    رشت - Rasht
-                                                </li>
+                                                {
+                                                    data?.cities?.map((city: any) => (
+                                                        <li key={city} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
+                                                            <Pin />
+                                                            {city}
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
-                                        </div>
-                                    </div>
+                                        </label>
+                                    </label>
                                 </div>
-                                <div className={styles.homeHeaderImageContentItem}>
+                                <div data-date={true} className={styles.homeHeaderImageContentItem}>
                                     <div data-type='date'>
                                         <label>
                                             تاریخ رفت
@@ -1191,15 +1126,21 @@ const Home = () =>
                                             onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
                                         />
                                     </div>
-                                    <div data-type='date'>
-                                        <label>
-                                            تاریخ برگشت
-                                        </label>
-                                        <DatePicker
-                                            timePicker={false}
-                                            onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                        />
-                                    </div>
+                                    {
+                                        !unilateral
+                                            ?
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ برگشت
+                                                </label>
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
+                                                />
+                                            </div>
+                                            :
+                                            null
+                                    }
                                 </div>
                                 <button>
                                     یافتن بلیط
@@ -1368,7 +1309,7 @@ const Home = () =>
                                     </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
+                                    <label htmlFor='train_origin' className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
                                         <div>
                                             <label>
                                                 مبدا(شهر)
@@ -1379,46 +1320,27 @@ const Home = () =>
                                                 autoComplete='false'
                                                 spellCheck='false'
                                                 name='origin'
+                                                id='train_origin'
                                                 onFocus={ onFocusOrigin }
                                                 onChange={ onChangeOrigin }
                                                 value={ origin }
                                             />
                                         </div>
-                                        <Plane2 />
-                                        <div data-options='origin_options' id='origin_options'>
+                                        <Pin />
+                                        <label htmlFor='nothing' data-options='origin_options' id='origin_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleOrigin('شیراز - Shiraz'); }}>
-                                                    <Plane />
-                                                    شیراز - Shiraz
-                                                </li>
-                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleOrigin('تهران - Tehran'); }}>
-                                                    <Plane />
-                                                    تهران - Tehran
-                                                </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleOrigin('مشهد - Mashhad'); }}>
-                                                    <Plane />
-                                                    مشهد - Mashhad
-                                                </li>
-                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleOrigin('کیش - Kish'); }}>
-                                                    <Plane />
-                                                    کیش - Kish
-                                                </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleOrigin('آبادان - Abadan'); }}>
-                                                    <Plane />
-                                                    آبادان - Abadan
-                                                </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleOrigin('اهواز - Ahwaz'); }}>
-                                                    <Plane />
-                                                    اهواز - Ahwaz
-                                                </li>
-                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleOrigin('رشت - Rasht'); }}>
-                                                    <Plane />
-                                                    رشت - Rasht
-                                                </li>
+                                                {
+                                                    data?.cities?.map((city: any) => (
+                                                        <li key={city} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
+                                                            <Pin />
+                                                            {city}
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
-                                        </div>
-                                    </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
+                                        </label>
+                                    </label>
+                                    <label htmlFor='train_destination' className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
                                         <div>
                                             <label>
                                                 مقصد(شهر)
@@ -1429,47 +1351,28 @@ const Home = () =>
                                                 autoComplete='false'
                                                 spellCheck='false'
                                                 name='destination'
+                                                id='train_destination'
                                                 onFocus={ onFocusDestination }
                                                 onChange={ onChangeDestination }
                                                 value={ destination }
                                             />
                                         </div>
-                                        <Plane3 />
-                                        <div data-options='destination_options' id='destination_options'>
+                                        <Pin />
+                                        <label htmlFor='nothing' data-options='destination_options' id='destination_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleDestination('شیراز - Shiraz'); }}>
-                                                    <Plane />
-                                                    شیراز - Shiraz
-                                                </li>
-                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleDestination('تهران - Tehran'); }}>
-                                                    <Plane />
-                                                    تهران - Tehran
-                                                </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleDestination('مشهد - Mashhad'); }}>
-                                                    <Plane />
-                                                    مشهد - Mashhad
-                                                </li>
-                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleDestination('کیش - Kish'); }}>
-                                                    <Plane />
-                                                    کیش - Kish
-                                                </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleDestination('آبادان - Abadan'); }}>
-                                                    <Plane />
-                                                    آبادان - Abadan
-                                                </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleDestination('اهواز - Ahwaz'); }}>
-                                                    <Plane />
-                                                    اهواز - Ahwaz
-                                                </li>
-                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleDestination('رشت - Rasht'); }}>
-                                                    <Plane />
-                                                    رشت - Rasht
-                                                </li>
+                                                {
+                                                    data?.cities?.map((city: any) => (
+                                                        <li key={city} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
+                                                            <Pin />
+                                                            {city}
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
-                                        </div>
-                                    </div>
+                                        </label>
+                                    </label>
                                 </div>
-                                <div className={styles.homeHeaderImageContentItem}>
+                                <div data-date={true} className={styles.homeHeaderImageContentItem}>
                                     <div data-type='date'>
                                         <label>
                                             تاریخ رفت
@@ -1479,15 +1382,21 @@ const Home = () =>
                                             onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
                                         />
                                     </div>
-                                    <div data-type='date'>
-                                        <label>
-                                            تاریخ برگشت
-                                        </label>
-                                        <DatePicker
-                                            timePicker={false}
-                                            onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                        />
-                                    </div>
+                                    {
+                                        !unilateral
+                                            ?
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ برگشت
+                                                </label>
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
+                                                />
+                                            </div>
+                                            :
+                                            null
+                                    }
                                 </div>
                                 <button>
                                     یافتن بلیط
@@ -1525,7 +1434,7 @@ const Home = () =>
                                     </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
+                                    <label htmlFor='bus_origin' className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
                                         <div>
                                             <label>
                                                 مبدا(شهر)
@@ -1536,46 +1445,27 @@ const Home = () =>
                                                 autoComplete='false'
                                                 spellCheck='false'
                                                 name='origin'
+                                                id='bus_origin'
                                                 onFocus={ onFocusOrigin }
                                                 onChange={ onChangeOrigin }
                                                 value={ origin }
                                             />
                                         </div>
-                                        <Plane2 />
-                                        <div data-options='origin_options' id='origin_options'>
+                                        <Pin />
+                                        <label htmlFor='nothing' data-options='origin_options' id='origin_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(origin === 'شیراز - Shiraz' ? 'active' : '') + (destination === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleOrigin('شیراز - Shiraz'); }}>
-                                                    <Plane />
-                                                    شیراز - Shiraz
-                                                </li>
-                                                <li data-name='تهران - Tehran' data-activate={(origin === 'تهران - Tehran' ? 'active' : '') + (destination === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleOrigin('تهران - Tehran'); }}>
-                                                    <Plane />
-                                                    تهران - Tehran
-                                                </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(origin === 'مشهد - Mashhad' ? 'active' : '') + (destination === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleOrigin('مشهد - Mashhad'); }}>
-                                                    <Plane />
-                                                    مشهد - Mashhad
-                                                </li>
-                                                <li data-name='کیش - Kish' data-activate={(origin === 'کیش - Kish' ? 'active' : '') + (destination === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleOrigin('کیش - Kish'); }}>
-                                                    <Plane />
-                                                    کیش - Kish
-                                                </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(origin === 'آبادان - Abadan' ? 'active' : '') + (destination === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleOrigin('آبادان - Abadan'); }}>
-                                                    <Plane />
-                                                    آبادان - Abadan
-                                                </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(origin === 'اهواز - Ahwaz' ? 'active' : '') + (destination === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleOrigin('اهواز - Ahwaz'); }}>
-                                                    <Plane />
-                                                    اهواز - Ahwaz
-                                                </li>
-                                                <li data-name='رشت - Rasht' data-activate={(origin === 'رشت - Rasht' ? 'active' : '') + (destination === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleOrigin('رشت - Rasht'); }}>
-                                                    <Plane />
-                                                    رشت - Rasht
-                                                </li>
+                                                {
+                                                    data?.cities?.map((city: any) => (
+                                                        <li key={city} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
+                                                            <Pin />
+                                                            {city}
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
-                                        </div>
-                                    </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
+                                        </label>
+                                    </label>
+                                    <label htmlFor='bus_destination' className={styles.homeHeaderImageContentItemInput} id='destination_input_parent'>
                                         <div>
                                             <label>
                                                 مقصد(شهر)
@@ -1586,47 +1476,28 @@ const Home = () =>
                                                 autoComplete='false'
                                                 spellCheck='false'
                                                 name='destination'
+                                                id='bus_destination'
                                                 onFocus={ onFocusDestination }
                                                 onChange={ onChangeDestination }
                                                 value={ destination }
                                             />
                                         </div>
-                                        <Plane3 />
-                                        <div data-options='destination_options' id='destination_options'>
+                                        <Pin />
+                                        <label htmlFor='nothing' data-options='destination_options' id='destination_options'>
                                             <ul>
-                                                <li data-name='شیراز - Shiraz' data-activate={(destination === 'شیراز - Shiraz' ? 'active ' : '') + (origin === 'شیراز - Shiraz' ? 'false' : '')} onClick={() => { handleDestination('شیراز - Shiraz'); }}>
-                                                    <Plane />
-                                                    شیراز - Shiraz
-                                                </li>
-                                                <li data-name='تهران - Tehran' data-activate={(destination === 'تهران - Tehran' ? 'active' : '') + (origin === 'تهران - Tehran' ? 'false' : '')} onClick={() => { handleDestination('تهران - Tehran'); }}>
-                                                    <Plane />
-                                                    تهران - Tehran
-                                                </li>
-                                                <li data-name='مشهد - Mashhad' data-activate={(destination === 'مشهد - Mashhad' ? 'active' : '') + (origin === 'مشهد - Mashhad' ? 'false' : '')} onClick={() => { handleDestination('مشهد - Mashhad'); }}>
-                                                    <Plane />
-                                                    مشهد - Mashhad
-                                                </li>
-                                                <li data-name='کیش - Kish' data-activate={(destination === 'کیش - Kish' ? 'active' : '') + (origin === 'کیش - Kish' ? 'false' : '')} onClick={() => { handleDestination('کیش - Kish'); }}>
-                                                    <Plane />
-                                                    کیش - Kish
-                                                </li>
-                                                <li data-name='آبادان - Abadan' data-activate={(destination === 'آبادان - Abadan' ? 'active' : '') + (origin === 'آبادان - Abadan' ? 'false' : '')} onClick={() => { handleDestination('آبادان - Abadan'); }}>
-                                                    <Plane />
-                                                    آبادان - Abadan
-                                                </li>
-                                                <li data-name='اهواز - Ahwaz' data-activate={(destination === 'اهواز - Ahwaz' ? 'active' : '') + (origin === 'اهواز - Ahwaz' ? 'false' : '')} onClick={() => { handleDestination('اهواز - Ahwaz'); }}>
-                                                    <Plane />
-                                                    اهواز - Ahwaz
-                                                </li>
-                                                <li data-name='رشت - Rasht' data-activate={(destination === 'رشت - Rasht' ? 'active' : '') + (origin === 'رشت - Rasht' ? 'false' : '')} onClick={() => { handleDestination('رشت - Rasht'); }}>
-                                                    <Plane />
-                                                    رشت - Rasht
-                                                </li>
+                                                {
+                                                    data?.cities?.map((city: any) => (
+                                                        <li key={city} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
+                                                            <Pin />
+                                                            {city}
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
-                                        </div>
-                                    </div>
+                                        </label>
+                                    </label>
                                 </div>
-                                <div className={styles.homeHeaderImageContentItem}>
+                                <div data-date={true} className={styles.homeHeaderImageContentItem}>
                                     <div data-type='date'>
                                         <label>
                                             تاریخ رفت
@@ -1636,15 +1507,21 @@ const Home = () =>
                                             onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
                                         />
                                     </div>
-                                    <div data-type='date'>
-                                        <label>
-                                            تاریخ برگشت
-                                        </label>
-                                        <DatePicker
-                                            timePicker={false}
-                                            onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                        />
-                                    </div>
+                                    {
+                                        !unilateral
+                                            ?
+                                            <div data-type='date'>
+                                                <label>
+                                                    تاریخ برگشت
+                                                </label>
+                                                <DatePicker
+                                                    timePicker={false}
+                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
+                                                />
+                                            </div>
+                                            :
+                                            null
+                                    }
                                 </div>
                                 <button>
                                     یافتن بلیط
@@ -1708,8 +1585,8 @@ const Home = () =>
 
                             <div>
                                 <ul id='cities_parent'>
-                                    <li>
-                                        <button data-activate='true'>تهران</button>
+                                    <li data-activate='true'>
+                                        <button>تهران</button>
                                     </li>
                                     <li>
                                         <button>مشهد</button>
@@ -2054,14 +1931,14 @@ const Home = () =>
                 </div>
             </section>
 
-            <section className={styles.homeProposal} style={{ backgroundImage: `url(${Texture})` }}>
+            <section className={styles.homeProposal} id='proposal' style={{ backgroundImage: `url(${Texture})` }}>
                 <div className="container">
                     <h2 className='headingPrimary'>پیشنهاد <span>لحظه آخری</span></h2>
 
                     <div className={styles.homeProposalItems}>
-                        <button data-activate='true'>ارزان ترین بلیط ها</button>
-                        <button>پرفروش ترین بلیط ها</button>
-                        <button>تخفیف خوردها</button>
+                        <button data-activate={proposalActivate === 0} onClick={() => setProposalActivate(0)}>ارزان ترین بلیط ها</button>
+                        <button data-activate={proposalActivate === 1} onClick={() => setProposalActivate(1)}>پرفروش ترین بلیط ها</button>
+                        <button data-activate={proposalActivate === 2} onClick={() => setProposalActivate(2)}>تخفیف خوردها</button>
                     </div>
 
                     <div className={styles.homeProposalBoxes}>
@@ -2317,7 +2194,7 @@ const Home = () =>
                     <div className={styles.homeMagazineTop}>
                         <div>
                             <Blogs />
-                            <h2 className='headingPrimary'>از مجله <span>پاپلو</span></h2>
+                            <h2 className='headingPrimary'>از مجله <span>اسکای&zwnj;رو</span></h2>
                         </div>
                         <Link to='#'>
                             بیشتر
@@ -2389,7 +2266,7 @@ const Home = () =>
                     <div className={styles.homeApplicationBox}>
                         <AppPhone />
                         <div>
-                            <h2 className='headingPrimary'>دریافت<span> اپلیکیشن مِستربلیط </span></h2>
+                            <h2 className='headingPrimary'>دریافت<span> اپلیکیشن اسکای&zwnj;رو </span></h2>
                             <ul>
                                 <li>
                                     <Check />
@@ -2423,8 +2300,8 @@ const Home = () =>
                         <div className={styles.homeReserveSideRight}>
                             <h2 className='headingPrimary'>رزرو<span>بلیط هواپیما</span></h2>
                             <h3>خرید بلیط هواپیما برای تمام مقاصد داخلی و خارجی</h3>
-                            <p>علی‌بابا بزرگترین و معتبرترین سایت خرید اینترنتی بلیط هواپیما ، قطار و اتوبوس در کشور است که از سال ۱۳۹۳ کار خود را شروع کرده و در این مدت توانسته رضایت درصد قابل توجهی ز کاربران را به دست بیاورد. در ابتدا، فروش بلیط پرواز داخلی در دستور کار علی‌بابا قرار داشت اما به مرور امکان خرید سایر محصولات گردشگری نیز به علی‌بابا اضافه شد</p>
-                            <p>علی‌بابا بزرگترین و معتبرترین سایت خرید اینترنتی بلیط هواپیما ، قطار و اتوبوس در کشور است که از سال ۱۳۹۳ کار خود را شروع کرده و در این مدت توانسته رضایت درصد قابل توجهی ز کاربران را به دست بیاورد. در ابتدا، فروش بلیط پرواز داخلی در دستور کار علی‌بابا قرار داشت اما به مرور امکان خرید سایر محصولات گردشگری نیز به علی‌بابا اضافه شد</p>
+                            <p>اسکای&zwnj;رو بزرگترین و معتبرترین سایت خرید اینترنتی بلیط هواپیما ، قطار و اتوبوس در کشور است که از سال ۱۳۹۳ کار خود را شروع کرده و در این مدت توانسته رضایت درصد قابل توجهی ز کاربران را به دست بیاورد. در ابتدا، فروش بلیط پرواز داخلی در دستور کار اسکای&zwnj;رو قرار داشت اما به مرور امکان خرید سایر محصولات گردشگری نیز به اسکای&zwnj;رو اضافه شد</p>
+                            <p>اسکای&zwnj;رو بزرگترین و معتبرترین سایت خرید اینترنتی بلیط هواپیما ، قطار و اتوبوس در کشور است که از سال ۱۳۹۳ کار خود را شروع کرده و در این مدت توانسته رضایت درصد قابل توجهی ز کاربران را به دست بیاورد. در ابتدا، فروش بلیط پرواز داخلی در دستور کار اسکای&zwnj;رو قرار داشت اما به مرور امکان خرید سایر محصولات گردشگری نیز به اسکای&zwnj;رو اضافه شد</p>
                         </div>
                         <div className={styles.homeReserveSideLeft}>
                             <ul>
