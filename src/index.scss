@@ -501,3 +501,29 @@ input[type=number]
 {
     display: none;
 }
+
+.tooltip
+{
+    display: inline-block;
+
+    color: #4a6192;
+    padding: .5rem 1.2rem;
+    text-align: center;
+    font-size: 1.4rem;
+    border-radius: 6px;
+    background: #FFFFFF;
+    box-shadow: 0 30px 70px #48609233;
+
+    &:after
+    {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        box-shadow: 0 30px 70px #48609233;
+        border-color: #FFFFFF transparent transparent transparent;
+    }
+}

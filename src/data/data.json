@@ -12,5 +12,32 @@
             "همدان - Hamedan",
             "یزد - Yazd",
             "بندرعباس - Bandar Abbas"
+        ],
+    "blogs":
+        [
+            {
+                "title": "سفر به جاهای دیدنی لهستان؛ از قلعه\u200Cهای تاریخی تا جنگل\u200Cهای سبز",
+                "category": "اخبار گردشگری",
+                "author": "احسان غلام پور",
+                "image": "https://cdn.discordapp.com/attachments/776425421968244768/993570823505989804/unknown.png"
+            },
+            {
+                "title": "سفر به جاهای دیدنی لهستان؛ از قلعه\u200Cهای تاریخی تا جنگل\u200Cهای سبز",
+                "category": "اخبار گردشگری",
+                "author": "احسان غلام پور",
+                "image": "https://cdn.discordapp.com/attachments/776425421968244768/993570823505989804/unknown.png"
+            },
+            {
+                "title": "سفر به جاهای دیدنی لهستان؛ از قلعه\u200Cهای تاریخی تا جنگل\u200Cهای سبز",
+                "category": "اخبار گردشگری",
+                "author": "احسان غلام پور",
+                "image": "https://cdn.discordapp.com/attachments/776425421968244768/993570823505989804/unknown.png"
+            },
+            {
+                "title": "سفر به جاهای دیدنی لهستان؛ از قلعه\u200Cهای تاریخی تا جنگل\u200Cهای سبز",
+                "category": "اخبار گردشگری",
+                "author": "احسان غلام پور",
+                "image": "https://cdn.discordapp.com/attachments/776425421968244768/993570823505989804/unknown.png"
+            }
         ]
 }
