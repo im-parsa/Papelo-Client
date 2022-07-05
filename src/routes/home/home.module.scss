@@ -1182,13 +1182,6 @@
                     {
                         fill: #FFFFFF;
                     }
-
-                    &:hover,
-                    &:hover *
-                    {
-                        color: #344b7b;
-                        fill: #344b7b;
-                    }
                 }
 
                 & > h2 > span
@@ -1390,12 +1383,18 @@
                     margin-bottom: 1rem;
                 }
 
-                span
+                a
                 {
                     letter-spacing: -0.3px;
                     color: #96A5C6;
                     font-size: 1.4rem;
                     margin-bottom: 0.5rem;
+                    transition: all .2s;
+
+                    &:hover
+                    {
+                        color: #7d8cac;
+                    }
                 }
             }
 
@@ -1462,10 +1461,12 @@
                     letter-spacing: -0.3px;
                     color: #496093;
                     font-size: 1.5rem;
+                    transition: all .2s;
 
                     &:before
                     {
-                        background: transparent;
+                        height: 0;
+                        overflow: hidden;
                     }
 
                     & svg
@@ -1489,6 +1490,160 @@
                     &[data-open='false']
                     {
                         display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &DatePicker
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+
+        position: absolute;
+        top: 12rem;
+        left: 50%;
+        transform: translateX(-50%);
+
+        padding: 3rem;
+        min-height: 35rem;
+        width: 38rem;
+        border-radius: 2rem;
+        background: #FFFFFF 0 0 no-repeat padding-box;
+        box-shadow: 0 30px 70px rgba(72, 96, 146, 0.2);
+
+        &Months
+        {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            width: 100%;
+            height: 4rem;
+
+            & span
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 100%;
+                text-align: center;
+                font-size: 2rem;
+            }
+
+            & button
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                outline: none;
+                cursor: pointer;
+                width: 4rem;
+                height: 4rem;
+                min-width: 4rem;
+                min-height: 4rem;
+                border-radius: 10rem;
+                border: 2px solid #EDEFF6;
+                background: transparent;
+                transition: all .2s;
+
+                & svg
+                {
+                    width: 2rem;
+                    height: 2rem;
+
+                    & *
+                    {
+                        fill: #4a6192;
+                    }
+                }
+
+                &:first-child svg
+                {
+                    transform: rotate(180deg);
+                }
+
+                &:hover
+                {
+                    background: #EDEFF6;
+                }
+
+                &[data-activate='false']
+                {
+                    cursor: auto;
+                    border: none;
+                    background: #E3E6F0 0 0 no-repeat padding-box;
+
+                    & svg *
+                    {
+                        fill: #96A5C6;
+                    }
+                }
+            }
+        }
+
+        &Days
+        {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: .5rem;
+
+            width: 100%;
+            height: 100%;
+
+            & > header
+            {
+                display: grid;
+                grid-template-rows: 4rem;
+                grid-template-columns: repeat(7, 4rem);
+                grid-gap: .85rem;
+
+                width: 100%;
+                height: fit-content;
+
+                & > span
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    border: 2px solid transparent;
+                    user-select: none;
+                    text-align: center;
+                    font-size: 1.5rem;
+                }
+            }
+
+            & > div
+            {
+                display: grid;
+                grid-template-rows: repeat(6, 4rem);
+                grid-template-columns: repeat(7, 4rem);
+                grid-gap: .85rem;
+
+                & > span
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    cursor: pointer;
+                    user-select: none;
+                    border: 2px solid #EDEFF6;
+                    border-radius: 1.25rem;
+                    text-align: center;
+                    font-size: 2rem;
+                    transition: all .2s;
+
+                    &:hover
+                    {
+                        border: 2px solid #4a6192;
                     }
                 }
             }
@@ -1717,6 +1872,8 @@
         display: flex;
         flex-direction: column;
 
+        position: relative;
+
         padding: 1.5rem;
         border-radius: 2rem;
         border: 2px solid #EDEFF6;
@@ -1727,11 +1884,11 @@
             border-radius: 1.5rem;
         }
 
-        & input
+        & > span
         {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: left;
 
             width: 100%;
             color: #4A6193;
@@ -2560,18 +2717,13 @@
 
     & img
     {
-        height: 6rem;
+        height: 5.5rem;
         margin-top: 2rem;
     }
 
-    @media only screen and (max-width: 1400px)
+    @media only screen and (max-width: 1350px)
     {
-        padding: 0 8rem 0 3rem;
-    }
-
-    @media only screen and (max-width: 1200px)
-    {
-        padding: 0 6.5rem 0 2rem;
+        padding: 0 2rem;
     }
 
     @media only screen and (max-width: 1115px)
