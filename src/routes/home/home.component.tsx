@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Tooltip from '@tippyjs/react/headless';
 import React, { useCallback, useState } from 'react';
-import { DatePicker } from 'jalali-react-datepicker';
 
 import 'swiper/css';
 import 'tippy.js/dist/tippy.css';
 
 import { togglePopupHiddenLogin } from '../../redux/popup/popup.actions';
 
+import { ReactComponent as Trash } from '../../assets/icons/delete-bin-line.svg';
 import { ReactComponent as Box4 } from '../../assets/icons/box-4.svg';
 import { ReactComponent as Blogs } from '../../assets/icons/blogs.svg';
 import { ReactComponent as News } from '../../assets/images/latest-news.svg';
@@ -27,6 +27,7 @@ import { ReactComponent as Plane3 } from '../../assets/icons/flight-land-line.sv
 import { ReactComponent as Pin } from '../../assets/icons/map-pin-2-fill.svg';
 import { ReactComponent as Exchange } from '../../assets/icons/exchange.svg';
 import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
+import { ReactComponent as PlusCircle } from '../../assets/icons/add-circle-fill.svg';
 import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
 import { ReactComponent as Arrow3 } from '../../assets/icons/arrow-3.svg';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
@@ -38,7 +39,6 @@ import { ReactComponent as Box3 } from '../../assets/icons/box-3.svg';
 import { ReactComponent as AppPhone } from '../../assets/images/app-phone.svg';
 import { ReactComponent as Download } from '../../assets/icons/download-2.svg';
 import Texture from '../../assets/images/texture.svg';
-import Image3 from '../../assets/images/image-3.svg';
 import Header1 from '../../assets/images/header-1.svg';
 import Header2 from '../../assets/images/header-2.svg';
 import Header3 from '../../assets/images/header-3.svg';
@@ -48,6 +48,7 @@ import Logo from '../../assets/icons/logo.png';
 
 import styles from './home.module.scss';
 
+import DatePicker from '../../components/date-picker';
 import Footer from '../../components/layouts/footer/footer.component';
 
 const data = require('../../data/data.json');
@@ -56,6 +57,7 @@ const Home = () =>
 {
     const [page, setPage] = useState('plane');
     const [proposalActivate, setProposalActivate] = useState(0);
+    const [hotelPassengersActivate, setHotelPassengersActivate] = useState(false);
     const [fastSearchActivate, setFastSearchActivate] = useState('تهران');
     const [proposalOrigin, setProposalOrigin] = useState('');
     const [proposalOriginActivate, setProposalOriginActivate] = useState(false);
@@ -76,8 +78,10 @@ const Home = () =>
     const [origin, setOrigin] = useState<string>('');
     const [destination, setDestination] = useState('');
     const [countActive, setCountActive] = useState('');
-    const [departureDate, setDepartureDate] = useState('');
-    const [returnDate, setReturnDate] = useState('');
+    const [departureDate, setDepartureDate] = useState();
+    const [departureDatePicker, setDepartureDatePicker] = useState(false);
+    const [returnDate, setReturnDate] = useState();
+    const [returnDatePicker, setReturnDatePicker] = useState(false);
     const dispatch = useDispatch();
     const numberValidate = useCallback(
         (event: any) =>
@@ -212,6 +216,9 @@ const Home = () =>
     React.useEffect(() =>
     {
         const passengersParent = [...document.querySelectorAll('#passengers_parent')];
+        const hotelPassengersParent = [...document.querySelectorAll('#hotel_passengers_parent')];
+        const departureDatePickersParent = [...document.querySelectorAll('#departure_date_picker')];
+        const returnDatePickersParent = [...document.querySelectorAll('#return_date_picker')];
         const proposalDestinationParent = [...document.querySelectorAll('#proposal_destination_parent')];
         const proposalOriginParent = [...document.querySelectorAll('#proposal_origin_parent')];
         const originInputParent = [...document.querySelectorAll('#origin_input_parent')];
@@ -264,6 +271,18 @@ const Home = () =>
             {
                 setPassengers(false);
             }
+            if (!hotelPassengersParent?.some((element) => element?.contains(event?.target)))
+            {
+                setHotelPassengersActivate(false);
+            }
+            if (!departureDatePickersParent?.some((element) => element?.contains(event?.target)))
+            {
+                setDepartureDatePicker(false);
+            }
+            if (!returnDatePickersParent?.some((element) => element?.contains(event?.target)))
+            {
+                setReturnDatePicker(false);
+            }
             if (!unilateralParent?.some((element) => element?.contains(event?.target)))
             {
                 setUnilateralActivate(false);
@@ -281,14 +300,7 @@ const Home = () =>
                 setProposalDestinationActivate(false);
             }
         })
-    }, [setPassengers, setUnilateralActivate, setExclusiveActivate, setProposalOriginActivate, setProposalDestinationActivate, origin, destination]);
-
-
-    React.useEffect(() =>
-    {
-
-    })
-
+    }, [setPassengers, setUnilateralActivate, setExclusiveActivate, setProposalOriginActivate, setProposalDestinationActivate, setReturnDatePicker, setDepartureDatePicker, origin, destination]);
 
     return (
         <main className={styles.home}>
@@ -749,105 +761,41 @@ const Home = () =>
                                         </label>
                                     </label>
                                 </div>
-                                <div data-date={true} className={styles.homeHeaderImageContentItem}>
-                                    <div data-type='date'>
+                                <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
+                                    <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} id='departure_date_picker'>
                                         <label>
                                             تاریخ رفت
                                         </label>
+
                                         <span>
-                                            {departureDate || '1401/9/5'}
+                                            {departureDate}
                                         </span>
 
-                                        <div className={styles.homeDatePicker}>
-                                            <div className={styles.homeDatePickerMonths}>
-                                                <button data-activate={false}>
-                                                    <Arrow />
-                                                </button>
-
-                                                <span id='date_picker_month'>
-                                                    آذر 1401
-                                                </span>
-
-                                                <button>
-                                                    <Arrow />
-                                                </button>
-                                            </div>
-
-                                            <div className={styles.homeDatePickerDays}>
-                                                <header>
-                                                    <span>
-                                                        ش
-                                                    </span>
-                                                    <span>
-                                                        ی
-                                                    </span>
-                                                    <span>
-                                                        د
-                                                    </span>
-                                                    <span>
-                                                        س
-                                                    </span>
-                                                    <span>
-                                                        چ
-                                                    </span>
-                                                    <span>
-                                                        پ
-                                                    </span>
-                                                    <span>
-                                                        ج
-                                                    </span>
-                                                 </header>
-
-                                                <div>
-                                                    <span>
-                                                        1
-                                                    </span>
-                                                    <span>
-                                                        1
-                                                    </span>
-                                                    <span>
-                                                        1
-                                                    </span>
-                                                    <span>
-                                                        1
-                                                    </span>
-                                                    <span>
-                                                        1
-                                                    </span>
-                                                    <span>
-                                                        1
-                                                    </span>
-                                                    <span>
-                                                        1
-                                                    </span>
-                                                    <span>
-                                                        1
-                                                    </span>
-                                                    <span>
-                                                        1
-                                                    </span>
-                                                    <span>
-                                                        1
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <DatePicker
+                                            defaultValue={true}
+                                            value={departureDate}
+                                            setValue={setDepartureDate}
+                                            activate={departureDatePicker}
+                                            setActivate={setDepartureDatePicker}
+                                        />
                                     </div>
-                                    {
-                                        !unilateral
-                                            ?
-                                            <div data-type='date'>
-                                                <label>
-                                                    تاریخ برگشت
-                                                </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                                />
-                                            </div>
-                                            :
-                                            null
-                                    }
+                                    <div data-type='date' data-activate={returnDatePicker} data-deactivate={unilateral} onClick={() => setReturnDatePicker(true)} id='return_date_picker'>
+                                        <label>
+                                            تاریخ برگشت
+                                        </label>
+
+                                        <span>
+                                            {returnDate}
+                                        </span>
+
+                                        <DatePicker
+                                            defaultValue={true}
+                                            value={returnDate}
+                                            setValue={setReturnDate}
+                                            activate={returnDatePicker}
+                                            setActivate={setReturnDatePicker}
+                                        />
+                                    </div>
                                 </div>
                                 <button>
                                     یافتن بلیط
@@ -867,109 +815,6 @@ const Home = () =>
                                             خارجی
                                         </label>
                                     </p>
-                                    <div data-options={true} data-open={passengers} id='passengers_parent' onClick={() => setPassengers(!passengers)}>
-                                        <span>
-                                            اطلاعات
-                                        </span>
-                                    </div>
-                                    <div data-activate={passengers} id='passengers_parent' className={styles.homeHeaderPassengers}>
-                                        <div className={styles.homeHeaderPassengersItem}>
-                                            <div>
-                                                <h2>
-                                                    بزرگسال
-                                                </h2>
-                                                <p>
-                                                    بزرگتر از 12 سال
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <button
-                                                    className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
-                                                    data-direction='right'
-                                                    data-activate={countActive === 'adult' ? 'active' : null}
-                                                    data-disabled={adultCount + childCount + babyCount >= 9}
-                                                >
-                                                    <Plus />
-                                                </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
-                                                    {adultCount}
-                                                </button>
-                                                <button
-                                                    className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
-                                                    data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
-                                                    data-disabled={adultCount <= 1}
-                                                >
-                                                    <Minus />
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div className={styles.homeHeaderPassengersItem}>
-                                            <div>
-                                                <h2>
-                                                    کودک
-                                                </h2>
-                                                <p>
-                                                    بین ۲ الی 12 سال
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <button
-                                                    className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
-                                                    data-direction='right'
-                                                    data-activate={countActive === 'child' ? 'active' : null}
-                                                    data-disabled={adultCount + childCount + babyCount >= 9}
-                                                >
-                                                    <Plus />
-                                                </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
-                                                    {childCount}
-                                                </button>
-                                                <button
-                                                    className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
-                                                    data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
-                                                    data-disabled={childCount <= 0}
-                                                >
-                                                    <Minus />
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div className={styles.homeHeaderPassengersItem}>
-                                            <div>
-                                                <h2>
-                                                    نوزاد
-                                                </h2>
-                                                <p>
-                                                    کوچکتر از 2 سال
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <button
-                                                    className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
-                                                    data-direction='right'
-                                                    data-activate={countActive === 'baby' ? 'active' : null}
-                                                    data-disabled={adultCount + childCount + babyCount >= 9}
-                                                >
-                                                    <Plus />
-                                                </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
-                                                    {babyCount}
-                                                </button>
-                                                <button
-                                                    className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
-                                                    data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
-                                                    data-disabled={babyCount <= 0}
-                                                >
-                                                    <Minus />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
                                     <label htmlFor='hotel_origin' className={styles.homeHeaderImageContentItemInput} id='origin_input_parent'>
@@ -1003,24 +848,155 @@ const Home = () =>
                                             </ul>
                                         </label>
                                     </label>
+
+                                    <div data-activate={hotelPassengersActivate} className={styles.homeHeaderImageContentItemInput} id='hotel_passengers_parent'>
+                                        <div onClick={() => setHotelPassengersActivate(!hotelPassengersActivate)}>
+                                            <label>
+                                                مسافرین
+                                            </label>
+                                            <span>
+                                                <p>
+                                                     {adultCount} بزرگسال
+                                                </p>
+
+                                                <i>
+                                                    -
+                                                </i>
+
+                                                <p>
+                                                    {adultCount} کودک
+                                                </p>
+
+                                                <i>
+                                                    -
+                                                </i>
+
+                                                <p>
+                                                    {adultCount} اتاق
+                                                </p>
+                                            </span>
+                                        </div>
+
+                                        <div data-activate={hotelPassengersActivate} data-options='hotel_passengers_options'>
+                                            <ul>
+                                                <li>
+                                                    <header>
+                                                        <span>
+                                                            اتاق اول
+                                                        </span>
+
+                                                        <i>
+                                                            <Trash />
+                                                        </i>
+                                                    </header>
+
+                                                    <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                بزرگسال
+                                                            </h2>
+                                                            <p>
+                                                                بزرگتر از 12 سال
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
+                                                                data-direction='right'
+                                                                data-activate={countActive === 'adult' ? 'active' : null}
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                                {adultCount}
+                                                            </button>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
+                                                                data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
+                                                                data-disabled={adultCount <= 1}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                      <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                کودک
+                                                            </h2>
+                                                            <p>
+                                                                تا 12 سال
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
+                                                                data-direction='right'
+                                                                data-activate={countActive === 'adult' ? 'active' : null}
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                                {adultCount}
+                                                            </button>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
+                                                                data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
+                                                                data-disabled={adultCount <= 1}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <button>
+                                                <PlusCircle />
+                                                افزودن اتاق
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div data-date={true} className={styles.homeHeaderImageContentItem}>
-                                    <div data-type='date'>
+                                <div data-date={true} data-date_pickers={true} className={styles.homeHeaderImageContentItem}>
+                                    <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} id='departure_date_picker'>
                                         <label>
-                                            تاریخ رفت
+                                            تاریخ ورود
                                         </label>
+
+                                        <span>
+                                            {departureDate}
+                                        </span>
+
                                         <DatePicker
-                                            timePicker={false}
-                                            onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
+                                            defaultValue={true}
+                                            value={departureDate}
+                                            setValue={setDepartureDate}
+                                            activate={departureDatePicker}
+                                            setActivate={setDepartureDatePicker}
                                         />
                                     </div>
-                                    <div data-type='date'>
+                                    <div data-type='date' data-activate={returnDatePicker} onClick={() => setReturnDatePicker(true)} id='return_date_picker'>
                                         <label>
-                                            تاریخ برگشت
+                                            تاریخ خروج
                                         </label>
+
+                                        <span>
+                                            {returnDate}
+                                        </span>
+
                                         <DatePicker
-                                            timePicker={false}
-                                            onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
+                                            defaultValue={true}
+                                            value={returnDate}
+                                            setValue={setReturnDate}
+                                            activate={returnDatePicker}
+                                            setActivate={setReturnDatePicker}
                                         />
                                     </div>
                                 </div>
@@ -1210,31 +1186,41 @@ const Home = () =>
                                         </label>
                                     </label>
                                 </div>
-                                <div data-date={true} className={styles.homeHeaderImageContentItem}>
-                                    <div data-type='date'>
+                                <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
+                                    <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} id='departure_date_picker'>
                                         <label>
                                             تاریخ رفت
                                         </label>
+
+                                        <span>
+                                            {departureDate}
+                                        </span>
+
                                         <DatePicker
-                                            timePicker={false}
-                                            onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
+                                            defaultValue={true}
+                                            value={departureDate}
+                                            setValue={setDepartureDate}
+                                            activate={departureDatePicker}
+                                            setActivate={setDepartureDatePicker}
                                         />
                                     </div>
-                                    {
-                                        !unilateral
-                                            ?
-                                            <div data-type='date'>
-                                                <label>
-                                                    تاریخ برگشت
-                                                </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                                />
-                                            </div>
-                                            :
-                                            null
-                                    }
+                                    <div data-type='date' data-activate={returnDatePicker} data-deactivate={unilateral} onClick={() => setReturnDatePicker(true)} id='return_date_picker'>
+                                        <label>
+                                            تاریخ برگشت
+                                        </label>
+
+                                        <span>
+                                            {returnDate}
+                                        </span>
+
+                                        <DatePicker
+                                            defaultValue={true}
+                                            value={returnDate}
+                                            setValue={setReturnDate}
+                                            activate={returnDatePicker}
+                                            setActivate={setReturnDatePicker}
+                                        />
+                                    </div>
                                 </div>
                                 <button>
                                     یافتن بلیط
@@ -1466,31 +1452,41 @@ const Home = () =>
                                         </label>
                                     </label>
                                 </div>
-                                <div data-date={true} className={styles.homeHeaderImageContentItem}>
-                                    <div data-type='date'>
+                                <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
+                                    <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} id='departure_date_picker'>
                                         <label>
                                             تاریخ رفت
                                         </label>
+
+                                        <span>
+                                            {departureDate}
+                                        </span>
+
                                         <DatePicker
-                                            timePicker={false}
-                                            onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
+                                            defaultValue={true}
+                                            value={departureDate}
+                                            setValue={setDepartureDate}
+                                            activate={departureDatePicker}
+                                            setActivate={setDepartureDatePicker}
                                         />
                                     </div>
-                                    {
-                                        !unilateral
-                                            ?
-                                            <div data-type='date'>
-                                                <label>
-                                                    تاریخ برگشت
-                                                </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                                />
-                                            </div>
-                                            :
-                                            null
-                                    }
+                                    <div data-type='date' data-activate={returnDatePicker} data-deactivate={unilateral} onClick={() => setReturnDatePicker(true)} id='return_date_picker'>
+                                        <label>
+                                            تاریخ برگشت
+                                        </label>
+
+                                        <span>
+                                            {returnDate}
+                                        </span>
+
+                                        <DatePicker
+                                            defaultValue={true}
+                                            value={returnDate}
+                                            setValue={setReturnDate}
+                                            activate={returnDatePicker}
+                                            setActivate={setReturnDatePicker}
+                                        />
+                                    </div>
                                 </div>
                                 <button>
                                     یافتن بلیط
@@ -1591,31 +1587,41 @@ const Home = () =>
                                         </label>
                                     </label>
                                 </div>
-                                <div data-date={true} className={styles.homeHeaderImageContentItem}>
-                                    <div data-type='date'>
+                                <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
+                                    <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} id='departure_date_picker'>
                                         <label>
                                             تاریخ رفت
                                         </label>
+
+                                        <span>
+                                            {departureDate}
+                                        </span>
+
                                         <DatePicker
-                                            timePicker={false}
-                                            onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
+                                            defaultValue={true}
+                                            value={departureDate}
+                                            setValue={setDepartureDate}
+                                            activate={departureDatePicker}
+                                            setActivate={setDepartureDatePicker}
                                         />
                                     </div>
-                                    {
-                                        !unilateral
-                                            ?
-                                            <div data-type='date'>
-                                                <label>
-                                                    تاریخ برگشت
-                                                </label>
-                                                <DatePicker
-                                                    timePicker={false}
-                                                    onClickSubmitButton={({ value }: any) => { setDepartureDate(value); }}
-                                                />
-                                            </div>
-                                            :
-                                            null
-                                    }
+                                    <div data-type='date' data-activate={returnDatePicker} data-deactivate={unilateral} onClick={() => setReturnDatePicker(true)} id='return_date_picker'>
+                                        <label>
+                                            تاریخ برگشت
+                                        </label>
+
+                                        <span>
+                                            {returnDate}
+                                        </span>
+
+                                        <DatePicker
+                                            defaultValue={true}
+                                            value={returnDate}
+                                            setValue={setReturnDate}
+                                            activate={returnDatePicker}
+                                            setActivate={setReturnDatePicker}
+                                        />
+                                    </div>
                                 </div>
                                 <button>
                                     یافتن بلیط
