@@ -34,6 +34,7 @@
         "swiper": "^8.2.6",
         "tether": "^2.0.0",
         "typescript": "^4.7.3",
+        "validator": "^13.7.0",
         "web-vitals": "^2.1.4"
     },
     "scripts": {
@@ -62,6 +63,7 @@
     },
     "devDependencies": {
         "@types/redux-logger": "^3.0.9",
-        "@types/tether": "^1.4.6"
+        "@types/tether": "^1.4.6",
+        "@types/validator": "^13.7.4"
     }
 }

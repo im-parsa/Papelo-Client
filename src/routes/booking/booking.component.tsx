@@ -1,32 +1,40 @@
-import React, { useCallback, useState, useRef } from 'react';
+import { nanoid } from 'nanoid';
+import validator from 'validator';
+import React, { useCallback, useState, useRef, createRef } from 'react';
 
 import styles from './booking.module.scss';
+import stylesBookingBox from '../../components/booking-box/booking-box.module.scss';
 
 import Navbar from '../../components/layouts/navbar/navbar.component';
+import BookingBox from '../../components/booking-box/booking-box.component';
 
 import { ReactComponent as Blog } from '../../assets/icons/blogs.svg';
 import { ReactComponent as Mail } from '../../assets/icons/mail-line.svg';
 import { ReactComponent as Phone } from '../../assets/icons/smartphone-line.svg';
-import { ReactComponent as Pen } from '../../assets/icons/edit-line.svg';
-import { ReactComponent as Plus } from '../../assets/icons/plus.svg';
-import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
 import { ReactComponent as Ticket } from '../../assets/icons/coupon-3-fill.svg';
 import { ReactComponent as User } from '../../assets/icons/user-3-fill.svg';
 import { ReactComponent as User2 } from '../../assets/icons/user.svg';
-import { ReactComponent as Edit } from '../../assets/icons/edit-line.svg';
+// import { ReactComponent as Edit } from '../../assets/icons/edit-line.svg';
 import { ReactComponent as Close } from '../../assets/icons/close.svg';
 import { ReactComponent as Card } from '../../assets/icons/bank-card-fill.svg';
 
 const Booking = () =>
 {
+    const agesRef: any = useRef<any>([]);
+    const codesRef: any = useRef<any>([]);
+    const gendersRef: any = useRef<any>([]);
+    const birthdaysRef: any = useRef<any>([]);
+    const latinNamesRef: any = useRef<any>([]);
+    const persianNamesRef: any = useRef<any>([]);
+    const latinLastNamesRef: any = useRef<any>([]);
+    const persianLastNamesRef: any = useRef<any>([]);
+    const emailRef: any = useRef<any>(null);
+    const phoneNumberRef: any = useRef<any>(null);
+
     const [page, setPage] = useState('user');
-    const [passengers, setPassengers] = useState([true]);
-    const [genders, setGenders] = useState(['']);
-    const [open, setOpen] = useState(false);
     const [popup, setPopup] = useState(false);
-    const [passport, setPassport] = useState(false);
-    const genderParents: any = useRef<any>([])
-    const mainRef: any = useRef<any>(null)
+    const [passengers, setPassengers]: any = useState<any>([{ id: nanoid() }]);
+
     const numberValidate = useCallback(
         (event: any) =>
         {
@@ -46,6 +54,71 @@ const Booking = () =>
             const regex = /[0-9]|\./;
 
             if (!regex.test(key) || event?.target?.value?.length >= 10)
+            {
+                theEvent.returnValue = false;
+
+                if (theEvent.preventDefault)
+                {
+                    theEvent.preventDefault();
+                }
+            }
+            else
+            {
+                event?.target?.parentElement?.setAttribute('data-error', 'false');
+            }
+        }, []);
+    const birthdayValidate = useCallback(
+        (event: any) =>
+        {
+            let key;
+            const theEvent = event || window.event;
+
+            if (theEvent.type === 'paste')
+            {
+                key = event.clipboardData.getData('text/plain');
+            }
+            else
+            {
+                key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+            }
+
+            const regex = new RegExp(/([0-9/]+)/g);
+
+            if (!regex.test(key) || event?.target?.value?.length >= 10)
+            {
+                theEvent.returnValue = false;
+
+                if (theEvent.preventDefault)
+                {
+                    theEvent.preventDefault();
+                }
+            }
+            else
+            {
+                console.log('gi')
+                event?.target?.parentElement?.setAttribute('data-error', 'false');
+            }
+        }, []);
+    const passportValidate = useCallback(
+        (event: any) =>
+        {
+            let key;
+            const theEvent = event || window.event;
+
+            if (theEvent.type === 'paste')
+            {
+                key = event.clipboardData.getData('text/plain');
+            }
+            else
+            {
+                key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+            }
+
+            const regex = /^([a-zA-Z0-9 _-]+)$/;
+
+            if (!regex.test(key) || event?.target?.value?.length >= 9)
             {
                 theEvent.returnValue = false;
 
@@ -125,78 +198,145 @@ const Booking = () =>
                 event?.target?.parentElement?.setAttribute('data-error', 'false');
             }
         }, []);
+    const deletePassenger = useCallback(
+        (id: any) =>
+        {
+            setPassengers(passengers?.filter((passenger: any) => passenger?.id !== id));
+        }, [setPassengers, passengers]);
     const purchaseValidate = useCallback(
-        (event: any) =>
+        () =>
         {
             let index = 0;
             let error = false;
 
-            const emails: HTMLInputElement[] | any = [...document.querySelectorAll('#email')];
-            const genderParents: HTMLDivElement[] | any = [...document.querySelectorAll('#gender_parent')];
-            const latinNames: HTMLInputElement[] | any = [...document.querySelectorAll('#latin_name')];
-            const latinLastNames: HTMLInputElement[] | any = [...document.querySelectorAll('#latin_lastName')];
-            const persianNames: HTMLInputElement[] | any = [...document.querySelectorAll('#persian_name')];
-            const persianLastNames: HTMLInputElement[] | any = [...document.querySelectorAll('#persian_lastName')];
-            const nationalCodes: HTMLInputElement[] | any = [...document.querySelectorAll('#nationalCode')];
+            const persianReg = new RegExp(/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/);
 
-            const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-            for (const email of emails)
+            for (const passenger of passengers)
             {
-                if (!latinNames[index]?.value)
+                if (!passenger?.latinName)
                 {
                     error = true;
 
-                    latinNames[index]?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    latinNames[index]?.parentElement?.setAttribute('data-error', 'true');
+                    latinNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                    latinNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
                 }
-                if (!latinLastNames[index]?.value)
+                if (!passenger?.latinLastName)
                 {
                     error = true;
 
-                    latinLastNames[index]?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    latinLastNames[index]?.parentElement?.setAttribute('data-error', 'true');
+                    latinLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                    latinLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
                 }
-                if (!persianNames[index]?.value)
+                if (!passenger?.persianName)
                 {
                     error = true;
 
-                    persianNames[index]?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    persianNames[index]?.parentElement?.setAttribute('data-error', 'true');
+                    persianNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                    persianNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
                 }
-                if (!persianLastNames[index]?.value)
+                if (!passenger?.persianLastName)
                 {
                     error = true;
 
-                    persianLastNames[index]?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    persianLastNames[index]?.parentElement?.setAttribute('data-error', 'true');
+                    persianLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                    persianLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
                 }
-                if (!nationalCodes[index]?.value)
+                if (!passenger?.birthday)
                 {
                     error = true;
 
-                    nationalCodes[index]?.parentElement?.setAttribute('data-error_message', 'این ایمیل مورد تائید نمی باشد');
-                    nationalCodes[index]?.parentElement?.setAttribute('data-error', 'true');
+                    birthdaysRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                    birthdaysRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
                 }
-                if (!emails[index]?.value)
+                else if (!persianReg.test(passenger?.birthday))
                 {
                     error = true;
 
-                    emails[index]?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    emails[index]?.parentElement?.setAttribute('data-error', 'true');
+                    birthdaysRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'این تاریخ مورد تائید نمی باشد');
+                    birthdaysRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
                 }
-                else if (!emailRegex.test(email?.value))
+                else
                 {
-                    error = true;
-
-                    emails[index]?.parentElement?.setAttribute('data-error_message', 'این ایمیل مورد تائید نمی باشد');
-                    emails[index]?.parentElement?.setAttribute('data-error', 'true');
+                    birthdaysRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'false');
                 }
-                if (!genders[index])
+                if (!passenger?.code)
                 {
                     error = true;
 
-                    genderParents[index]?.setAttribute('data-error', 'true');
+                    codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                    codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
+                }
+                else
+                {
+                    if (!passenger?.passport)
+                    {
+                        if (passenger?.code?.length !== 10)
+                        {
+                            error = true;
+
+                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'این کد ملی مورد تائید نمی باشد');
+                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
+                        }
+                        else
+                        {
+                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'false');
+                        }
+                    }
+                    else
+                    {
+                        if (!validator.isPassportNumber(passenger?.code, 'IR'))
+                        {
+                            console.log(passenger?.code)
+                            error = true;
+
+                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'این کد پاسپورت مورد تائید نمی باشد');
+                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
+                        }
+                        else
+                        {
+                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'false');
+                        }
+                    }
+                }
+                if (!phoneNumberRef?.current?.value)
+                {
+                    error = true;
+
+                    phoneNumberRef?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                    phoneNumberRef?.current?.parentElement?.setAttribute('data-error', 'true');
+                }
+                else if (phoneNumberRef?.current?.value?.length !== 10)
+                {
+                    error = true;
+
+                    phoneNumberRef?.current?.parentElement?.setAttribute('data-error_message', 'این شماره موبایل مورد تائید نمی باشد');
+                    phoneNumberRef?.current?.parentElement?.setAttribute('data-error', 'true');
+                }
+                if (!emailRef?.current?.value)
+                {
+                    error = true;
+
+                    emailRef?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                    emailRef?.current?.parentElement?.setAttribute('data-error', 'true');
+                }
+                else if (!validator.isEmail(emailRef?.current?.value))
+                {
+                    error = true;
+
+                    emailRef?.current?.parentElement?.setAttribute('data-error_message', 'این ایمیل مورد تائید نمی باشد');
+                    emailRef?.current?.parentElement?.setAttribute('data-error', 'true');
+                }
+                if (!passenger?.gender)
+                {
+                    error = true;
+
+                    gendersRef?.current[index]?.current?.setAttribute('data-error', 'true');
+                }
+                if (!passenger?.age)
+                {
+                    error = true;
+
+                    agesRef?.current[index]?.current?.setAttribute('data-error', 'true');
                 }
 
                 index++;
@@ -206,27 +346,57 @@ const Booking = () =>
             {
                 setPage('purchase')
             }
-        }, [setPage, genders]);
+        }, [setPage, passengers, emailRef, gendersRef, latinNamesRef, persianNamesRef, codesRef, latinLastNamesRef, persianLastNamesRef, phoneNumberRef, agesRef]);
 
-    React.useEffect(() =>
-    {
-        mainRef?.current?.addEventListener('click', (event: any) =>
+    const onChange = useCallback(
+        (event: any, type: string, id: number) =>
         {
-            if (genderParents?.current[0])
+            let array = passengers;
+
+            for (const i in array)
             {
-                for (const genderParent of genderParents?.current)
+                if (array[i].id === id)
                 {
-                    if (!genderParent?.contains(event?.target))
-                    {
-                        setOpen(false);
-                    }
+                    array[i][type] = event?.target?.value;
+
+                    break;
                 }
             }
-        })
-    }, [mainRef, genderParents]);
+
+            setPassengers(array);
+        }, [passengers]);
+
+    if (
+        agesRef.current.length !== passengers.length &&
+        codesRef.current.length !== passengers.length &&
+        gendersRef.current.length !== passengers.length &&
+        birthdaysRef.current.length !== passengers.length &&
+        latinNamesRef.current.length !== passengers.length &&
+        persianNamesRef.current.length !== passengers.length &&
+        latinLastNamesRef.current.length !== passengers.length &&
+        persianLastNamesRef.current.length !== passengers.length
+    )
+    {
+        // @ts-ignore
+        agesRef.current = Array(passengers.length).fill().map((_, i) => agesRef.current[i] || createRef());
+        // @ts-ignore
+        codesRef.current = Array(passengers.length).fill().map((_, i) => codesRef.current[i] || createRef());
+        // @ts-ignore
+        gendersRef.current = Array(passengers.length).fill().map((_, i) => gendersRef.current[i] || createRef());
+        // @ts-ignore
+        birthdaysRef.current = Array(passengers.length).fill().map((_, i) => birthdaysRef.current[i] || createRef());
+        // @ts-ignore
+        latinNamesRef.current = Array(passengers.length).fill().map((_, i) => latinNamesRef.current[i] || createRef());
+        // @ts-ignore
+        persianNamesRef.current = Array(passengers.length).fill().map((_, i) => persianNamesRef.current[i] || createRef());
+        // @ts-ignore
+        latinLastNamesRef.current = Array(passengers.length).fill().map((_, i) => latinLastNamesRef.current[i] || createRef());
+        // @ts-ignore
+        persianLastNamesRef.current = Array(passengers.length).fill().map((_, i) => persianLastNamesRef.current[i] || createRef());
+    }
 
     return (
-        <main ref={mainRef}>
+        <main>
             <div data-activate={popup} className={styles.bookingPopup}>
                 <div>
                     <header>
@@ -309,287 +479,179 @@ const Booking = () =>
             <section className={styles.booking}>
                 <div className='container'>
                     <div>
+                        <header>
+                            <div data-activate={page === 'user'} onClick={() => setPage('user') }>
+                                <i>
+                                    <User />
+                                </i>
+                                مشخصات مسافر
+                            </div>
+
+                            <div data-activate={page === 'purchase'} onClick={purchaseValidate}>
+                                <i>
+                                    <Card />
+                                </i>
+                                نحوه پرداخت
+                            </div>
+
+                            <div data-activate={page === 'ticket'} onClick={() => setPage('ticket') }>
+                                <i>
+                                    <Ticket />
+                                </i>
+                                صدور بلیط
+                            </div>
+                        </header>
+
                         {
-                            passengers.map((value, index) =>
-                            {
-                                return (
-                                    <div key={index}>
-                                        <section data-activate={true}>
-                                            <header>
-                                                <div data-activate={page === 'user'} onClick={() => setPage('user') }>
-                                                    <i>
-                                                        <User />
-                                                    </i>
-                                                    مشخصات مسافر
-                                                </div>
+                            passengers.map((passenger: any, index: any) =>
+                                (
+                                    <BookingBox
+                                        key={passenger?.id}
+                                        page={page}
+                                        index={index}
+                                        nanoid={nanoid}
+                                        onChange={onChange}
+                                        setPopup={setPopup}
+                                        deletePassenger={deletePassenger}
+                                        passenger={passengers[index]}
+                                        passengers={passengers}
+                                        setPassengers={setPassengers}
+                                        latinValidate={latinValidate}
+                                        numberValidate={numberValidate}
+                                        persianValidate={persianValidate}
+                                        purchaseValidate={purchaseValidate}
+                                        passportValidate={passportValidate}
+                                        birthdayValidate={birthdayValidate}
+                                        agesRef={agesRef}
+                                        codesRef={codesRef}
+                                        gendersRef={gendersRef}
+                                        birthdaysRef={birthdaysRef}
+                                        latinNamesRef={latinNamesRef}
+                                        persianNamesRef={persianNamesRef}
+                                        latinLastNamesRef={latinLastNamesRef}
+                                        persianLastNamesRef={persianLastNamesRef}
+                                    />
+                                ))
+                        }
 
-                                                <div data-activate={page === 'purchase'} onClick={purchaseValidate}>
-                                                    <i>
-                                                        <Card />
-                                                    </i>
-                                                    نحوه پرداخت
-                                                </div>
+                        <div data-activate={page === 'purchase'} className={stylesBookingBox.bookingBox}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                                <span>
+                                    اطلاعات مسافران
+                                </span>
 
-                                                <div data-activate={page === 'ticket'} onClick={() => setPage('ticket') }>
-                                                    <i>
-                                                        <Ticket />
-                                                    </i>
-                                                    صدور بلیط
-                                                </div>
-                                            </header>
+                                {/*<button>*/}
+                                {/*    <Pen />*/}
+                                {/*    ویرایش*/}
+                                {/*</button>*/}
+                            </div>
 
-                                            <section data-activate={page === 'user'}>
+                            <ul>
+                                {
+                                    passengers.map((passenger: any) =>
+                                        (
+                                            <li key={passenger?.id}>
+                                                <User2 />
+
                                                 <div>
-                                    <span>
-                                        <User data-fill={true} />
-                                        مشخصات مسافر
-                                    </span>
-                                                </div>
+                                                    <span>
+                                                        {passenger?.persianName + ' ' + passenger?.persianLastName}
+                                                    </span>
 
-                                                <div>
-                                                    <div>
-                                                        <p>
-                                                            <input type='radio' id='cart' onChange={() => { setPassport(false) }} checked={!passport}/>
-                                                            <label htmlFor='cart'>
-                                                                کارت ملی
-                                                            </label>
-                                                        </p>
-                                                        <p>
-                                                            <input type='radio' id='passport' onChange={() => { setPassport(true) }} checked={passport}/>
-                                                            <label htmlFor='passport'>
-                                                                پاسپورت
-                                                            </label>
-                                                        </p>
-                                                    </div>
-
-                                                    <button onClick={() => setPopup(true)}>
-                                                        <User2 />
-                                                        مسافرین سابق
-                                                    </button>
-                                                </div>
-
-                                                <form>
-                                                    <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
-                                                        <label>
-                                                            نام لاتین
-                                                        </label>
-
-                                                        <input id='latin_name' data-lang='en' type='text' onKeyPress={latinValidate}/>
-                                                    </div>
-
-                                                    <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
-                                                        <label>
-                                                            نام فارسی
-                                                        </label>
-
-                                                        <input id='persian_name' type='text' onKeyPress={persianValidate}/>
-                                                    </div>
-
-                                                    <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
-                                                        <label>
-                                                            نام خانوادگی لاتین
-                                                        </label>
-
-                                                        <input id='latin_lastName' data-lang='en' type='text' onKeyPress={latinValidate}/>
-                                                    </div>
-
-                                                    <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
-                                                        <label>
-                                                            نام خانوادگی فارسی
-                                                        </label>
-
-                                                        <input id='persian_lastName' type='text' onKeyPress={persianValidate}/>
-                                                    </div>
-
-                                                    <div data-error='false' id='gender_parent' ref={(element) => genderParents.current[index] = element} data-error_message='پر کردن این فیلد الزامی است'>
-                                                        <label>
-                                                            جنسیت
-                                                        </label>
-
-                                                        <div onClick={() => setOpen(!open)} id='gender'>
-                                                            <span data-activate={!!genders[index]}>
-                                                                { genders[index] !== '' ? genders[index] : 'انتخاب' }
-                                                            </span>
-
-                                                            <Arrow2 data-open={open} id='gender_item'/>
-
-                                                            <ul data-open={open} id='gender_item'>
-                                                                <li onClick={(event: any) =>
-                                                                {
-                                                                    setGenders(oldArray =>
-                                                                    {
-                                                                        let data = oldArray;
-                                                                        data[index] = 'آقا'
-
-                                                                        return[...data]
-                                                                    });
-
-                                                                    event?.target?.parentElement?.parentElement?.parentElement?.setAttribute('data-error', 'false')
-                                                                }}>
-                                                                    آقا
-                                                                </li>
-
-                                                                <li onClick={(event: any) =>
-                                                                {
-                                                                    setGenders(oldArray =>
-                                                                    {
-                                                                        let data = oldArray;
-                                                                        data[index] = 'خانم'
-
-                                                                        return[...data]
-                                                                    });
-
-                                                                    event?.target?.parentElement?.parentElement?.parentElement?.setAttribute('data-error', 'false')
-                                                                }}>
-                                                                    خانم
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-
-                                                    <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
-                                                        <label>
-                                                            کد ملی
-                                                        </label>
-
-                                                        <input id='nationalCode' type='text' onKeyPress={numberValidate}/>
-                                                    </div>
-
-                                                    <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
-                                                        <label>
-                                                            تاریخ تولد
-                                                        </label>
-
-                                                        <input type='number'/>
-                                                    </div>
-                                                </form>
-
-                                                <div data-add={true} onClick={() => { setPassengers((oldArray: boolean[]) => [...oldArray, true]); setGenders((oldArray: string[]) => [...oldArray, ''])}}>
-                                                    <Plus />
-                                                    اضافه کردن مسافر جدید
-                                                </div>
-                                            </section>
-
-                                            <section data-activate={page === 'purchase'}>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                                    <span>
-                                        اطلاعات مسافران
-                                    </span>
-
-                                                    <button>
-                                                        <Pen />
-                                                        ویرایش
-                                                    </button>
-                                                </div>
-
-                                                <ul>
-                                                    <li>
-                                                        <User2 />
-
-                                                        <div>
-                                            <span>
-                                                پارسا فیروزی
-                                            </span>
-
-                                                            <p>
-                                                                Parsa Firoozi
-                                                            </p>
-                                                        </div>
-
-                                                        <span>
-                                            مرد
-                                        </span>
-
-                                                        <span>
-                                            2610137702
-                                        </span>
-
-                                                        <span>
-                                            1372/03/29
-                                        </span>
-
-                                                        <span>
-                                            ایران
-                                        </span>
-                                                    </li>
-                                                </ul>
-
-                                                <div style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                                    <div style={{ flexDirection: 'column', alignItems: 'start' }}>
-                                        <span>
-                                            اطلاعات مسافران
-                                        </span>
-                                                        <p>
-                                                            اطلاعات بلیط و اطلاع رسانی بعدی به این ادرس ارسال میشود
-                                                        </p>
-                                                    </div>
-
-                                                    <button>
-                                                        <Pen />
-                                                        ویرایش
-                                                    </button>
-                                                </div>
-
-                                                <ul data-info={true}>
-                                                    <li>
-                                        <span>
-                                            <Phone />
-                                            شماره همراه
-                                        </span>
-
-                                                        <p>
-                                                            09170700566
-                                                        </p>
-                                                    </li>
-
-                                                    <li>
-                                        <span>
-                                            <Mail />
-                                            نشانی ایمیل
-                                        </span>
-
-                                                        <p>
-                                                            contact@parsa-firoozi.ir
-                                                        </p>
-                                                    </li>
-                                                </ul>
-                                            </section>
-                                        </section>
-
-                                        <section data-activate={page === 'user'}>
-                                            <section data-activate={page === 'user'}>
-                                                <div>
-                                    <span>
-                                        اطلاعات تماس
-                                    </span>
                                                     <p>
-                                                        بلیط و اطلاع رسانی های سفر به شماره موبایل و ایمیل زیر ارسال میشود
+                                                        {passenger?.latinName + ' ' + passenger?.latinLastName}
                                                     </p>
                                                 </div>
 
-                                                <form>
-                                                    <div data-number={true}  data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
-                                                        <label>
-                                                            شماره موبایل
-                                                        </label>
+                                                <span>
+                                                    {passenger?.gender}
+                                                </span>
 
-                                                        <input type='number' onKeyPress={numberValidate}/>
-                                                    </div>
+                                                <span>
+                                                    {passenger?.code}
+                                                </span>
 
-                                                    <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
-                                                        <label>
-                                                            ایمیل
-                                                        </label>
+                                                <span>
+                                                    {passenger?.birthday}
+                                                </span>
 
-                                                        <input data-lang='en' id='email' type='text' onKeyPress={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}/>
-                                                    </div>
-                                                </form>
-                                            </section>
-                                        </section>
-                                    </div>
-                                );
-                            })
-                        }
+                                                <span>
+                                                     {passenger?.age}
+                                                </span>
+                                            </li>
+                                        ))
+                                }
+                            </ul>
+
+                            <div style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <div style={{ flexDirection: 'column', alignItems: 'start' }}>
+                                    <span>
+                                        اطلاعات مسافران
+                                    </span>
+                                    <p>
+                                        اطلاعات بلیط و اطلاع رسانی بعدی به این ادرس ارسال میشود
+                                    </p>
+                                </div>
+
+                                {/*<button>*/}
+                                {/*    <Pen />*/}
+                                {/*    ویرایش*/}
+                                {/*</button>*/}
+                            </div>
+
+                            <ul data-info={true}>
+                                <li>
+                                    <span>
+                                        <Phone />
+                                        شماره همراه
+                                    </span>
+
+                                    <p>
+                                        {phoneNumberRef?.current?.value + ' 98+'}
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <span>
+                                        <Mail />
+                                        نشانی ایمیل
+                                    </span>
+
+                                    <p>
+                                        {emailRef?.current?.value}
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <section data-activate={page === 'user'}>
+                            <div>
+                                <span>
+                                    اطلاعات تماس
+                                </span>
+                                <p>
+                                    بلیط و اطلاع رسانی های سفر به شماره موبایل و ایمیل زیر ارسال میشود
+                                </p>
+                            </div>
+
+                            <form>
+                                <div data-number={true} data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
+                                    <label>
+                                        شماره موبایل
+                                    </label>
+
+                                    <input type='number' data-lang='en' ref={phoneNumberRef} onKeyPress={numberValidate}/>
+                                </div>
+
+                                <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
+                                    <label>
+                                        ایمیل
+                                    </label>
+
+                                    <input data-lang='en' ref={emailRef} type='text' onKeyPress={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}/>
+                                </div>
+                            </form>
+                        </section>
                     </div>
 
                     <section>
@@ -611,10 +673,10 @@ const Booking = () =>
                                     </span>
                                 </div>
 
-                                <button>
-                                    <Edit />
-                                    ویرایش
-                                </button>
+                                {/*<button>*/}
+                                {/*    <Edit />*/}
+                                {/*    ویرایش*/}
+                                {/*</button>*/}
                             </div>
 
                             <div data-departure_date={true}>
@@ -704,7 +766,7 @@ const Booking = () =>
                                             اگر کد تخفیف دارید، آن را در بخش زیر وارد کنید
                                         </p>
 
-                                        <form data-error={true}>
+                                        <form data-error={true} data-error_message='این کد تخفیف مورد تائید نمی باشد'>
                                             <input type='text'/>
 
                                             <button>
