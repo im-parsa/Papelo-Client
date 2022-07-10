@@ -215,15 +215,25 @@ const Home = () =>
 
     React.useEffect(() =>
     {
+        // @ts-ignore
         const passengersParent = [...document.querySelectorAll('#passengers_parent')];
+        // @ts-ignore
         const hotelPassengersParent = [...document.querySelectorAll('#hotel_passengers_parent')];
+        // @ts-ignore
         const departureDatePickersParent = [...document.querySelectorAll('#departure_date_picker')];
+        // @ts-ignore
         const returnDatePickersParent = [...document.querySelectorAll('#return_date_picker')];
+        // @ts-ignore
         const proposalDestinationParent = [...document.querySelectorAll('#proposal_destination_parent')];
+        // @ts-ignore
         const proposalOriginParent = [...document.querySelectorAll('#proposal_origin_parent')];
+        // @ts-ignore
         const originInputParent = [...document.querySelectorAll('#origin_input_parent')];
+        // @ts-ignore
         const destinationInputParent = [...document.querySelectorAll('#destination_input_parent')];
+        // @ts-ignore
         const unilateralParent = [...document.querySelectorAll('#unilateral_parent')];
+        // @ts-ignore
         const exclusiveParent = [...document.querySelectorAll('#exclusive_parent')];
 
         document.addEventListener('click', (event: any) =>
