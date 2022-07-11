@@ -34,7 +34,7 @@
         gap: 1rem;
 
         color: #96A5C6;
-        font-family: YekanBakhRegular, serif;
+        font-family: YekanBakhRegular, sans-serif;
         font-size: 1.7rem;
     }
 
@@ -45,7 +45,7 @@
         justify-content: center;
         gap: 1rem;
 
-        font-family: YekanBakhRegular, serif;
+        font-family: YekanBakhRegular, sans-serif;
         font-size: 2rem;
 
         & > svg
@@ -90,7 +90,7 @@
                 top: 0;
                 left: 0;
 
-                font-family: YekanBakhMedium, serif;
+                font-family: YekanBakhMedium, sans-serif;
                 font-size: 1.4rem;
                 color: #FA5C5C;
             }
@@ -161,7 +161,7 @@
                         align-items: center;
                         justify-content: right;
 
-                        font-family: YekanBakhMedium, serif;
+                        font-family: YekanBakhMedium, sans-serif;
                         color: #4a6192;
                         border-radius: 1rem;
                         padding: 1.2rem 1.7rem;
@@ -178,7 +178,7 @@
 
             & > label
             {
-                font-family: YekanBakhMedium, serif;
+                font-family: YekanBakhMedium, sans-serif;
                 font-size: 1.6rem;
                 color: #96A5C6;
                 width: 100%;
@@ -352,7 +352,7 @@
                 cursor: pointer;
                 line-height: 2rem;
                 display: inline-block;
-                font-family: YekanBakhMedium, serif;
+                font-family: YekanBakhMedium, sans-serif;
                 font-size: 1.8rem;
                 color: #4A6193;
             }
@@ -415,7 +415,7 @@
             padding: 1rem 2rem;
             border: 2px solid #EDEFF4;
             cursor: pointer;
-            font-family: YekanBakhMedium, serif;
+            font-family: YekanBakhMedium, sans-serif;
             transition: all .2s;
 
             &:hover
@@ -534,7 +534,7 @@
                 align-items: center;
                 justify-content: center;
 
-                font-family: YekanBakhMedium, serif;
+                font-family: YekanBakhMedium, sans-serif;
                 font-size: 2rem;
                 color: #4a6192;
             }

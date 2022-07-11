@@ -627,7 +627,24 @@ const Booking = () =>
                                         شماره موبایل
                                     </label>
 
-                                    <input type='number' data-lang='en' ref={phoneNumberRef} onKeyPress={numberValidate}/>
+                                    <input
+                                        type='number'
+                                        data-lang='en'
+                                        onBlur={(event: any) =>
+                                        {
+                                            if (!event?.target?.value)
+                                            {
+                                                event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                                            }
+                                            else if (event?.target?.value?.length !== 10)
+                                            {
+                                                event?.target?.parentElement?.setAttribute('data-error_message', 'این شماره موبایل مورد تائید نمی باشد');
+                                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                                            }
+                                        }}
+                                        ref={phoneNumberRef} onKeyPress={numberValidate}
+                                    />
                                 </div>
 
                                 <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
@@ -635,7 +652,29 @@ const Booking = () =>
                                         ایمیل
                                     </label>
 
-                                    <input data-lang='en' ref={emailRef} type='text' onKeyPress={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}/>
+                                    <input
+                                        data-lang='en'
+                                        ref={emailRef}
+                                        type='text'
+                                        onBlur={(event: any) =>
+                                        {
+                                            if (!event?.target?.value)
+                                            {
+                                                event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                                            }
+                                            else if (!validator.isEmail(event?.target?.value))
+                                            {
+                                                event?.target?.parentElement?.setAttribute('data-error_message', 'این ایمیل مورد تائید نمی باشد');
+                                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                                            }
+                                            else
+                                            {
+                                                event?.target?.parentElement?.setAttribute('data-error', 'false');
+                                            }
+                                        }}
+                                        onKeyPress={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}
+                                    />
                                 </div>
                             </form>
                         </section>

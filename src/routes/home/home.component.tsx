@@ -17,39 +17,39 @@ import Header2 from '../../assets/images/header-2.svg';
 import Header3 from '../../assets/images/header-3.svg';
 import Header4 from '../../assets/images/header-4.svg';
 import Header5 from '../../assets/images/header-5.svg';
-import { ReactComponent as Trash } from '../../assets/icons/delete-bin-line.svg';
-import { ReactComponent as Blogs } from '../../assets/icons/blogs.svg';
-import { ReactComponent as News } from '../../assets/images/latest-news.svg';
-import { ReactComponent as Bell } from '../../assets/icons/bell.svg';
-import { ReactComponent as Check } from '../../assets/icons/check.svg';
-import { ReactComponent as Plane } from '../../assets/icons/plane.svg';
-import { ReactComponent as Hotel } from '../../assets/icons/hotel.svg';
-import { ReactComponent as Tour } from '../../assets/icons/tour.svg';
-import { ReactComponent as Train } from '../../assets/icons/train.svg';
 import { ReactComponent as Bus } from '../../assets/icons/bus.svg';
-import { ReactComponent as Plus } from '../../assets/icons/plus.svg';
-import { ReactComponent as Minus } from '../../assets/icons/minus.svg';
-import { ReactComponent as ThreeDots } from '../../assets/icons/three-dots.svg';
-import { ReactComponent as Plane2 } from '../../assets/icons/flight-takeoff-line.svg';
-import { ReactComponent as Plane3 } from '../../assets/icons/flight-land-line.svg';
-import { ReactComponent as Pin } from '../../assets/icons/map-pin-2-fill.svg';
-import { ReactComponent as Exchange } from '../../assets/icons/exchange.svg';
-import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
-import { ReactComponent as PlusCircle } from '../../assets/icons/add-circle-fill.svg';
-import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
-import { ReactComponent as Arrow3 } from '../../assets/icons/arrow-3.svg';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
-import { ReactComponent as Instagram } from '../../assets/icons/instagram.svg';
-import { ReactComponent as Reserve } from '../../assets/icons/reserve.svg';
+import { ReactComponent as Bell } from '../../assets/icons/bell.svg';
+import { ReactComponent as Tour } from '../../assets/icons/tour.svg';
+import { ReactComponent as Plus } from '../../assets/icons/plus.svg';
 import { ReactComponent as Box1 } from '../../assets/icons/box-1.svg';
 import { ReactComponent as Box2 } from '../../assets/icons/box-2.svg';
 import { ReactComponent as Box3 } from '../../assets/icons/box-3.svg';
+import { ReactComponent as Blogs } from '../../assets/icons/blogs.svg';
+import { ReactComponent as Check } from '../../assets/icons/check.svg';
+import { ReactComponent as Plane } from '../../assets/icons/plane.svg';
+import { ReactComponent as Hotel } from '../../assets/icons/hotel.svg';
+import { ReactComponent as Train } from '../../assets/icons/train.svg';
+import { ReactComponent as Minus } from '../../assets/icons/minus.svg';
+import { ReactComponent as Arrow } from '../../assets/icons/arrow.svg';
+import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
+import { ReactComponent as Arrow3 } from '../../assets/icons/arrow-3.svg';
+import { ReactComponent as Reserve } from '../../assets/icons/reserve.svg';
+import { ReactComponent as Exchange } from '../../assets/icons/exchange.svg';
+import { ReactComponent as News } from '../../assets/images/latest-news.svg';
+import { ReactComponent as Pin } from '../../assets/icons/map-pin-2-fill.svg';
 import { ReactComponent as AppPhone } from '../../assets/images/app-phone.svg';
 import { ReactComponent as Download } from '../../assets/icons/download-2.svg';
+import { ReactComponent as Instagram } from '../../assets/icons/instagram.svg';
+import { ReactComponent as ThreeDots } from '../../assets/icons/three-dots.svg';
+import { ReactComponent as Trash } from '../../assets/icons/delete-bin-line.svg';
+import { ReactComponent as Plane3 } from '../../assets/icons/flight-land-line.svg';
+import { ReactComponent as Plane2 } from '../../assets/icons/flight-takeoff-line.svg';
+import { ReactComponent as PlusCircle } from '../../assets/icons/add-circle-fill.svg';
 
 import styles from './home.module.scss';
 
-import DatePicker from '../../components/date-picker';
+import { DatePicker } from '../../components/date-picker';
 import Footer from '../../components/layouts/footer/footer.component';
 import TicketBox from '../../components/ticket-box/ticket-box.component';
 
@@ -789,6 +789,7 @@ const Home = () =>
                                         </span>
 
                                         <DatePicker
+                                            title='تاریخ رفت'
                                             defaultValue={true}
                                             value={departureDate}
                                             setValue={setDepartureDate}
@@ -806,6 +807,7 @@ const Home = () =>
                                         </span>
 
                                         <DatePicker
+                                            title='تاریخ برگشت'
                                             defaultValue={true}
                                             value={returnDate}
                                             setValue={setReturnDate}
@@ -1100,6 +1102,7 @@ const Home = () =>
                                         </span>
 
                                         <DatePicker
+                                            title='تاریخ ورود'
                                             defaultValue={true}
                                             value={departureDate}
                                             setValue={setDepartureDate}
@@ -1107,6 +1110,7 @@ const Home = () =>
                                             setActivate={setDepartureDatePicker}
                                         />
                                     </div>
+
                                     <div data-type='date' data-activate={returnDatePicker} onClick={() => setReturnDatePicker(true)} id='return_date_picker'>
                                         <label>
                                             تاریخ خروج
@@ -1117,6 +1121,7 @@ const Home = () =>
                                         </span>
 
                                         <DatePicker
+                                            title='تاریخ خروج'
                                             defaultValue={true}
                                             value={returnDate}
                                             setValue={setReturnDate}
@@ -1319,6 +1324,7 @@ const Home = () =>
                                         </span>
 
                                         <DatePicker
+                                            title='تاریخ رفت'
                                             defaultValue={true}
                                             value={departureDate}
                                             setValue={setDepartureDate}
@@ -1336,6 +1342,7 @@ const Home = () =>
                                         </span>
 
                                         <DatePicker
+                                            title='تاریخ برگشت'
                                             defaultValue={true}
                                             value={returnDate}
                                             setValue={setReturnDate}
@@ -1582,6 +1589,7 @@ const Home = () =>
                                         </span>
 
                                         <DatePicker
+                                            title='تاریخ رفت'
                                             defaultValue={true}
                                             value={departureDate}
                                             setValue={setDepartureDate}
@@ -1599,6 +1607,7 @@ const Home = () =>
                                         </span>
 
                                         <DatePicker
+                                            title='تاریخ برگشت'
                                             defaultValue={true}
                                             value={returnDate}
                                             setValue={setReturnDate}
@@ -1717,6 +1726,7 @@ const Home = () =>
                                         </span>
 
                                         <DatePicker
+                                            title='تاریخ رفت'
                                             defaultValue={true}
                                             value={departureDate}
                                             setValue={setDepartureDate}
@@ -1734,6 +1744,7 @@ const Home = () =>
                                         </span>
 
                                         <DatePicker
+                                            title='تاریخ برگشت'
                                             defaultValue={true}
                                             value={returnDate}
                                             setValue={setReturnDate}
