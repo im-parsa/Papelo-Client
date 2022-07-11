@@ -84,15 +84,15 @@ const Footer = () =>
 
                     <div className={styles.footerAppDownload}>
                         <div className={styles.footerAppDownloadBoxes}>
-                            <a href='#' className={styles.footerAppDownloadBoxesBox}>
+                            <a href='#' target='_blank' className={styles.footerAppDownloadBoxesBox}>
                                 <Bazaar />
                                 <span>کافه بازار</span>
                             </a>
-                            <a href='#' className={styles.footerAppDownloadBoxesBox}>
+                            <a href='#' target='_blank' className={styles.footerAppDownloadBoxesBox}>
                                 <Myket />
                                 <span>مایکت</span>
                             </a>
-                            <a href='#' className={styles.footerAppDownloadBoxesBox}>
+                            <a href='#' target='_blank' className={styles.footerAppDownloadBoxesBox}>
                                 <Download />
                                 <span>دانلود مستقیم</span>
                             </a>
@@ -105,23 +105,19 @@ const Footer = () =>
                 <div className={styles.footerAchievement}>
                     <div className={styles.footerAchievementRight}>
                         <div className={styles.footerAchievementRightBox}>
-                            <h5>راهنمایی و پشتیبان</h5>
+                            <h5>اسکای&zwnj;رو</h5>
+                            <Link to='/'>صفحه اصلی</Link>
+                            <Link to='/blogs'>مجله خبری</Link>
+                            <Link to='/about-us'>درباره ما</Link>
+                            <Link to='/contact-us'>تماس با ما</Link>
+                        </div>
+                        <div className={styles.footerAchievementRightBox}>
+                            <h5>راهنمایی و پشتیبانی</h5>
                             <Link to='/'>پیگیری و کنسلی</Link>
                             <Link to='/'>پرسش های متداول</Link>
                             <Link to='/'>راهنمای خرید اینترنتی</Link>
                             <Link to='/'>پیشنهادها و شکایات</Link>
-                            <Link to='/'>شرایط و مقررات</Link>
-                            <Link to='/'>درباره اسکای&zwnj;رو</Link>
-                            <Link to='/'>شرایط و مقررات</Link>
-                        </div>
-                        <div className={styles.footerAchievementRightBox}>
-                            <h5>اسکای&zwnj;رو</h5>
-                            <Link to='/'>صفحه اصلی</Link>
-                            <Link to='/'>مجله خبری</Link>
-                            <Link to='/'>درباره ما</Link>
-                            <Link to='/'>تماس با ما</Link>
-                            <Link to='/'>صفحه اصلی</Link>
-                            <Link to='/'>مجله خبری</Link>
+                            <Link to='/policy'>شرایط و مقررات</Link>
                         </div>
                         <div className={styles.footerAchievementRightBox}>
                             <h5>&nbsp;</h5>

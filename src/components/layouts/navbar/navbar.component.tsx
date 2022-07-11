@@ -7,6 +7,8 @@ import { togglePopupHiddenLogin } from '../../../redux/popup/popup.actions';
 import styles from './navbar.module.scss';
 
 import Logo from '../../../assets/icons/logo.png';
+import Image3 from '../../../assets/images/image-3.svg';
+import BlogImage from '../../../assets/images/image-3.svg';
 import { ReactComponent as User } from '../../../assets/icons/user.svg';
 import { ReactComponent as Plane } from '../../../assets/icons/plane.svg';
 import { ReactComponent as Bus } from '../../../assets/icons/bus.svg';
@@ -22,8 +24,6 @@ import { ReactComponent as Chat } from '../../../assets/icons/chat-1-line.svg';
 import { ReactComponent as Eye } from '../../../assets/icons/eye-line.svg';
 import { ReactComponent as Search } from '../../../assets/icons/search-line.svg';
 import { ReactComponent as ThreeDots } from '../../../assets/icons/three-dots.svg';
-import Image3 from '../../../assets/images/image-3.svg';
-import BlogImage from '../../../assets/images/image-3.svg';
 
 const Navbar = (props: any) =>
 {
@@ -134,7 +134,7 @@ const Navbar = (props: any) =>
                                         </div>
                                     </div>
                                 </li>
-                                <Link to='/rules' className={styles.navbarItem}>
+                                <Link to='/policy' className={styles.navbarItem}>
                                     راهنمایی و پشتیبانی
                                 </Link>
                                 <li className={styles.navbarItem}>

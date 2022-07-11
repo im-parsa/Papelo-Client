@@ -1,15 +1,23 @@
+import { nanoid } from 'nanoid';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Tooltip from '@tippyjs/react/headless';
-import React, { useCallback, useState } from 'react';
+import React, {useCallback, useRef, useState} from 'react';
+import { numberToWords } from '@persian-tools/persian-tools';
 
 import 'swiper/css';
 import 'tippy.js/dist/tippy.css';
 
 import { togglePopupHiddenLogin } from '../../redux/popup/popup.actions';
 
+import Logo from '../../assets/icons/logo.png';
+import Texture from '../../assets/images/texture.svg';
+import Header1 from '../../assets/images/header-1.svg';
+import Header2 from '../../assets/images/header-2.svg';
+import Header3 from '../../assets/images/header-3.svg';
+import Header4 from '../../assets/images/header-4.svg';
+import Header5 from '../../assets/images/header-5.svg';
 import { ReactComponent as Trash } from '../../assets/icons/delete-bin-line.svg';
-import { ReactComponent as Box4 } from '../../assets/icons/box-4.svg';
 import { ReactComponent as Blogs } from '../../assets/icons/blogs.svg';
 import { ReactComponent as News } from '../../assets/images/latest-news.svg';
 import { ReactComponent as Bell } from '../../assets/icons/bell.svg';
@@ -38,26 +46,22 @@ import { ReactComponent as Box2 } from '../../assets/icons/box-2.svg';
 import { ReactComponent as Box3 } from '../../assets/icons/box-3.svg';
 import { ReactComponent as AppPhone } from '../../assets/images/app-phone.svg';
 import { ReactComponent as Download } from '../../assets/icons/download-2.svg';
-import Texture from '../../assets/images/texture.svg';
-import Header1 from '../../assets/images/header-1.svg';
-import Header2 from '../../assets/images/header-2.svg';
-import Header3 from '../../assets/images/header-3.svg';
-import Header4 from '../../assets/images/header-4.svg';
-import Header5 from '../../assets/images/header-5.svg';
-import Logo from '../../assets/icons/logo.png';
 
 import styles from './home.module.scss';
 
 import DatePicker from '../../components/date-picker';
 import Footer from '../../components/layouts/footer/footer.component';
+import TicketBox from '../../components/ticket-box/ticket-box.component';
 
 const data = require('../../data/data.json');
 
 const Home = () =>
 {
+    const hotelRoomsRef: any = useRef<any>(null);
+
     const [page, setPage] = useState('plane');
     const [proposalActivate, setProposalActivate] = useState(0);
-    const [hotelPassengersActivate, setHotelPassengersActivate] = useState(false);
+    const [hotelRoomsActivate, setHotelRoomsActivate] = useState(false);
     const [fastSearchActivate, setFastSearchActivate] = useState('تهران');
     const [proposalOrigin, setProposalOrigin] = useState('');
     const [proposalOriginActivate, setProposalOriginActivate] = useState(false);
@@ -74,15 +78,16 @@ const Home = () =>
     const [adultCount, setAdultCount] = useState(1);
     const [childCount, setChildCount] = useState(0);
     const [babyCount, setBabyCount] = useState(0);
-    const [roomCount, setRoomCount] = useState(0);
+    const [hotelRooms, setHotelRooms] = useState([{ id: nanoid(), adultCount: 1, childCount: 0 }]);
     const [origin, setOrigin] = useState<string>('');
     const [destination, setDestination] = useState('');
-    const [countActive, setCountActive] = useState('');
     const [departureDate, setDepartureDate] = useState();
     const [departureDatePicker, setDepartureDatePicker] = useState(false);
     const [returnDate, setReturnDate] = useState();
     const [returnDatePicker, setReturnDatePicker] = useState(false);
+
     const dispatch = useDispatch();
+
     const numberValidate = useCallback(
         (event: any) =>
         {
@@ -212,13 +217,18 @@ const Home = () =>
             inputParent.forEach(f => f.setAttribute('data-activate', 'false'));
             options.forEach(f => f.setAttribute('data-activate', 'false'));
         }, [setDestination]);
+    const sum = (array: any[], prop: string) =>
+    {
+        return array.reduce((a, b) =>
+        {
+            return a + b[prop];
+        }, 0);
+    }
 
     React.useEffect(() =>
     {
         // @ts-ignore
         const passengersParent = [...document.querySelectorAll('#passengers_parent')];
-        // @ts-ignore
-        const hotelPassengersParent = [...document.querySelectorAll('#hotel_passengers_parent')];
         // @ts-ignore
         const departureDatePickersParent = [...document.querySelectorAll('#departure_date_picker')];
         // @ts-ignore
@@ -281,9 +291,9 @@ const Home = () =>
             {
                 setPassengers(false);
             }
-            if (!hotelPassengersParent?.some((element) => element?.contains(event?.target)))
+            if (!hotelRoomsRef?.current?.contains(event?.target) && !(event?.target?.tagName?.toLowerCase() === 'svg' || event?.target?.tagName?.toLowerCase() === 'path'))
             {
-                setHotelPassengersActivate(false);
+                setHotelRoomsActivate(false);
             }
             if (!departureDatePickersParent?.some((element) => element?.contains(event?.target)))
             {
@@ -310,7 +320,7 @@ const Home = () =>
                 setProposalDestinationActivate(false);
             }
         })
-    }, [setPassengers, setUnilateralActivate, setExclusiveActivate, setProposalOriginActivate, setProposalDestinationActivate, setReturnDatePicker, setDepartureDatePicker, origin, destination]);
+    }, [setPassengers, setUnilateralActivate, setExclusiveActivate, setProposalOriginActivate, setProposalDestinationActivate, setReturnDatePicker, setDepartureDatePicker, origin, destination, hotelRoomsRef]);
 
     return (
         <main className={styles.home}>
@@ -408,7 +418,7 @@ const Home = () =>
                                     </div>
                                 </div>
                             </li>
-                            <Link to='/rules' className={styles.homeHeaderMainNavItem}>
+                            <Link to='/policy' className={styles.homeHeaderMainNavItem}>
                                 راهنمایی و پشتیبانی
                             </Link>
                             <li className={styles.homeHeaderMainNavItem}>
@@ -618,20 +628,19 @@ const Home = () =>
                                             <div>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
+                                                    onClick={() => setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1)}
                                                     data-direction='right'
-                                                    data-activate={countActive === 'adult' ? 'active' : null}
                                                     data-disabled={adultCount + childCount + babyCount >= 9}
                                                 >
                                                     <Plus />
                                                 </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                <button className={styles.homeHeaderPassengersItemButton}>
                                                     {adultCount}
                                                 </button>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
-                                                    data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
+                                                    onClick={() => setAdultCount(adultCount <= 1 ? 1 : adultCount - 1)}
+                                                    data-direction='left'
                                                     data-disabled={adultCount <= 1}
                                                 >
                                                     <Minus />
@@ -650,20 +659,19 @@ const Home = () =>
                                             <div>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
+                                                    onClick={() => setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1)}
                                                     data-direction='right'
-                                                    data-activate={countActive === 'child' ? 'active' : null}
                                                     data-disabled={adultCount + childCount + babyCount >= 9}
                                                 >
                                                     <Plus />
                                                 </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                <button className={styles.homeHeaderPassengersItemButton}>
                                                     {childCount}
                                                 </button>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
-                                                    data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
+                                                    onClick={() => setChildCount(childCount <= 0 ? 0 : childCount - 1)}
+                                                    data-direction='left'
                                                     data-disabled={childCount <= 0}
                                                 >
                                                     <Minus />
@@ -682,20 +690,19 @@ const Home = () =>
                                             <div>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
+                                                    onClick={() => setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1)}
                                                     data-direction='right'
-                                                    data-activate={countActive === 'baby' ? 'active' : null}
                                                     data-disabled={adultCount + childCount + babyCount >= 9}
                                                 >
                                                     <Plus />
                                                 </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
+                                                <button className={styles.homeHeaderPassengersItemButton}>
                                                     {babyCount}
                                                 </button>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
-                                                    data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
+                                                    onClick={() => setBabyCount(babyCount <= 0 ? 0 : babyCount - 1)}
+                                                    data-direction='left'
                                                     data-disabled={babyCount <= 0}
                                                 >
                                                     <Minus />
@@ -730,7 +737,7 @@ const Home = () =>
                                             <ul>
                                                 {
                                                     data?.cities?.map((city: any) => (
-                                                        <li key={city} data-name={city} data-plane={true} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
+                                                        <li key={city + '-=_' + nanoid()} data-name={city} data-plane={true} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
                                                             <Plane />
                                                             {city}
                                                         </li>
@@ -761,7 +768,7 @@ const Home = () =>
                                             <ul>
                                                 {
                                                     data?.cities?.map((city: any) => (
-                                                        <li key={city} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
+                                                        <li key={city + '-' + nanoid()} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
                                                             <Plane />
                                                             {city}
                                                         </li>
@@ -849,7 +856,7 @@ const Home = () =>
                                             <ul>
                                                 {
                                                     data?.cities?.map((city: any) => (
-                                                        <li key={city} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
+                                                        <li key={city + '__' + nanoid()} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
                                                             <Pin />
                                                             {city}
                                                         </li>
@@ -859,14 +866,14 @@ const Home = () =>
                                         </label>
                                     </label>
 
-                                    <div data-activate={hotelPassengersActivate} className={styles.homeHeaderImageContentItemInput} id='hotel_passengers_parent'>
-                                        <div onClick={() => setHotelPassengersActivate(!hotelPassengersActivate)}>
+                                    <div data-activate={hotelRoomsActivate} className={styles.homeHeaderImageContentItemInput} ref={hotelRoomsRef} id='hotel_rooms_parent'>
+                                        <div onClick={() => setHotelRoomsActivate(!hotelRoomsActivate)}>
                                             <label>
                                                 مسافرین
                                             </label>
                                             <span>
                                                 <p>
-                                                     {adultCount} بزرگسال
+                                                     {sum(hotelRooms, 'adultCount')} بزرگسال
                                                 </p>
 
                                                 <i>
@@ -874,7 +881,7 @@ const Home = () =>
                                                 </i>
 
                                                 <p>
-                                                    {adultCount} کودک
+                                                    {sum(hotelRooms, 'childCount')} کودک
                                                 </p>
 
                                                 <i>
@@ -882,95 +889,203 @@ const Home = () =>
                                                 </i>
 
                                                 <p>
-                                                    {adultCount} اتاق
+                                                    {hotelRooms?.length} اتاق
                                                 </p>
                                             </span>
                                         </div>
 
-                                        <div data-activate={hotelPassengersActivate} data-options='hotel_passengers_options'>
+                                        <div data-activate={hotelRoomsActivate} data-options='hotel_rooms_options'>
                                             <ul>
-                                                <li>
-                                                    <header>
-                                                        <span>
-                                                            اتاق اول
-                                                        </span>
+                                                {
+                                                    hotelRooms?.map((hotelRoom: any, index: any) =>
+                                                        (
+                                                            <li key={hotelRoom?.id}>
+                                                                <header>
+                                                                    <span>
+                                                                        اتاق {(numberToWords(index + 1, { ordinal: true })?.toString()) ===  'یکم' ? 'اول' : (numberToWords(index + 1, { ordinal: true })?.toString())}
+                                                                    </span>
 
-                                                        <i>
-                                                            <Trash />
-                                                        </i>
-                                                    </header>
+                                                                    {
+                                                                        hotelRooms?.length > 1
+                                                                            ?
+                                                                            <button onClick={(event: any) => { event?.preventDefault(); setHotelRooms(hotelRooms?.filter((hotelRoomV: any) => hotelRoomV?.id !== hotelRoom?.id)) }}>
+                                                                                حذف
+                                                                                <Trash/>
+                                                                            </button>
+                                                                            :
+                                                                            null
+                                                                    }
+                                                                </header>
 
-                                                    <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                بزرگسال
-                                                            </h2>
-                                                            <p>
-                                                                بزرگتر از 12 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
-                                                                {adultCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
-                                                                data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount <= 1}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                      <div className={styles.homeHeaderPassengersItem}>
-                                                        <div>
-                                                            <h2>
-                                                                کودک
-                                                            </h2>
-                                                            <p>
-                                                                تا 12 سال
-                                                            </p>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
-                                                                data-direction='right'
-                                                                data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount + childCount + babyCount >= 9}
-                                                            >
-                                                                <Plus />
-                                                            </button>
-                                                            <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
-                                                                {adultCount}
-                                                            </button>
-                                                            <button
-                                                                className={styles.homeHeaderPassengersItemButton}
-                                                                onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
-                                                                data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
-                                                                data-disabled={adultCount <= 1}
-                                                            >
-                                                                <Minus />
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                                                <div className={styles.homeHeaderPassengersItem}>
+                                                                    <div>
+                                                                        <h2>
+                                                                            بزرگسال
+                                                                        </h2>
+                                                                        <p>
+                                                                            بزرگتر از 12 سال
+                                                                        </p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button
+                                                                            className={styles.homeHeaderPassengersItemButton}
+                                                                            onClick={(event: any) =>
+                                                                            {
+                                                                                event?.preventDefault();
+
+                                                                                let i = -1;
+                                                                                let hotelRoomsV: any = hotelRooms;
+
+                                                                                for (const hotelRoomV in hotelRoomsV)
+                                                                                {
+                                                                                    i++;
+
+                                                                                    if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                    {
+                                                                                        if (hotelRoom?.adultCount <= 13)
+                                                                                        {
+                                                                                            hotelRoomsV[i].adultCount = hotelRoom?.adultCount + 1;
+                                                                                        }
+
+                                                                                        break;
+                                                                                    }
+                                                                                }
+
+                                                                                setHotelRooms(() => [...hotelRoomsV]);
+                                                                            }}
+                                                                            data-direction='right'
+                                                                            data-disabled={hotelRoom?.adultCount >= 14}
+                                                                        >
+                                                                            <Plus/>
+                                                                        </button>
+                                                                        <button className={styles.homeHeaderPassengersItemButton}>
+                                                                            {hotelRoom?.adultCount}
+                                                                        </button>
+                                                                        <button
+                                                                            className={styles.homeHeaderPassengersItemButton}
+                                                                            onClick={(event: any) =>
+                                                                            {
+                                                                                event?.preventDefault();
+
+                                                                                let i = -1;
+                                                                                let hotelRoomsV: any = hotelRooms;
+
+                                                                                for (const hotelRoomV in hotelRoomsV)
+                                                                                {
+                                                                                    i++;
+
+                                                                                    if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                    {
+                                                                                        if (hotelRoom?.adultCount > 1)
+                                                                                        {
+                                                                                            hotelRoomsV[i].adultCount = hotelRoom?.adultCount - 1;
+                                                                                        }
+
+                                                                                        break;
+                                                                                    }
+                                                                                }
+
+                                                                                setHotelRooms(() => [...hotelRoomsV]);
+                                                                            }}
+                                                                            data-direction='left'
+                                                                            data-disabled={hotelRoom?.adultCount <= 1}
+                                                                        >
+                                                                            <Minus/>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div className={styles.homeHeaderPassengersItem}>
+                                                                    <div>
+                                                                        <h2>
+                                                                            کودک
+                                                                        </h2>
+                                                                        <p>
+                                                                            تا 12 سال
+                                                                        </p>
+                                                                    </div>
+                                                                    <div>
+                                                                        <button
+                                                                            className={styles.homeHeaderPassengersItemButton}
+                                                                            onClick={(event: any) =>
+                                                                            {
+                                                                                event?.preventDefault();
+
+                                                                                let i = -1;
+                                                                                let hotelRoomsV: any = hotelRooms;
+
+                                                                                for (const hotelRoomV in hotelRoomsV)
+                                                                                {
+                                                                                    i++;
+
+                                                                                    if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                    {
+                                                                                        if (hotelRoom?.childCount <= 5)
+                                                                                        {
+                                                                                            hotelRoomsV[i].childCount = hotelRoom?.childCount + 1;
+                                                                                        }
+
+                                                                                        break;
+                                                                                    }
+                                                                                }
+
+                                                                                setHotelRooms(() => [...hotelRoomsV]);
+                                                                            }}
+                                                                            data-direction='right'
+                                                                            data-disabled={hotelRoom?.childCount >= 6}
+                                                                        >
+                                                                            <Plus/>
+                                                                        </button>
+                                                                        <button className={styles.homeHeaderPassengersItemButton}>
+                                                                            {hotelRoom?.childCount}
+                                                                        </button>
+                                                                        <button
+                                                                            className={styles.homeHeaderPassengersItemButton}
+                                                                            onClick={(event: any) =>
+                                                                            {
+                                                                                event?.preventDefault();
+
+                                                                                let i = -1;
+                                                                                let hotelRoomsV: any = hotelRooms;
+
+                                                                                for (const hotelRoomV in hotelRoomsV)
+                                                                                {
+                                                                                    i++;
+
+                                                                                    if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                    {
+                                                                                        if (hotelRoom?.childCount > 0)
+                                                                                        {
+                                                                                            hotelRoomsV[i].childCount = hotelRoom?.childCount - 1;
+                                                                                        }
+
+                                                                                        break;
+                                                                                    }
+                                                                                }
+
+                                                                                setHotelRooms(() => [...hotelRoomsV]);
+                                                                            }}
+                                                                            data-direction='left'
+                                                                            data-disabled={hotelRoom?.childCount <= 0}
+                                                                        >
+                                                                            <Minus/>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        ))
+                                                }
                                             </ul>
 
-                                            <button>
-                                                <PlusCircle />
-                                                افزودن اتاق
-                                            </button>
+                                            {
+                                                !(hotelRooms?.length >= 4)
+                                                ?
+                                                    <button onClick={() => setHotelRooms((oldArray: any) => [...oldArray, { id: nanoid(), adultCount: 1, childCount: 0 }])}>
+                                                        <PlusCircle />
+                                                        افزودن اتاق
+                                                    </button>
+                                                    :
+                                                    null
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -1046,20 +1161,19 @@ const Home = () =>
                                             <div>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
+                                                    onClick={() => setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1)}
                                                     data-direction='right'
-                                                    data-activate={countActive === 'adult' ? 'active' : null}
                                                     data-disabled={adultCount + childCount + babyCount >= 9}
                                                 >
                                                     <Plus />
                                                 </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                <button className={styles.homeHeaderPassengersItemButton}>
                                                     {adultCount}
                                                 </button>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
-                                                    data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
+                                                    onClick={() => setAdultCount(adultCount <= 1 ? 1 : adultCount - 1)}
+                                                    data-direction='left'
                                                     data-disabled={adultCount <= 1}
                                                 >
                                                     <Minus />
@@ -1078,20 +1192,19 @@ const Home = () =>
                                             <div>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
+                                                    onClick={() => setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1)}
                                                     data-direction='right'
-                                                    data-activate={countActive === 'child' ? 'active' : null}
                                                     data-disabled={adultCount + childCount + babyCount >= 9}
                                                 >
                                                     <Plus />
                                                 </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                <button className={styles.homeHeaderPassengersItemButton}>
                                                     {childCount}
                                                 </button>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
-                                                    data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
+                                                    onClick={() => setChildCount(childCount <= 0 ? 0 : childCount - 1)}
+                                                    data-direction='left'
                                                     data-disabled={childCount <= 0}
                                                 >
                                                     <Minus />
@@ -1110,20 +1223,19 @@ const Home = () =>
                                             <div>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
+                                                    onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); }}
                                                     data-direction='right'
-                                                    data-activate={countActive === 'baby' ? 'active' : null}
                                                     data-disabled={adultCount + childCount + babyCount >= 9}
                                                 >
                                                     <Plus />
                                                 </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
+                                                <button className={styles.homeHeaderPassengersItemButton}>
                                                     {babyCount}
                                                 </button>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
-                                                    data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
+                                                    onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); }}
+                                                    data-direction='left'
                                                     data-disabled={babyCount <= 0}
                                                 >
                                                     <Minus />
@@ -1155,7 +1267,7 @@ const Home = () =>
                                             <ul>
                                                 {
                                                     data?.cities?.map((city: any) => (
-                                                        <li key={city} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
+                                                        <li key={city + '--' + nanoid()} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
                                                             <Pin />
                                                             {city}
                                                         </li>
@@ -1186,7 +1298,7 @@ const Home = () =>
                                             <ul>
                                                 {
                                                     data?.cities?.map((city: any) => (
-                                                        <li key={city} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
+                                                        <li key={city + '_-_' + nanoid()} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
                                                             <Pin />
                                                             {city}
                                                         </li>
@@ -1312,20 +1424,19 @@ const Home = () =>
                                             <div>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1); setCountActive('adult') }}
+                                                    onClick={() => setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1)}
                                                     data-direction='right'
-                                                    data-activate={countActive === 'adult' ? 'active' : null}
                                                     data-disabled={adultCount + childCount + babyCount >= 9}
                                                 >
                                                     <Plus />
                                                 </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('adult')} data-activate={countActive === 'adult' ? 'active' : ''}>
+                                                <button className={styles.homeHeaderPassengersItemButton}>
                                                     {adultCount}
                                                 </button>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setAdultCount(adultCount <= 1 ? 1 : adultCount - 1); setCountActive('adult') }}
-                                                    data-direction='left' data-activate={countActive === 'adult' ? 'active' : null}
+                                                    onClick={() => setAdultCount(adultCount <= 1 ? 1 : adultCount - 1)}
+                                                    data-direction='left'
                                                     data-disabled={adultCount <= 1}
                                                 >
                                                     <Minus />
@@ -1344,20 +1455,19 @@ const Home = () =>
                                             <div>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1); setCountActive('child') }}
+                                                    onClick={() => setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1)}
                                                     data-direction='right'
-                                                    data-activate={countActive === 'child' ? 'active' : null}
                                                     data-disabled={adultCount + childCount + babyCount >= 9}
                                                 >
                                                     <Plus />
                                                 </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('child')} data-activate={countActive === 'child' ? 'active' : ''}>
+                                                <button className={styles.homeHeaderPassengersItemButton}>
                                                     {childCount}
                                                 </button>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setChildCount(childCount <= 0 ? 0 : childCount - 1); setCountActive('child') }}
-                                                    data-direction='left' data-activate={countActive === 'child' ? 'active' : null}
+                                                    onClick={() => setChildCount(childCount <= 0 ? 0 : childCount - 1)}
+                                                    data-direction='left'
                                                     data-disabled={childCount <= 0}
                                                 >
                                                     <Minus />
@@ -1376,20 +1486,19 @@ const Home = () =>
                                             <div>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); setCountActive('baby') }}
+                                                    onClick={() => setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1)}
                                                     data-direction='right'
-                                                    data-activate={countActive === 'baby' ? 'active' : null}
                                                     data-disabled={adultCount + childCount + babyCount >= 9}
                                                 >
                                                     <Plus />
                                                 </button>
-                                                <button className={styles.homeHeaderPassengersItemButton} onClick={() =>  setCountActive('baby')} data-activate={countActive === 'baby' ? 'active' : ''}>
+                                                <button className={styles.homeHeaderPassengersItemButton}>
                                                     {babyCount}
                                                 </button>
                                                 <button
                                                     className={styles.homeHeaderPassengersItemButton}
-                                                    onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); setCountActive('baby') }}
-                                                    data-direction='left' data-activate={countActive === 'baby' ? 'active' : null}
+                                                    onClick={() => setBabyCount(babyCount <= 0 ? 0 : babyCount - 1)}
+                                                    data-direction='left'
                                                     data-disabled={babyCount <= 0}
                                                 >
                                                     <Minus />
@@ -1421,7 +1530,7 @@ const Home = () =>
                                             <ul>
                                                 {
                                                     data?.cities?.map((city: any) => (
-                                                        <li key={city} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
+                                                        <li key={city + '-_-' + nanoid()} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
                                                             <Pin />
                                                             {city}
                                                         </li>
@@ -1452,7 +1561,7 @@ const Home = () =>
                                             <ul>
                                                 {
                                                     data?.cities?.map((city: any) => (
-                                                        <li key={city} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
+                                                        <li key={city + '__-__' + nanoid()} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
                                                             <Pin />
                                                             {city}
                                                         </li>
@@ -1556,7 +1665,7 @@ const Home = () =>
                                             <ul>
                                                 {
                                                     data?.cities?.map((city: any) => (
-                                                        <li key={city} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
+                                                        <li key={city + '--_--' + nanoid()} data-name={city} data-activate={(origin === city ? 'active' : '') + (destination === city ? 'false' : '')} onClick={() => { handleOrigin(city);  }}>
                                                             <Pin />
                                                             {city}
                                                         </li>
@@ -1587,7 +1696,7 @@ const Home = () =>
                                             <ul>
                                                 {
                                                     data?.cities?.map((city: any) => (
-                                                        <li key={city} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
+                                                        <li key={city + '__-_' + nanoid()} data-name={city} data-activate={(destination === city ? 'active' : '') + (origin === city ? 'false' : '')} onClick={() => { handleDestination(city);  }}>
                                                             <Pin />
                                                             {city}
                                                         </li>
@@ -1698,7 +1807,7 @@ const Home = () =>
                                     {
                                         data.cities?.map((city: string, index: number) =>
                                             (
-                                                <li key={index} data-activate={fastSearchActivate === city?.split(' ')[0]} onClick={() => setFastSearchActivate(city?.split(' ')[0])}>
+                                                <li key={index + '--_-' + nanoid()} data-activate={fastSearchActivate === city?.split(' ')[0]} onClick={() => setFastSearchActivate(city?.split(' ')[0])}>
                                                     <button>
                                                         { city?.split(' ')[0] }
                                                     </button>
@@ -1716,301 +1825,15 @@ const Home = () =>
                     </div>
 
                     <div className={styles.homeFastSearchBoxes}>
-                        <div>
-                            <div className={styles.homeFastSearchBoxesBox}>
-                                <div className={styles.homeFastSearchBoxesBoxTop}>
-                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
-                                        <Box4 />
-                                        <span>هواپیمایی آسمان</span>
-                                    </div>
+                        <TicketBox />
+                        <TicketBox />
+                        <TicketBox />
+                        <TicketBox />
 
-                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
-                                </div>
-
-                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
-                                    <span>تهران</span>
-                                    <i />
-                                    <Plane />
-                                    <span>مشهد</span>
-                                </div>
-                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <p>شروع قیمت از</p>
-                                    <span>
-                                        13/479/400 ریال
-                                        <Arrow2 />
-                                    </span>
-                                </div>
-                            </Link>
-                        </div>
-
-                        <div>
-                            <div className={styles.homeFastSearchBoxesBox}>
-                                <div className={styles.homeFastSearchBoxesBoxTop}>
-                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
-                                        <Box4 />
-                                        <span>هواپیمایی آسمان</span>
-                                    </div>
-
-                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
-                                </div>
-
-                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
-                                    <span>تهران</span>
-                                    <i />
-                                    <Plane />
-                                    <span>مشهد</span>
-                                </div>
-                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <p>شروع قیمت از</p>
-                                    <span>
-                                        13/479/400 ریال
-                                        <Arrow2 />
-                                    </span>
-                                </div>
-                            </Link>
-                        </div>
-
-                        <div>
-                            <div className={styles.homeFastSearchBoxesBox}>
-                                <div className={styles.homeFastSearchBoxesBoxTop}>
-                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
-                                        <Box4 />
-                                        <span>هواپیمایی آسمان</span>
-                                    </div>
-
-                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
-                                </div>
-
-                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
-                                    <span>تهران</span>
-                                    <i />
-                                    <Plane />
-                                    <span>مشهد</span>
-                                </div>
-                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <p>شروع قیمت از</p>
-                                    <span>
-                                        13/479/400 ریال
-                                        <Arrow2 />
-                                    </span>
-                                </div>
-                            </Link>
-                        </div>
-
-                        <div>
-                            <div className={styles.homeFastSearchBoxesBox}>
-                                <div className={styles.homeFastSearchBoxesBoxTop}>
-                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
-                                        <Box4 />
-                                        <span>هواپیمایی آسمان</span>
-                                    </div>
-
-                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
-                                </div>
-
-                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
-                                    <span>تهران</span>
-                                    <i />
-                                    <Plane />
-                                    <span>مشهد</span>
-                                </div>
-                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <p>شروع قیمت از</p>
-                                    <span>
-                                        13/479/400 ریال
-                                        <Arrow2 />
-                                    </span>
-                                </div>
-                            </Link>
-                        </div>
-
-                        <div>
-                            <div className={styles.homeFastSearchBoxesBox}>
-                                <div className={styles.homeFastSearchBoxesBoxTop}>
-                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
-                                        <Box4 />
-                                        <span>هواپیمایی آسمان</span>
-                                    </div>
-
-                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
-                                </div>
-
-                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
-                                    <span>تهران</span>
-                                    <i />
-                                    <Plane />
-                                    <span>مشهد</span>
-                                </div>
-                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <p>شروع قیمت از</p>
-                                    <span>
-                                        13/479/400 ریال
-                                        <Arrow2 />
-                                    </span>
-                                </div>
-                            </Link>
-                        </div>
-
-                        <div>
-                            <div className={styles.homeFastSearchBoxesBox}>
-                                <div className={styles.homeFastSearchBoxesBoxTop}>
-                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
-                                        <Box4 />
-                                        <span>هواپیمایی آسمان</span>
-                                    </div>
-
-                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
-                                </div>
-
-                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
-                                    <span>تهران</span>
-                                    <i />
-                                    <Plane />
-                                    <span>مشهد</span>
-                                </div>
-                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <p>شروع قیمت از</p>
-                                    <span>
-                                        13/479/400 ریال
-                                        <Arrow2 />
-                                    </span>
-                                </div>
-                            </Link>
-                        </div>
-
-                        <div>
-                            <div className={styles.homeFastSearchBoxesBox}>
-                                <div className={styles.homeFastSearchBoxesBoxTop}>
-                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
-                                        <Box4 />
-                                        <span>هواپیمایی آسمان</span>
-                                    </div>
-
-                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
-                                </div>
-
-                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
-                                    <span>تهران</span>
-                                    <i />
-                                    <Plane />
-                                    <span>مشهد</span>
-                                </div>
-                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <p>شروع قیمت از</p>
-                                    <span>
-                                        13/479/400 ریال
-                                        <Arrow2 />
-                                    </span>
-                                </div>
-                            </Link>
-                        </div>
-
-                        <div>
-                            <div className={styles.homeFastSearchBoxesBox}>
-                                <div className={styles.homeFastSearchBoxesBoxTop}>
-                                    <div className={styles.homeFastSearchBoxesBoxTopInner}>
-                                        <Box4 />
-                                        <span>هواپیمایی آسمان</span>
-                                    </div>
-
-                                    <span className={styles.homeFastSearchBoxesBoxTopBudget}>اکونومی</span>
-                                </div>
-
-                                <div className={styles.homeFastSearchBoxesBoxMiddle}>
-                                    <span>تهران</span>
-                                    <i />
-                                    <Plane />
-                                    <span>مشهد</span>
-                                </div>
-                                <div className={styles.homeFastSearchBoxesBoxMiddle2}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeFastSearchBoxesBottom}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <p>شروع قیمت از</p>
-                                    <span>
-                                        13/479/400 ریال
-                                        <Arrow2 />
-                                    </span>
-                                </div>
-                            </Link>
-                        </div>
+                        <TicketBox />
+                        <TicketBox />
+                        <TicketBox />
+                        <TicketBox />
                     </div>
                 </div>
             </section>
@@ -2026,137 +1849,21 @@ const Home = () =>
                     </div>
 
                     <div className={styles.homeProposalBoxes}>
-                        <div>
-                            <div className={styles.homeProposalBoxesBox}>
-                                <div className={styles.homeProposalBoxesBoxTop}>
-                                    <p>تهران</p>
-                                    <i />
-                                    <Plane />
-                                    <p>مشهد</p>
-                                </div>
-                                <div className={styles.homeProposalBoxesBoxMiddle}>
-                                    <span>TEH</span>
-                                    <span>اکونومی</span>
-                                    <span>MHD</span>
-                                </div>
-                                <div className={styles.homeProposalBoxesBoxBottom}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeProposalBoxesLink}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <span>13/479/400 ریال</span>
-                                    <p>
-                                        رزرو
-                                        <Arrow2 />
-                                    </p>
-                                </div>
-                            </Link>
-                        </div>
+                        <TicketBox
+                            proposal={true}
+                        />
 
-                        <div>
-                            <div className={styles.homeProposalBoxesBox}>
-                                <div className={styles.homeProposalBoxesBoxTop}>
-                                    <p>تهران</p>
-                                    <i />
-                                    <Plane />
-                                    <p>مشهد</p>
-                                </div>
-                                <div className={styles.homeProposalBoxesBoxMiddle}>
-                                    <span>TEH</span>
-                                    <span>اکونومی</span>
-                                    <span>MHD</span>
-                                </div>
-                                <div className={styles.homeProposalBoxesBoxBottom}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeProposalBoxesLink}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <span>13/479/400 ریال</span>
-                                    <p>
-                                        رزرو
-                                        <Arrow2 />
-                                    </p>
-                                </div>
-                            </Link>
-                        </div>
+                        <TicketBox
+                            proposal={true}
+                        />
 
-                        <div>
-                            <div className={styles.homeProposalBoxesBox}>
-                                <div className={styles.homeProposalBoxesBoxTop}>
-                                    <p>تهران</p>
-                                    <i />
-                                    <Plane />
-                                    <p>مشهد</p>
-                                </div>
-                                <div className={styles.homeProposalBoxesBoxMiddle}>
-                                    <span>TEH</span>
-                                    <span>اکونومی</span>
-                                    <span>MHD</span>
-                                </div>
-                                <div className={styles.homeProposalBoxesBoxBottom}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeProposalBoxesLink}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <span>13/479/400 ریال</span>
-                                    <p>
-                                        رزرو
-                                        <Arrow2 />
-                                    </p>
-                                </div>
-                            </Link>
-                        </div>
+                        <TicketBox
+                            proposal={true}
+                        />
 
-                        <div>
-                            <div className={styles.homeProposalBoxesBox}>
-                                <div className={styles.homeProposalBoxesBoxTop}>
-                                    <p>تهران</p>
-                                    <i />
-                                    <Plane />
-                                    <p>مشهد</p>
-                                </div>
-                                <div className={styles.homeProposalBoxesBoxMiddle}>
-                                    <span>TEH</span>
-                                    <span>اکونومی</span>
-                                    <span>MHD</span>
-                                </div>
-                                <div className={styles.homeProposalBoxesBoxBottom}>
-                                    <span>16:45</span>
-                                    <span>یک‌شنبه 30 آبان</span>
-                                    <span>17:25</span>
-                                </div>
-                            </div>
-                            <Link to='#' className={styles.homeProposalBoxesLink}>
-                                <i />
-                                <i />
-                                <hr />
-                                <div>
-                                    <span>13/479/400 ریال</span>
-                                    <p>
-                                        رزرو
-                                        <Arrow2 />
-                                    </p>
-                                </div>
-                            </Link>
-                        </div>
+                        <TicketBox
+                            proposal={true}
+                        />
                     </div>
 
                     <div className={styles.homeProposalLatestNews}>
@@ -2191,7 +1898,7 @@ const Home = () =>
                                         {
                                             data.cities?.map((city: string, index: number) =>
                                                 (
-                                                    <li key={city?.split(' ')[0] + index} data-activate={(proposalOrigin === city?.split(' ')[0] ? 'active' : '') + (proposalDestination === city?.split(' ')[0] ? 'false' : '')} onClick={() => setProposalOrigin(city?.split(' ')[0])}>
+                                                    <li key={city?.split(' ')[0] + index + '_--_' + nanoid()} data-activate={(proposalOrigin === city?.split(' ')[0] ? 'active' : '') + (proposalDestination === city?.split(' ')[0] ? 'false' : '')} onClick={() => setProposalOrigin(city?.split(' ')[0])}>
                                                         {city?.split(' ')[0]}
                                                     </li>
                                                 ))
@@ -2218,7 +1925,7 @@ const Home = () =>
                                         {
                                             data.cities?.map((city: string, index: number) =>
                                                 (
-                                                    <li key={city?.split(' ')[0] + index} data-activate={(proposalDestination === city?.split(' ')[0] ? 'active' : '') + (proposalOrigin === city?.split(' ')[0] ? 'false' : '')} onClick={() => setProposalDestination(city?.split(' ')[0])}>
+                                                    <li key={city?.split(' ')[0] + index + '--_=' + nanoid()} data-activate={(proposalDestination === city?.split(' ')[0] ? 'active' : '') + (proposalOrigin === city?.split(' ')[0] ? 'false' : '')} onClick={() => setProposalDestination(city?.split(' ')[0])}>
                                                         {city?.split(' ')[0]}
                                                     </li>
                                                 ))
@@ -2256,9 +1963,9 @@ const Home = () =>
 
                     <div className={styles.homeMagazineGallery}>
                         {
-                            data?.blogs?.map((blog: any) =>
+                            data?.blogs?.map((blog: any, index: any) =>
                                 (
-                                    <Link to='#'>
+                                    <Link to='#' key={index +'__--' + nanoid()}>
                                         <div />
                                         <div>
                                             <span>

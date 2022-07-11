@@ -4,13 +4,11 @@ import { Link } from 'react-router-dom';
 import styles from './blogs.module.scss';
 import stylesHome from '../home/home.module.scss';
 
+import BlogBox from '../../components/blog-box/blog-box.component';
 import Navbar from '../../components/layouts/navbar/navbar.component';
 import Footer from '../../components/layouts/footer/footer.component';
 
-import Image3 from '../../assets/images/image-3.svg';
 import { ReactComponent as Blog } from '../../assets/icons/blogs.svg';
-import { ReactComponent as Comment } from '../../assets/icons/chat-1-line.svg';
-import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Check } from '../../assets/icons/check.svg';
 import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
 import { ReactComponent as AppPhone } from '../../assets/images/app-phone.svg';
@@ -45,249 +43,21 @@ const Blogs = () =>
 
             <section className={styles.blogsMain}>
                 <div className='container'>
-                    <Link to='/blog/test'>
-                        <span style={{ backgroundImage: `url(${Image3})` }} />
-                        <h2>
-                            کلوت شهداد کرمان؛ دست ساخته طبیعت
-                        </h2>
-                        <h3>
-                            هتل درویشی، که با عنوان یکی از مجلل‌ترین هتل‌های ایران از آن یاد می‌شود، اقامتگاهی درخور برای زائران امام رضا (ع) فراهم آورده
-                        </h3>
-                        <footer>
-                            <div>
-                                <div>
-                                    <User />
-                                    احسان غلام پور
-                                </div>
-                                <div>
-                                    <Comment />
-                                    بدون دیدگاه
-                                </div>
-                            </div>
-                            <div>
-                                مشاهده ادامه
-                                <i>
-                                    <Arrow2 />
-                                </i>
-                            </div>
-                        </footer>
-                    </Link>
-                    <Link to='/blog/test'>
-                        <span style={{ backgroundImage: `url(${Image3})` }} />
-                        <h2>
-                            کلوت شهداد کرمان؛ دست ساخته طبیعت
-                        </h2>
-                        <h3>
-                            هتل درویشی، که با عنوان یکی از مجلل‌ترین هتل‌های ایران از آن یاد می‌شود، اقامتگاهی درخور برای زائران امام رضا (ع) فراهم آورده
-                        </h3>
-                        <footer>
-                            <div>
-                                <div>
-                                    <User />
-                                    احسان غلام پور
-                                </div>
-                                <div>
-                                    <Comment />
-                                    بدون دیدگاه
-                                </div>
-                            </div>
-                            <div>
-                                مشاهده ادامه
-                                <i>
-                                    <Arrow2 />
-                                </i>
-                            </div>
-                        </footer>
-                    </Link>
-                    <Link to='/blog/test'>
-                        <span style={{ backgroundImage: `url(${Image3})` }} />
-                        <h2>
-                            کلوت شهداد کرمان؛ دست ساخته طبیعت
-                        </h2>
-                        <h3>
-                            هتل درویشی، که با عنوان یکی از مجلل‌ترین هتل‌های ایران از آن یاد می‌شود، اقامتگاهی درخور برای زائران امام رضا (ع) فراهم آورده
-                        </h3>
-                        <footer>
-                            <div>
-                                <div>
-                                    <User />
-                                    احسان غلام پور
-                                </div>
-                                <div>
-                                    <Comment />
-                                    بدون دیدگاه
-                                </div>
-                            </div>
-                            <div>
-                                مشاهده ادامه
-                                <i>
-                                    <Arrow2 />
-                                </i>
-                            </div>
-                        </footer>
-                    </Link>
-                    <Link to='/blog/test'>
-                        <span style={{ backgroundImage: `url(${Image3})` }} />
-                        <h2>
-                            کلوت شهداد کرمان؛ دست ساخته طبیعت
-                        </h2>
-                        <h3>
-                            هتل درویشی، که با عنوان یکی از مجلل‌ترین هتل‌های ایران از آن یاد می‌شود، اقامتگاهی درخور برای زائران امام رضا (ع) فراهم آورده
-                        </h3>
-                        <footer>
-                            <div>
-                                <div>
-                                    <User />
-                                    احسان غلام پور
-                                </div>
-                                <div>
-                                    <Comment />
-                                    بدون دیدگاه
-                                </div>
-                            </div>
-                            <div>
-                                مشاهده ادامه
-                                <i>
-                                    <Arrow2 />
-                                </i>
-                            </div>
-                        </footer>
-                    </Link>
-                    <Link to='/blog/test'>
-                        <span style={{ backgroundImage: `url(${Image3})` }} />
-                        <h2>
-                            کلوت شهداد کرمان؛ دست ساخته طبیعت
-                        </h2>
-                        <h3>
-                            هتل درویشی، که با عنوان یکی از مجلل‌ترین هتل‌های ایران از آن یاد می‌شود، اقامتگاهی درخور برای زائران امام رضا (ع) فراهم آورده
-                        </h3>
-                        <footer>
-                            <div>
-                                <div>
-                                    <User />
-                                    احسان غلام پور
-                                </div>
-                                <div>
-                                    <Comment />
-                                    بدون دیدگاه
-                                </div>
-                            </div>
-                            <div>
-                                مشاهده ادامه
-                                <i>
-                                    <Arrow2 />
-                                </i>
-                            </div>
-                        </footer>
-                    </Link>
-                    <Link to='/blog/test'>
-                        <span style={{ backgroundImage: `url(${Image3})` }} />
-                        <h2>
-                            کلوت شهداد کرمان؛ دست ساخته طبیعت
-                        </h2>
-                        <h3>
-                            هتل درویشی، که با عنوان یکی از مجلل‌ترین هتل‌های ایران از آن یاد می‌شود، اقامتگاهی درخور برای زائران امام رضا (ع) فراهم آورده
-                        </h3>
-                        <footer>
-                            <div>
-                                <div>
-                                    <User />
-                                    احسان غلام پور
-                                </div>
-                                <div>
-                                    <Comment />
-                                    بدون دیدگاه
-                                </div>
-                            </div>
-                            <div>
-                                مشاهده ادامه
-                                <i>
-                                    <Arrow2 />
-                                </i>
-                            </div>
-                        </footer>
-                    </Link>
-                    <Link to='/blog/test'>
-                        <span style={{ backgroundImage: `url(${Image3})` }} />
-                        <h2>
-                            کلوت شهداد کرمان؛ دست ساخته طبیعت
-                        </h2>
-                        <h3>
-                            هتل درویشی، که با عنوان یکی از مجلل‌ترین هتل‌های ایران از آن یاد می‌شود، اقامتگاهی درخور برای زائران امام رضا (ع) فراهم آورده
-                        </h3>
-                        <footer>
-                            <div>
-                                <div>
-                                    <User />
-                                    احسان غلام پور
-                                </div>
-                                <div>
-                                    <Comment />
-                                    بدون دیدگاه
-                                </div>
-                            </div>
-                            <div>
-                                مشاهده ادامه
-                                <i>
-                                    <Arrow2 />
-                                </i>
-                            </div>
-                        </footer>
-                    </Link>
-                    <Link to='/blog/test'>
-                        <span style={{ backgroundImage: `url(${Image3})` }} />
-                        <h2>
-                            کلوت شهداد کرمان؛ دست ساخته طبیعت
-                        </h2>
-                        <h3>
-                            هتل درویشی، که با عنوان یکی از مجلل‌ترین هتل‌های ایران از آن یاد می‌شود، اقامتگاهی درخور برای زائران امام رضا (ع) فراهم آورده
-                        </h3>
-                        <footer>
-                            <div>
-                                <div>
-                                    <User />
-                                    احسان غلام پور
-                                </div>
-                                <div>
-                                    <Comment />
-                                    بدون دیدگاه
-                                </div>
-                            </div>
-                            <div>
-                                مشاهده ادامه
-                                <i>
-                                    <Arrow2 />
-                                </i>
-                            </div>
-                        </footer>
-                    </Link>
-                    <Link to='/blog/test'>
-                        <span style={{ backgroundImage: `url(${Image3})` }} />
-                        <h2>
-                            کلوت شهداد کرمان؛ دست ساخته طبیعت
-                        </h2>
-                        <h3>
-                            هتل درویشی، که با عنوان یکی از مجلل‌ترین هتل‌های ایران از آن یاد می‌شود، اقامتگاهی درخور برای زائران امام رضا (ع) فراهم آورده
-                        </h3>
-                        <footer>
-                            <div>
-                                <div>
-                                    <User />
-                                    احسان غلام پور
-                                </div>
-                                <div>
-                                    <Comment />
-                                    بدون دیدگاه
-                                </div>
-                            </div>
-                            <div>
-                                مشاهده ادامه
-                                <i>
-                                    <Arrow2 />
-                                </i>
-                            </div>
-                        </footer>
-                    </Link>
+                    <BlogBox />
+                    <BlogBox />
+                    <BlogBox />
+
+                    <BlogBox />
+                    <BlogBox />
+                    <BlogBox />
+
+                    <BlogBox />
+                    <BlogBox />
+                    <BlogBox />
+
+                    <BlogBox />
+                    <BlogBox />
+                    <BlogBox />
                 </div>
             </section>
 

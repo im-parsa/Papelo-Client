@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import styles from './rules.module.scss';
+import styles from './policy.module.scss';
 
 import Navbar from '../../components/layouts/navbar/navbar.component';
 import Footer from '../../components/layouts/footer/footer.component';
@@ -8,9 +8,9 @@ import Footer from '../../components/layouts/footer/footer.component';
 import Header from '../../assets/images/airplane-windows.svg';
 import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
 
-const Rules = () =>
+const Policy = () =>
 {
-    const [page, setPage] = useState('rules');
+    const [page, setPage] = useState('policy');
     const handlePage = useCallback(
         (page: string) =>
         {
@@ -25,10 +25,10 @@ const Rules = () =>
                 description='خط مشی های سایت'
                 headerImage={Header}
             />
-            <section className={styles.rulesMain}>
+            <section className={styles.policyMain}>
                 <div className='container border'>
                     <aside>
-                        <button onClick={() => handlePage('rules') } data-activate={page === 'rules'}>
+                        <button onClick={() => handlePage('policy') } data-activate={page === 'policy'}>
                             قوانین عمومی
                             <Arrow2 />
                         </button>
@@ -45,7 +45,7 @@ const Rules = () =>
                             <Arrow2 />
                         </button>
                     </aside>
-                    <article data-activate={page === 'rules'}>
+                    <article data-activate={page === 'policy'}>
                         <h2>
                             قوانین و مقررات عمومی
                         </h2>
@@ -192,4 +192,4 @@ const Rules = () =>
     );
 };
 
-export default Rules;
+export default Policy;

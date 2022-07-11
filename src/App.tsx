@@ -6,7 +6,7 @@ import Home from './routes/home/home.component';
 import Blog from './routes/blog/blog.component';
 import Blogs from './routes/blogs/blogs.component';
 import Booking from './routes/booking/booking.component';
-import Rules from './routes/rules/rules.component';
+import Policy from './routes/policy/policy.component';
 import Contact from './routes/contact/contact.component';
 import AboutUs from './routes/about-us/about-us.component';
 import SearchHotel from './routes/search/hotel/hotel.component';
@@ -25,8 +25,8 @@ function App()
             <Navbar />
             <Routes>
                 <Route path='/' element={ <Home /> }/>
-                <Route path='/rules' element={ <Rules /> }/>
-                <Route path='/contact' element={ <Contact /> }/>
+                <Route path='/policy' element={ <Policy /> }/>
+                <Route path='/contact-us' element={ <Contact /> }/>
                 <Route path='/about-us' element={ <AboutUs /> }/>
                 <Route path='/blog/:id' element={ <Blog /> }/>
                 <Route path='/blogs' element={ <Blogs /> }/>
