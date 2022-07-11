@@ -14,7 +14,6 @@ import { ReactComponent as Phone } from '../../assets/icons/smartphone-line.svg'
 import { ReactComponent as Ticket } from '../../assets/icons/coupon-3-fill.svg';
 import { ReactComponent as User } from '../../assets/icons/user-3-fill.svg';
 import { ReactComponent as User2 } from '../../assets/icons/user.svg';
-// import { ReactComponent as Edit } from '../../assets/icons/edit-line.svg';
 import { ReactComponent as Close } from '../../assets/icons/close.svg';
 import { ReactComponent as Card } from '../../assets/icons/bank-card-fill.svg';
 
@@ -96,7 +95,6 @@ const Booking = () =>
             }
             else
             {
-                console.log('gi')
                 event?.target?.parentElement?.setAttribute('data-error', 'false');
             }
         }, []);
@@ -286,7 +284,6 @@ const Booking = () =>
                     {
                         if (!validator.isPassportNumber(passenger?.code, 'IR'))
                         {
-                            console.log(passenger?.code)
                             error = true;
 
                             codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'این کد پاسپورت مورد تائید نمی باشد');
@@ -539,11 +536,6 @@ const Booking = () =>
                                 <span>
                                     اطلاعات مسافران
                                 </span>
-
-                                {/*<button>*/}
-                                {/*    <Pen />*/}
-                                {/*    ویرایش*/}
-                                {/*</button>*/}
                             </div>
 
                             <ul>
@@ -592,11 +584,6 @@ const Booking = () =>
                                         اطلاعات بلیط و اطلاع رسانی بعدی به این ادرس ارسال میشود
                                     </p>
                                 </div>
-
-                                {/*<button>*/}
-                                {/*    <Pen />*/}
-                                {/*    ویرایش*/}
-                                {/*</button>*/}
                             </div>
 
                             <ul data-info={true}>
@@ -672,11 +659,6 @@ const Booking = () =>
                                         </a>
                                     </span>
                                 </div>
-
-                                {/*<button>*/}
-                                {/*    <Edit />*/}
-                                {/*    ویرایش*/}
-                                {/*</button>*/}
                             </div>
 
                             <div data-departure_date={true}>

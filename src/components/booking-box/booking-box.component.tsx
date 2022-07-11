@@ -241,7 +241,7 @@ const BookingBox = (props: any) =>
             {
                 props?.index + 1 === props?.passengers?.length
                     ?
-                    <div data-add={true} onClick={() => props?.setPassengers((oldArray: number[]) => [...oldArray, { id: props?.nanoid() }])}>
+                    <div data-add={true} onClick={() => props?.setPassengers((oldArray: any) => [...oldArray, { id: props?.nanoid() }])}>
                         <Plus />
                         اضافه کردن مسافر جدید
                     </div>
