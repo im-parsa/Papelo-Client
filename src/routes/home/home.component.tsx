@@ -94,8 +94,10 @@ const Home = () =>
     const [hotelRooms, setHotelRooms] = useState([{ id: nanoid(), adultCount: 1, childCount: 0 }]);
     const [origin, setOrigin] = useState<string>('');
     const [originActivate, setOriginActivate] = useState(false);
+    const [originError, setOriginError] = useState<any>(false);
     const [destination, setDestination] = useState('');
     const [destinationActivate, setDestinationActivate] = useState(false);
+    const [destinationError, setDestinationError] = useState<any>(false);
     const [exchangeActivate, setExchangeActivate] = useState(true);
     const [departureDate, setDepartureDate] = useState();
     const [departureDatePicker, setDepartureDatePicker] = useState(false);
@@ -192,39 +194,25 @@ const Home = () =>
     }
     const onFocusOrigin = () =>
     {
-        originParentRef?.current.forEach((element: any) => element?.setAttribute('data-error', 'false'));
+        setOriginError(false);
 
         setExchangeActivate(false);
         setOriginActivate(true);
     }
     const onFocusDestination = () =>
     {
-        destinationParentRef?.current.forEach((element: any) => element?.setAttribute('data-error', 'false'));
+        setDestinationError(false);
 
         setExchangeActivate(false);
         setDestinationActivate(true);
     }
     const onBlurOrigin = () =>
     {
-        if (origin && !data?.cities?.includes(origin))
-        {
-            originParentRef?.current.forEach((element: any) => element?.setAttribute('data-error', 'true'));
-        }
-        else
-        {
-            originParentRef?.current.forEach((element: any) => element?.setAttribute('data-error', 'false'));
-        }
+        setOriginError(origin && !data?.cities?.includes(origin));
     }
     const onBlurDestination = () =>
     {
-        if (destination && !data?.cities?.includes(destination))
-        {
-            destinationParentRef?.current.forEach((element: any) => element?.setAttribute('data-error', 'true'));
-        }
-        else
-        {
-            destinationParentRef?.current.forEach((element: any) => element?.setAttribute('data-error', 'false'));
-        }
+        setDestinationError(destination && !data?.cities?.includes(destination));
     }
     const onClickExchange = () =>
     {
@@ -564,7 +552,7 @@ const Home = () =>
                                         <Exchange />
                                     </span>
 
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[0] = element} data-activate={originActivate}>
+                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[0] = element} data-activate={originActivate} data-error={originError}>
                                         <label htmlFor='origin'>
                                             <label htmlFor='origin'>
                                                 <label htmlFor='origin'>
@@ -606,7 +594,7 @@ const Home = () =>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[0] = element} data-activate={destinationActivate}>
+                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[0] = element} data-activate={destinationActivate} data-error={destinationError}>
                                         <label htmlFor='destination'>
                                             <label htmlFor='destination'>
                                                 <label htmlFor='destination'>
@@ -711,7 +699,7 @@ const Home = () =>
                                 </div>
 
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[1] = element} data-activate={originActivate}>
+                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[1] = element} data-activate={originActivate} data-error={originError}>
                                         <label htmlFor='origin'>
                                             <label htmlFor='origin'>
                                                 <label htmlFor='origin'>
@@ -752,7 +740,6 @@ const Home = () =>
                                             </ul>
                                         </div>
                                     </div>
-
                                     <div data-activate={hotelRoomsActivate} className={styles.homeHeaderImageContentItemInput} ref={hotelRoomsRef}>
                                         <label onClick={() => setHotelRoomsActivate(!hotelRoomsActivate)}>
                                             <label>
@@ -1143,7 +1130,7 @@ const Home = () =>
                                 </div>
 
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[2] = element} data-activate={originActivate}>
+                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[2] = element} data-activate={originActivate} data-error={originError}>
                                         <label htmlFor='origin'>
                                             <label htmlFor='origin'>
                                                 <label htmlFor='origin'>
@@ -1184,7 +1171,7 @@ const Home = () =>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[1] = element} data-activate={destinationActivate}>
+                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[1] = element} data-activate={destinationActivate} data-error={destinationError}>
                                         <label htmlFor='destination'>
                                             <label htmlFor='destination'>
                                                 <label htmlFor='destination'>
@@ -1470,8 +1457,9 @@ const Home = () =>
                                         }
                                     </div>
                                 </div>
+
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[3] = element} data-activate={originActivate}>
+                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[3] = element} data-activate={originActivate} data-error={originError}>
                                         <label htmlFor='origin'>
                                             <label htmlFor='origin'>
                                                 <label htmlFor='origin'>
@@ -1512,7 +1500,7 @@ const Home = () =>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[2] = element} data-activate={destinationActivate}>
+                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[2] = element} data-activate={destinationActivate} data-error={destinationError}>
                                         <label htmlFor='destination'>
                                             <label htmlFor='destination'>
                                                 <label htmlFor='destination'>
@@ -1554,6 +1542,7 @@ const Home = () =>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
                                     <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} ref={(element: any) => departureDatePickerParentRef.current[3] = element}>
                                         <label>
@@ -1632,7 +1621,7 @@ const Home = () =>
                                 </div>
 
                                 <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[4] = element} data-activate={originActivate}>
+                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[4] = element} data-activate={originActivate} data-error={originError}>
                                         <label htmlFor='origin'>
                                             <label htmlFor='origin'>
                                                 <label htmlFor='origin'>
@@ -1673,7 +1662,7 @@ const Home = () =>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[3] = element} data-activate={destinationActivate}>
+                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[3] = element} data-activate={destinationActivate} data-error={destinationError}>
                                         <label htmlFor='destination'>
                                             <label htmlFor='destination'>
                                                 <label htmlFor='destination'>
