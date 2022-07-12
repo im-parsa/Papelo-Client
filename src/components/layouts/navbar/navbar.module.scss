@@ -12,6 +12,11 @@
     &[data-header='true']
     {
         padding-bottom: 0;
+
+        & *
+        {
+            border-color: #E3E6F0 !important;
+        }
     }
 
     &[data-booking='true']
