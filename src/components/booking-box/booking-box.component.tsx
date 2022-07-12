@@ -41,6 +41,7 @@ const BookingBox = (props: any) =>
                     props?.passengers?.length !== 1
                         ?
                         <i onClick={() => props?.deletePassenger(props?.passenger?.id)}>
+                            حذف
                             <Trash />
                         </i>
                         :
@@ -82,6 +83,18 @@ const BookingBox = (props: any) =>
                         ref={props?.latinNamesRef?.current[props?.index]}
                         data-lang='en'
                         type='text'
+                        onBlur={(event: any) =>
+                        {
+                            if (!event?.target?.value)
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                            }
+                            else
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error', 'false');
+                            }
+                        }}
                         onKeyPress={props?.latinValidate}
                     />
                 </div>
@@ -96,7 +109,20 @@ const BookingBox = (props: any) =>
                         onChange={(event: any) => props?.onChange(event, 'persianName', props?.passenger?.id)}
                         ref={props?.persianNamesRef?.current[props?.index]}
                         type='text'
-                        onKeyPress={props?.persianValidate}/>
+                        onBlur={(event: any) =>
+                        {
+                            if (!event?.target?.value)
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                            }
+                            else
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error', 'false');
+                            }
+                        }}
+                        onKeyPress={props?.persianValidate}
+                    />
                 </div>
 
                 <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
@@ -110,6 +136,18 @@ const BookingBox = (props: any) =>
                         ref={props?.latinLastNamesRef?.current[props?.index]}
                         data-lang='en'
                         type='text'
+                        onBlur={(event: any) =>
+                        {
+                            if (!event?.target?.value)
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                            }
+                            else
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error', 'false');
+                            }
+                        }}
                         onKeyPress={props?.latinValidate}
                     />
                 </div>
@@ -124,6 +162,18 @@ const BookingBox = (props: any) =>
                         onChange={(event: any) => props?.onChange(event, 'persianLastName', props?.passenger?.id)}
                         ref={props?.persianLastNamesRef?.current[props?.index]}
                         type='text'
+                        onBlur={(event: any) =>
+                        {
+                            if (!event?.target?.value)
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                            }
+                            else
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error', 'false');
+                            }
+                        }}
                         onKeyPress={props?.persianValidate}/>
                 </div>
 
@@ -218,6 +268,18 @@ const BookingBox = (props: any) =>
                         ref={props?.codesRef?.current[props?.index]}
                         data-lang='en'
                         type='text'
+                        onBlur={(event: any) =>
+                        {
+                            if (!event?.target?.value)
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                            }
+                            else
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error', 'false');
+                            }
+                        }}
                         onKeyPress={passport ? props?.passportValidate : props?.numberValidate}
                     />
                 </div>
@@ -233,6 +295,25 @@ const BookingBox = (props: any) =>
                         ref={props?.birthdaysRef?.current[props?.index]}
                         data-lang='en'
                         type='text'
+                        onBlur={(event: any) =>
+                        {
+                            const persianReg = new RegExp(/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/);
+
+                            if (!event?.target?.value)
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                            }
+                            else if (!persianReg.test(event?.target?.value))
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error_message', 'این تاریخ مورد تائید نمی باشد');
+                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                            }
+                            else
+                            {
+                                event?.target?.parentElement?.setAttribute('data-error', 'false');
+                            }
+                        }}
                         onKeyPress={props?.birthdayValidate}
                     />
                 </div>
