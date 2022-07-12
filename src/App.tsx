@@ -25,12 +25,17 @@ function App()
             <Navbar />
             <Routes>
                 <Route path='/' element={ <Home /> }/>
+                <Route path='/:page' element={ <Home /> }/>
+
                 <Route path='/policy' element={ <Policy /> }/>
                 <Route path='/contact-us' element={ <Contact /> }/>
                 <Route path='/about-us' element={ <AboutUs /> }/>
+
                 <Route path='/blog/:id' element={ <Blog /> }/>
                 <Route path='/blogs' element={ <Blogs /> }/>
+
                 <Route path='/booking' element={ <Booking /> }/>
+
                 <Route path='/search/hotel' element={ <SearchHotel /> }/>
                 <Route path='/search/train' element={ <SearchTrain /> }/>
             </Routes>

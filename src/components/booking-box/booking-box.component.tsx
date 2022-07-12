@@ -7,7 +7,6 @@ import { ReactComponent as Trash } from '../../assets/icons/delete-bin-line.svg'
 import { ReactComponent as User2 } from '../../assets/icons/user.svg';
 import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
 import { ReactComponent as Plus } from '../../assets/icons/plus.svg';
-import validator from "validator";
 
 const BookingBox = (props: any) =>
 {
@@ -42,6 +41,7 @@ const BookingBox = (props: any) =>
                     props?.passengers?.length !== 1
                         ?
                         <i onClick={() => props?.deletePassenger(props?.passenger?.id)}>
+                            حذف
                             <Trash />
                         </i>
                         :
@@ -121,7 +121,8 @@ const BookingBox = (props: any) =>
                                 event?.target?.parentElement?.setAttribute('data-error', 'false');
                             }
                         }}
-                        onKeyPress={props?.persianValidate}/>
+                        onKeyPress={props?.persianValidate}
+                    />
                 </div>
 
                 <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>

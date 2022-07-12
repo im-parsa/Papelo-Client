@@ -23,7 +23,6 @@ import { ReactComponent as Calendar } from '../../../assets/icons/calendar-line.
 import { ReactComponent as Chat } from '../../../assets/icons/chat-1-line.svg';
 import { ReactComponent as Eye } from '../../../assets/icons/eye-line.svg';
 import { ReactComponent as Search } from '../../../assets/icons/search-line.svg';
-import { ReactComponent as ThreeDots } from '../../../assets/icons/three-dots.svg';
 
 const Navbar = (props: any) =>
 {
@@ -75,7 +74,7 @@ const Navbar = (props: any) =>
                                         <Bus />
                                     </span>
                                                 <div>
-                                                    <Link to='/'>
+                                                    <Link to='/bus-ticket'>
                                                         بلیط اتوبوس
                                                     </Link>
                                                     <p>
@@ -88,7 +87,7 @@ const Navbar = (props: any) =>
                                                 <Train />
                                             </span>
                                                 <div>
-                                                    <Link to='/'>
+                                                    <Link to='/train-ticket'>
                                                         بلیط قطار
                                                     </Link>
                                                     <p>
@@ -101,7 +100,7 @@ const Navbar = (props: any) =>
                                                 <Hotel />
                                             </span>
                                                 <div>
-                                                    <Link to='/'>
+                                                    <Link to='/hotel-reserve'>
                                                         رزرو هتل
                                                     </Link>
                                                     <p>
@@ -114,7 +113,7 @@ const Navbar = (props: any) =>
                                                 <Tour />
                                             </span>
                                                 <div>
-                                                    <Link to='/'>
+                                                    <Link to='/tour-reserve'>
                                                         رزرو تور
                                                     </Link>
                                                     <p>
@@ -127,7 +126,7 @@ const Navbar = (props: any) =>
                                             <h2>
                                                 قوانین و مقررات کنسلی را بخوانید
                                             </h2>
-                                            <Link to='/'>
+                                            <Link to='/policy'>
                                                 ضوابط استفاده از سامانه خرید بلیط
                                                 <Arrow2 />
                                             </Link>
@@ -137,9 +136,9 @@ const Navbar = (props: any) =>
                                 <Link to='/policy' className={styles.navbarItem}>
                                     راهنمایی و پشتیبانی
                                 </Link>
-                                <li className={styles.navbarItem}>
-                                    <ThreeDots />
-                                </li>
+                                <Link to='/blogs' className={styles.navbarItem}>
+                                    مجله آموزشی
+                                </Link>
                             </ul>
                         </>
                 }

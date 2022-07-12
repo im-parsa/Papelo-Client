@@ -1,4 +1,3 @@
-import momentEn from 'moment';
 import momentFa from 'jalali-moment';
 import Tooltip from '@tippyjs/react/headless';
 import React, { useState, useEffect } from 'react';
@@ -85,7 +84,7 @@ export default function (props: any)
                         render={() =>
                             (
                                 <span className={styles.datePickerTooltip}>
-                                    تقویم میلادی
+                                    تقویم شمسی
                                 </span>
                             )}
                     >
@@ -142,6 +141,7 @@ export default function (props: any)
                                             data-utc={utc}
                                             data-date={date}
                                             data-disable={disable}
+                                            data-language={language}
                                             data-today={monthNumber === 0 && unixTime === todayUnixTime}
                                             data-activate={props?.value === date}
                                             data-deactivate={monthNumber === 0 && unixTime < todayUnixTime}

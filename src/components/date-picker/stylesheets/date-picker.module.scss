@@ -6,7 +6,7 @@
     gap: 1.5rem;
 
     position: absolute;
-    top: 12rem;
+    bottom: 12rem;
     left: 50%;
     transform: translateX(-50%);
 
@@ -94,6 +94,12 @@
         &[data-language='ENGLISH']
         {
             direction: ltr;
+            font-family: RobotoRegular, sans-serif !important;
+
+            & *
+            {
+                font-family: RobotoRegular, sans-serif !important;
+            }
 
             & > button
             {
@@ -209,10 +215,11 @@
             &[data-language='ENGLISH']
             {
                 direction: ltr;
+                font-family: RobotoRegular, sans-serif !important;
 
-                & > div > span
+                & *
                 {
-                    font-family: Aria, sans-serif !important;
+                    font-family: RobotoRegular, sans-serif !important;
                 }
             }
         }
@@ -279,6 +286,12 @@
                     color: #9CA4C2;
                     border-color: transparent;
                     background: #EDEFF6 0 0 no-repeat padding-box;
+                }
+
+                &[data-language='ENGLISH']
+                {
+                    font-size: 1.5rem;
+                    font-family: RobotoRegular, sans-serif !important;
                 }
             }
         }
