@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Tooltip from '@tippyjs/react/headless';
+import React, {useCallback, useRef, useState} from 'react';
 import { numberToWords } from '@persian-tools/persian-tools';
-import React, { useCallback, useRef, useState } from 'react';
 
 import 'swiper/css';
 import 'tippy.js/dist/tippy.css';
@@ -59,16 +59,16 @@ const Home = () =>
 {
     const { page } = useParams();
 
-    const passengersParentRef: any = useRef<any>([]);
-    const departureDatePickerParentRef: any = useRef<any>([]);
-    const returnDatePickerParentRef: any = useRef<any>([]);
-    const unilateralParentRef: any = useRef<any>([]);
-    const proposalDestinationParentRef: any = useRef<any>([]);
-    const proposalOriginParentRef: any = useRef<any>([]);
-    const exclusiveParentRef: any = useRef<any>([]);
-    const passengersTypeParentRef: any = useRef<any>([]);
     const originParentRef: any = useRef<any>([]);
+    const exclusiveParentRef: any = useRef<any>([]);
+    const passengersParentRef: any = useRef<any>([]);
+    const unilateralParentRef: any = useRef<any>([]);
     const destinationParentRef: any = useRef<any>([]);
+    const proposalOriginParentRef: any = useRef<any>([]);
+    const passengersTypeParentRef: any = useRef<any>([]);
+    const returnDatePickerParentRef: any = useRef<any>([]);
+    const departureDatePickerParentRef: any = useRef<any>([]);
+    const proposalDestinationParentRef: any = useRef<any>([]);
     const hotelRoomsRef: any = useRef<any>(null);
 
     const [proposalActivate, setProposalActivate] = useState(0);
@@ -110,12 +110,16 @@ const Home = () =>
     {
         if (!originParentRef?.current?.some((element: any) => element?.contains(event?.target)))
         {
+            setOriginError(origin && !data?.cities?.includes(origin));
+
             setOriginActivate(false);
             setExchangeActivate(true);
         }
         //  && !event?.target?.getAttribute('data-name')
         if (!destinationParentRef?.current?.some((element: any) => element?.contains(event?.target)))
         {
+            setDestinationError(destination && !data?.cities?.includes(destination));
+
             setDestinationActivate(false);
             setExchangeActivate(true);
         }
@@ -123,7 +127,7 @@ const Home = () =>
         {
             setPassengers(false);
         }
-        if (!hotelRoomsRef?.current?.contains(event?.target) && !(event?.target?.tagName?.toLowerCase() === 'svg' || event?.target?.tagName?.toLowerCase() === 'path'))
+        if (!hotelRoomsRef?.current?.contains(event?.target))
         {
             setHotelRoomsActivate(false);
         }
@@ -156,7 +160,6 @@ const Home = () =>
             setProposalDestinationActivate(false);
         }
     }
-
     const numberValidate = (event: any) =>
     {
         let key;
@@ -195,42 +198,28 @@ const Home = () =>
     const onFocusOrigin = () =>
     {
         setOriginError(false);
-
-        setExchangeActivate(false);
         setOriginActivate(true);
     }
     const onFocusDestination = () =>
     {
         setDestinationError(false);
-
-        setExchangeActivate(false);
         setDestinationActivate(true);
-    }
-    const onBlurOrigin = () =>
-    {
-        setOriginError(origin && !data?.cities?.includes(origin));
-    }
-    const onBlurDestination = () =>
-    {
-        setDestinationError(destination && !data?.cities?.includes(destination));
     }
     const onClickExchange = () =>
     {
         setOrigin(destination);
         setDestination(origin);
     }
-    const handleOrigin = (originName: string) =>
+    const handleOrigin: any = useCallback<any>((originName: string) =>
     {
         setOrigin(originName);
         setOriginActivate(false);
-        setExchangeActivate(true);
-    }
-    const handleDestination = (destinationName: string) =>
+    }, [setOrigin, setOriginActivate]);
+    const handleDestination: any = useCallback<any>((destinationName: string) =>
     {
         setDestination(destinationName);
         setDestinationActivate(false);
-        setExchangeActivate(true);
-    }
+    }, [setDestination, setDestinationActivate]);
     const sum = (array: any[], prop: string) =>
     {
         return array.reduce((a, b) =>
@@ -240,7 +229,7 @@ const Home = () =>
     }
 
     return (
-        <main onClick={(event: any) => onClickEvent(event) } className={styles.home}>
+        <main onClick={(event: any) => onClickEvent(event)} className={styles.home}>
             <header className={styles.homeHeader}>
                 <div className={styles.homeHeaderMain}>
                     <span className={styles.homeHeaderMainBackground}/>
@@ -375,6 +364,7 @@ const Home = () =>
                         </main>
                     </div>
                 </div>
+
                 <div className={styles.homeHeaderImage}>
                     <div className={styles.homeHeaderImageBackground} style={{ backgroundImage: `url(${!page ? Header1 : page === 'hotel-reserve' ? Header2 : page === 'tour-reserve' ? Header3 : page === 'train-ticket' ? Header4 : page === 'bus-ticket' ? Header5 : 0})` }}/>
                     <div className={styles.homeHeaderImageContentParent}>
@@ -402,352 +392,370 @@ const Home = () =>
                                 </Link>
                             </nav>
 
-                            <div className={styles.homeHeaderImageContentList} data-activate={!page}>
-                                <div className={styles.homeHeaderImageContentItem}>
-                                    <p>
-                                        <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
-                                        <label htmlFor='domestic'>
-                                            داخلی
-                                        </label>
-                                    </p>
-                                    <p>
-                                        <input type='radio' id='international' onChange={() => { setInternational(true) }} checked={international}/>
-                                        <label htmlFor='international'>
-                                            خارجی
-                                        </label>
-                                    </p>
-                                    <div data-options={true} ref={(element: any) => unilateralParentRef.current[0] = element} data-open={unilateralActivate} onClick={() => setUnilateralActivate(!unilateralActivate)}>
-                                        {
-                                            unilateral
-                                                ?
-                                                <span>
-                                                    یکطرفه
-                                                </span>
-                                                :
-                                                <span>
-                                                    رفت و برگشت
-                                                </span>
-                                        }
-                                        {
-                                            unilateralActivate
-                                                ?
-                                                <ul>
-                                                    <li data-activate={unilateral} onClick={() => setUnilateral(true)}>
-                                                        یکطرفه
-                                                    </li>
-
-                                                    <li data-activate={!unilateral} onClick={() => setUnilateral(false)}>
-                                                        رفت و برگشت
-                                                    </li>
-                                                </ul>
-                                                :
-                                                null
-                                        }
-                                    </div>
-                                    <div data-options={true} ref={(element: any) => passengersParentRef.current[0] = element} data-open={passengers}>
-                                        <span onClick={() => setPassengers(!passengers)}>
-                                            مسافران
-                                        </span>
-
-                                        <div data-activate={passengers} className={styles.homeHeaderPassengers}>
-                                            <div className={styles.homeHeaderPassengersItem}>
-                                                <div>
-                                                    <h2>
-                                                        بزرگسال
-                                                    </h2>
-                                                    <p>
-                                                        بزرگتر از 12 سال
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1)}
-                                                        data-direction='right'
-                                                        data-disabled={adultCount + childCount + babyCount >= 9}
-                                                    >
-                                                        <Plus />
-                                                    </button>
-                                                    <button className={styles.homeHeaderPassengersItemButton}>
-                                                        {adultCount}
-                                                    </button>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setAdultCount(adultCount <= 1 ? 1 : adultCount - 1)}
-                                                        data-direction='left'
-                                                        data-disabled={adultCount <= 1}
-                                                    >
-                                                        <Minus />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className={styles.homeHeaderPassengersItem}>
-                                                <div>
-                                                    <h2>
-                                                        کودک
-                                                    </h2>
-                                                    <p>
-                                                        بین ۲ الی 12 سال
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1)}
-                                                        data-direction='right'
-                                                        data-disabled={adultCount + childCount + babyCount >= 9}
-                                                    >
-                                                        <Plus />
-                                                    </button>
-                                                    <button className={styles.homeHeaderPassengersItemButton}>
-                                                        {childCount}
-                                                    </button>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setChildCount(childCount <= 0 ? 0 : childCount - 1)}
-                                                        data-direction='left'
-                                                        data-disabled={childCount <= 0}
-                                                    >
-                                                        <Minus />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className={styles.homeHeaderPassengersItem}>
-                                                <div>
-                                                    <h2>
-                                                        نوزاد
-                                                    </h2>
-                                                    <p>
-                                                        کوچکتر از 2 سال
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1)}
-                                                        data-direction='right'
-                                                        data-disabled={adultCount + childCount + babyCount >= 9}
-                                                    >
-                                                        <Plus />
-                                                    </button>
-                                                    <button className={styles.homeHeaderPassengersItemButton}>
-                                                        {babyCount}
-                                                    </button>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setBabyCount(babyCount <= 0 ? 0 : babyCount - 1)}
-                                                        data-direction='left'
-                                                        data-disabled={babyCount <= 0}
-                                                    >
-                                                        <Minus />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <span data-activate={exchangeActivate} onClick={ onClickExchange }>
-                                        <Exchange />
-                                    </span>
-
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[0] = element} data-activate={originActivate} data-error={originError}>
-                                        <label htmlFor='origin'>
-                                            <label htmlFor='origin'>
-                                                <label htmlFor='origin'>
-                                                    مبدا (شهر)
+                            {
+                                !page
+                                    ?
+                                    <div className={styles.homeHeaderImageContentList} data-activate={!page}>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <p>
+                                                <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
+                                                <label htmlFor='domestic'>
+                                                    داخلی
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='false'
-                                                    spellCheck='false'
-                                                    name='origin'
-                                                    id='origin'
-                                                    onFocus={ onFocusOrigin }
-                                                    onBlur={ onBlurOrigin }
-                                                    onChange={ onChangeOrigin }
-                                                    value={ origin }
-                                                />
-                                            </label>
-                                            <Plane2 />
-                                        </label>
-
-                                        <div data-activate={originActivate} data-options='true' id='origin_options'>
-                                            <ul>
+                                            </p>
+                                            <p>
+                                                <input type='radio' id='international' onChange={() => { setInternational(true) }} checked={international}/>
+                                                <label htmlFor='international'>
+                                                    خارجی
+                                                </label>
+                                            </p>
+                                            <div data-options={true} ref={(element: any) => unilateralParentRef.current[0] = element} data-open={unilateralActivate} onClick={() => setUnilateralActivate(!unilateralActivate)}>
                                                 {
-                                                    data?.cities?.map((city: any) => (
-                                                        <li
-                                                            key={city + '-' + nanoid()}
-                                                            data-name={city}
-                                                            data-plane={true}
-                                                            data-disable={!!(origin && (!city?.split(' - ')[0]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase())))}
-                                                            data-activate={origin === city}
-                                                            onClick={() => handleOrigin(city)}
-                                                        >
-                                                            <Plane />
-                                                            {city}
-                                                        </li>
-                                                    ))
+                                                    unilateral
+                                                        ?
+                                                        <span>
+                                                            یکطرفه
+                                                        </span>
+                                                        :
+                                                        <span>
+                                                            رفت و برگشت
+                                                        </span>
                                                 }
-                                            </ul>
+                                                {
+                                                    unilateralActivate
+                                                        ?
+                                                        <ul>
+                                                            <li data-activate={unilateral} onClick={() => setUnilateral(true)}>
+                                                                یکطرفه
+                                                            </li>
+
+                                                            <li data-activate={!unilateral} onClick={() => setUnilateral(false)}>
+                                                                رفت و برگشت
+                                                            </li>
+                                                        </ul>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
+                                            <div data-options={true} ref={(element: any) => passengersParentRef.current[0] = element} data-open={passengers}>
+                                                <span onClick={() => setPassengers(!passengers)}>
+                                                    مسافران
+                                                </span>
+
+                                                <div data-activate={passengers} className={styles.homeHeaderPassengers}>
+                                                    <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                بزرگسال
+                                                            </h2>
+                                                            <p>
+                                                                بزرگتر از 12 سال
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1)}
+                                                                data-direction='right'
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+
+                                                            <button className={styles.homeHeaderPassengersItemButton}>
+                                                                {adultCount}
+                                                            </button>
+
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setAdultCount(adultCount <= 1 ? 1 : adultCount - 1)}
+                                                                data-direction='left'
+                                                                data-disabled={adultCount <= 1}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                کودک
+                                                            </h2>
+                                                            <p>
+                                                                بین ۲ الی 12 سال
+                                                            </p>
+                                                        </div>
+
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1)}
+                                                                data-direction='right'
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+
+                                                            <button className={styles.homeHeaderPassengersItemButton}>
+                                                                {childCount}
+                                                            </button>
+
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setChildCount(childCount <= 0 ? 0 : childCount - 1)}
+                                                                data-direction='left'
+                                                                data-disabled={childCount <= 0}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                نوزاد
+                                                            </h2>
+                                                            <p>
+                                                                کوچکتر از 2 سال
+                                                            </p>
+                                                        </div>
+
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1)}
+                                                                data-direction='right'
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+
+                                                            <button className={styles.homeHeaderPassengersItemButton}>
+                                                                {babyCount}
+                                                            </button>
+
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setBabyCount(babyCount <= 0 ? 0 : babyCount - 1)}
+                                                                data-direction='left'
+                                                                data-disabled={babyCount <= 0}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[0] = element} data-activate={destinationActivate} data-error={destinationError}>
-                                        <label htmlFor='destination'>
-                                            <label htmlFor='destination'>
+
+                                        <div className={styles.homeHeaderImageContentItem} data-direction='column'>
+                                            <span data-activate={exchangeActivate} onClick={ onClickExchange }>
+                                                <Exchange />
+                                            </span>
+
+                                            <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[0] = element} data-activate={originActivate} data-error={originError}>
+                                                <label htmlFor='origin'>
+                                                    <label htmlFor='origin'>
+                                                        <label htmlFor='origin'>
+                                                            مبدا (شهر)
+                                                        </label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder=''
+                                                            autoComplete='false'
+                                                            spellCheck='false'
+                                                            name='origin'
+                                                            id='origin'
+                                                            onFocus={ onFocusOrigin }
+                                                            onChange={ onChangeOrigin }
+                                                            value={ origin }
+                                                        />
+                                                    </label>
+                                                    <Plane2 />
+                                                </label>
+
+                                                <div data-activate={originActivate} data-options={true}>
+                                                    <ul>
+                                                        {
+                                                            data?.cities?.map((city: any) => (
+                                                                <li
+                                                                    key={city + '-' + nanoid()}
+                                                                    data-name={city}
+                                                                    data-plane={true}
+                                                                    data-disable={!!(origin && (!city?.split(' - ')[0]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase())))}
+                                                                    data-activate={origin === city}
+                                                                    onClick={() => handleOrigin(city)}
+                                                                >
+                                                                    <Plane />
+                                                                    {city}
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[0] = element} data-activate={destinationActivate} data-error={destinationError}>
                                                 <label htmlFor='destination'>
-                                                    مقصد (شهر)
+                                                    <label htmlFor='destination'>
+                                                        <label htmlFor='destination'>
+                                                            مقصد (شهر)
+                                                        </label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder=''
+                                                            autoComplete='false'
+                                                            spellCheck='false'
+                                                            name='destination'
+                                                            id='destination'
+                                                            onFocus={ onFocusDestination }
+                                                            onChange={ onChangeDestination }
+                                                            value={ destination }
+                                                        />
+                                                    </label>
+                                                    <Plane3 />
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='false'
-                                                    spellCheck='false'
-                                                    name='destination'
-                                                    id='destination'
-                                                    onFocus={ onFocusDestination }
-                                                    onBlur={ onBlurDestination }
-                                                    onChange={ onChangeDestination }
-                                                    value={ destination }
-                                                />
-                                            </label>
-                                            <Plane3 />
-                                        </label>
 
-                                        <div data-activate={destinationActivate} data-options='true' id='destination_options'>
-                                            <ul>
-                                                {
-                                                    data?.cities?.map((city: any) => (
-                                                        <li
-                                                            key={city + '_' + nanoid()}
-                                                            data-name={city}
-                                                            data-plane={true}
-                                                            data-disable={!!(destination && (!city?.split(' - ')[0]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase())))}
-                                                            data-activate={destination === city}
-                                                            onClick={() => handleDestination(city)}
-                                                        >
-                                                            <Plane />
-                                                            {city}
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
+                                                <div data-activate={destinationActivate} data-options={true}>
+                                                    <ul>
+                                                        {
+                                                            data?.cities?.map((city: any) => (
+                                                                <li
+                                                                    key={city + '_' + nanoid()}
+                                                                    data-name={city}
+                                                                    data-plane={true}
+                                                                    data-disable={!!(destination && (!city?.split(' - ')[0]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase())))}
+                                                                    data-activate={destination === city}
+                                                                    onClick={() => handleDestination(city)}
+                                                                >
+                                                                    <Plane />
+                                                                    {city}
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
+
+                                        <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
+                                            <div data-type='date' data-activate={departureDatePicker} ref={(element: any) => departureDatePickerParentRef.current[0] = element}>
+                                                <label onClick={() => setDepartureDatePicker(true)}>
+                                                    <label>
+                                                        تاریخ رفت
+                                                    </label>
+
+                                                    <span>
+                                                        {departureDate}
+                                                    </span>
+                                                </label>
+
+                                                <DatePicker
+                                                    title='تاریخ رفت'
+                                                    defaultValue={false}
+                                                    value={departureDate}
+                                                    setValue={setDepartureDate}
+                                                    activate={departureDatePicker}
+                                                    setActivate={setDepartureDatePicker}
+                                                />
+                                            </div>
+                                            <div data-type='date' data-activate={returnDatePicker} data-deactivate={unilateral} ref={(element: any) => returnDatePickerParentRef.current[0] = element}>
+                                                <label onClick={() => setReturnDatePicker(true)}>
+                                                    <label>
+                                                        تاریخ برگشت
+                                                    </label>
+
+                                                    <span>
+                                                        {returnDate}
+                                                    </span>
+                                                </label>
+
+                                                <DatePicker
+                                                    title='تاریخ برگشت'
+                                                    defaultValue={false}
+                                                    value={returnDate}
+                                                    setValue={setReturnDate}
+                                                    activate={returnDatePicker}
+                                                    setActivate={setReturnDatePicker}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <button>
+                                            یافتن بلیط
+                                        </button>
                                     </div>
-                                </div>
+                                    :
+                                    null
+                            }
 
-                                <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
-                                    <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} ref={(element: any) => departureDatePickerParentRef.current[0] = element}>
-                                        <label>
-                                            تاریخ رفت
-                                        </label>
+                            {
+                                page ===  'hotel-reserve'
+                                    ?
+                                    <div className={styles.homeHeaderImageContentList} data-activate={page ===  'hotel-reserve'}>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <p>
+                                                <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
+                                                <label htmlFor='domestic'>
+                                                    داخلی
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type='radio' id='international' onChange={() => { setInternational(true) }} checked={international}/>
+                                                <label htmlFor='international'>
+                                                    خارجی
+                                                </label>
+                                            </p>
+                                        </div>
 
-                                        <span>
-                                            {departureDate}
-                                        </span>
-
-                                        <DatePicker
-                                            title='تاریخ رفت'
-                                            defaultValue={true}
-                                            value={departureDate}
-                                            setValue={setDepartureDate}
-                                            activate={departureDatePicker}
-                                            setActivate={setDepartureDatePicker}
-                                        />
-                                    </div>
-                                    <div data-type='date' data-activate={returnDatePicker} data-deactivate={unilateral} onClick={() => setReturnDatePicker(true)} ref={(element: any) => returnDatePickerParentRef.current[0] = element}>
-                                        <label>
-                                            تاریخ برگشت
-                                        </label>
-
-                                        <span>
-                                            {returnDate}
-                                        </span>
-
-                                        <DatePicker
-                                            title='تاریخ برگشت'
-                                            defaultValue={true}
-                                            value={returnDate}
-                                            setValue={setReturnDate}
-                                            activate={returnDatePicker}
-                                            setActivate={setReturnDatePicker}
-                                        />
-                                    </div>
-                                </div>
-
-                                <button>
-                                    یافتن بلیط
-                                </button>
-                            </div>
-
-                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'hotel-reserve'}>
-                                <div className={styles.homeHeaderImageContentItem}>
-                                    <p>
-                                        <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
-                                        <label htmlFor='domestic'>
-                                            داخلی
-                                        </label>
-                                    </p>
-                                    <p>
-                                        <input type='radio' id='international' onChange={() => { setInternational(true) }} checked={international}/>
-                                        <label htmlFor='international'>
-                                            خارجی
-                                        </label>
-                                    </p>
-                                </div>
-
-                                <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[1] = element} data-activate={originActivate} data-error={originError}>
-                                        <label htmlFor='origin'>
-                                            <label htmlFor='origin'>
+                                        <div className={styles.homeHeaderImageContentItem} data-direction='column'>
+                                            <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[1] = element} data-activate={originActivate} data-error={originError}>
                                                 <label htmlFor='origin'>
-                                                    مبدا (شهر)
-                                                </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='false'
-                                                    spellCheck='false'
-                                                    name='origin'
-                                                    id='origin'
-                                                    onFocus={ onFocusOrigin }
-                                                    onBlur={ onBlurOrigin }
-                                                    onChange={ onChangeOrigin }
-                                                    value={ origin }
-                                                />
-                                            </label>
-                                            <Pin />
-                                        </label>
-
-                                        <div data-activate={originActivate} data-options='true' id='origin_options'>
-                                            <ul>
-                                                {
-                                                    data?.cities?.map((city: any) => (
-                                                        <li
-                                                            key={city + '--' + nanoid()}
-                                                            data-name={city}
-                                                            data-disable={!!(origin && (!city?.split(' - ')[0]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase())))}
-                                                            data-activate={origin === city}
-                                                            onClick={() => handleOrigin(city)}
-                                                        >
-                                                            <Pin />
-                                                            {city}
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div data-activate={hotelRoomsActivate} className={styles.homeHeaderImageContentItemInput} ref={hotelRoomsRef}>
-                                        <label onClick={() => setHotelRoomsActivate(!hotelRoomsActivate)}>
-                                            <label>
-                                                <label>
-                                                    مسافرین
+                                                    <label htmlFor='origin'>
+                                                        <label htmlFor='origin'>
+                                                            مبدا (شهر)
+                                                        </label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder=''
+                                                            autoComplete='false'
+                                                            spellCheck='false'
+                                                            name='origin'
+                                                            id='origin'
+                                                            onFocus={ onFocusOrigin }
+                                                            onChange={ onChangeOrigin }
+                                                            value={ origin }
+                                                        />
+                                                    </label>
+                                                    <Pin />
                                                 </label>
 
-                                                <span>
+                                                <div data-activate={originActivate} data-options={true}>
+                                                    <ul>
+                                                        {
+                                                            data?.cities?.map((city: any) => (
+                                                                <li
+                                                                    key={city + '--' + nanoid()}
+                                                                    data-name={city}
+                                                                    data-disable={!!(origin && (!city?.split(' - ')[0]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase())))}
+                                                                    data-activate={origin === city}
+                                                                    onClick={() => handleOrigin(city)}
+                                                                >
+                                                                    <Pin />
+                                                                    {city}
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div data-activate={hotelRoomsActivate} className={styles.homeHeaderImageContentItemInput} ref={hotelRoomsRef}>
+                                                <label onClick={() => setHotelRoomsActivate(!hotelRoomsActivate)}>
+                                                    <label>
+                                                        <label>
+                                                            مسافرین
+                                                        </label>
+
+                                                        <span>
                                                 <p>
                                                      {sum(hotelRooms, 'adultCount')} بزرگسال
                                                 </p>
@@ -768,987 +776,1018 @@ const Home = () =>
                                                     {hotelRooms?.length} اتاق
                                                 </p>
                                             </span>
-                                            </label>
-                                        </label>
+                                                    </label>
+                                                </label>
 
-                                        <div data-activate={hotelRoomsActivate} data-options='hotel_rooms_options'>
-                                            <ul>
-                                                {
-                                                    hotelRooms?.map((hotelRoom: any, index: any) =>
-                                                        (
-                                                            <li key={hotelRoom?.id}>
-                                                                <header>
-                                                                    <span>
-                                                                        اتاق {(numberToWords(index + 1, { ordinal: true })?.toString()) ===  'یکم' ? 'اول' : (numberToWords(index + 1, { ordinal: true })?.toString())}
-                                                                    </span>
+                                                <div data-activate={hotelRoomsActivate} data-options='hotel_rooms_options'>
+                                                    <ul>
+                                                        {
+                                                            hotelRooms?.map((hotelRoom: any, index: any) =>
+                                                                (
+                                                                    <li key={hotelRoom?.id}>
+                                                                        <header>
+                                                                            <span>
+                                                                                اتاق {(numberToWords(index + 1, { ordinal: true })?.toString()) ===  'یکم' ? 'اول' : (numberToWords(index + 1, { ordinal: true })?.toString())}
+                                                                            </span>
 
-                                                                    {
-                                                                        hotelRooms?.length > 1
-                                                                            ?
-                                                                            <button onClick={(event: any) => { event?.preventDefault(); setHotelRooms(hotelRooms?.filter((hotelRoomV: any) => hotelRoomV?.id !== hotelRoom?.id)) }}>
-                                                                                حذف
-                                                                                <Trash/>
-                                                                            </button>
-                                                                            :
-                                                                            null
-                                                                    }
-                                                                </header>
-
-                                                                <div className={styles.homeHeaderPassengersItem}>
-                                                                    <div>
-                                                                        <h2>
-                                                                            بزرگسال
-                                                                        </h2>
-                                                                        <p>
-                                                                            بزرگتر از 12 سال
-                                                                        </p>
-                                                                    </div>
-                                                                    <div>
-                                                                        <button
-                                                                            className={styles.homeHeaderPassengersItemButton}
-                                                                            onClick={(event: any) =>
                                                                             {
-                                                                                event?.preventDefault();
+                                                                                hotelRooms?.length > 1
+                                                                                    ?
+                                                                                    <button onClick={(event: any) => { event?.preventDefault(); setHotelRooms(hotelRooms?.filter((hotelRoomV: any) => hotelRoomV?.id !== hotelRoom?.id)) }}>
+                                                                                        حذف
+                                                                                        <Trash/>
+                                                                                    </button>
+                                                                                    :
+                                                                                    null
+                                                                            }
+                                                                        </header>
 
-                                                                                let i = -1;
-                                                                                let hotelRoomsV: any = hotelRooms;
-
-                                                                                for (const hotelRoomV in hotelRoomsV)
-                                                                                {
-                                                                                    i++;
-
-                                                                                    if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                        <div className={styles.homeHeaderPassengersItem}>
+                                                                            <div>
+                                                                                <h2>
+                                                                                    بزرگسال
+                                                                                </h2>
+                                                                                <p>
+                                                                                    بزرگتر از 12 سال
+                                                                                </p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <button
+                                                                                    className={styles.homeHeaderPassengersItemButton}
+                                                                                    onClick={(event: any) =>
                                                                                     {
-                                                                                        if (hotelRoom?.adultCount <= 13)
+                                                                                        event?.preventDefault();
+
+                                                                                        let i = -1;
+                                                                                        let hotelRoomsV: any = hotelRooms;
+
+                                                                                        for (const hotelRoomV in hotelRoomsV)
                                                                                         {
-                                                                                            hotelRoomsV[i].adultCount = hotelRoom?.adultCount + 1;
+                                                                                            i++;
+
+                                                                                            if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                            {
+                                                                                                if (hotelRoom?.adultCount <= 13)
+                                                                                                {
+                                                                                                    hotelRoomsV[i].adultCount = hotelRoom?.adultCount + 1;
+                                                                                                }
+
+                                                                                                break;
+                                                                                            }
                                                                                         }
 
-                                                                                        break;
-                                                                                    }
-                                                                                }
-
-                                                                                setHotelRooms(() => [...hotelRoomsV]);
-                                                                            }}
-                                                                            data-direction='right'
-                                                                            data-disabled={hotelRoom?.adultCount >= 14}
-                                                                        >
-                                                                            <Plus/>
-                                                                        </button>
-                                                                        <button className={styles.homeHeaderPassengersItemButton}>
-                                                                            {hotelRoom?.adultCount}
-                                                                        </button>
-                                                                        <button
-                                                                            className={styles.homeHeaderPassengersItemButton}
-                                                                            onClick={(event: any) =>
-                                                                            {
-                                                                                event?.preventDefault();
-
-                                                                                let i = -1;
-                                                                                let hotelRoomsV: any = hotelRooms;
-
-                                                                                for (const hotelRoomV in hotelRoomsV)
-                                                                                {
-                                                                                    i++;
-
-                                                                                    if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                        setHotelRooms(() => [...hotelRoomsV]);
+                                                                                    }}
+                                                                                    data-direction='right'
+                                                                                    data-disabled={hotelRoom?.adultCount >= 14}
+                                                                                >
+                                                                                    <Plus/>
+                                                                                </button>
+                                                                                <button className={styles.homeHeaderPassengersItemButton}>
+                                                                                    {hotelRoom?.adultCount}
+                                                                                </button>
+                                                                                <button
+                                                                                    className={styles.homeHeaderPassengersItemButton}
+                                                                                    onClick={(event: any) =>
                                                                                     {
-                                                                                        if (hotelRoom?.adultCount > 1)
+                                                                                        event?.preventDefault();
+
+                                                                                        let i = -1;
+                                                                                        let hotelRoomsV: any = hotelRooms;
+
+                                                                                        for (const hotelRoomV in hotelRoomsV)
                                                                                         {
-                                                                                            hotelRoomsV[i].adultCount = hotelRoom?.adultCount - 1;
+                                                                                            i++;
+
+                                                                                            if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                            {
+                                                                                                if (hotelRoom?.adultCount > 1)
+                                                                                                {
+                                                                                                    hotelRoomsV[i].adultCount = hotelRoom?.adultCount - 1;
+                                                                                                }
+
+                                                                                                break;
+                                                                                            }
                                                                                         }
 
-                                                                                        break;
-                                                                                    }
-                                                                                }
-
-                                                                                setHotelRooms(() => [...hotelRoomsV]);
-                                                                            }}
-                                                                            data-direction='left'
-                                                                            data-disabled={hotelRoom?.adultCount <= 1}
-                                                                        >
-                                                                            <Minus/>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                                <div className={styles.homeHeaderPassengersItem}>
-                                                                    <div>
-                                                                        <h2>
-                                                                            کودک
-                                                                        </h2>
-                                                                        <p>
-                                                                            تا 12 سال
-                                                                        </p>
-                                                                    </div>
-                                                                    <div>
-                                                                        <button
-                                                                            className={styles.homeHeaderPassengersItemButton}
-                                                                            onClick={(event: any) =>
-                                                                            {
-                                                                                event?.preventDefault();
-
-                                                                                let i = -1;
-                                                                                let hotelRoomsV: any = hotelRooms;
-
-                                                                                for (const hotelRoomV in hotelRoomsV)
-                                                                                {
-                                                                                    i++;
-
-                                                                                    if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                        setHotelRooms(() => [...hotelRoomsV]);
+                                                                                    }}
+                                                                                    data-direction='left'
+                                                                                    data-disabled={hotelRoom?.adultCount <= 1}
+                                                                                >
+                                                                                    <Minus/>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className={styles.homeHeaderPassengersItem}>
+                                                                            <div>
+                                                                                <h2>
+                                                                                    کودک
+                                                                                </h2>
+                                                                                <p>
+                                                                                    تا 12 سال
+                                                                                </p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <button
+                                                                                    className={styles.homeHeaderPassengersItemButton}
+                                                                                    onClick={(event: any) =>
                                                                                     {
-                                                                                        if (hotelRoom?.childCount <= 5)
+                                                                                        event?.preventDefault();
+
+                                                                                        let i = -1;
+                                                                                        let hotelRoomsV: any = hotelRooms;
+
+                                                                                        for (const hotelRoomV in hotelRoomsV)
                                                                                         {
-                                                                                            hotelRoomsV[i].childCount = hotelRoom?.childCount + 1;
+                                                                                            i++;
+
+                                                                                            if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                            {
+                                                                                                if (hotelRoom?.childCount <= 5)
+                                                                                                {
+                                                                                                    hotelRoomsV[i].childCount = hotelRoom?.childCount + 1;
+                                                                                                }
+
+                                                                                                break;
+                                                                                            }
                                                                                         }
 
-                                                                                        break;
-                                                                                    }
-                                                                                }
-
-                                                                                setHotelRooms(() => [...hotelRoomsV]);
-                                                                            }}
-                                                                            data-direction='right'
-                                                                            data-disabled={hotelRoom?.childCount >= 6}
-                                                                        >
-                                                                            <Plus/>
-                                                                        </button>
-                                                                        <button className={styles.homeHeaderPassengersItemButton}>
-                                                                            {hotelRoom?.childCount}
-                                                                        </button>
-                                                                        <button
-                                                                            className={styles.homeHeaderPassengersItemButton}
-                                                                            onClick={(event: any) =>
-                                                                            {
-                                                                                event?.preventDefault();
-
-                                                                                let i = -1;
-                                                                                let hotelRoomsV: any = hotelRooms;
-
-                                                                                for (const hotelRoomV in hotelRoomsV)
-                                                                                {
-                                                                                    i++;
-
-                                                                                    if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                        setHotelRooms(() => [...hotelRoomsV]);
+                                                                                    }}
+                                                                                    data-direction='right'
+                                                                                    data-disabled={hotelRoom?.childCount >= 6}
+                                                                                >
+                                                                                    <Plus/>
+                                                                                </button>
+                                                                                <button className={styles.homeHeaderPassengersItemButton}>
+                                                                                    {hotelRoom?.childCount}
+                                                                                </button>
+                                                                                <button
+                                                                                    className={styles.homeHeaderPassengersItemButton}
+                                                                                    onClick={(event: any) =>
                                                                                     {
-                                                                                        if (hotelRoom?.childCount > 0)
+                                                                                        event?.preventDefault();
+
+                                                                                        let i = -1;
+                                                                                        let hotelRoomsV: any = hotelRooms;
+
+                                                                                        for (const hotelRoomV in hotelRoomsV)
                                                                                         {
-                                                                                            hotelRoomsV[i].childCount = hotelRoom?.childCount - 1;
+                                                                                            i++;
+
+                                                                                            if (hotelRoomsV[i].id === hotelRoom?.id)
+                                                                                            {
+                                                                                                if (hotelRoom?.childCount > 0)
+                                                                                                {
+                                                                                                    hotelRoomsV[i].childCount = hotelRoom?.childCount - 1;
+                                                                                                }
+
+                                                                                                break;
+                                                                                            }
                                                                                         }
 
-                                                                                        break;
-                                                                                    }
-                                                                                }
+                                                                                        setHotelRooms(() => [...hotelRoomsV]);
+                                                                                    }}
+                                                                                    data-direction='left'
+                                                                                    data-disabled={hotelRoom?.childCount <= 0}
+                                                                                >
+                                                                                    <Minus/>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                ))
+                                                        }
+                                                    </ul>
 
-                                                                                setHotelRooms(() => [...hotelRoomsV]);
-                                                                            }}
-                                                                            data-direction='left'
-                                                                            data-disabled={hotelRoom?.childCount <= 0}
-                                                                        >
-                                                                            <Minus/>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        ))
-                                                }
-                                            </ul>
-
-                                            {
-                                                !(hotelRooms?.length >= 4)
-                                                    ?
-                                                    <button onClick={() => setHotelRooms((oldArray: any) => [...oldArray, { id: nanoid(), adultCount: 1, childCount: 0 }])}>
-                                                        <PlusCircle />
-                                                        افزودن اتاق
-                                                    </button>
-                                                    :
-                                                    null
-                                            }
+                                                    {
+                                                        !(hotelRooms?.length >= 4)
+                                                            ?
+                                                            <button onClick={() => setHotelRooms((oldArray: any) => [...oldArray, { id: nanoid(), adultCount: 1, childCount: 0 }])}>
+                                                                <PlusCircle />
+                                                                افزودن اتاق
+                                                            </button>
+                                                            :
+                                                            null
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
+
+                                        <div data-date={true} data-date_pickers={true} className={styles.homeHeaderImageContentItem}>
+                                            <div data-type='date' data-activate={departureDatePicker} ref={(element: any) => departureDatePickerParentRef.current[1] = element}>
+                                                <label onClick={() => setDepartureDatePicker(true)}>
+                                                    <label>
+                                                        تاریخ ورود
+                                                    </label>
+
+                                                    <span>
+                                                        {departureDate}
+                                                    </span>
+                                                </label>
+
+                                                <DatePicker
+                                                    title='تاریخ ورود'
+                                                    defaultValue={false}
+                                                    value={departureDate}
+                                                    setValue={setDepartureDate}
+                                                    activate={departureDatePicker}
+                                                    setActivate={setDepartureDatePicker}
+                                                />
+                                            </div>
+
+                                            <div data-type='date' data-activate={returnDatePicker} ref={(element: any) => returnDatePickerParentRef.current[1] = element}>
+                                                <label onClick={() => setReturnDatePicker(true)}>
+                                                    <label>
+                                                        تاریخ خروج
+                                                    </label>
+
+                                                    <span>
+                                                        {returnDate}
+                                                    </span>
+                                                </label>
+
+                                                <DatePicker
+                                                    title='تاریخ خروج'
+                                                    defaultValue={false}
+                                                    value={returnDate}
+                                                    setValue={setReturnDate}
+                                                    activate={returnDatePicker}
+                                                    setActivate={setReturnDatePicker}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <button>
+                                            یافتن بلیط
+                                        </button>
                                     </div>
-                                </div>
+                                    :
+                                    null
+                            }
 
-                                <div data-date={true} data-date_pickers={true} className={styles.homeHeaderImageContentItem}>
-                                    <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} ref={(element: any) => departureDatePickerParentRef.current[1] = element}>
-                                        <label>
-                                            تاریخ ورود
-                                        </label>
-
-                                        <span>
-                                            {departureDate}
-                                        </span>
-
-                                        <DatePicker
-                                            title='تاریخ ورود'
-                                            defaultValue={true}
-                                            value={departureDate}
-                                            setValue={setDepartureDate}
-                                            activate={departureDatePicker}
-                                            setActivate={setDepartureDatePicker}
-                                        />
-                                    </div>
-
-                                    <div data-type='date' data-activate={returnDatePicker} onClick={() => setReturnDatePicker(true)} ref={(element: any) => returnDatePickerParentRef.current[1] = element}>
-                                        <label>
-                                            تاریخ خروج
-                                        </label>
-
-                                        <span>
-                                            {returnDate}
-                                        </span>
-
-                                        <DatePicker
-                                            title='تاریخ خروج'
-                                            defaultValue={true}
-                                            value={returnDate}
-                                            setValue={setReturnDate}
-                                            activate={returnDatePicker}
-                                            setActivate={setReturnDatePicker}
-                                        />
-                                    </div>
-                                </div>
-
-                                <button>
-                                    یافتن بلیط
-                                </button>
-                            </div>
-
-                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'tour-reserve'}>
-                                <div className={styles.homeHeaderImageContentItem}>
-                                    <p>
-                                        <input type='radio' id='domestic' onChange={() => { setInternational(false) }} checked={!international}/>
-                                        <label htmlFor='domestic'>
-                                            داخلی
-                                        </label>
-                                    </p>
-                                    <p>
-                                        <input type='radio' id='international' onChange={() => { setInternational(true) }} checked={international}/>
-                                        <label htmlFor='international'>
-                                            خارجی
-                                        </label>
-                                    </p>
-                                    <div data-options={true} data-open={passengers} ref={(element: any) => passengersParentRef.current[1] = element}>
+                            {
+                                page ===  'tour-reserve'
+                                    ?
+                                    <div className={styles.homeHeaderImageContentList} data-activate={page ===  'tour-reserve'}>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <p>
+                                                <input type='radio' id='domestic' onChange={() => setInternational(false)} checked={!international}/>
+                                                <label htmlFor='domestic'>
+                                                    داخلی
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <input type='radio' id='international' onChange={() => setInternational(true)} checked={international}/>
+                                                <label htmlFor='international'>
+                                                    خارجی
+                                                </label>
+                                            </p>
+                                            <div data-options={true} data-open={passengers} ref={(element: any) => passengersParentRef.current[1] = element}>
                                         <span onClick={() => setPassengers(!passengers)}>
                                             مسافران
                                         </span>
 
-                                        <div data-activate={passengers} className={styles.homeHeaderPassengers}>
-                                            <div className={styles.homeHeaderPassengersItem}>
-                                                <div>
-                                                    <h2>
-                                                        بزرگسال
-                                                    </h2>
-                                                    <p>
-                                                        بزرگتر از 12 سال
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1)}
-                                                        data-direction='right'
-                                                        data-disabled={adultCount + childCount + babyCount >= 9}
-                                                    >
-                                                        <Plus />
-                                                    </button>
-                                                    <button className={styles.homeHeaderPassengersItemButton}>
-                                                        {adultCount}
-                                                    </button>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setAdultCount(adultCount <= 1 ? 1 : adultCount - 1)}
-                                                        data-direction='left'
-                                                        data-disabled={adultCount <= 1}
-                                                    >
-                                                        <Minus />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className={styles.homeHeaderPassengersItem}>
-                                                <div>
-                                                    <h2>
-                                                        کودک
-                                                    </h2>
-                                                    <p>
-                                                        بین ۲ الی 12 سال
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1)}
-                                                        data-direction='right'
-                                                        data-disabled={adultCount + childCount + babyCount >= 9}
-                                                    >
-                                                        <Plus />
-                                                    </button>
-                                                    <button className={styles.homeHeaderPassengersItemButton}>
-                                                        {childCount}
-                                                    </button>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setChildCount(childCount <= 0 ? 0 : childCount - 1)}
-                                                        data-direction='left'
-                                                        data-disabled={childCount <= 0}
-                                                    >
-                                                        <Minus />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className={styles.homeHeaderPassengersItem}>
-                                                <div>
-                                                    <h2>
-                                                        نوزاد
-                                                    </h2>
-                                                    <p>
-                                                        کوچکتر از 2 سال
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => { setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1); }}
-                                                        data-direction='right'
-                                                        data-disabled={adultCount + childCount + babyCount >= 9}
-                                                    >
-                                                        <Plus />
-                                                    </button>
-                                                    <button className={styles.homeHeaderPassengersItemButton}>
-                                                        {babyCount}
-                                                    </button>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => { setBabyCount(babyCount <= 0 ? 0 : babyCount - 1); }}
-                                                        data-direction='left'
-                                                        data-disabled={babyCount <= 0}
-                                                    >
-                                                        <Minus />
-                                                    </button>
+                                                <div data-activate={passengers} className={styles.homeHeaderPassengers}>
+                                                    <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                بزرگسال
+                                                            </h2>
+                                                            <p>
+                                                                بزرگتر از 12 سال
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1)}
+                                                                data-direction='right'
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+                                                            <button className={styles.homeHeaderPassengersItemButton}>
+                                                                {adultCount}
+                                                            </button>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setAdultCount(adultCount <= 1 ? 1 : adultCount - 1)}
+                                                                data-direction='left'
+                                                                data-disabled={adultCount <= 1}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                کودک
+                                                            </h2>
+                                                            <p>
+                                                                بین ۲ الی 12 سال
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1)}
+                                                                data-direction='right'
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+                                                            <button className={styles.homeHeaderPassengersItemButton}>
+                                                                {childCount}
+                                                            </button>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setChildCount(childCount <= 0 ? 0 : childCount - 1)}
+                                                                data-direction='left'
+                                                                data-disabled={childCount <= 0}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                نوزاد
+                                                            </h2>
+                                                            <p>
+                                                                کوچکتر از 2 سال
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1)}
+                                                                data-direction='right'
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+                                                            <button className={styles.homeHeaderPassengersItemButton}>
+                                                                {babyCount}
+                                                            </button>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setBabyCount(babyCount <= 0 ? 0 : babyCount - 1)}
+                                                                data-direction='left'
+                                                                data-disabled={babyCount <= 0}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[2] = element} data-activate={originActivate} data-error={originError}>
-                                        <label htmlFor='origin'>
-                                            <label htmlFor='origin'>
+                                        <div className={styles.homeHeaderImageContentItem} data-direction='column'>
+                                            <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[2] = element} data-activate={originActivate} data-error={originError}>
                                                 <label htmlFor='origin'>
-                                                    مبدا (شهر)
+                                                    <label htmlFor='origin'>
+                                                        <label htmlFor='origin'>
+                                                            مبدا (شهر)
+                                                        </label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder=''
+                                                            autoComplete='false'
+                                                            spellCheck='false'
+                                                            name='origin'
+                                                            id='origin'
+                                                            onFocus={ onFocusOrigin }
+                                                            onChange={ onChangeOrigin }
+                                                            value={ origin }
+                                                        />
+                                                    </label>
+                                                    <Pin />
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='false'
-                                                    spellCheck='false'
-                                                    name='origin'
-                                                    id='origin'
-                                                    onFocus={ onFocusOrigin }
-                                                    onBlur={ onBlurOrigin }
-                                                    onChange={ onChangeOrigin }
-                                                    value={ origin }
-                                                />
-                                            </label>
-                                            <Pin />
-                                        </label>
 
-                                        <div data-activate={originActivate} data-options='true' id='origin_options'>
-                                            <ul>
-                                                {
-                                                    data?.cities?.map((city: any) => (
-                                                        <li
-                                                            key={city + '--' + nanoid()}
-                                                            data-name={city}
-                                                            data-disable={!!(origin && (!city?.split(' - ')[0]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase())))}
-                                                            data-activate={origin === city}
-                                                            onClick={() => handleOrigin(city)}
-                                                        >
-                                                            <Pin />
-                                                            {city}
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[1] = element} data-activate={destinationActivate} data-error={destinationError}>
-                                        <label htmlFor='destination'>
-                                            <label htmlFor='destination'>
+                                                <div data-activate={originActivate} data-options={true}>
+                                                    <ul>
+                                                        {
+                                                            data?.cities?.map((city: any) => (
+                                                                <li
+                                                                    key={city + '--' + nanoid()}
+                                                                    data-name={city}
+                                                                    data-disable={!!(origin && (!city?.split(' - ')[0]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase())))}
+                                                                    data-activate={origin === city}
+                                                                    onClick={() => handleOrigin(city)}
+                                                                >
+                                                                    <Pin />
+                                                                    {city}
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[1] = element} data-activate={destinationActivate} data-error={destinationError}>
                                                 <label htmlFor='destination'>
-                                                    مقصد (شهر)
+                                                    <label htmlFor='destination'>
+                                                        <label htmlFor='destination'>
+                                                            مقصد (شهر)
+                                                        </label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder=''
+                                                            autoComplete='false'
+                                                            spellCheck='false'
+                                                            name='destination'
+                                                            id='destination'
+                                                            onFocus={ onFocusDestination }
+                                                            onChange={ onChangeDestination }
+                                                            value={ destination }
+                                                        />
+                                                    </label>
+                                                    <Pin />
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='false'
-                                                    spellCheck='false'
-                                                    name='destination'
-                                                    id='destination'
-                                                    onFocus={ onFocusDestination }
-                                                    onBlur={ onBlurDestination }
-                                                    onChange={ onChangeDestination }
-                                                    value={ destination }
-                                                />
-                                            </label>
-                                            <Pin />
-                                        </label>
 
-                                        <div data-activate={destinationActivate} data-options='true' id='destination_options'>
-                                            <ul>
-                                                {
-                                                    data?.cities?.map((city: any) => (
-                                                        <li
-                                                            key={city + '__' + nanoid()}
-                                                            data-name={city}
-                                                            data-disable={!!(destination && (!city?.split(' - ')[0]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase())))}
-                                                            data-activate={destination === city}
-                                                            onClick={() => handleDestination(city)}
-                                                        >
-                                                            <Pin />
-                                                            {city}
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
+                                                <div data-activate={destinationActivate} data-options={true}>
+                                                    <ul>
+                                                        {
+                                                            data?.cities?.map((city: any) => (
+                                                                <li
+                                                                    key={city + '__' + nanoid()}
+                                                                    data-name={city}
+                                                                    data-disable={!!(destination && (!city?.split(' - ')[0]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase())))}
+                                                                    data-activate={destination === city}
+                                                                    onClick={() => handleDestination(city)}
+                                                                >
+                                                                    <Pin />
+                                                                    {city}
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
+
+                                        <div data-date={true} data-date_pickers={true} className={styles.homeHeaderImageContentItem}>
+                                            <div data-type='date' data-activate={departureDatePicker} ref={(element: any) => departureDatePickerParentRef.current[2] = element}>
+                                                <label onClick={() => setDepartureDatePicker(true)}>
+                                                    <label>
+                                                        تاریخ رفت
+                                                    </label>
+
+                                                    <span>
+                                                        {departureDate}
+                                                    </span>
+                                                </label>
+
+                                                <DatePicker
+                                                    title='تاریخ رفت'
+                                                    defaultValue={false}
+                                                    value={departureDate}
+                                                    setValue={setDepartureDate}
+                                                    activate={departureDatePicker}
+                                                    setActivate={setDepartureDatePicker}
+                                                />
+                                            </div>
+
+                                            <div data-type='date' data-activate={returnDatePicker} ref={(element: any) => returnDatePickerParentRef.current[2] = element}>
+                                                <label onClick={() => setReturnDatePicker(true)}>
+                                                    <label>
+                                                        تاریخ برگشت
+                                                    </label>
+
+                                                    <span>
+                                                        {returnDate}
+                                                    </span>
+                                                </label>
+
+                                                <DatePicker
+                                                    title='تاریخ برگشت'
+                                                    defaultValue={false}
+                                                    value={returnDate}
+                                                    setValue={setReturnDate}
+                                                    activate={returnDatePicker}
+                                                    setActivate={setReturnDatePicker}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <button>
+                                            یافتن بلیط
+                                        </button>
                                     </div>
-                                </div>
+                                    :
+                                    null
+                            }
 
-                                <div data-date={true} data-date_pickers={true} className={styles.homeHeaderImageContentItem}>
-                                    <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} ref={(element: any) => departureDatePickerParentRef.current[2] = element}>
-                                        <label>
-                                            تاریخ رفت
-                                        </label>
-
-                                        <span>
-                                            {departureDate}
-                                        </span>
-
-                                        <DatePicker
-                                            title='تاریخ رفت'
-                                            defaultValue={true}
-                                            value={departureDate}
-                                            setValue={setDepartureDate}
-                                            activate={departureDatePicker}
-                                            setActivate={setDepartureDatePicker}
-                                        />
-                                    </div>
-
-                                    <div data-type='date' data-activate={returnDatePicker} onClick={() => setReturnDatePicker(true)} ref={(element: any) => returnDatePickerParentRef.current[2] = element}>
-                                        <label>
-                                            تاریخ برگشت
-                                        </label>
-
-                                        <span>
-                                            {returnDate}
-                                        </span>
-
-                                        <DatePicker
-                                            title='تاریخ برگشت'
-                                            defaultValue={true}
-                                            value={returnDate}
-                                            setValue={setReturnDate}
-                                            activate={returnDatePicker}
-                                            setActivate={setReturnDatePicker}
-                                        />
-                                    </div>
-                                </div>
-
-                                <button>
-                                    یافتن بلیط
-                                </button>
-                            </div>
-
-                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'train-ticket'}>
-                                <div className={styles.homeHeaderImageContentItem}>
-                                    <div data-options={true} ref={(element: any) => exclusiveParentRef.current[0] = element} data-open={exclusiveActivate} onClick={() => setExclusiveActivate(!exclusiveActivate)}>
-                                        {
-                                            exclusive
-                                                ?
-                                                <span>
+                            {
+                                page ===  'train-ticket'
+                                    ?
+                                    <div className={styles.homeHeaderImageContentList} data-activate={page ===  'train-ticket'}>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <div data-options={true} ref={(element: any) => exclusiveParentRef.current[0] = element} data-open={exclusiveActivate} onClick={() => setExclusiveActivate(!exclusiveActivate)}>
+                                                {
+                                                    exclusive
+                                                        ?
+                                                        <span>
                                                     دربست
                                                 </span>
-                                                :
-                                                <span>
+                                                        :
+                                                        <span>
                                                     غیر دربست
                                                 </span>
-                                        }
-                                        {
-                                            exclusiveActivate
-                                                ?
-                                                <ul>
-                                                    <li data-activate={exclusive} onClick={() => setExclusive(true)}>
-                                                        دربست
-                                                    </li>
+                                                }
+                                                {
+                                                    exclusiveActivate
+                                                        ?
+                                                        <ul>
+                                                            <li data-activate={exclusive} onClick={() => setExclusive(true)}>
+                                                                دربست
+                                                            </li>
 
-                                                    <li data-activate={!exclusive} onClick={() => setExclusive(false)}>
-                                                        غیر دربست
-                                                    </li>
-                                                </ul>
-                                                :
-                                                null
-                                        }
-                                    </div>
-                                    <div data-options={true} ref={(element: any) => passengersTypeParentRef.current[0] = element} data-open={passengersTypeActivate} onClick={() => setPassengersTypeActivate(!passengersTypeActivate)}>
-                                        {
-                                            passengersType === 'regular'
-                                                ?
-                                                <span>
+                                                            <li data-activate={!exclusive} onClick={() => setExclusive(false)}>
+                                                                غیر دربست
+                                                            </li>
+                                                        </ul>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
+                                            <div data-options={true} ref={(element: any) => passengersTypeParentRef.current[0] = element} data-open={passengersTypeActivate} onClick={() => setPassengersTypeActivate(!passengersTypeActivate)}>
+                                                {
+                                                    passengersType === 'regular'
+                                                        ?
+                                                        <span>
                                                     مسافرین عادی
                                                 </span>
-                                                :
-                                                passengersType === 'mens'
-                                                    ?
-                                                    <span>
+                                                        :
+                                                        passengersType === 'mens'
+                                                            ?
+                                                            <span>
                                                         ویژه برادران
                                                     </span>
-                                                    :
-                                                    <span>
+                                                            :
+                                                            <span>
                                                         ویژه خواهران
                                                     </span>
-                                        }
-                                        {
-                                            passengersTypeActivate
-                                                ?
-                                                <ul>
-                                                    <li data-activate={passengersType === 'regular'} onClick={() => setPassengersType('regular')}>
-                                                        مسافرین عادی
-                                                    </li>
+                                                }
+                                                {
+                                                    passengersTypeActivate
+                                                        ?
+                                                        <ul>
+                                                            <li data-activate={passengersType === 'regular'} onClick={() => setPassengersType('regular')}>
+                                                                مسافرین عادی
+                                                            </li>
 
-                                                    <li data-activate={passengersType === 'men'} onClick={() => setPassengersType('men')}>
-                                                        ویژه برادران
-                                                    </li>
+                                                            <li data-activate={passengersType === 'men'} onClick={() => setPassengersType('men')}>
+                                                                ویژه برادران
+                                                            </li>
 
-                                                    <li data-activate={passengersType === 'women'} onClick={() => setPassengersType('women')}>
-                                                        ویژه خواهران
-                                                    </li>
-                                                </ul>
-                                                :
-                                                null
-                                        }
-                                    </div>
-                                    <div data-options={true} data-open={passengers} ref={(element: any) => passengersParentRef.current[2] = element}>
+                                                            <li data-activate={passengersType === 'women'} onClick={() => setPassengersType('women')}>
+                                                                ویژه خواهران
+                                                            </li>
+                                                        </ul>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
+                                            <div data-options={true} data-open={passengers} ref={(element: any) => passengersParentRef.current[2] = element}>
                                         <span onClick={() => setPassengers(!passengers)}>
                                             مسافران
                                         </span>
 
-                                        <div data-activate={passengers} className={styles.homeHeaderPassengers}>
-                                            <div className={styles.homeHeaderPassengersItem}>
-                                                <div>
-                                                    <h2>
-                                                        بزرگسال
-                                                    </h2>
-                                                    <p>
-                                                        بزرگتر از 12 سال
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1)}
-                                                        data-direction='right'
-                                                        data-disabled={adultCount + childCount + babyCount >= 9}
-                                                    >
-                                                        <Plus />
-                                                    </button>
-                                                    <button className={styles.homeHeaderPassengersItemButton}>
-                                                        {adultCount}
-                                                    </button>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setAdultCount(adultCount <= 1 ? 1 : adultCount - 1)}
-                                                        data-direction='left'
-                                                        data-disabled={adultCount <= 1}
-                                                    >
-                                                        <Minus />
-                                                    </button>
+                                                <div data-activate={passengers} className={styles.homeHeaderPassengers}>
+                                                    <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                بزرگسال
+                                                            </h2>
+                                                            <p>
+                                                                بزرگتر از 12 سال
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setAdultCount((adultCount + childCount + babyCount >= 9) ? adultCount : adultCount + 1)}
+                                                                data-direction='right'
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+                                                            <button className={styles.homeHeaderPassengersItemButton}>
+                                                                {adultCount}
+                                                            </button>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setAdultCount(adultCount <= 1 ? 1 : adultCount - 1)}
+                                                                data-direction='left'
+                                                                data-disabled={adultCount <= 1}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                کودک
+                                                            </h2>
+                                                            <p>
+                                                                بین ۲ الی 12 سال
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1)}
+                                                                data-direction='right'
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+                                                            <button className={styles.homeHeaderPassengersItemButton}>
+                                                                {childCount}
+                                                            </button>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setChildCount(childCount <= 0 ? 0 : childCount - 1)}
+                                                                data-direction='left'
+                                                                data-disabled={childCount <= 0}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div className={styles.homeHeaderPassengersItem}>
+                                                        <div>
+                                                            <h2>
+                                                                نوزاد
+                                                            </h2>
+                                                            <p>
+                                                                کوچکتر از 2 سال
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1)}
+                                                                data-direction='right'
+                                                                data-disabled={adultCount + childCount + babyCount >= 9}
+                                                            >
+                                                                <Plus />
+                                                            </button>
+                                                            <button className={styles.homeHeaderPassengersItemButton}>
+                                                                {babyCount}
+                                                            </button>
+                                                            <button
+                                                                className={styles.homeHeaderPassengersItemButton}
+                                                                onClick={() => setBabyCount(babyCount <= 0 ? 0 : babyCount - 1)}
+                                                                data-direction='left'
+                                                                data-disabled={babyCount <= 0}
+                                                            >
+                                                                <Minus />
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className={styles.homeHeaderPassengersItem}>
-                                                <div>
-                                                    <h2>
-                                                        کودک
-                                                    </h2>
-                                                    <p>
-                                                        بین ۲ الی 12 سال
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setChildCount((adultCount + childCount + babyCount >= 9) ? childCount : childCount + 1)}
-                                                        data-direction='right'
-                                                        data-disabled={adultCount + childCount + babyCount >= 9}
-                                                    >
-                                                        <Plus />
-                                                    </button>
-                                                    <button className={styles.homeHeaderPassengersItemButton}>
-                                                        {childCount}
-                                                    </button>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setChildCount(childCount <= 0 ? 0 : childCount - 1)}
-                                                        data-direction='left'
-                                                        data-disabled={childCount <= 0}
-                                                    >
-                                                        <Minus />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className={styles.homeHeaderPassengersItem}>
-                                                <div>
-                                                    <h2>
-                                                        نوزاد
-                                                    </h2>
-                                                    <p>
-                                                        کوچکتر از 2 سال
-                                                    </p>
-                                                </div>
-                                                <div>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setBabyCount((adultCount + childCount + babyCount >= 9) ? babyCount : babyCount + 1)}
-                                                        data-direction='right'
-                                                        data-disabled={adultCount + childCount + babyCount >= 9}
-                                                    >
-                                                        <Plus />
-                                                    </button>
-                                                    <button className={styles.homeHeaderPassengersItemButton}>
-                                                        {babyCount}
-                                                    </button>
-                                                    <button
-                                                        className={styles.homeHeaderPassengersItemButton}
-                                                        onClick={() => setBabyCount(babyCount <= 0 ? 0 : babyCount - 1)}
-                                                        data-direction='left'
-                                                        data-disabled={babyCount <= 0}
-                                                    >
-                                                        <Minus />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div data-options={true} ref={(element: any) => unilateralParentRef.current[1] = element} data-open={unilateralActivate} onClick={() => setUnilateralActivate(!unilateralActivate)}>
-                                        {
-                                            unilateral
-                                                ?
-                                                <span>
+                                            <div data-options={true} ref={(element: any) => unilateralParentRef.current[1] = element} data-open={unilateralActivate} onClick={() => setUnilateralActivate(!unilateralActivate)}>
+                                                {
+                                                    unilateral
+                                                        ?
+                                                        <span>
                                                     یکطرفه
                                                 </span>
-                                                :
-                                                <span>
+                                                        :
+                                                        <span>
                                                     رفت و برگشت
                                                 </span>
-                                        }
-                                        {
-                                            unilateralActivate
-                                                ?
-                                                <ul>
-                                                    <li data-activate={unilateral} onClick={() => setUnilateral(true)}>
-                                                        یکطرفه
-                                                    </li>
+                                                }
+                                                {
+                                                    unilateralActivate
+                                                        ?
+                                                        <ul>
+                                                            <li data-activate={unilateral} onClick={() => setUnilateral(true)}>
+                                                                یکطرفه
+                                                            </li>
 
-                                                    <li data-activate={!unilateral} onClick={() => setUnilateral(false)}>
-                                                        رفت و برگشت
-                                                    </li>
-                                                </ul>
-                                                :
-                                                null
-                                        }
-                                    </div>
-                                </div>
+                                                            <li data-activate={!unilateral} onClick={() => setUnilateral(false)}>
+                                                                رفت و برگشت
+                                                            </li>
+                                                        </ul>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
+                                        </div>
 
-                                <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[3] = element} data-activate={originActivate} data-error={originError}>
-                                        <label htmlFor='origin'>
-                                            <label htmlFor='origin'>
+                                        <div className={styles.homeHeaderImageContentItem} data-direction='column'>
+                                            <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[3] = element} data-activate={originActivate} data-error={originError}>
                                                 <label htmlFor='origin'>
-                                                    مبدا (شهر)
+                                                    <label htmlFor='origin'>
+                                                        <label htmlFor='origin'>
+                                                            مبدا (شهر)
+                                                        </label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder=''
+                                                            autoComplete='false'
+                                                            spellCheck='false'
+                                                            name='origin'
+                                                            id='origin'
+                                                            onFocus={ onFocusOrigin }
+                                                            onChange={ onChangeOrigin }
+                                                            value={ origin }
+                                                        />
+                                                    </label>
+                                                    <Pin />
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='false'
-                                                    spellCheck='false'
-                                                    name='origin'
-                                                    id='origin'
-                                                    onFocus={ onFocusOrigin }
-                                                    onBlur={ onBlurOrigin }
-                                                    onChange={ onChangeOrigin }
-                                                    value={ origin }
-                                                />
-                                            </label>
-                                            <Pin />
-                                        </label>
 
-                                        <div data-activate={originActivate} data-options='true' id='origin_options'>
-                                            <ul>
-                                                {
-                                                    data?.cities?.map((city: any) => (
-                                                        <li
-                                                            key={city + '--' + nanoid()}
-                                                            data-name={city}
-                                                            data-disable={!!(origin && (!city?.split(' - ')[0]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase())))}
-                                                            data-activate={origin === city}
-                                                            onClick={() => handleOrigin(city)}
-                                                        >
-                                                            <Pin />
-                                                            {city}
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[2] = element} data-activate={destinationActivate} data-error={destinationError}>
-                                        <label htmlFor='destination'>
-                                            <label htmlFor='destination'>
+                                                <div data-activate={originActivate} data-options={true}>
+                                                    <ul>
+                                                        {
+                                                            data?.cities?.map((city: any) => (
+                                                                <li
+                                                                    key={city + '--' + nanoid()}
+                                                                    data-name={city}
+                                                                    data-disable={!!(origin && (!city?.split(' - ')[0]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase())))}
+                                                                    data-activate={origin === city}
+                                                                    onClick={() => handleOrigin(city)}
+                                                                >
+                                                                    <Pin />
+                                                                    {city}
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[2] = element} data-activate={destinationActivate} data-error={destinationError}>
                                                 <label htmlFor='destination'>
-                                                    مقصد (شهر)
+                                                    <label htmlFor='destination'>
+                                                        <label htmlFor='destination'>
+                                                            مقصد (شهر)
+                                                        </label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder=''
+                                                            autoComplete='false'
+                                                            spellCheck='false'
+                                                            name='destination'
+                                                            id='destination'
+                                                            onFocus={ onFocusDestination }
+                                                            onChange={ onChangeDestination }
+                                                            value={ destination }
+                                                        />
+                                                    </label>
+                                                    <Pin />
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='false'
-                                                    spellCheck='false'
-                                                    name='destination'
-                                                    id='destination'
-                                                    onFocus={ onFocusDestination }
-                                                    onBlur={ onBlurDestination }
-                                                    onChange={ onChangeDestination }
-                                                    value={ destination }
-                                                />
-                                            </label>
-                                            <Pin />
-                                        </label>
 
-                                        <div data-activate={destinationActivate} data-options='true' id='destination_options'>
-                                            <ul>
-                                                {
-                                                    data?.cities?.map((city: any) => (
-                                                        <li
-                                                            key={city + '__' + nanoid()}
-                                                            data-name={city}
-                                                            data-disable={!!(destination && (!city?.split(' - ')[0]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase())))}
-                                                            data-activate={destination === city}
-                                                            onClick={() => handleDestination(city)}
-                                                        >
-                                                            <Pin />
-                                                            {city}
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
+                                                <div data-activate={destinationActivate} data-options={true}>
+                                                    <ul>
+                                                        {
+                                                            data?.cities?.map((city: any) => (
+                                                                <li
+                                                                    key={city + '__' + nanoid()}
+                                                                    data-name={city}
+                                                                    data-disable={!!(destination && (!city?.split(' - ')[0]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase())))}
+                                                                    data-activate={destination === city}
+                                                                    onClick={() => handleDestination(city)}
+                                                                >
+                                                                    <Pin />
+                                                                    {city}
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
+
+                                        <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
+                                            <div data-type='date' data-activate={departureDatePicker} ref={(element: any) => departureDatePickerParentRef.current[3] = element}>
+                                                <label onClick={() => setDepartureDatePicker(true)}>
+                                                    <label>
+                                                        تاریخ رفت
+                                                    </label>
+
+                                                    <span>
+                                                        {departureDate}
+                                                    </span>
+                                                </label>
+
+                                                <DatePicker
+                                                    title='تاریخ رفت'
+                                                    defaultValue={false}
+                                                    value={departureDate}
+                                                    setValue={setDepartureDate}
+                                                    activate={departureDatePicker}
+                                                    setActivate={setDepartureDatePicker}
+                                                />
+                                            </div>
+
+                                            <div data-type='date' data-activate={returnDatePicker} data-deactivate={unilateral} ref={(element: any) => returnDatePickerParentRef.current[3] = element}>
+                                                <label onClick={() => setReturnDatePicker(true)}>
+                                                    <label>
+                                                        تاریخ برگشت
+                                                    </label>
+
+                                                    <span>
+                                                        {returnDate}
+                                                    </span>
+                                                </label>
+
+                                                <DatePicker
+                                                    title='تاریخ برگشت'
+                                                    defaultValue={false}
+                                                    value={returnDate}
+                                                    setValue={setReturnDate}
+                                                    activate={returnDatePicker}
+                                                    setActivate={setReturnDatePicker}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <button>
+                                            یافتن بلیط
+                                        </button>
                                     </div>
-                                </div>
+                                    :
+                                    null
+                            }
 
-                                <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
-                                    <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} ref={(element: any) => departureDatePickerParentRef.current[3] = element}>
-                                        <label>
-                                            تاریخ رفت
-                                        </label>
-
-                                        <span>
-                                            {departureDate}
-                                        </span>
-
-                                        <DatePicker
-                                            title='تاریخ رفت'
-                                            defaultValue={true}
-                                            value={departureDate}
-                                            setValue={setDepartureDate}
-                                            activate={departureDatePicker}
-                                            setActivate={setDepartureDatePicker}
-                                        />
-                                    </div>
-
-                                    <div data-type='date' data-activate={returnDatePicker} data-deactivate={unilateral} onClick={() => setReturnDatePicker(true)} ref={(element: any) => returnDatePickerParentRef.current[3] = element}>
-                                        <label>
-                                            تاریخ برگشت
-                                        </label>
-
-                                        <span>
-                                            {returnDate}
-                                        </span>
-
-                                        <DatePicker
-                                            title='تاریخ برگشت'
-                                            defaultValue={true}
-                                            value={returnDate}
-                                            setValue={setReturnDate}
-                                            activate={returnDatePicker}
-                                            setActivate={setReturnDatePicker}
-                                        />
-                                    </div>
-                                </div>
-
-                                <button>
-                                    یافتن بلیط
-                                </button>
-                            </div>
-
-                            <div className={styles.homeHeaderImageContentList} data-activate={page ===  'bus-ticket'}>
-                                <div className={styles.homeHeaderImageContentItem}>
-                                    <div data-options={true} ref={(element: any) => unilateralParentRef.current[2] = element} data-open={unilateralActivate} onClick={() => setUnilateralActivate(!unilateralActivate)}>
-                                        {
-                                            unilateral
-                                                ?
-                                                <span>
+                            {
+                                page ===  'bus-ticket'
+                                    ?
+                                    <div className={styles.homeHeaderImageContentList} data-activate={page ===  'bus-ticket'}>
+                                        <div className={styles.homeHeaderImageContentItem}>
+                                            <div data-options={true} ref={(element: any) => unilateralParentRef.current[2] = element} data-open={unilateralActivate} onClick={() => setUnilateralActivate(!unilateralActivate)}>
+                                                {
+                                                    unilateral
+                                                        ?
+                                                        <span>
                                                     یکطرفه
                                                 </span>
-                                                :
-                                                <span>
+                                                        :
+                                                        <span>
                                                     رفت و برگشت
                                                 </span>
-                                        }
-                                        {
-                                            unilateralActivate
-                                                ?
-                                                <ul>
-                                                    <li data-activate={unilateral} onClick={() => setUnilateral(true)}>
-                                                        یکطرفه
-                                                    </li>
+                                                }
+                                                {
+                                                    unilateralActivate
+                                                        ?
+                                                        <ul>
+                                                            <li data-activate={unilateral} onClick={() => setUnilateral(true)}>
+                                                                یکطرفه
+                                                            </li>
 
-                                                    <li data-activate={!unilateral} onClick={() => setUnilateral(false)}>
-                                                        رفت و برگشت
-                                                    </li>
-                                                </ul>
-                                                :
-                                                null
-                                        }
-                                    </div>
-                                </div>
+                                                            <li data-activate={!unilateral} onClick={() => setUnilateral(false)}>
+                                                                رفت و برگشت
+                                                            </li>
+                                                        </ul>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
+                                        </div>
 
-                                <div className={styles.homeHeaderImageContentItem} data-direction='column'>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[4] = element} data-activate={originActivate} data-error={originError}>
-                                        <label htmlFor='origin'>
-                                            <label htmlFor='origin'>
+                                        <div className={styles.homeHeaderImageContentItem} data-direction='column'>
+                                            <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => originParentRef.current[4] = element} data-activate={originActivate} data-error={originError}>
                                                 <label htmlFor='origin'>
-                                                    مبدا (شهر - پایانه)
+                                                    <label htmlFor='origin'>
+                                                        <label htmlFor='origin'>
+                                                            مبدا (شهر - پایانه)
+                                                        </label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder=''
+                                                            autoComplete='false'
+                                                            spellCheck='false'
+                                                            name='origin'
+                                                            id='origin'
+                                                            onFocus={ onFocusOrigin }
+                                                            onChange={ onChangeOrigin }
+                                                            value={ origin }
+                                                        />
+                                                    </label>
+                                                    <Pin />
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='false'
-                                                    spellCheck='false'
-                                                    name='origin'
-                                                    id='origin'
-                                                    onFocus={ onFocusOrigin }
-                                                    onBlur={ onBlurOrigin }
-                                                    onChange={ onChangeOrigin }
-                                                    value={ origin }
-                                                />
-                                            </label>
-                                            <Pin />
-                                        </label>
 
-                                        <div data-activate={originActivate} data-options='true' id='origin_options'>
-                                            <ul>
-                                                {
-                                                    data?.cities?.map((city: any) => (
-                                                        <li
-                                                            key={city + '--' + nanoid()}
-                                                            data-name={city}
-                                                            data-disable={!!(origin && (!city?.split(' - ')[0]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase())))}
-                                                            data-activate={origin === city}
-                                                            onClick={() => handleOrigin(city)}
-                                                        >
-                                                            <Pin />
-                                                            {city}
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[3] = element} data-activate={destinationActivate} data-error={destinationError}>
-                                        <label htmlFor='destination'>
-                                            <label htmlFor='destination'>
+                                                <div data-activate={originActivate} data-options={true}>
+                                                    <ul>
+                                                        {
+                                                            data?.cities?.map((city: any) => (
+                                                                <li
+                                                                    key={city + '--' + nanoid()}
+                                                                    data-name={city}
+                                                                    data-disable={!!(origin && (!city?.split(' - ')[0]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(origin?.split(' - ')[0]?.toLowerCase())))}
+                                                                    data-activate={origin === city}
+                                                                    onClick={() => handleOrigin(city)}
+                                                                >
+                                                                    <Pin />
+                                                                    {city}
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div className={styles.homeHeaderImageContentItemInput} ref={(element: any) => destinationParentRef.current[3] = element} data-activate={destinationActivate} data-error={destinationError}>
                                                 <label htmlFor='destination'>
-                                                    مقصد (شهر - پایانه)
+                                                    <label htmlFor='destination'>
+                                                        <label htmlFor='destination'>
+                                                            مقصد (شهر - پایانه)
+                                                        </label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder=''
+                                                            autoComplete='false'
+                                                            spellCheck='false'
+                                                            name='destination'
+                                                            id='destination'
+                                                            onFocus={ onFocusDestination }
+                                                            onChange={ onChangeDestination }
+                                                            value={ destination }
+                                                        />
+                                                    </label>
+                                                    <Pin />
                                                 </label>
-                                                <input
-                                                    type='text'
-                                                    placeholder=''
-                                                    autoComplete='false'
-                                                    spellCheck='false'
-                                                    name='destination'
-                                                    id='destination'
-                                                    onFocus={ onFocusDestination }
-                                                    onBlur={ onBlurDestination }
-                                                    onChange={ onChangeDestination }
-                                                    value={ destination }
-                                                />
-                                            </label>
-                                            <Pin />
-                                        </label>
 
-                                        <div data-activate={destinationActivate} data-options='true' id='destination_options'>
-                                            <ul>
-                                                {
-                                                    data?.cities?.map((city: any) => (
-                                                        <li
-                                                            key={city + '__' + nanoid()}
-                                                            data-name={city}
-                                                            data-disable={!!(destination && (!city?.split(' - ')[0]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase())))}
-                                                            data-activate={destination === city}
-                                                            onClick={() => handleDestination(city)}
-                                                        >
-                                                            <Pin />
-                                                            {city}
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
+                                                <div data-activate={destinationActivate} data-options={true}>
+                                                    <ul>
+                                                        {
+                                                            data?.cities?.map((city: any) => (
+                                                                <li
+                                                                    key={city + '__' + nanoid()}
+                                                                    data-name={city}
+                                                                    data-disable={!!(destination && (!city?.split(' - ')[0]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase()) && !city?.split(' - ')[1]?.toLowerCase().startsWith(destination?.split(' - ')[0]?.toLowerCase())))}
+                                                                    data-activate={destination === city}
+                                                                    onClick={() => handleDestination(city)}
+                                                                >
+                                                                    <Pin />
+                                                                    {city}
+                                                                </li>
+                                                            ))
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
+
+                                        <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
+                                            <div data-type='date' data-activate={departureDatePicker} ref={(element: any) => departureDatePickerParentRef.current[4] = element}>
+                                                <label onClick={() => setDepartureDatePicker(true)}>
+                                                    <label>
+                                                        تاریخ رفت
+                                                    </label>
+
+                                                    <span>
+                                                        {departureDate}
+                                                    </span>
+                                                </label>
+
+                                                <DatePicker
+                                                    title='تاریخ رفت'
+                                                    defaultValue={false}
+                                                    value={departureDate}
+                                                    setValue={setDepartureDate}
+                                                    activate={departureDatePicker}
+                                                    setActivate={setDepartureDatePicker}
+                                                />
+                                            </div>
+
+                                            <div data-type='date' data-activate={returnDatePicker} data-deactivate={unilateral} ref={(element: any) => returnDatePickerParentRef.current[4] = element}>
+                                                <label onClick={() => setReturnDatePicker(true)}>
+                                                    <label>
+                                                        تاریخ برگشت
+                                                    </label>
+
+                                                    <span>
+                                                        {returnDate}
+                                                    </span>
+                                                </label>
+
+                                                <DatePicker
+                                                    title='تاریخ برگشت'
+                                                    defaultValue={false}
+                                                    value={returnDate}
+                                                    setValue={setReturnDate}
+                                                    activate={returnDatePicker}
+                                                    setActivate={setReturnDatePicker}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <button>
+                                            یافتن بلیط
+                                        </button>
                                     </div>
-                                </div>
-
-                                <div data-date={true} data-date_pickers={!unilateral} className={styles.homeHeaderImageContentItem}>
-                                    <div data-type='date' data-activate={departureDatePicker} onClick={() => setDepartureDatePicker(true)} ref={(element: any) => departureDatePickerParentRef.current[4] = element}>
-                                        <label>
-                                            تاریخ رفت
-                                        </label>
-
-                                        <span>
-                                            {departureDate}
-                                        </span>
-
-                                        <DatePicker
-                                            title='تاریخ رفت'
-                                            defaultValue={true}
-                                            value={departureDate}
-                                            setValue={setDepartureDate}
-                                            activate={departureDatePicker}
-                                            setActivate={setDepartureDatePicker}
-                                        />
-                                    </div>
-
-                                    <div data-type='date' data-activate={returnDatePicker} data-deactivate={unilateral} onClick={() => setReturnDatePicker(true)} ref={(element: any) => returnDatePickerParentRef.current[4] = element}>
-                                        <label>
-                                            تاریخ برگشت
-                                        </label>
-
-                                        <span>
-                                            {returnDate}
-                                        </span>
-
-                                        <DatePicker
-                                            title='تاریخ برگشت'
-                                            defaultValue={true}
-                                            value={returnDate}
-                                            setValue={setReturnDate}
-                                            activate={returnDatePicker}
-                                            setActivate={setReturnDatePicker}
-                                        />
-                                    </div>
-                                </div>
-
-                                <button>
-                                    یافتن بلیط
-                                </button>
-                            </div>
+                                    :
+                                    null
+                            }
                         </div>
                     </div>
                 </div>

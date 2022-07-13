@@ -79,12 +79,12 @@
             border-right: 1px solid #E3E6F0;
             padding: 0 !important;
 
-            @media only screen and (max-width: 100rem)
+            @media only screen and (max-width: 1100px)
             {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            @media only screen and (max-width: 76rem)
+            @media only screen and (max-width: 750px)
             {
                 grid-template-columns: 1fr;
             }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './booking-box.module.scss';
 
@@ -14,9 +14,9 @@ const BookingBox = (props: any) =>
     const [genderOpen, setGenderOpen] = useState(false);
     const [passport, setPassport] = useState(false);
 
-    React.useEffect(() =>
+    useEffect(() =>
     {
-        document.addEventListener('click', (event: any) =>
+        props?.mainRef?.current?.addEventListener('click', (event: any) =>
         {
             if (!props?.gendersRef?.current[props?.index]?.current?.contains(event?.target))
             {
@@ -27,7 +27,7 @@ const BookingBox = (props: any) =>
                 setAgeOpen(false);
             }
         })
-    }, [props?.gendersRef, props?.agesRef, props?.index, setGenderOpen, setAgeOpen]);
+    }, [props, setGenderOpen, setAgeOpen]);
 
     return (
         <div data-activate={props?.page === 'user'} className={styles?.bookingBox}>
@@ -40,10 +40,10 @@ const BookingBox = (props: any) =>
                 {
                     props?.passengers?.length !== 1
                         ?
-                        <i onClick={() => props?.deletePassenger(props?.passenger?.id)}>
+                        <button onClick={() => props?.deletePassenger(props?.passenger?.id)}>
                             حذف
                             <Trash />
-                        </i>
+                        </button>
                         :
                         null
                 }

@@ -15,7 +15,7 @@ export default function (props: any)
 {
     const [language, setLanguage] = useState('FARSI');
     const [value]: any = useState(momentFa());
-    const [cloneDays, setCloneDays] = useState(momentFa(value));
+    const [cloneDays, setCloneDays]: any = useState<any>(momentFa(value));
     const [weeks, setWeeks] = useState<any>([]);
     const [monthName, setMonthName] = useState('');
     const [monthNumber, setMonthNumber] = useState(0);
@@ -45,7 +45,6 @@ export default function (props: any)
         if (amount > 0)
         {
             setMonthNumber(monthNumber + amount);
-            // @ts-ignore
             setCloneDays(cloneDays.clone().add(amount, 'month'));
         }
         else
@@ -53,7 +52,6 @@ export default function (props: any)
             if (monthNumber > 0)
             {
                 setMonthNumber(monthNumber + amount);
-                // @ts-ignore
                 setCloneDays(cloneDays.clone().add(amount, 'month'));
             }
         }
@@ -100,7 +98,7 @@ export default function (props: any)
                     <Arrow />
                 </button>
 
-                <span id='date_picker_month'>
+                <span>
                     { monthName }
                 </span>
 
@@ -162,8 +160,14 @@ export default function (props: any)
                 </div>
             </div>
 
-            <footer className={styles.datePickerFooters}>
+            <footer className={styles.datePickerFooter}>
+                <span>
+                    {props?.value}
+                </span>
 
+                <button data-disabled={!props?.value} onClick={() => props?.setActivate(false)}>
+                    تایید
+                </button>
             </footer>
         </div>
     );
