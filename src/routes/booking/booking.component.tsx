@@ -27,6 +27,7 @@ const Booking = () =>
     const persianNamesRef: any = useRef<any>([]);
     const latinLastNamesRef: any = useRef<any>([]);
     const persianLastNamesRef: any = useRef<any>([]);
+    const mainRef: any = useRef<any>(null);
     const emailRef: any = useRef<any>(null);
     const phoneNumberRef: any = useRef<any>(null);
 
@@ -393,7 +394,7 @@ const Booking = () =>
     }
 
     return (
-        <main>
+        <main ref={mainRef}>
             <div data-activate={popup} className={styles.bookingPopup}>
                 <div>
                     <header>
@@ -519,6 +520,7 @@ const Booking = () =>
                                         purchaseValidate={purchaseValidate}
                                         passportValidate={passportValidate}
                                         birthdayValidate={birthdayValidate}
+                                        mainRef={mainRef}
                                         agesRef={agesRef}
                                         codesRef={codesRef}
                                         gendersRef={gendersRef}

@@ -1260,6 +1260,7 @@
 
     position: relative;
 
+    height: auto;
     width: 100%;
     padding: 0;
     margin-bottom: 1rem;
@@ -1293,6 +1294,8 @@
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 1rem;
 
+        height: auto;
+
         &[data-date_pickers='false']
         {
             grid-template-columns: 1fr;
@@ -1306,7 +1309,9 @@
 
         position: relative;
 
-        padding: 1.5rem;
+        max-height: 106px;
+        height: 100%;
+        padding: 2rem;
         border-radius: 2rem;
         border: 2px solid #EDEFF6;
 
@@ -1323,35 +1328,39 @@
             box-shadow: 0 30px 70px rgba(72, 96, 146, 0.2);
         }
 
-        & > span
+        & > label
         {
-            display: flex;
-            align-items: center;
-            justify-content: left;
-
-            width: 100%;
-            color: #4A6193;
-            border: none;
-            outline: none;
-            transition: all .2s;
-            font-size: 2.5rem;
-
-            @media only screen and (max-height: 750px)
+            & > span
             {
-                font-size: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: left;
+
+                height: 4rem;
+                width: 100%;
+                color: #4A6193;
+                border: none;
+                outline: none;
+                transition: all .2s;
+                font-size: 2.5rem;
+
+                @media only screen and (max-height: 750px)
+                {
+                    font-size: 2rem;
+                }
             }
-        }
 
-        & label
-        {
-            color: #a0a8b1;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-
-            @media only screen and (max-height: 750px)
+            & > label
             {
-                font-size: 1rem;
-                margin-bottom: .5rem;
+                color: #a0a8b1;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+
+                @media only screen and (max-height: 750px)
+                {
+                    font-size: 1rem;
+                    margin-bottom: .5rem;
+                }
             }
         }
 

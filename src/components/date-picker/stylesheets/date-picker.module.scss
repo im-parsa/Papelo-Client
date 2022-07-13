@@ -322,4 +322,51 @@
             border-color: #4a6192 transparent transparent transparent;
         }
     }
+
+    &Footer
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+
+        width: 100%;
+
+        & > span
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 2rem;
+        }
+
+        & > button
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+            color: #FFFFFF;
+            outline: none;
+            border: none;
+            padding: .65rem 2.75rem;
+            border-radius: .75rem;
+            background: #4a6192;
+            transition: all .2s;
+
+            &:hover
+            {
+                background: #3a5182;
+            }
+
+            &[data-disabled='true']
+            {
+                cursor: not-allowed;
+                background: #4a6192;
+                opacity: .8;
+            }
+        }
+    }
 }
