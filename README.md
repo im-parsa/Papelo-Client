@@ -5,7 +5,7 @@
 </h1>
 
 <div align="center">
-    <img src="https://parsa-firoozi.ir/_next/image?url=%2Fstatic%2Fimages%2Fprojects%2Fweb-skyro.png&w=1920&q=75" alt="papelo"/>
+    <img src="https://github.com/im-parsa/Papelo-Client/blob/main/screenshot.png?raw=true" alt="papelo"/>
 </div>
 
 <h3 align="center">
