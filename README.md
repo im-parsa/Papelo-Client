@@ -1,11 +1,11 @@
 <h1 align="center">
     <img width="200px" src="https://raw.githubusercontent.com/im-parsa/im-parsa.github.io/main/public/static/images/favicon.png" alt="parsa firoozi"/>
     <br/>
-    My Personal Website - Portfolio
+    Papelo Website
 </h1>
 
 <div align="center">
-    <img src="https://raw.githubusercontent.com/im-parsa/im-parsa.github.io/main/screenshot.png" alt="parsa firoozi"/>
+    <img src="https://parsa-firoozi.ir/_next/image?url=%2Fstatic%2Fimages%2Fprojects%2Fweb-skyro.png&w=1920&q=75" alt="papelo"/>
 </div>
 
 <h3 align="center">
@@ -53,5 +53,5 @@ I value keeping my site open source, but as you all know, _**plagiarism is bad**
    ```
 
 ## ⚠️ License & 📝 Credits
-IntelligentQuantum.Dev is open-source portfolio-website licensed under the MIT General Public License v3.0. created by [@im-parsa](https://github.com/im-parsa) & [@IntelligentQuantum](https://github.com/IntelligentQuantum).
+Papelo is open-source website licensed under the MIT General Public License v3.0. created by [@im-parsa](https://github.com/im-parsa) & [@IntelligentQuantum](https://github.com/IntelligentQuantum).
 
