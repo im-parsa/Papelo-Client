@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img width="200px" src="https://raw.githubusercontent.com/im-parsa/im-parsa.github.io/main/public/static/images/favicon.png" alt="parsa firoozi"/>
+    <img width="200px" src="https://github.com/im-parsa/Papelo-Client/blob/main/public/favicon.png?raw=true" alt="parsa firoozi"/>
     <br/>
     Papelo Website
 </h1>
