@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './booking-box.module.scss';
 
-import { ReactComponent as User } from '../../assets/icons/user-3-fill.svg';
-import { ReactComponent as Trash } from '../../assets/icons/delete-bin-line.svg';
+import { ReactComponent as Plus } from '../../assets/icons/plus.svg';
 import { ReactComponent as User2 } from '../../assets/icons/user.svg';
 import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
-import { ReactComponent as Plus } from '../../assets/icons/plus.svg';
+import { ReactComponent as User } from '../../assets/icons/user-3-fill.svg';
+import { ReactComponent as Trash } from '../../assets/icons/delete-bin-line.svg';
 
 const BookingBox = (props: any) =>
 {
@@ -19,53 +19,59 @@ const BookingBox = (props: any) =>
         props?.mainRef?.current?.addEventListener('click', (event: any) =>
         {
             if (!props?.gendersRef?.current[props?.index]?.current?.contains(event?.target))
-            {
                 setGenderOpen(false);
-            }
+
             if (!props?.agesRef?.current[props?.index]?.current?.contains(event?.target))
-            {
                 setAgeOpen(false);
-            }
-        })
+        });
     }, [props, setGenderOpen, setAgeOpen]);
 
     return (
         <div data-activate={props?.page === 'user'} className={styles?.bookingBox}>
             <header>
                 <span>
-                    <User data-fill={true} />
+                    <User data-fill={true}/>
                     مشخصات مسافر
                 </span>
 
                 {
                     props?.passengers?.length !== 1
-                        ?
-                        <button onClick={() => props?.deletePassenger(props?.passenger?.id)}>
+                        ? <button onClick={() => props?.deletePassenger(props?.passenger?.id)}>
                             حذف
                             <Trash />
                         </button>
-                        :
-                        null
+                        : null
                 }
             </header>
 
             <div>
                 <div>
                     <p>
-                        <input type='radio' id={`cart_${props?.index}`} onChange={() => { props?.onChange({ target: { value: false } }, 'passport', props?.passenger?.id); setPassport(false); }} checked={!passport}/>
-                        <label htmlFor={`cart_${props?.index}`}>
+                        <input type='radio' id={`cart_${ props?.index }`} onChange={() =>
+                        {
+                            props?.onChange({ target: { value: false } }, 'passport', props?.passenger?.id);
+                            setPassport(false);
+                        }} checked={!passport}/>
+                        <label htmlFor={`cart_${ props?.index }`}>
                             کارت ملی
                         </label>
                     </p>
                     <p>
-                        <input type='radio' id={`passport_${props?.index}`} onChange={() => { props?.onChange({ target: { value: true } }, 'passport', props?.passenger?.id); setPassport(true); }} checked={passport}/>
-                        <label htmlFor={`passport_${props?.index}`}>
+                        <input type='radio' id={`passport_${ props?.index }`} onChange={() =>
+                        {
+                            props?.onChange({ target: { value: true } }, 'passport', props?.passenger?.id);
+                            setPassport(true);
+                        }} checked={passport}/>
+                        <label htmlFor={`passport_${ props?.index }`}>
                             پاسپورت
                         </label>
                     </p>
                 </div>
 
-                <button onClick={() => props?.setPopup(true)}>
+                <button onClick={() =>
+                {
+                    props?.setPopup(true); props?.setPopupIndex(props?.index);
+                }}>
                     <User2 />
                     مسافرین سابق
                 </button>
@@ -78,7 +84,7 @@ const BookingBox = (props: any) =>
                     </label>
 
                     <input
-                        defaultValue={props?.passenger?.latinName ?? ''}
+                        value={props?.passenger?.latinName ?? ''}
                         onChange={(event: any) => props?.onChange(event, 'latinName', props?.passenger?.id)}
                         ref={props?.latinNamesRef?.current[props?.index]}
                         data-lang='en'
@@ -91,11 +97,9 @@ const BookingBox = (props: any) =>
                                 event?.target?.parentElement?.setAttribute('data-error', 'true');
                             }
                             else
-                            {
                                 event?.target?.parentElement?.setAttribute('data-error', 'false');
-                            }
                         }}
-                        onKeyPress={props?.latinValidate}
+                        onFocus={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}
                     />
                 </div>
 
@@ -105,7 +109,7 @@ const BookingBox = (props: any) =>
                     </label>
 
                     <input
-                        defaultValue={props?.passenger?.persianName ?? ''}
+                        value={props?.passenger?.persianName ?? ''}
                         onChange={(event: any) => props?.onChange(event, 'persianName', props?.passenger?.id)}
                         ref={props?.persianNamesRef?.current[props?.index]}
                         type='text'
@@ -117,11 +121,9 @@ const BookingBox = (props: any) =>
                                 event?.target?.parentElement?.setAttribute('data-error', 'true');
                             }
                             else
-                            {
                                 event?.target?.parentElement?.setAttribute('data-error', 'false');
-                            }
                         }}
-                        onKeyPress={props?.persianValidate}
+                        onFocus={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}
                     />
                 </div>
 
@@ -131,7 +133,7 @@ const BookingBox = (props: any) =>
                     </label>
 
                     <input
-                        defaultValue={props?.passenger?.latinLastName ?? ''}
+                        value={props?.passenger?.latinLastName ?? ''}
                         onChange={(event: any) => props?.onChange(event, 'latinLastName', props?.passenger?.id)}
                         ref={props?.latinLastNamesRef?.current[props?.index]}
                         data-lang='en'
@@ -144,11 +146,9 @@ const BookingBox = (props: any) =>
                                 event?.target?.parentElement?.setAttribute('data-error', 'true');
                             }
                             else
-                            {
                                 event?.target?.parentElement?.setAttribute('data-error', 'false');
-                            }
                         }}
-                        onKeyPress={props?.latinValidate}
+                        onFocus={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}
                     />
                 </div>
 
@@ -158,7 +158,7 @@ const BookingBox = (props: any) =>
                     </label>
 
                     <input
-                        defaultValue={props?.passenger?.persianLastName ?? ''}
+                        value={props?.passenger?.persianLastName ?? ''}
                         onChange={(event: any) => props?.onChange(event, 'persianLastName', props?.passenger?.id)}
                         ref={props?.persianLastNamesRef?.current[props?.index]}
                         type='text'
@@ -170,14 +170,13 @@ const BookingBox = (props: any) =>
                                 event?.target?.parentElement?.setAttribute('data-error', 'true');
                             }
                             else
-                            {
                                 event?.target?.parentElement?.setAttribute('data-error', 'false');
-                            }
                         }}
-                        onKeyPress={props?.persianValidate}/>
+                        onFocus={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}
+                    />
                 </div>
 
-                <div data-error='false' ref={props?.gendersRef?.current[props?.index]} data-error_message='پر کردن این فیلد الزامی است'>
+                <div data-error='false' data-activate={genderOpen} ref={props?.gendersRef?.current[props?.index]} data-error_message='پر کردن این فیلد الزامی است'>
                     <label>
                         جنسیت
                     </label>
@@ -209,7 +208,7 @@ const BookingBox = (props: any) =>
                     </div>
                 </div>
 
-                <div data-error='false' ref={props?.agesRef?.current[props?.index]} data-error_message='پر کردن این فیلد الزامی است'>
+                <div data-error='false' data-activate={ageOpen} ref={props?.agesRef?.current[props?.index]} data-error_message='پر کردن این فیلد الزامی است'>
                     <label>
                         رده سنی مسافر
                     </label>
@@ -252,19 +251,17 @@ const BookingBox = (props: any) =>
                 <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
                     {
                         props?.passenger?.passport
-                            ?
-                            <label>
+                            ? <label>
                                 شماره پاسپورت
                             </label>
-                            :
-                            <label>
+                            : <label>
                                 کد ملی
                             </label>
                     }
 
                     <input
-                        defaultValue={props?.passenger?.code ?? ''}
-                        onChange={(event: any) => props?.onChange(event, 'code', props?.passenger?.id)}
+                        value={props?.passenger?.code ?? ''}
+                        onChange={(event: any) => props?.onChange(event, 'code', props?.passenger?.id, passport)}
                         ref={props?.codesRef?.current[props?.index]}
                         data-lang='en'
                         type='text'
@@ -276,11 +273,10 @@ const BookingBox = (props: any) =>
                                 event?.target?.parentElement?.setAttribute('data-error', 'true');
                             }
                             else
-                            {
+
                                 event?.target?.parentElement?.setAttribute('data-error', 'false');
-                            }
                         }}
-                        onKeyPress={passport ? props?.passportValidate : props?.numberValidate}
+                        onFocus={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}
                     />
                 </div>
 
@@ -289,45 +285,59 @@ const BookingBox = (props: any) =>
                         تاریخ تولد
                     </label>
 
-                    <input
-                        defaultValue={props?.passenger?.birthday ?? ''}
-                        onChange={(event: any) => props?.onChange(event, 'birthday', props?.passenger?.id)}
-                        ref={props?.birthdaysRef?.current[props?.index]}
-                        data-lang='en'
-                        type='text'
-                        onBlur={(event: any) =>
-                        {
-                            const persianReg = new RegExp(/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/);
+                    <ul>
+                        <input
+                            value={props?.passenger?.birthdayDay ?? ''}
+                            onChange={(event: any) => props?.onChange(event, 'birthdayDay', props?.passenger?.id)}
+                            ref={props?.birthdaysDayRef?.current[props?.index]}
+                            data-lang='en'
+                            type='text'
+                            placeholder='روز'
+                            onBlur={() => props?.birthdayValidate(props?.passenger, props?.index)}
+                            onFocus={(event: any) => event?.target?.setAttribute('data-error', 'false')}
+                        />
 
-                            if (!event?.target?.value)
-                            {
-                                event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                                event?.target?.parentElement?.setAttribute('data-error', 'true');
-                            }
-                            else if (!persianReg.test(event?.target?.value))
-                            {
-                                event?.target?.parentElement?.setAttribute('data-error_message', 'این تاریخ مورد تائید نمی باشد');
-                                event?.target?.parentElement?.setAttribute('data-error', 'true');
-                            }
-                            else
-                            {
-                                event?.target?.parentElement?.setAttribute('data-error', 'false');
-                            }
-                        }}
-                        onKeyPress={props?.birthdayValidate}
-                    />
+                        <span>
+                            /
+                        </span>
+
+                        <input
+                            value={props?.passenger?.birthdayMonth ?? ''}
+                            onChange={(event: any) => props?.onChange(event, 'birthdayMonth', props?.passenger?.id)}
+                            ref={props?.birthdaysMonthRef?.current[props?.index]}
+                            data-lang='en'
+                            type='text'
+                            placeholder='ماه'
+                            onBlur={() => props?.birthdayValidate(props?.passenger, props?.index)}
+                            onFocus={(event: any) => event?.target?.setAttribute('data-error', 'false')}
+                        />
+
+                        <span>
+                            /
+                        </span>
+
+                        <input
+                            value={props?.passenger?.birthdayYear ?? ''}
+                            onChange={(event: any) => props?.onChange(event, 'birthdayYear', props?.passenger?.id)}
+                            ref={props?.birthdaysYearRef?.current[props?.index]}
+                            data-lang='en'
+                            type='text'
+                            data-year={true}
+                            placeholder='سال'
+                            onBlur={() => props?.birthdayValidate(props?.passenger, props?.index)}
+                            onFocus={(event: any) => event?.target?.setAttribute('data-error', 'false')}
+                        />
+                    </ul>
                 </div>
             </form>
 
             {
                 props?.index + 1 === props?.passengers?.length
-                    ?
-                    <div data-add={true} onClick={() => props?.setPassengers((oldArray: any) => [...oldArray, { id: props?.nanoid() }])}>
+                    ? <div data-add={true} onClick={() => props?.setPassengers((oldArray: any) => [...oldArray, { id: props?.nanoid() }])}>
                         <Plus />
                         اضافه کردن مسافر جدید
                     </div>
-                    :
-                    null
+                    : null
             }
         </div>
     );

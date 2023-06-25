@@ -1,0 +1,1621 @@
+.trainTicket
+{
+    display: flex;
+
+    position: relative;
+
+    margin-top: 3rem;
+
+    @media only screen and (max-width: 1000px)
+    {
+        flex-direction: column;
+    }
+
+    &[data-offer="true"]
+    {
+        &::before
+        {
+            content: "پیشنهاد ویژه";
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: absolute;
+            z-index: 100;
+            top: -1.25rem;
+            right: 7rem;
+
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 0 0.85rem;
+            white-space: nowrap;
+            word-wrap: anywhere;
+            height: 2.5rem;
+            letter-spacing: -0.27px;
+            color: #fff;
+            border-radius: 10rem 10rem 2rem;
+            background: #0bbcb2;
+
+            @media only screen and (max-width: 1200px)
+            {
+                font-size: 1.25rem;
+                height: 2.25rem;
+            }
+
+            @media only screen and (max-width: 1000px)
+            {
+                right: 2rem;
+            }
+        }
+    }
+
+    &Loading
+    {
+        display: flex;
+
+        position: relative;
+
+        margin-top: 3rem;
+
+        @media only screen and (max-width: 1000px)
+        {
+            flex-direction: column;
+        }
+
+        &Content
+        {
+            flex: 0 0 70%;
+            display: flex;
+            flex-direction: column;
+
+            position: relative;
+
+            overflow: hidden;
+            background: #fff 0 0 no-repeat padding-box;
+            border-radius: 0 2rem 2rem 0;
+            height: 236px;
+
+            @media only screen and (max-width: 1000px)
+            {
+                border-radius: 2rem 2rem 0 0;
+            }
+
+            button
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                position: absolute;
+                right: -3.85rem;
+                top: 10rem;
+                overflow: hidden;
+
+                background: #edeff6;
+                border-radius: 10px 10px 0 0;
+                transform: rotate(-90deg);
+                width: 11rem;
+                height: 3.5rem;
+                border: none;
+
+                @media only screen and (max-width: 1000px)
+                {
+                    display: none;
+                }
+            }
+
+            &Main
+            {
+                display: flex;
+                flex-direction: column;
+
+                height: 100%;
+                width: 100%;
+                padding: 2.5rem 7.5rem 2rem 4rem;
+
+                @media only screen and (max-width: 1240px)
+                {
+                    padding: 1.5rem 5rem 1rem 2rem;
+                }
+
+                @media only screen and (max-width: 1000px)
+                {
+                    padding: 2rem 1rem;
+                }
+
+                &Header
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 2rem;
+
+                    @media only screen and (max-width: 600px)
+                    {
+                        justify-content: flex-start;
+                        gap: 1.5rem;
+                    }
+
+                    & > span
+                    {
+                        position: relative;
+                        overflow: hidden;
+
+                        width: 6rem;
+                        height: 6rem;
+                        min-width: 6rem;
+                        min-height: 6rem;
+                        border-radius: 10rem;
+                        background: #edeff6;
+
+
+                        &::after
+                        {
+                            content: "";
+
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                            left: 0;
+
+                            transform: translateX(-100%);
+                            background-image:
+                                linear-gradient(
+                                        90deg,
+                                        rgba(#fff, 0) 0,
+                                        rgba(#fff, 0.2) 20%,
+                                        rgba(#fff, 0.5) 60%,
+                                        rgba(#fff, 0)
+                                );
+                            animation: shimmer 2s infinite;
+                        }
+                    }
+
+                    & > div
+                    {
+                        position: relative;
+                        overflow: hidden;
+
+                        width: 100%;
+                        height: 2.75rem;
+                        border-radius: 10rem;
+                        background: #edeff6;
+
+                        @media only screen and (max-width: 600px)
+                        {
+                            height: 2rem;
+                            max-width: 12rem;
+                            width: 100%;
+                        }
+
+                        &::after
+                        {
+                            content: "";
+
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                            left: 0;
+
+                            transform: translateX(-100%);
+                            background-image:
+                                linear-gradient(
+                                        90deg,
+                                        rgba(#fff, 0) 0,
+                                        rgba(#fff, 0.2) 20%,
+                                        rgba(#fff, 0.5) 60%,
+                                        rgba(#fff, 0)
+                                );
+                            animation: shimmer 2s infinite;
+                        }
+                    }
+                }
+
+                &Uhr
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 3rem;
+
+                    width: 100%;
+                    height: 100%;
+                    margin-top: 3rem;
+
+                    @media only screen and (max-width: 600px)
+                    {
+                        flex-direction: column;
+                        justify-content: center;
+                        gap: 2.5rem;
+
+                        padding-left: 3rem;
+                        width: 100%;
+                    }
+
+                    & > div
+                    {
+                        display: flex;
+                        flex-direction: column;
+
+                        width: 100%;
+                        height: 100%;
+
+                        @media only screen and (max-width: 600px)
+                        {
+                            &:last-child
+                            {
+                                display: none;
+                            }
+                        }
+
+                        & > div
+                        {
+                            display: flex;
+
+                            position: relative;
+                            overflow: hidden;
+
+                            width: 100%;
+                            height: 2rem;
+                            border-radius: 10rem;
+                            background: #edeff6;
+
+                            &::after
+                            {
+                                content: "";
+
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+                                bottom: 0;
+                                left: 0;
+
+                                transform: translateX(-100%);
+                                background-image:
+                                    linear-gradient(
+                                            90deg,
+                                            rgba(#fff, 0) 0,
+                                            rgba(#fff, 0.2) 20%,
+                                            rgba(#fff, 0.5) 60%,
+                                            rgba(#fff, 0)
+                                    );
+                                animation: shimmer 2s infinite;
+                            }
+                        }
+
+                        & > span
+                        {
+                            display: flex;
+
+                            position: relative;
+                            overflow: hidden;
+
+                            width: 80%;
+                            height: 1.35rem;
+                            border-radius: 10rem;
+                            background: #edeff6;
+                            margin-top: 2rem;
+
+                            &::after
+                            {
+                                content: "";
+
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+                                bottom: 0;
+                                left: 0;
+
+                                transform: translateX(-100%);
+                                background-image:
+                                    linear-gradient(
+                                            90deg,
+                                            rgba(#fff, 0) 0,
+                                            rgba(#fff, 0.2) 20%,
+                                            rgba(#fff, 0.5) 60%,
+                                            rgba(#fff, 0)
+                                    );
+                                animation: shimmer 2s infinite;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &Price
+        {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+
+            position: relative;
+
+            border-radius: 2rem 0 0 2rem;
+            background: #fff 0 0 no-repeat padding-box;
+            padding: 4.5rem 4rem 4rem;
+            border-right: 2px dashed #d6d9e6;
+
+            @media only screen and (max-width: 1000px)
+            {
+                padding: 2rem 1rem;
+            }
+
+            &::before,
+            &::after
+            {
+                content: "";
+
+                position: absolute;
+                right: -1.5rem;
+
+                background: #f5f6fa;
+                width: 3rem;
+                height: 3rem;
+                border-radius: 10rem;
+            }
+
+            &::before
+            {
+                top: -1.5rem;
+            }
+
+            &::after
+            {
+                bottom: -1.5rem;
+            }
+
+            @media only screen and (max-width: 1000px)
+            {
+                flex-wrap: wrap;
+                flex-direction: row;
+                justify-content: center;
+                gap: 1.5rem;
+
+                border-top: 2px dashed #d6d9e6;
+                border-right: none;
+
+                &::before,
+                &::after
+                {
+                    top: -1.5rem;
+                }
+
+                &::before
+                {
+                    left: auto;
+                    right: -1.5rem;
+                }
+
+                &::after
+                {
+                    right: auto;
+                    left: -1.5rem;
+                }
+            }
+
+            div
+            {
+                display: flex;
+
+                position: relative;
+                overflow: hidden;
+
+                max-width: 15rem;
+                width: 70%;
+                height: 2rem;
+                border-radius: 10rem;
+                background: #edeff6;
+
+                @media only screen and (max-width: 1000px)
+                {
+                    width: 11.5rem;
+                }
+
+                &::after
+                {
+                    content: "";
+
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+
+                    transform: translateX(-100%);
+                    background-image:
+                        linear-gradient(
+                                90deg,
+                                rgba(#fff, 0) 0,
+                                rgba(#fff, 0.2) 20%,
+                                rgba(#fff, 0.5) 60%,
+                                rgba(#fff, 0)
+                        );
+                    animation: shimmer 2s infinite;
+                }
+            }
+
+            button
+            {
+                position: relative;
+                overflow: hidden;
+
+                white-space: nowrap;
+                word-wrap: anywhere;
+                cursor: pointer;
+                transition: all 0.2s;
+                background: #edeff6;
+                border-radius: 40px;
+                border: none;
+                margin: 3rem 0;
+                height: 6rem;
+                width: 80%;
+                max-width: 15rem;
+
+                @media only screen and (max-width: 1200px)
+                {
+                    margin: 2rem 0;
+                }
+
+                @media only screen and (max-width: 1000px)
+                {
+                    height: 4rem;
+                    width: 8rem;
+                }
+
+                &::after
+                {
+                    content: "";
+
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+
+                    transform: translateX(-100%);
+                    background-image:
+                        linear-gradient(
+                                90deg,
+                                rgba(#fff, 0) 0,
+                                rgba(#fff, 0.2) 20%,
+                                rgba(#fff, 0.5) 60%,
+                                rgba(#fff, 0)
+                        );
+                    animation: shimmer 2s infinite;
+                }
+            }
+
+            span
+            {
+                display: flex;
+
+                position: relative;
+                overflow: hidden;
+
+                max-width: 15rem;
+                width: 60%;
+                height: 1.65rem;
+                border-radius: 10rem;
+                background: #edeff6;
+
+                @media only screen and (max-width: 1000px)
+                {
+                    width: 10rem;
+                }
+
+                &::after
+                {
+                    content: "";
+
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+
+                    transform: translateX(-100%);
+                    background-image:
+                        linear-gradient(
+                                90deg,
+                                rgba(#fff, 0) 0,
+                                rgba(#fff, 0.2) 20%,
+                                rgba(#fff, 0.5) 60%,
+                                rgba(#fff, 0)
+                        );
+                    animation: shimmer 2s infinite;
+                }
+            }
+        }
+    }
+
+    &Content
+    {
+        flex: 0 0 70%;
+
+        position: relative;
+        overflow: hidden;
+
+        background: #fff 0 0 no-repeat padding-box;
+        border-radius: 0 2rem 2rem 0;
+        padding: 1rem;
+
+        @media only screen and (max-width: 1000px)
+        {
+            border-radius: 2rem 2rem 0 0;
+        }
+
+        button
+        {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+
+            position: absolute;
+            right: 0;
+            top: 6rem;
+
+            text-align: center;
+            cursor: pointer;
+            background: #edeff6;
+            border-radius: 10px 0 0 10px;
+            color: #abb9d7;
+            border: none;
+            height: 11rem;
+            width: 3.5rem;
+
+            @media only screen and (max-width: 1000px)
+            {
+                display: none;
+            }
+
+            & > span
+            {
+                font-family: YekanBakhMedium, sans-serif;
+                writing-mode: vertical-lr;
+                transform: rotate(-180deg);
+            }
+
+            & > svg
+            {
+                width: 0.9rem;
+                height: 0.9rem;
+                transform: rotate(-90deg);
+
+                & *
+                {
+                    fill: #abb9d7;
+                }
+            }
+        }
+
+        &Main
+        {
+            padding: 2rem 6rem 2rem 4rem;
+
+            @media only screen and (max-width: 1240px)
+            {
+                padding: 1rem 4rem 1rem 2rem;
+            }
+
+            @media only screen and (max-width: 1000px)
+            {
+                padding: 0 1rem;
+            }
+
+            &Header
+            {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            &Name
+            {
+                display: flex;
+                align-items: center;
+
+                @media only screen and (max-width: 600px)
+                {
+                    align-items: center;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+
+                    width: 100%;
+                }
+
+                & > img
+                {
+                    max-width: 6rem;
+                }
+
+                & > div
+                {
+                    margin-right: 1.5rem;
+
+                    span
+                    {
+                        letter-spacing: -0.36px;
+                        color: #496193;
+                        font-size: 2.25rem;
+
+                        @media only screen and (max-width: 1265px)
+                        {
+                            font-size: 1.75rem;
+                        }
+                    }
+
+                    p
+                    {
+                        letter-spacing: -0.3px;
+                        color: #96a5c6;
+                        font-size: 1.75rem;
+                        font-family: YekanBakhMedium, sans-serif;
+
+                        @media only screen and (max-width: 1265px)
+                        {
+                            font-size: 1.5rem;
+                        }
+                    }
+                }
+            }
+
+            &Number
+            {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 1rem;
+
+                @media only screen and (max-width: 600px)
+                {
+                    width: 100%;
+                }
+
+                span
+                {
+                    border: 2px solid #edeff6;
+                    border-radius: 10px;
+                    padding: 0.6rem 1rem;
+                    letter-spacing: -0.27px;
+                    color: #96a5c6;
+                    font-size: 1.45rem;
+                    font-family: YekanBakhMedium, sans-serif;
+
+                    @media only screen and (max-width: 1265px)
+                    {
+                        padding: 0.5rem 0.85rem;
+                        font-size: 1.25rem;
+                    }
+                }
+            }
+
+            &Uhr
+            {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                margin-top: 3rem;
+
+                @media only screen and (max-width: 600px)
+                {
+                    justify-content: center;
+                    gap: 2.5rem;
+
+                    margin: 1rem 0;
+                    width: 100%;
+                }
+
+                &Right
+                {
+                    display: flex;
+
+                    @media only screen and (max-width: 600px)
+                    {
+                        flex-direction: column;
+                    }
+
+                    p
+                    {
+                        letter-spacing: -0.6px;
+                        color: #496193;
+                        font-size: 3rem;
+                        margin-top: 2rem;
+                        padding-left: 2rem;
+
+                        @media only screen and (max-width: 1395px)
+                        {
+                            font-size: 2.5rem;
+                            margin-top: 1rem;
+                            padding-left: 1rem;
+                        }
+
+                        @media only screen and (max-width: 1240px)
+                        {
+                            font-size: 2rem;
+                        }
+
+                        @media only screen and (max-width: 600px)
+                        {
+                            padding: 0;
+                            margin: 0 auto;
+                        }
+                    }
+
+                    & > div
+                    {
+                        display: flex;
+                        flex-direction: column;
+
+                        & span:nth-child(1)
+                        {
+                            text-align: center;
+                            letter-spacing: -0.6px;
+                            color: #496193;
+                            font-size: 3rem;
+
+                            @media only screen and (max-width: 1395px)
+                            {
+                                font-size: 2.5rem;
+                            }
+
+                            @media only screen and (max-width: 1240px)
+                            {
+                                font-size: 2rem;
+                            }
+                        }
+
+                        & span:nth-child(2)
+                        {
+                            text-align: center;
+                            letter-spacing: -0.36px;
+                            color: #96a5c6;
+                            font-size: 2rem;
+
+                            @media only screen and (max-width: 1395px)
+                            {
+                                font-size: 1.75rem;
+                            }
+
+                            @media only screen and (max-width: 1240px)
+                            {
+                                font-size: 1.5rem;
+                            }
+                        }
+                    }
+                }
+
+                &Middle
+                {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    gap: 2rem;
+
+                    max-width: 18rem;
+                    width: 100%;
+
+                    @media only screen and (max-width: 1410px)
+                    {
+                        max-width: 15rem;
+                    }
+
+                    @media only screen and (max-width: 1265px)
+                    {
+                        max-width: 12rem;
+                    }
+
+                    @media only screen and (max-width: 1000px)
+                    {
+                        width: 100%;
+                        max-width: 50rem;
+                    }
+
+                    & > div
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        position: relative;
+
+                        height: 0;
+                        width: 92.5%;
+
+                        &::before
+                        {
+                            content: "";
+
+                            position: absolute;
+                            top: 0;
+                            left: 50%;
+                            transform: translateX(-50%);
+
+                            width: 97%;
+                            border-top: 2px dashed #ced2e3;
+                        }
+
+                        & > svg
+                        {
+                            position: absolute;
+                            top: -1rem;
+                            right: -0.25rem;
+
+                            width: 2rem;
+                            height: 2rem;
+
+                            & *
+                            {
+                                fill: #ced2e3;
+                            }
+                        }
+
+                        & > i
+                        {
+                            position: absolute;
+                            left: -0.75rem;
+                            top: -0.35rem;
+
+                            width: 0.75rem;
+                            height: 0.75rem;
+                            border: 2.5px solid #ced2e3;
+                            border-radius: 10rem;
+                        }
+                    }
+
+                    & > span
+                    {
+                        text-align: center;
+                        font-size: 1.5rem;
+                        font-family: YekanBakhRegular, sans-serif;
+                        color: #96a5c6;
+                    }
+                }
+
+                &Left
+                {
+                    display: flex;
+
+                    @media only screen and (max-width: 600px)
+                    {
+                        flex-direction: column;
+                    }
+
+                    p
+                    {
+                        letter-spacing: -0.6px;
+                        color: #496193;
+                        font-size: 3rem;
+                        margin-top: 2rem;
+                        padding-left: 2rem;
+
+                        @media only screen and (max-width: 1395px)
+                        {
+                            font-size: 2.5rem;
+                            margin-top: 1rem;
+                            padding-left: 1rem;
+                        }
+
+                        @media only screen and (max-width: 1240px)
+                        {
+                            font-size: 2rem;
+                        }
+
+                        @media only screen and (max-width: 600px)
+                        {
+                            padding: 0;
+                            margin: 0 auto;
+                        }
+                    }
+
+                    & > div
+                    {
+                        display: flex;
+                        flex-direction: column;
+
+                        & span:nth-child(1)
+                        {
+                            text-align: center;
+                            letter-spacing: -0.6px;
+                            color: #496193;
+                            font-size: 3rem;
+
+                            @media only screen and (max-width: 1395px)
+                            {
+                                font-size: 2.5rem;
+                            }
+
+                            @media only screen and (max-width: 1240px)
+                            {
+                                font-size: 2rem;
+                            }
+                        }
+
+                        & span:nth-child(2)
+                        {
+                            text-align: center;
+                            letter-spacing: -0.36px;
+                            color: #96a5c6;
+                            font-size: 2rem;
+
+                            @media only screen and (max-width: 1395px)
+                            {
+                                font-size: 1.75rem;
+                            }
+
+                            @media only screen and (max-width: 1240px)
+                            {
+                                font-size: 1.5rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &Collapse
+        {
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+
+            margin: 2rem 1rem;
+            background: #fafcff 0 0 no-repeat padding-box;
+            border-radius: 2rem;
+            padding: 1rem;
+
+            @media only screen and (max-width: 1000px)
+            {
+                display: flex;
+
+                padding: 0;
+            }
+
+            &Buttons
+            {
+                display: flex;
+                align-items: center;
+
+                white-space: nowrap;
+                word-wrap: anywhere;
+                border: none;
+                letter-spacing: -0.27px;
+                color: #96a5c6;
+                background: none;
+                font-size: 1.55rem;
+                cursor: pointer;
+                transition: all 0.2s;
+                margin-top: 1rem;
+
+                @media only screen and (max-width: 1000px)
+                {
+                    margin: 1rem 0;
+                }
+
+                &:hover
+                {
+                    color: #8996b5;
+                }
+
+                &[data-activate="true"]
+                {
+                    color: #4a6192;
+
+                    @media only screen and (max-width: 1000px)
+                    {
+                        color: #96a5c6;
+                    }
+                }
+
+                &[data-mobile_activate="true"]
+                {
+                    @media only screen and (max-width: 1000px)
+                    {
+                        color: #4a6192;
+                    }
+                }
+
+                &Parent
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    gap: 2rem;
+
+                    width: 100%;
+                    padding: 0 2rem;
+
+                    @media only screen and (max-width: 1000px)
+                    {
+                        justify-content: space-between;
+                    }
+
+                    @media only screen and (max-width: 400px)
+                    {
+                        flex-wrap: wrap;
+                    }
+                }
+            }
+
+            &Box
+            {
+                display: none;
+                align-items: center;
+                justify-content: center;
+
+                padding: 2rem 1rem;
+                border-radius: 1.5rem;
+                background: #fff;
+                width: 100%;
+                min-height: 12rem;
+
+                @media only screen and (max-width: 1000px)
+                {
+                    flex-direction: column;
+                    gap: 2rem;
+
+                    padding: 2rem 0.5rem;
+                    background: #fafcff 0 0 no-repeat padding-box;
+                    border-radius: 0 0 1.5rem 1.5rem;
+                }
+
+
+                &[data-activate="true"]
+                {
+                    display: flex;
+
+                    @media only screen and (max-width: 1000px)
+                    {
+                        display: none;
+                    }
+                }
+
+                &[data-mobile_activate="true"]
+                {
+                    @media only screen and (max-width: 1000px)
+                    {
+                        display: flex;
+                    }
+                }
+
+                &[data-stations="true"]
+                {
+                    flex-direction: column;
+                    gap: 0;
+                }
+
+                & > span
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 1rem;
+
+                    position: relative;
+
+                    padding: 0 3rem;
+                    width: 100%;
+                    height: 100%;
+
+                    @media only screen and (max-width: 1460px)
+                    {
+                        padding: 0 1.75rem;
+                    }
+
+                    & > svg
+                    {
+                        width: 2.5rem;
+                        height: 2.5rem;
+
+                        position: relative;
+
+                        & *
+                        {
+                            fill: #0bbcb2;
+                        }
+                    }
+
+                    & > i
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        position: relative;
+
+                        width: 0.75rem;
+                        height: 0.75rem;
+                        border-radius: 10rem;
+                        background: #4a6192;
+                        transition: all 0.2s;
+
+                        &:not(:last-child):hover
+                        {
+                            cursor: pointer;
+                            background: #0cbeb1;
+                        }
+
+                        &:last-child
+                        {
+                            background: #fff;
+                            border: 2px solid #b7bbcc;
+                        }
+                    }
+
+                    &::before
+                    {
+                        content: "";
+
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+
+                        width: calc(100% - 6rem);
+                        height: 1px;
+                        background-image: linear-gradient(to right, #b7bbcc 25%, rgb(255 25 25 / 0%) 0%);
+                        background-position: bottom;
+                        background-size: 10px 1px;
+                        background-repeat: repeat-x;
+
+                        @media only screen and (max-width: 1460px)
+                        {
+                            width: calc(100% - 3.5rem);
+                        }
+                    }
+                }
+
+                & > ul
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 1rem;
+
+                    position: relative;
+
+                    padding: 0 3rem;
+                    width: 100%;
+                    height: 100%;
+
+                    @media only screen and (max-width: 1000px)
+                    {
+                        width: 100%;
+                        overflow-x: scroll;
+                    }
+
+                    @media only screen and (max-width: 1460px)
+                    {
+                        padding: 0 2rem;
+                    }
+
+                    & > li
+                    {
+                        display: flex;
+                        align-items: center;
+                        flex-direction: column;
+
+                        margin-top: 1rem;
+                        width: 0.75rem;
+                        white-space: nowrap;
+                        word-wrap: anywhere;
+
+                        & > h4
+                        {
+                            text-align: center;
+                            font-size: 1.9rem;
+                            font-family: YekanBakhRegular, sans-serif;
+
+                            @media only screen and (max-width: 1440px)
+                            {
+                                font-size: 1.45rem;
+                            }
+                        }
+
+                        & > span
+                        {
+                            text-align: center;
+                            font-size: 1.65rem;
+                            color: #97a1b3;
+                            font-family: YekanBakhMedium, sans-serif;
+
+                            @media only screen and (max-width: 1440px)
+                            {
+                                font-size: 1.35rem;
+                            }
+                        }
+
+                        &:first-child
+                        {
+                            width: 2.5rem;
+                        }
+                    }
+                }
+
+                &Info
+                {
+                    flex: 1;
+                    display: flex;
+                    gap: 0.75rem;
+
+                    height: 100%;
+                    min-height: 12rem;
+                    border-left: 1.75px solid #edeff6;
+                    padding: 0 2rem;
+
+                    @media only screen and (max-width: 1220px)
+                    {
+                        padding: 0 1rem;
+                    }
+
+                    @media only screen and (max-width: 1000px)
+                    {
+                        flex: auto;
+
+                        width: 100%;
+                        padding: 0 1rem;
+                        border: none;
+                    }
+
+                    & > ul
+                    {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        justify-content: flex-start;
+
+                        width: 100%;
+
+                        & > li
+                        {
+                            color: #96a5c6;
+                            font-family: YekanBakhRegular, sans-serif;
+                            font-size: 1.45rem;
+                            margin: auto 0;
+                        }
+
+                        &:last-child > li
+                        {
+                            color: #4a6192;
+                            font-family: YekanBakh, sans-serif;
+                        }
+                    }
+                }
+
+                &Path
+                {
+                    flex: 0 0 65%;
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    padding: 1rem 5rem 1rem 3rem;
+                    height: 100%;
+                    min-height: 12rem;
+
+                    @media only screen and (max-width: 1460px)
+                    {
+                        padding: 1rem 2.5rem 1rem 1.5rem;
+                    }
+
+                    @media only screen and (max-width: 1220px)
+                    {
+                        flex: 0 0 70%;
+                        padding: 1rem 1.5rem;
+                    }
+
+                    @media only screen and (max-width: 1000px)
+                    {
+                        flex: auto;
+
+                        width: 100%;
+                        padding: 1rem;
+                    }
+
+                    & > div
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        width: 100%;
+
+                        & > svg
+                        {
+                            width: 1.9rem;
+                            height: 1.9rem;
+
+                            & *
+                            {
+                                fill: #0bbcb2;
+                            }
+                        }
+
+                        & > span
+                        {
+                            width: 100%;
+                            height: 1px;
+                            background-image: linear-gradient(to right, #b7bbcc 25%, rgb(255 25 25 / 0%) 0%);
+                            background-position: bottom;
+                            background-size: 10px 1px;
+                            background-repeat: repeat-x;
+                        }
+
+                        & > i
+                        {
+                            width: 0.5rem;
+                            height: 0.5rem;
+                            border: 1.5px solid #ced2e3;
+                            border-radius: 10rem;
+                        }
+                    }
+
+                    & > ul
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 0.5rem;
+
+                        width: 100%;
+
+                        & > li:nth-child(1)
+                        {
+                            display: flex;
+                            align-items: center;
+
+                            text-align: right;
+                        }
+
+                        & > li:nth-child(2)
+                        {
+                            display: flex;
+                            align-items: center;
+
+                            text-align: center;
+
+                            & > img
+                            {
+                                height: 100%;
+                                max-height: 7rem;
+                            }
+                        }
+
+                        & > li:nth-child(3)
+                        {
+                            display: flex;
+                            align-items: center;
+
+                            text-align: left;
+                        }
+
+                        &:nth-child(2) > li
+                        {
+                            margin-top: -1.25rem;
+                            color: #96a5c6;
+                            font-size: 1.75rem;
+                            font-family: YekanBakhMedium, sans-serif;
+
+                            @media only screen and (max-width: 1100px)
+                            {
+                                margin-top: -0.55rem;
+                            }
+                        }
+
+                        &:nth-child(3) > li
+                        {
+                            margin-top: -1rem;
+                            color: #4a6192;
+                            font-size: 2rem;
+                            font-family: YekanBakhBold, sans-serif;
+
+                            @media only screen and (max-width: 1100px)
+                            {
+                                margin-top: -0.5rem;
+                            }
+                        }
+
+                        &:nth-child(4) > li
+                        {
+                            margin-top: 0.75rem;
+                            color: #96a5c6;
+                            font-size: 1.25rem;
+                            font-family: YekanBakhRegular, sans-serif;
+
+                            @media only screen and (max-width: 1100px)
+                            {
+                                margin-top: 1rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &Price
+    {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        position: relative;
+
+        border-radius: 2rem 0 0 2rem;
+        background: #fff 0 0 no-repeat padding-box;
+        padding: 4.5rem 4rem 4rem;
+        border-right: 2px dashed #d6d9e6;
+
+        @media only screen and (max-width: 1200px)
+        {
+            padding: 4.5rem 2rem 2rem;
+        }
+
+        @media only screen and (max-width: 1000px)
+        {
+            padding: 1.5rem 1rem 1rem;
+
+            border-radius: 0 0 2rem 2rem;
+        }
+
+        &::before,
+        &::after
+        {
+            content: "";
+
+            position: absolute;
+            right: -1.5rem;
+
+            background: #f5f6fa;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 10rem;
+        }
+
+        &::before
+        {
+            top: -1.5rem;
+        }
+
+        &::after
+        {
+            bottom: -1.5rem;
+        }
+
+        @media only screen and (max-width: 1000px)
+        {
+            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: center;
+            gap: 1.5rem;
+
+            border-top: 2px dashed #d6d9e6;
+            border-right: none;
+
+            &::before,
+            &::after
+            {
+                top: -1.5rem;
+            }
+
+            &::before
+            {
+                left: auto;
+                right: -1.5rem;
+            }
+
+            &::after
+            {
+                right: auto;
+                left: -1.5rem;
+            }
+        }
+
+        span
+        {
+            text-align: center;
+            letter-spacing: -0.42px;
+            color: #496193;
+            font-size: 2.5rem;
+
+            @media only screen and (max-width: 1300px)
+            {
+                font-size: 2rem;
+            }
+        }
+
+        button
+        {
+            white-space: nowrap;
+            word-wrap: anywhere;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent linear-gradient(109deg, #09bab5 0, #2fe587 100%) 0 0 no-repeat padding-box;
+            border-radius: 40px;
+            border: none;
+            letter-spacing: -0.36px;
+            color: #fff;
+            padding: 1.4rem 5rem;
+            font-size: 2rem;
+            margin: 1rem 0;
+
+            @media only screen and (max-width: 1335px)
+            {
+                padding: 1.35rem 0;
+                width: 100%;
+            }
+
+            @media only screen and (max-width: 1200px)
+            {
+                font-size: 1.5rem;
+                padding: 1rem 0;
+            }
+
+            @media only screen and (max-width: 1000px)
+            {
+                padding: 1rem 1.5rem;
+                width: fit-content;
+            }
+
+            &:hover
+            {
+                background: transparent linear-gradient(109deg, #09bab5 0, #09bab5 100%) 0 0 no-repeat padding-box;
+            }
+        }
+
+        p
+        {
+            letter-spacing: -0.3px;
+            color: #96a5c6;
+            font-size: 1.75rem;
+        }
+    }
+
+    &[data-activate="true"]
+    {
+        & > div > div:last-child
+        {
+            display: flex;
+        }
+
+        & > div:first-child
+        {
+            & > button
+            {
+                background: #496193;
+                color: #fff;
+
+                & > svg
+                {
+                    transform: rotate(90deg);
+
+                    & *
+                    {
+                        fill: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes shimmer
+{
+    100%
+    {
+        transform: translateX(100%);
+    }
+}

@@ -1,0 +1,113 @@
+.error
+{
+    &Content
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 60rem;
+
+        &Back
+        {
+            margin: 0 8rem;
+        }
+
+        & p,
+        & a
+        {
+            display: flex;
+            align-items: center;
+
+            letter-spacing: -0.3px;
+            color: #96A5C6;
+            font-size: 2rem;
+
+            & svg
+            {
+                margin: 0 1rem;
+                fill: #96A5C6;
+            }
+        }
+    }
+
+    &Paragraph
+    {
+        letter-spacing: -0.36px;
+        color: #496193;
+        font-size: 2rem;
+
+        display: grid;
+        place-items: center;
+
+        &:not(:last-child)
+        {
+            margin-bottom: 1.2rem;
+        }
+    }
+
+    &Circle
+    {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+
+        width: 100%;
+        margin-top: 6rem;
+
+        &Box
+        {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            & span
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                cursor: pointer;
+                border: 5px solid #EDEFF6;
+                border-radius: 50%;
+                padding: 2rem;
+                transition: all .2s;
+
+                & svg
+                {
+                    height: 2.5rem;
+                    width: 2.5rem;
+                    fill: #4a6192;
+                }
+            }
+
+            & p
+            {
+                letter-spacing: -0.3px;
+                color: #96A5C6;
+                font-size: 1.75rem;
+                margin-top: 1.25rem;
+                transition: all .2s;
+                word-wrap: anywhere;
+                white-space: nowrap;
+            }
+
+            &:hover
+            {
+                & > span
+                {
+                    border-color: #FFFFFF;
+                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    box-shadow: 0px 30px 70px #48609233;
+                }
+
+                & > p
+                {
+                    color: #4a6192;
+                }
+            }
+        }
+    }
+}

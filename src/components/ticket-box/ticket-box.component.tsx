@@ -1,18 +1,17 @@
-import React  from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './ticket-box.module.scss';
 
 import { ReactComponent as Arrow2 } from '../../assets/icons/arrow-2.svg';
-import { ReactComponent as Box4 } from "../../assets/icons/box-4.svg";
-import { ReactComponent as Plane } from "../../assets/icons/plane.svg";
+import { ReactComponent as Box4 } from '../../assets/icons/box-4.svg';
+import { ReactComponent as Plane } from '../../assets/icons/plane.svg';
 
 const TicketBox = (props: any) =>
 {
     return (
         props?.proposal
-            ?
-            <div className={styles.ticketBoxProposal}>
+            ? <div className={styles.ticketBoxProposal}>
                 <div className={styles.ticketBoxProposalHeader}>
                     <div className={styles.ticketBoxProposalHeaderTop}>
                         <p>تهران</p>
@@ -44,8 +43,7 @@ const TicketBox = (props: any) =>
                     </div>
                 </Link>
             </div>
-            :
-            <div className={styles.ticketBox}>
+            : <div className={styles.ticketBox}>
                 <div className={styles.ticketBoxHeader}>
                     <div className={styles.ticketBoxHeaderTop}>
                         <div className={styles.ticketBoxHeaderTopInner}>
@@ -77,8 +75,8 @@ const TicketBox = (props: any) =>
 
                         <span>
                         13/479/400 ریال
-                        <Arrow2 />
-                    </span>
+                            <Arrow2 />
+                        </span>
                     </div>
                 </Link>
             </div>

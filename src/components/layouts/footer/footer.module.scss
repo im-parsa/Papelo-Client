@@ -1,12 +1,12 @@
 .footer
 {
-    background: #FAFBFD 0 0 no-repeat padding-box;
+    background: #fafbfd 0 0 no-repeat padding-box;
     padding: 5rem 0;
 
     &Divider
     {
-        border-bottom: 3px solid #F5F6FA;
-        margin: 5rem 0 8rem 0;
+        border-bottom: 3px solid #f5f6fa;
+        margin: 5rem 0 8rem;
     }
 
     &Boxes
@@ -27,14 +27,14 @@
 
                 position: relative;
 
-                border: 3px solid #EDEFF6;
+                border: 3px solid #edeff6;
                 border-radius: 15px;
                 width: 6.5rem;
                 height: 6.5rem;
 
-                &:before
+                &::before
                 {
-                    content: '';
+                    content: "";
                     position: absolute;
                     border-radius: 5rem;
                     width: 2.25rem;
@@ -42,7 +42,7 @@
                     left: 50%;
                     top: 50%;
                     transform: translate(-10%, -25%);
-                    background: #FFCE3A;
+                    background: #ffce3a;
                 }
 
                 & svg
@@ -70,7 +70,7 @@
                 p
                 {
                     letter-spacing: -0.3px;
-                    color: #96A5C6;
+                    color: #96a5c6;
                     font-size: 1.4rem;
                     margin-top: 0.5rem;
                 }
@@ -86,7 +86,7 @@
         @media only screen and (max-width: 1115px)
         {
             flex-wrap: wrap;
-            gap: .5rem;
+            gap: 0.5rem;
         }
 
         &Content
@@ -97,23 +97,23 @@
             {
                 position: relative;
 
-                &:before
+                &::before
                 {
-                    content: 'مطمئن‌تر به سفر بروید';
+                    content: "مطمئن‌تر به سفر بروید";
                     position: absolute;
-                    padding: .15rem 1rem;
+                    padding: 0.15rem 1rem;
                     top: -1.75rem;
                     left: -8rem;
                     font-size: 1.5rem;
                     letter-spacing: -0.27px;
-                    color: #ffffff;
-                    background: #09BAB5;
-                    border-radius: 21px 21px 5px 21px;
+                    color: #fff;
+                    background: #09bab5;
+                    border-radius: 21px 21px 5px;
 
                     @media only screen and (max-width: 1200px)
                     {
                         font-size: 1.5rem;
-                        border-radius: 17px 17px 4px 17px;
+                        border-radius: 17px 17px 4px;
                     }
 
                     @media only screen and (max-width: 600px)
@@ -143,10 +143,10 @@
                     align-items: center;
 
                     letter-spacing: -0.36px;
-                    color: #96A5C6;
+                    color: #96a5c6;
                     font-size: 1.6rem;
                     margin-right: 5rem;
-                    transition: all .2s;
+                    transition: all 0.2s;
 
                     &:hover
                     {
@@ -171,7 +171,7 @@
                 & > p
                 {
                     flex-wrap: wrap;
-                    gap: .5rem;
+                    gap: 0.5rem;
 
                     & a
                     {
@@ -204,16 +204,16 @@
                     align-items: center;
                     justify-content: center;
 
-                    border: 3px solid #EDEFF6;
+                    border: 3px solid #edeff6;
                     border-radius: 20px;
                     padding: 1.6rem 3rem;
 
-                    transition: all .2s;
+                    transition: all 0.2s;
 
                     &:hover
                     {
                         cursor: pointer;
-                        background: #FFFFFF;
+                        background: #fff;
                         border-color: transparent;
                         box-shadow: 0 30px 70px #48609233;
                     }
@@ -221,13 +221,13 @@
                     & svg
                     {
                         position: relative;
-                        fill: #4A6192;
+                        fill: #4a6192;
                         height: 3rem;
                     }
 
                     span
                     {
-                        color: #4A6192;
+                        color: #4a6192;
                         font-size: 1.6rem;
                         margin-right: 1rem;
                     }
@@ -275,7 +275,7 @@
                 a
                 {
                     letter-spacing: -0.3px;
-                    color: #96A5C6;
+                    color: #96a5c6;
                     font-size: 1.6rem;
 
                     &:not(:last-child)
@@ -318,10 +318,10 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    gap: .5rem;
+                    gap: 0.5rem;
 
                     letter-spacing: -0.36px;
-                    color: #96A5C6;
+                    color: #96a5c6;
                     font-size: 2rem;
 
                     & svg
@@ -343,7 +343,7 @@
                 @media only screen and (max-width: 1115px)
                 {
                     flex-wrap: wrap;
-                    gap: .5rem;
+                    gap: 0.5rem;
                 }
             }
 
@@ -359,7 +359,7 @@
                 @media only screen and (max-width: 1115px)
                 {
                     flex-wrap: wrap;
-                    gap: .5rem;
+                    gap: 0.5rem;
                 }
             }
 
@@ -378,8 +378,8 @@
                     align-items: center;
                     justify-content: center;
 
-                    background: #FFFFFF 0 0 no-repeat padding-box;
-                    transition: all .2s;
+                    background: #fff 0 0 no-repeat padding-box;
+                    transition: all 0.2s;
                     border-radius: 1rem;
                     padding: 1.5rem;
                     margin: 0.5rem;
@@ -410,7 +410,7 @@
         p
         {
             letter-spacing: -0.3px;
-            color: #96A5C6;
+            color: #96a5c6;
             font-size: 1.6rem;
         }
 
@@ -429,8 +429,8 @@
                 justify-content: center;
 
                 cursor: pointer;
-                background: #EDEFF6 0 0 no-repeat padding-box;
-                transition: all .2s;
+                background: #edeff6 0 0 no-repeat padding-box;
+                transition: all 0.2s;
                 border-radius: 4.2rem;
                 margin: 0.5rem;
                 width: 5rem;
@@ -438,7 +438,7 @@
 
                 &:hover
                 {
-                    background: #ffffff 0 0 no-repeat padding-box;
+                    background: #fff 0 0 no-repeat padding-box;
                 }
             }
 
@@ -446,7 +446,7 @@
             {
                 width: 2.5rem;
                 height: 2.5rem;
-                fill: #4A6192;
+                fill: #4a6192;
             }
         }
     }

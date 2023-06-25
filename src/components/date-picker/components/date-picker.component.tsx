@@ -11,9 +11,8 @@ import styles from '../stylesheets/date-picker.module.scss';
 
 import { ReactComponent as Arrow } from '../../../assets/icons/arrow.svg';
 
-export default function (props: any)
+export default function DatePickerComponent(props: any)
 {
-    const [language, setLanguage] = useState('FARSI');
     const [value]: any = useState(momentFa());
     const [cloneDays, setCloneDays]: any = useState<any>(momentFa(value));
     const [weeks, setWeeks] = useState<any>([]);
@@ -22,23 +21,19 @@ export default function (props: any)
 
     useEffect(() =>
     {
-        const response: any = daysInMonth(cloneDays, language);
+        const response: any = daysInMonth(cloneDays, props?.language);
 
         if (!props?.value && props?.setValue && props?.defaultValue)
         {
-            if (language === 'FARSI')
-            {
+            if (props?.language === 'FARSI')
                 props?.setValue(cloneDays?.format('jYYYY/jMM/jDD'));
-            }
             else
-            {
                 props?.setValue(cloneDays?.format('YYYY/MM/DD'));
-            }
         }
 
         setMonthName(response.monthName);
         setWeeks(chunk(response.days, 7));
-    }, [props, setWeeks, setMonthName, cloneDays, language]);
+    }, [props, setWeeks, setMonthName, cloneDays]);
 
     const changeMonth = (amount: number) =>
     {
@@ -73,7 +68,7 @@ export default function (props: any)
                                 </span>
                             )}
                     >
-                        <button data-activate={language === 'ENGLISH'} onClick={() => setLanguage('ENGLISH')}>
+                        <button data-activate={props?.language === 'ENGLISH'} onClick={() => props?.setLanguage('ENGLISH')}>
                             میلادی
                         </button>
                     </Tooltip>
@@ -86,14 +81,14 @@ export default function (props: any)
                                 </span>
                             )}
                     >
-                        <button data-activate={language === 'FARSI'} onClick={() => setLanguage('FARSI')}>
+                        <button data-activate={props?.language === 'FARSI'} onClick={() => props?.setLanguage('FARSI')}>
                             شمسی
                         </button>
                     </Tooltip>
                 </div>
             </header>
 
-            <div className={styles.datePickerMonths} data-language={language} dir={language === 'FARSI' ? 'rtl' : 'ltr'}>
+            <div className={styles.datePickerMonths} data-language={props?.language} dir={props?.language === 'FARSI' ? 'rtl' : 'ltr'}>
                 <button onClick={() => changeMonth(-1)} data-activate={monthNumber > 0}>
                     <Arrow />
                 </button>
@@ -107,19 +102,17 @@ export default function (props: any)
                 </button>
             </div>
 
-            <div className={styles.datePickerDays} data-language={language} dir={language === 'FARSI' ? 'rtl' : 'ltr'}>
+            <div className={styles.datePickerDays} data-language={props?.language} dir={props?.language === 'FARSI' ? 'rtl' : 'ltr'}>
                 <header>
                     {
-                        language === 'FARSI'
-                            ?
-                            weekDayNamesFa?.map((weekDayName: string) =>
+                        props?.language === 'FARSI'
+                            ? weekDayNamesFa?.map((weekDayName: string) =>
                                 (
                                     <span key={weekDayName}>
                                         {weekDayName}
                                     </span>
                                 ))
-                            :
-                            weekDayNamesEn?.map((weekDayName: string) =>
+                            : weekDayNamesEn?.map((weekDayName: string) =>
                                 (
                                     <span key={weekDayName}>
                                         {weekDayName}
@@ -139,19 +132,21 @@ export default function (props: any)
                                             data-utc={utc}
                                             data-date={date}
                                             data-disable={disable}
-                                            data-language={language}
+                                            data-language={props?.language}
                                             data-today={monthNumber === 0 && unixTime === todayUnixTime}
-                                            data-activate={props?.value === date}
+                                            data-activate={props?.value?.format(props?.language === 'FARSI' ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD') === date?.format(props?.language === 'FARSI' ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD')}
                                             data-deactivate={monthNumber === 0 && unixTime < todayUnixTime}
                                             data-holiday={!!holidays?.some(holiday => holiday === index)}
-                                            onClick={() => { if (!disable && !(monthNumber === 0 && unixTime < todayUnixTime)) { props?.setValue(date) }}}
+                                            onClick={() =>
+                                            {
+                                                if (!disable && !(monthNumber === 0 && unixTime < todayUnixTime))
+                                                    props?.setValue(date);
+                                            }}
                                         >
                                             {
-                                                language === 'FARSI'
-                                                    ?
-                                                    fa(day)
-                                                    :
-                                                    en(day)
+                                                props?.language === 'FARSI'
+                                                    ? fa(day)
+                                                    : en(day)
                                             }
                                         </span>
                                     ))
@@ -162,13 +157,16 @@ export default function (props: any)
 
             <footer className={styles.datePickerFooter}>
                 <span>
-                    {props?.value}
+                    {props?.value?.format(props?.language === 'FARSI' ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD')}
                 </span>
 
-                <button data-disabled={!props?.value} onClick={() => props?.setActivate(false)}>
+                <button data-activate='true' data-disabled={!props?.value} onClick={() =>
+                {
+                    if (props?.value) props?.setActivate(false);
+                }}>
                     تایید
                 </button>
             </footer>
         </div>
     );
-};
+}

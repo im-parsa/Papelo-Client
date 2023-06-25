@@ -30,14 +30,14 @@
 
                 &:nth-child(2)
                 {
-                    border-left: 2px solid #E3E6F0;
-                    border-right: 2px solid #E3E6F0;
+                    border-left: 2px solid #e3e6f0;
+                    border-right: 2px solid #e3e6f0;
 
                     @media only screen and (max-width: 1115px)
                     {
                         border: none;
-                        border-top: 2px solid #E3E6F0;
-                        border-bottom: 2px solid #E3E6F0;
+                        border-top: 2px solid #e3e6f0;
+                        border-bottom: 2px solid #e3e6f0;
                     }
                 }
 
@@ -45,16 +45,16 @@
                 {
                     font-size: 3rem;
                     text-align: center;
-                    font-family: 'YekanBakhMedium', sans-serif;
+                    font-family: YekanBakhMedium, sans-serif;
                     margin-bottom: 1rem;
                 }
 
                 & h3
                 {
-                    color: #96A5C6;
+                    color: #96a5c6;
                     font-size: 2rem;
                     text-align: center;
-                    font-family: 'YekanBakhRegular', sans-serif;
+                    font-family: YekanBakhRegular, sans-serif;
                 }
 
                 & i
@@ -65,13 +65,13 @@
                     width: 10rem;
                     height: 10rem;
                     border-radius: 10rem;
-                    background: transparent linear-gradient(180deg, #FFFFFF 0%, #F5F6FA 100%) 0% 0% no-repeat padding-box;
+                    background: transparent linear-gradient(180deg, #fff 0, #f5f6fa 100%) 0 0 no-repeat padding-box;
 
                     & svg
                     {
                         height: 5rem;
                         width: 5rem;
-                        fill: #4A6193;
+                        fill: #4a6193;
                     }
                 }
             }
@@ -118,9 +118,9 @@
                     height: 5rem;
                     min-width: 5rem;
                     min-height: 5rem;
-                    background: #FFFFFF 0 0 no-repeat padding-box;
+                    background: #fff 0 0 no-repeat padding-box;
                     border-radius: 10rem;
-                    transition: all .2s;
+                    transition: all 0.2s;
                     cursor: pointer;
 
                     &:hover
@@ -132,7 +132,7 @@
                     {
                         width: 3rem;
                         height: 3rem;
-                        fill: #96A5C6;
+                        fill: #96a5c6;
                     }
                 }
             }
@@ -142,9 +142,10 @@
                 text-align: center;
                 max-width: 70rem;
                 font-size: 2rem;
-                font-family: 'YekanBakhRegular', sans-serif;
-                color: #96A5C6;
+                font-family: YekanBakhRegular, sans-serif;
+                color: #96a5c6;
             }
+
             & h3
             {
                 font-size: 3rem;
@@ -158,7 +159,7 @@
     &Content
     {
         width: 100%;
-        background: #FFFFFF;
+        background: #fff;
 
         padding: 5rem 0;
 
@@ -170,8 +171,8 @@
             & h4
             {
                 font-size: 2rem;
-                font-family: 'YekanBakhRegular', sans-serif;
-                color: #96A5C6;
+                font-family: YekanBakhRegular, sans-serif;
+                color: #96a5c6;
             }
         }
     }
@@ -182,7 +183,7 @@
         align-items: center;
         flex-direction: column;
 
-        border-top: 2px solid #E3E6F0;
+        border-top: 2px solid #e3e6f0;
         padding: 8rem 1.5rem;
 
         & h3
@@ -206,16 +207,16 @@
             li
             {
                 cursor: pointer;
-                background: #EDEFF6 0 0 no-repeat padding-box;
+                background: #edeff6 0 0 no-repeat padding-box;
                 padding: 1.75rem 2.75rem;
                 border-radius: 1.5rem;
                 height: 6.5rem;
                 overflow: hidden;
-                transition: all .2s;
+                transition: all 0.2s;
 
                 position: relative;
 
-                &[data-activate='true']
+                &[data-activate="true"]
                 {
                     height: auto;
 
@@ -225,7 +226,7 @@
                     }
                 }
 
-                &[data-activate='false']
+                &[data-activate="false"]
                 {
                     & svg:nth-child(2)
                     {
@@ -249,7 +250,7 @@
                     {
                         letter-spacing: -0.36px;
                         color: #496193;
-                        font-family: 'YekanBakhMedium', sans-serif;
+                        font-family: YekanBakhMedium, sans-serif;
                         font-size: 2rem;
                         margin-right: 1.5rem;
                     }
@@ -259,13 +260,14 @@
                 {
                     padding: 2.2rem;
                     letter-spacing: -0.3px;
-                    color: #96A5C6;
+                    color: #96a5c6;
                     text-align: right;
                     font-size: 1.5rem;
                 }
             }
         }
     }
+
     &Footer > div
     {
         display: flex;
@@ -275,7 +277,7 @@
         gap: 2rem;
 
         min-height: 32rem;
-        background-color: #4A6192;
+        background-color: #4a6192;
         background-size: cover;
         background-image: url(../../assets/images/texture-2.svg);
         background-repeat: no-repeat;
@@ -287,7 +289,7 @@
             justify-content: center;
 
             font-size: 3rem;
-            color: #FFFFFF;
+            color: #fff;
 
             @media only screen and (max-width: 1000px)
             {
@@ -315,13 +317,13 @@
                 justify-content: center;
 
                 font-size: 2rem;
-                transition: all .2s;
+                transition: all 0.2s;
 
                 &:first-child
                 {
                     padding: 1.5rem 3rem;
-                    color: #4A6192;
-                    background: #FFFFFF;
+                    color: #4a6192;
+                    background: #fff;
                     border-radius: 10rem;
 
                     &:hover
@@ -333,8 +335,8 @@
                 &:last-child
                 {
                     padding: 1rem 0;
-                    color: #FFFFFF;
-                    border-bottom: 2px dashed #FFFFFF;
+                    color: #fff;
+                    border-bottom: 2px dashed #fff;
 
                     &:hover
                     {

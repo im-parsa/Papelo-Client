@@ -71,9 +71,9 @@ const Footer = () =>
 
                 <div className={styles.footerApp}>
                     <div className={styles.footerAppContent}>
-                        <h2 className='headingPrimary'>دریافت<span> اپلیکیشن اسکای&zwnj;رو </span></h2>
+                        <h2 className='headingPrimary'>دریافت<span> اپلیکیشن پاپلو </span></h2>
                         <p>
-                            <span>با نصب اپلیکیشن اسکای&zwnj;رو بلیط همه سفرها در جیب شماست</span>
+                            <span>با نصب اپلیکیشن پاپلو بلیط همه سفرها در جیب شماست</span>
 
                             <Link to='/'>
                                 مشاهده قابلیت ها
@@ -105,7 +105,7 @@ const Footer = () =>
                 <div className={styles.footerAchievement}>
                     <div className={styles.footerAchievementRight}>
                         <div className={styles.footerAchievementRightBox}>
-                            <h5>اسکای&zwnj;رو</h5>
+                            <h5>پاپلو</h5>
                             <Link to='/'>صفحه اصلی</Link>
                             <Link to='/blogs'>مجله خبری</Link>
                             <Link to='/about-us'>درباره ما</Link>
@@ -131,7 +131,7 @@ const Footer = () =>
                         <div className={styles.footerAchievementLeftTop}>
                             <img src={Logo} alt='Logo' />
                             <Link to='/about-us'>
-                                چرا خرید بلیط از اسکای&zwnj;رو؟ درباره ما بیشتر بدانید
+                                چرا خرید بلیط از پاپلو؟ درباره ما بیشتر بدانید
                                 <Arrow />
                             </Link>
                         </div>

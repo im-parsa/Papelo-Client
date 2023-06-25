@@ -1,0 +1,393 @@
+.factor3
+{
+    background: #F5F6FA;
+
+    &Divider
+    {
+        background: #F5F6FA;
+        height: 1px;
+        width: 100%;
+    }
+
+    &Yellow
+    {
+        display: flex;
+        align-items: center;
+
+        background: #FFCE3A 0 0 no-repeat padding-box;
+        border-radius: 20px;
+        margin-top: 4rem;
+        padding: 2rem 4rem;
+
+        p
+        {
+            letter-spacing: -0.36px;
+            color: #496193;
+            font-size: 1.8rem;
+        }
+
+        svg
+        {
+            fill: #496193;
+            margin-left: 1rem;
+        }
+    }
+
+    &Content
+    {
+        background: white;
+        border-radius: 30px;
+        margin-top: 3rem;
+        padding-bottom: 5rem;
+
+        &Heading
+        {
+            padding: 4rem;
+
+            display: flex;
+            align-items: center;
+
+            & span:nth-child(1)
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: 2rem;
+
+                background: transparent linear-gradient(180deg, #FFFFFF 0%, #F5F6FA 100%) 0 0 no-repeat padding-box;
+                border-radius: 50%;
+                padding: 1rem;
+
+                svg
+                {
+                    width: 2rem;
+                    height: 2rem;
+                }
+            }
+
+            & span:nth-child(2)
+            {
+                letter-spacing: -0.36px;
+                color: #496193;
+                font-size: 1.8rem;
+            }
+        }
+
+        &Info
+        {
+            padding: 4rem;
+
+            &Head
+            {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                & h2
+                {
+                    letter-spacing: -0.36px;
+                    color: #496193;
+                    font-size: 2rem;
+                }
+
+                & button
+                {
+                    display: flex;
+                    align-items: center;
+
+                    border: 2px solid #EDEFF6;
+                    border-radius: 20px;
+                    background: none;
+                    letter-spacing: -0.23px;
+                    color: #496193;
+                    padding: 0.5rem 1.4rem;
+
+                    svg
+                    {
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        fill: #496193;
+                        margin-left: 0.5rem;
+                    }
+                }
+            }
+        }
+
+        &Ticket
+        {
+            background: #FAFCFF 0 0 no-repeat padding-box;
+            border-radius: 20px;
+            padding: 4rem;
+            margin: 0 4rem 2rem;
+
+            & ul
+            {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                & li:nth-child(1),
+                & li:nth-child(5),
+                & li:nth-child(6)
+                {
+                    letter-spacing: -0.36px;
+                    color: #496193;
+                    font-size: 1.8rem;
+                }
+
+                & li:nth-child(2)
+                {
+                    display: flex;
+                    align-items: center;
+
+                    & span:nth-child(2)
+                    {
+                        letter-spacing: -0.3px;
+                        color: #96A5C6;
+                        font-size: 1.8rem;
+                        margin: 0 1rem;
+                    }
+
+                    & span:nth-child(3)
+                    {
+                        letter-spacing: -0.3px;
+                        color: #496193;
+                        font-size: 1.8rem;
+                    }
+                }
+
+                & li:nth-child(3),
+                & li:nth-child(4)
+                {
+                    letter-spacing: -0.3px;
+                    color: #96A5C6;
+                    font-size: 1.8rem;
+                }
+
+                & li:nth-child(5)
+                {
+                    display: flex;
+                    align-items: center;
+
+                    svg
+                    {
+                        fill: #96A5C6;
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        margin-right: 0.5rem;
+                    }
+                }
+            }
+        }
+
+        &HotelInfo
+        {
+            &Head
+            {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 4rem;
+
+                p
+                {
+                    display: flex;
+                    flex-direction: column;
+
+                    & span:nth-child(1)
+                    {
+                        letter-spacing: -0.36px;
+                        color: #496193;
+                        font-size: 2rem;
+                    }
+
+                    & span:nth-child(2)
+                    {
+                        letter-spacing: -0.3px;
+                        color: #96A5C6;
+                        font-size: 1.8rem;
+                    }
+                }
+
+                & button
+                {
+                    display: flex;
+                    align-items: center;
+
+                    border: 2px solid #EDEFF6;
+                    border-radius: 20px;
+                    background: none;
+                    letter-spacing: -0.23px;
+                    color: #496193;
+                    padding: 0.5rem 1.4rem;
+
+                    svg
+                    {
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        fill: #496193;
+                        margin-left: 0.5rem;
+                    }
+                }
+            }
+
+            &Data
+            {
+                background: #FAFCFF 0 0 no-repeat padding-box;
+                border-radius: 20px;
+                padding: 4rem;
+                margin: 0 4rem;
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                li
+                {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+
+                    & span:nth-child(1)
+                    {
+                        letter-spacing: -0.3px;
+                        color: #96A5C6;
+                        font-size: 1.6rem;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    & span:nth-child(2)
+                    {
+                        color: #496193;
+                        font-size: 1.6rem;
+
+                        svg
+                        {
+                            fill: #FFCE3A;
+                        }
+                    }
+                }
+            }
+
+            &Table
+            {
+                display: table;
+                text-align: center;
+                width: 100%;
+                border-collapse: separate;
+                padding: 4rem;
+
+                font-size: 1.8rem;
+
+                &TR
+                {
+                    display: table-row;
+                }
+
+                &TD,
+                &TD1
+                {
+                    display: table-cell;
+                    padding: 1.4rem;
+
+                    color: #96A5C6;
+                    border: 1px solid #EDEFF6;
+                }
+
+                &TD1
+                {
+                    color: #496193;
+                }
+            }
+
+            &Person
+            {
+                display: flex;
+                flex-direction: column;
+
+                padding: 4rem;
+
+                & span:nth-child(1)
+                {
+                    letter-spacing: -0.36px;
+                    color: #496193;
+                    font-size: 2rem;
+                    margin-bottom: 0.8rem;
+                }
+
+                & span:nth-child(2)
+                {
+                    letter-spacing: -0.3px;
+                    color: #96A5C6;
+                    font-size: 1.8rem;
+                }
+            }
+
+            &PersonInfo
+            {
+                background: #FAFCFF 0 0 no-repeat padding-box;
+                border-radius: 20px;
+                padding: 4rem 6rem;
+                margin: 0 4rem;
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                & div:nth-child(1)
+                {
+                    display: flex;
+                    align-items: center;
+
+                    p
+                    {
+                        display: flex;
+                        flex-direction: column;
+                        padding-right: 2rem;
+
+                        span:nth-child(1)
+                        {
+                            font-size: 1.8rem;
+                        }
+
+                        span:nth-child(2)
+                        {
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+
+                & div:nth-child(2),
+                & div:nth-child(3)
+                {
+                    display: flex;
+                    align-items: center;
+
+                    svg
+                    {
+                        margin-left: 1rem;
+                        width: 2rem;
+                        height: 2rem;
+                        fill: #96A5C6;
+                    }
+
+                    span:nth-child(2)
+                    {
+                        letter-spacing: -0.3px;
+                        color: #96A5C6;
+                        font-size: 1.8rem;
+                    }
+
+                    span:nth-child(3)
+                    {
+                        letter-spacing: -0.3px;
+                        color: #496193;
+                        font-size: 1.8rem;
+                        margin-right: 2rem;
+                        font-weight: 500;
+                    }
+                }
+            }
+        }
+    }
+}

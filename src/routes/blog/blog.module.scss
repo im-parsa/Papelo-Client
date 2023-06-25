@@ -17,16 +17,16 @@
             width: 100%;
         }
 
-        &:before
+        &::before
         {
-            content: '';
+            content: "";
             position: absolute;
             left: 50%;
-            bottom: -.75rem;
+            bottom: -0.75rem;
             height: 2rem;
             transform: translate(-50%, 0);
             border-radius: 1rem;
-            background: #09BAB5 0 0 no-repeat padding-box;
+            background: #09bab5 0 0 no-repeat padding-box;
             min-width: 3rem;
             width: 20rem;
             max-width: 50%;
@@ -41,8 +41,8 @@
             position: relative;
 
             border-radius: 1.5rem;
-            background-color: #4A6192;
-            background-image: url(../../assets/images/header-10.svg);
+            background-color: #4a6192;
+            background-image: url(../../assets/images/app-bg.svg);
             background-repeat: no-repeat;
             background-size: cover;
             width: 100%;
@@ -56,12 +56,13 @@
                 width: 4rem;
                 height: 4rem;
                 border-radius: 5rem;
-                background: #F5F6FA;
+                background: #f5f6fa;
 
                 &:first-child
                 {
                     right: -2rem;
                 }
+
                 &:last-child
                 {
                     left: -2rem;
@@ -85,12 +86,12 @@
 
             & *
             {
-                font-family: 'YekanBakhMedium', sans-serif;
+                font-family: YekanBakhMedium, sans-serif;
             }
 
             & > p
             {
-                color: #96A5C6;
+                color: #96a5c6;
             }
         }
 
@@ -107,14 +108,14 @@
                     padding: 1.75rem 2.75rem;
                     height: 6.5rem;
                     overflow: hidden;
-                    transition: all .2s;
+                    transition: all 0.2s;
 
                     position: relative;
 
                     & > div
                     {
                         padding: 3.5rem 0;
-                        border-bottom: 2px solid #E3E6F0;
+                        border-bottom: 2px solid #e3e6f0;
                     }
 
                     & > ul
@@ -131,43 +132,43 @@
                             align-items: center;
                             gap: 1rem;
 
-                            color: #96A5C6;
-                            transition: all .2s;
+                            color: #96a5c6;
+                            transition: all 0.2s;
                             cursor: pointer;
 
-                            &:before
+                            &::before
                             {
-                                content: '';
+                                content: "";
                                 width: 1rem;
                                 height: 1rem;
                                 border-radius: 2rem;
-                                background: #96A5C6;
+                                background: #96a5c6;
                             }
 
                             &:hover
                             {
                                 color: #75829e;
 
-                                &:before
+                                &::before
                                 {
                                     background: #75829e;
                                 }
                             }
 
-                            &[data-activate='true']
+                            &[data-activate="true"]
                             {
-                                color: #4A6192;
+                                color: #4a6192;
                                 text-decoration: underline;
 
-                                &:before
+                                &::before
                                 {
-                                    background: #4A6192;
+                                    background: #4a6192;
                                 }
                             }
                         }
                     }
 
-                    &[data-activate='true']
+                    &[data-activate="true"]
                     {
                         height: auto;
 
@@ -177,7 +178,7 @@
                         }
                     }
 
-                    &[data-activate='false']
+                    &[data-activate="false"]
                     {
                         & svg:nth-child(2)
                         {
@@ -201,7 +202,7 @@
                         {
                             letter-spacing: -0.36px;
                             color: #496193;
-                            font-family: 'YekanBakhMedium', sans-serif;
+                            font-family: YekanBakhMedium, sans-serif;
                             font-size: 2rem;
                             margin-right: 1.5rem;
                         }
@@ -211,7 +212,7 @@
                     {
                         padding: 2.2rem;
                         letter-spacing: -0.3px;
-                        color: #96A5C6;
+                        color: #96a5c6;
                         text-align: right;
                         font-size: 1.5rem;
                     }
@@ -229,16 +230,16 @@
                 li
                 {
                     cursor: pointer;
-                    background: #EDEFF6 0 0 no-repeat padding-box;
+                    background: #edeff6 0 0 no-repeat padding-box;
                     padding: 1.75rem 2.75rem;
                     border-radius: 1.5rem;
                     height: 6.5rem;
                     overflow: hidden;
-                    transition: all .2s;
+                    transition: all 0.2s;
 
                     position: relative;
 
-                    &[data-activate='true']
+                    &[data-activate="true"]
                     {
                         height: auto;
 
@@ -248,7 +249,7 @@
                         }
                     }
 
-                    &[data-activate='false']
+                    &[data-activate="false"]
                     {
                         & svg:nth-child(2)
                         {
@@ -272,7 +273,7 @@
                         {
                             letter-spacing: -0.36px;
                             color: #496193;
-                            font-family: 'YekanBakhMedium', sans-serif;
+                            font-family: YekanBakhMedium, sans-serif;
                             font-size: 2rem;
                             margin-right: 1.5rem;
                         }
@@ -282,7 +283,7 @@
                     {
                         padding: 2.2rem;
                         letter-spacing: -0.3px;
-                        color: #96A5C6;
+                        color: #96a5c6;
                         text-align: right;
                         font-size: 1.5rem;
                     }
@@ -299,8 +300,8 @@
                 justify-content: space-between;
 
                 max-width: 90rem;
-                border-top: 2px solid #E3E6F0;
-                border-bottom: 2px solid #E3E6F0;
+                border-top: 2px solid #e3e6f0;
+                border-bottom: 2px solid #e3e6f0;
                 padding: 2.5rem 0;
 
                 @media only screen and (max-width: 90rem)
@@ -319,10 +320,10 @@
                     white-space: nowrap;
                     word-wrap: anywhere;
                     width: fit-content;
-                    padding: .75rem 2rem;
+                    padding: 0.75rem 2rem;
                     border-radius: 10rem;
-                    background: #09BAB5;
-                    color: #FFFFFF;
+                    background: #09bab5;
+                    color: #fff;
                 }
 
                 & > div
@@ -342,13 +343,13 @@
 
                         cursor: pointer;
                         font-size: 1.5rem;
-                        transition: all .2s;
+                        transition: all 0.2s;
 
                         & svg
                         {
                             height: 1.75rem;
                             width: 1.75rem;
-                            fill: #96A5C6;
+                            fill: #96a5c6;
                         }
 
                         &:hover
@@ -384,7 +385,7 @@
                 max-width: 90rem;
                 padding: 2.5rem 3rem !important;
                 border-radius: 2rem;
-                background: #FFFFFF;
+                background: #fff;
 
                 & > span
                 {
@@ -399,9 +400,9 @@
                     min-height: 9rem;
                     max-width: 9rem;
                     max-height: 9rem;
-                    padding: .5rem;
+                    padding: 0.5rem;
                     border-radius: 15rem;
-                    box-shadow: 0px 10px 20px #C4C9DA73;
+                    box-shadow: 0 10px 20px #c4c9da73;
 
                     & > img
                     {
@@ -422,8 +423,8 @@
 
                     & > p
                     {
-                        font-family: 'YekanBakhMedium', sans-serif;
-                        color: #96A5C6;
+                        font-family: YekanBakhMedium, sans-serif;
+                        color: #96a5c6;
                         letter-spacing: -0.3px;
                     }
                 }
@@ -456,20 +457,20 @@
                     gap: 1rem;
 
                     font-size: 2.65rem;
-                    font-family: 'YekanBakhMedium', sans-serif;
+                    font-family: YekanBakhMedium, sans-serif;
 
                     & svg
                     {
                         width: 3rem;
                         height: 3rem;
-                        fill: #09BAB5;
+                        fill: #09bab5;
                     }
                 }
 
                 & > form
                 {
                     width: 100%;
-                    background: #FFFFFF;
+                    background: #fff;
                     border-radius: 2rem;
                     padding: 3rem;
 
@@ -517,14 +518,14 @@
                         outline: none;
                         background: transparent;
                         font-size: 2rem;
-                        color: #4A6192;
+                        color: #4a6192;
                         min-height: 20rem;
                         width: 100%;
 
                         &::placeholder
                         {
                             color: #7e8dac;
-                            font-family: 'YekanBakhMedium', sans-serif;
+                            font-family: YekanBakhMedium, sans-serif;
                         }
                     }
 
@@ -534,12 +535,12 @@
                         outline: none;
                         background: transparent;
                         font-size: 2rem;
-                        color: #4A6192;
+                        color: #4a6192;
 
                         &::placeholder
                         {
                             color: #7e8dac;
-                            font-family: 'YekanBakhMedium', sans-serif;
+                            font-family: YekanBakhMedium, sans-serif;
                         }
                     }
                 }
@@ -557,8 +558,8 @@
                     padding: 1.8rem 4rem;
                     border-radius: 10rem;
                     font-size: 2rem;
-                    color: #FFFFFF;
-                    background: #09BAB5 0 0 no-repeat padding-box;
+                    color: #fff;
+                    background: #09bab5 0 0 no-repeat padding-box;
                 }
             }
         }
@@ -591,9 +592,9 @@
                     justify-content: center;
                     gap: 1rem;
 
-                    color: #4A6192;
+                    color: #4a6192;
                     font-size: 1.5rem;
-                    transition: all .2s;
+                    transition: all 0.2s;
 
                     &:hover
                     {
@@ -614,11 +615,11 @@
                     {
                         width: 1rem;
                         height: 1rem;
-                        fill: #4A6192;
+                        fill: #4a6192;
 
                         & *
                         {
-                            fill: #4A6192;
+                            fill: #4a6192;
                         }
                     }
                 }
@@ -627,8 +628,8 @@
 
         &Main
         {
-            border-top: 1px solid #E3E6F0;
-            border-bottom: 1px solid #E3E6F0;
+            border-top: 1px solid #e3e6f0;
+            border-bottom: 1px solid #e3e6f0;
             height: auto;
 
             & > div
@@ -638,8 +639,8 @@
                 grid-template-columns: repeat(3, 1fr);
 
                 height: auto;
-                border-left: 1px solid #E3E6F0;
-                border-right: 1px solid #E3E6F0;
+                border-left: 1px solid #e3e6f0;
+                border-right: 1px solid #e3e6f0;
                 padding: 0 !important;
 
                 @media only screen and (max-width: 90rem)
@@ -657,14 +658,14 @@
                     display: flex;
                     flex-direction: column;
 
-                    border: 1px solid #E3E6F0;
+                    border: 1px solid #e3e6f0;
                     padding: 5rem 3.5rem;
                     height: 52rem;
 
                     & > span
                     {
                         border-radius: 2rem;
-                        background-color: #4A6193;
+                        background-color: #4a6193;
                         background-size: cover;
                         background-repeat: no-repeat;
                         width: 100%;
@@ -681,17 +682,16 @@
                         margin: auto;
                         margin-bottom: 0;
                         font-size: 1rem;
-                        font-family: 'YekanBakhBold', sans-serif;
-
+                        font-family: YekanBakhBold, sans-serif;
 
                         & > div
                         {
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            gap: .5rem;
+                            gap: 0.5rem;
 
-                            color: #4A6193;
+                            color: #4a6193;
                             font-size: 1.25rem;
 
                             & i
@@ -702,8 +702,8 @@
 
                                 width: 1.5rem;
                                 height: 1.5rem;
-                                border-radius: .7rem;
-                                background: #09BAB5;
+                                border-radius: 0.7rem;
+                                background: #09bab5;
 
                                 & svg
                                 {
@@ -711,8 +711,8 @@
                                     align-items: center;
                                     justify-content: center;
 
-                                    width: .8rem;
-                                    height: .8rem;
+                                    width: 0.8rem;
+                                    height: 0.8rem;
                                     fill: #496193;
                                     color: #496193;
                                 }
@@ -728,9 +728,9 @@
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
-                                gap: .5rem;
+                                gap: 0.5rem;
 
-                                color: #4A6193;
+                                color: #4a6193;
                                 font-size: 1.25rem;
 
                                 & svg
@@ -751,23 +751,23 @@
 
                     & > h2
                     {
-                        color: #4A6193;
+                        color: #4a6193;
                         font-size: 2.25rem;
                         padding: 1.5rem 0;
-                        transition: all .2s;
+                        transition: all 0.2s;
                     }
 
                     & > h3
                     {
                         font-size: 1.75rem;
                         color: #496193;
-                        font-family: 'YekanBakhRegular', sans-serif;
+                        font-family: YekanBakhRegular, sans-serif;
                         padding-bottom: 1.5rem;
                     }
 
                     &:hover > h2
                     {
-                        color: #09BAB5;
+                        color: #09bab5;
                     }
                 }
             }

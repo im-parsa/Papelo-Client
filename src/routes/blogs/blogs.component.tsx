@@ -26,7 +26,7 @@ const Blogs = () =>
                 <div className='container'>
                     <h2>
                         <Blog />
-                        بروز از مجله<strong>اسکای&zwnj;رو</strong>
+                        بروز از مجله<strong>پاپلو</strong>
                     </h2>
                     <div>
                         <div>
@@ -104,7 +104,7 @@ const Blogs = () =>
                     <div className={stylesHome.homeApplicationBox}>
                         <AppPhone />
                         <div>
-                            <h2 className='headingPrimary'>دریافت<span> اپلیکیشن اسکای&zwnj;رو </span></h2>
+                            <h2 className='headingPrimary'>دریافت<span> اپلیکیشن پاپلو </span></h2>
                             <ul>
                                 <li>
                                     <Check />

@@ -7,7 +7,6 @@ import { togglePopupHiddenLogin } from '../../../redux/popup/popup.actions';
 import styles from './navbar.module.scss';
 
 import Logo from '../../../assets/icons/logo.png';
-import Image3 from '../../../assets/images/image-3.svg';
 import BlogImage from '../../../assets/images/image-3.svg';
 import { ReactComponent as User } from '../../../assets/icons/user.svg';
 import { ReactComponent as Plane } from '../../../assets/icons/plane.svg';
@@ -29,12 +28,11 @@ const Navbar = (props: any) =>
     const dispatch = useDispatch();
 
     return (
-        <nav className={styles.navbar} data-header={!!props.header} data-booking={!!props.booking}>
+        <nav className={styles.navbar} data-header={!!props.header} data-booking={!!props.booking} data-search={props?.search}>
             <div className='container'>
                 {
                     props.booking
-                    ?
-                        <>
+                        ? <>
                             <Link to='/'>
                                 <Arrow />
                                 بازگشت به صفحه پرواز
@@ -42,8 +40,7 @@ const Navbar = (props: any) =>
 
                             <img src={Logo} alt='Logo'/>
                         </>
-                        :
-                        <>
+                        : <>
                             <img src={Logo} alt='Logo'/>
                             <ul className={styles.navbarList}>
                                 <Link to='/' className={styles.navbarItem}>
@@ -83,9 +80,9 @@ const Navbar = (props: any) =>
                                                 </div>
                                             </li>
                                             <li className={styles.navbarPopupItem}>
-                                            <span>
-                                                <Train />
-                                            </span>
+                                                <span>
+                                                    <Train />
+                                                </span>
                                                 <div>
                                                     <Link to='/train-ticket'>
                                                         بلیط قطار
@@ -96,9 +93,9 @@ const Navbar = (props: any) =>
                                                 </div>
                                             </li>
                                             <li className={styles.navbarPopupItem}>
-                                            <span>
-                                                <Hotel />
-                                            </span>
+                                                <span>
+                                                    <Hotel />
+                                                </span>
                                                 <div>
                                                     <Link to='/hotel-reserve'>
                                                         رزرو هتل
@@ -109,9 +106,9 @@ const Navbar = (props: any) =>
                                                 </div>
                                             </li>
                                             <li className={styles.navbarPopupItem}>
-                                            <span>
-                                                <Tour />
-                                            </span>
+                                                <span>
+                                                    <Tour />
+                                                </span>
                                                 <div>
                                                     <Link to='/tour-reserve'>
                                                         رزرو تور
@@ -144,15 +141,13 @@ const Navbar = (props: any) =>
                 }
                 {
                     props.blog || props.blogs
-                        ?
-                        <form>
+                        ? <form>
                             <input placeholder='موضوع مقاله یا حتی نام جاذبه گردشگری' type='text'/>
                             <button type='submit'>
                                 <Search />
                             </button>
                         </form>
-                        :
-                        <div>
+                        : <div>
                             <button onClick={() => dispatch(togglePopupHiddenLogin())}>
                                 <User />
                                 حساب کاربری
@@ -166,8 +161,7 @@ const Navbar = (props: any) =>
             </div>
             {
                 props.header
-                    ?
-                    <>
+                    ? <>
                         <nav className={styles.navbarHeaderNav}>
                             <div className='container'>
                                 <Link to='/'>
@@ -198,18 +192,16 @@ const Navbar = (props: any) =>
                                 <div>
                                     <span />
                                     <span />
-                                    <span style={{ backgroundImage: `url(${props.headerImage})` }} />
+                                    <span style={{ backgroundImage: `url(${ props.headerImage })` }} />
                                 </div>
                             </div>
                         </header>
                     </>
-                    :
-                    null
+                    : null
             }
             {
                 props.blog
-                    ?
-                    <>
+                    ? <>
                         <nav data-blog='true' className={styles.navbarHeaderNav}>
                             <div className='container'>
                                 <Link to='/'>
@@ -245,10 +237,10 @@ const Navbar = (props: any) =>
                                 <h1>
                                     { props.blog }
                                 </h1>
-                                <span style={{ backgroundImage: `url(${props.blogImage})` }} />
+                                <span style={{ backgroundImage: `url(${ props.blogImage })` }} />
                                 <footer>
                                     <div>
-                                       <span>
+                                        <span>
                                             <img src={BlogImage} alt='profile'/>
                                         </span>
                                         <h3>
@@ -301,20 +293,18 @@ const Navbar = (props: any) =>
                             </nav>
                         </header>
                     </>
-                    :
-                    null
+                    : null
             }
             {
                 props.blogs
-                    ?
-                    <header className={styles.navbarHeaderBlogs}>
+                    ? <header className={styles.navbarHeaderBlogs}>
                         <div className='container'>
                             <Link to='#'>
                                 <div />
                                 <div>
-                                <span>
+                                    <span>
                                     اخبار گردشگری
-                                </span>
+                                    </span>
                                     <h3>
                                         سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
                                     </h3>
@@ -322,38 +312,38 @@ const Navbar = (props: any) =>
                                         احسان غلام پور
                                     </p>
                                 </div>
-                                <img src={Image3}  alt='homeMagazineGallery'/>
+                                <img src={BlogImage} alt='homeMagazineGallery'/>
                             </Link>
                             <Link to='#'>
                                 <div />
                                 <div>
-                                 <span>
+                                    <span>
                                     اخبار گردشگری
-                                </span>
+                                    </span>
                                     <h3>
                                         سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
                                     </h3>
                                 </div>
-                                <img src={Image3}  alt='homeMagazineGallery'/>
+                                <img src={BlogImage} alt='homeMagazineGallery'/>
                             </Link>
                             <Link to='#'>
                                 <div />
                                 <div>
-                                 <span>
+                                    <span>
                                     اخبار گردشگری
-                                </span>
+                                    </span>
                                     <h3>
                                         سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
                                     </h3>
                                 </div>
-                                <img src={Image3}  alt='homeMagazineGallery'/>
+                                <img src={BlogImage} alt='homeMagazineGallery'/>
                             </Link>
                             <Link to='#'>
                                 <div />
                                 <div>
-                                <span>
+                                    <span>
                                     اخبار گردشگری
-                                </span>
+                                    </span>
                                     <h3>
                                         سفر به جاهای دیدنی لهستان؛ از قلعه‌های تاریخی تا جنگل‌های سبز
                                     </h3>
@@ -361,7 +351,7 @@ const Navbar = (props: any) =>
                                         احسان غلام پور
                                     </p>
                                 </div>
-                                <img src={Image3}  alt='homeMagazineGallery'/>
+                                <img src={BlogImage} alt='homeMagazineGallery'/>
                             </Link>
                         </div>
                         <nav>
@@ -373,8 +363,7 @@ const Navbar = (props: any) =>
                             </i>
                         </nav>
                     </header>
-                    :
-                    null
+                    : null
 
             }
         </nav>

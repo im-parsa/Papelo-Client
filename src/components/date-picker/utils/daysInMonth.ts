@@ -1,5 +1,4 @@
-import momentEn from 'moment';
-import momentFa from 'jalali-moment';
+import moment from 'jalali-moment';
 
 import { fa, en } from './index';
 
@@ -25,43 +24,16 @@ export const daysInMonth = (date: any, language: string): IDaysInMonth =>
 {
     const days: IDays[] = [];
 
-    let clonedDate;
-    let monthName;
-    let month;
-    let firstDayOfWeek;
-    let lastDayOfWeek;
-    let today;
-
-    if (language === 'FARSI')
-    {
-        clonedDate = date.clone();
-
-        monthName = `${clonedDate.locale('fa').format('jMMMM')} ${fa(clonedDate.format('jYYYY'))}`;
-        month = Number(
-            date
-                .clone()
-                .locale('fa')
-                .format('jM')
-        );
-        firstDayOfWeek = date.clone().startOf('jMonth');
-        lastDayOfWeek = date.clone().endOf('jMonth');
-        today = momentFa().format('jYYYY/jMM') === date.format('jYYYY/jMM') ? { today: date.format('jDD') } : null;
-    }
-    else
-    {
-        clonedDate = date.clone();
-
-        monthName = `${clonedDate.locale('en').format('MMMM')} ${en(clonedDate.format('YYYY'))}`;
-        month = Number(
-            date
-                .clone()
-                .locale('en')
-                .format('M')
-        );
-        firstDayOfWeek = date.clone().startOf('month');
-        lastDayOfWeek = date.clone().endOf('month');
-        today = momentEn().format('YYYY/MM') === date.format('YYYY/MM') ? { today: date.format('DD') } : null;
-    }
+    const clonedDate = date.clone();
+    const monthName = `${ clonedDate.locale(language === 'FARSI' ? 'fa' : 'en').format(language === 'FARSI' ? 'jMMMM' : 'MMMM') } ${ moment().format(language === 'FARSI' ? 'jYYYY' : 'YYYY') === clonedDate.format(language === 'FARSI' ? 'jYYYY' : 'YYYY') ? '' : language === 'FARSI' ? fa(clonedDate.format('jYYYY')) : en(clonedDate.format('YYYY')) }`;
+    const month = Number(
+        date
+            .clone()
+            .locale(language === 'FARSI' ? 'fa' : 'en')
+            .format(language === 'FARSI' ? 'jM' : 'M')
+    );
+    const firstDayOfWeek = date.clone().startOf(language === 'FARSI' ? 'jMonth' : 'Month');
+    const lastDayOfWeek = date.clone().endOf(language === 'FARSI' ? 'jMonth' : 'Month');
 
     firstDayOfWeek.subtract((firstDayOfWeek.day() + 1) % 7, 'days');
 
@@ -71,8 +43,8 @@ export const daysInMonth = (date: any, language: string): IDaysInMonth =>
             {
                 day: firstDayOfWeek.clone().format(language === 'FARSI' ? 'jDD' : 'DD'),
                 utc: new Date(firstDayOfWeek.clone().format('YYYY/M/DD')).toUTCString(),
-                date: firstDayOfWeek.clone().format(language === 'FARSI' ? 'jYYYY/jMM/jDD' : 'YYYY/MM/DD'),
-                todayUnixTime: Date.parse(date.format('YYYY/MM/DD')),
+                date: firstDayOfWeek.clone(),
+                todayUnixTime: Date.parse(moment().format('YYYY/MM/DD')),
                 unixTime: Date.parse(firstDayOfWeek.clone().format('YYYY/MM/DD')),
                 disable: firstDayOfWeek.clone().format(language === 'FARSI' ? 'jMM' : 'MM') !== date.clone().format(language === 'FARSI' ? 'jMM' : 'MM')
             });
@@ -80,5 +52,5 @@ export const daysInMonth = (date: any, language: string): IDaysInMonth =>
         firstDayOfWeek.add(1, 'days');
     }
 
-    return { monthName, month, days, ...today };
+    return { monthName, month, days };
 };

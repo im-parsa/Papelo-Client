@@ -19,7 +19,7 @@
                 justify-content: center;
 
                 font-size: 3.5rem;
-                font-family: 'YekanBakhMedium', sans-serif;
+                font-family: YekanBakhMedium, sans-serif;
 
                 & > svg
                 {
@@ -45,16 +45,16 @@
                     font-size: 1.5rem;
                     padding: 1rem 2rem;
                     border-radius: 10rem;
-                    border: 3px solid #EDEFF6;
+                    border: 3px solid #edeff6;
 
                     & > svg
                     {
-                        width: .6rem;
+                        width: 0.6rem;
                         transform: rotate(-90deg);
 
                         & *
                         {
-                            fill: #4A6193;
+                            fill: #4a6193;
                         }
                     }
                 }
@@ -64,8 +64,8 @@
 
     &Main
     {
-        border-top: 1px solid #E3E6F0;
-        border-bottom: 1px solid #E3E6F0;
+        border-top: 1px solid #e3e6f0;
+        border-bottom: 1px solid #e3e6f0;
         height: auto;
 
         & > div
@@ -75,8 +75,8 @@
             grid-template-columns: repeat(3, 1fr);
 
             height: auto;
-            border-left: 1px solid #E3E6F0;
-            border-right: 1px solid #E3E6F0;
+            border-left: 1px solid #e3e6f0;
+            border-right: 1px solid #e3e6f0;
             padding: 0 !important;
 
             @media only screen and (max-width: 1100px)
@@ -104,9 +104,9 @@
 
         @media only screen and (max-width: 76rem)
         {
-            transform: scale(.8);
+            transform: scale(0.8);
 
-            &[data-type='text']
+            &[data-type="text"]
             {
                 display: none;
             }
@@ -121,30 +121,30 @@
 
             border: none;
             outline: none;
-            color: #4A6193;
+            color: #4a6193;
             height: 5rem;
             cursor: pointer;
-            background: #EDEFF6 0 0 no-repeat padding-box;
+            background: #edeff6 0 0 no-repeat padding-box;
             border-radius: 50rem;
             font-size: 2rem;
             padding: 0 2rem;
-            transition: all .2s;
+            transition: all 0.2s;
 
             &:hover
             {
                 background: #e8eaf1 0 0 no-repeat padding-box;
             }
 
-            &[data-type='number'],
-            &[data-type='dots']
+            &[data-type="number"],
+            &[data-type="dots"]
             {
                 width: 5rem;
             }
 
-            &[data-activate='true']
+            &[data-activate="true"]
             {
-                background: #4A6193;
-                color: #FFFFFF;
+                background: #4a6193;
+                color: #fff;
 
                 &:hover
                 {
@@ -159,7 +159,7 @@
 
             & > svg *
             {
-                fill: #4A6193;
+                fill: #4a6193;
             }
         }
     }

@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import validator from 'validator';
-import React, { useCallback, useState, useRef, createRef } from 'react';
+import React, { useState, useRef, createRef } from 'react';
 
 import styles from './booking.module.scss';
 import stylesBookingBox from '../../components/booking-box/booking-box.module.scss';
@@ -22,7 +22,9 @@ const Booking = () =>
     const agesRef: any = useRef<any>([]);
     const codesRef: any = useRef<any>([]);
     const gendersRef: any = useRef<any>([]);
-    const birthdaysRef: any = useRef<any>([]);
+    const birthdaysDayRef: any = useRef<any>([]);
+    const birthdaysMonthRef: any = useRef<any>([]);
+    const birthdaysYearRef: any = useRef<any>([]);
     const latinNamesRef: any = useRef<any>([]);
     const persianNamesRef: any = useRef<any>([]);
     const latinLastNamesRef: any = useRef<any>([]);
@@ -33,342 +35,329 @@ const Booking = () =>
 
     const [page, setPage] = useState('user');
     const [popup, setPopup] = useState(false);
-    const [passengers, setPassengers]: any = useState<any>([{ id: nanoid() }]);
+    const [popupIndex, setPopupIndex] = useState<number>(0);
+    const [passengers, setPassengers] = useState<any[]>([{ id: nanoid() }]);
+    const [phoneNumber, setPhoneNumber] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [captchaCode, setCaptchaCode] = useState<string>('');
 
-    const numberValidate = useCallback(
-        (event: any) =>
+    const birthdayValidate = (passenger: any, index: number) =>
+    {
+        const regex = /^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/;
+
+        if (!passenger?.birthdayDay)
         {
-            let key;
-            const theEvent = event || window.event;
-
-            if (theEvent.type === 'paste')
-            {
-                key = event.clipboardData.getData('text/plain');
-            }
-            else
-            {
-                key = theEvent.keyCode || theEvent.which;
-                key = String.fromCharCode(key);
-            }
-
-            const regex = /[0-9]|\./;
-
-            if (!regex.test(key) || event?.target?.value?.length >= 10)
-            {
-                theEvent.returnValue = false;
-
-                if (theEvent.preventDefault)
-                {
-                    theEvent.preventDefault();
-                }
-            }
-            else
-            {
-                event?.target?.parentElement?.setAttribute('data-error', 'false');
-            }
-        }, []);
-    const birthdayValidate = useCallback(
-        (event: any) =>
+            birthdaysDayRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+            birthdaysDayRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error', 'true');
+            birthdaysDayRef?.current[index]?.current?.setAttribute('data-error', 'true');
+        }
+        else if (Number(passenger?.birthdayDay) <= 0)
         {
-            let key;
-            const theEvent = event || window.event;
+            birthdaysDayRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error_message', 'این تاریخ اشتباه است');
+            birthdaysDayRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error', 'true');
+            birthdaysDayRef?.current[index]?.current?.setAttribute('data-error', 'true');
+        }
 
-            if (theEvent.type === 'paste')
-            {
-                key = event.clipboardData.getData('text/plain');
-            }
-            else
-            {
-                key = theEvent.keyCode || theEvent.which;
-                key = String.fromCharCode(key);
-            }
-
-            const regex = new RegExp(/([0-9/]+)/g);
-
-            if (!regex.test(key) || event?.target?.value?.length >= 10)
-            {
-                theEvent.returnValue = false;
-
-                if (theEvent.preventDefault)
-                {
-                    theEvent.preventDefault();
-                }
-            }
-            else
-            {
-                event?.target?.parentElement?.setAttribute('data-error', 'false');
-            }
-        }, []);
-    const passportValidate = useCallback(
-        (event: any) =>
+        if (!passenger?.birthdayMonth)
         {
-            let key;
-            const theEvent = event || window.event;
-
-            if (theEvent.type === 'paste')
-            {
-                key = event.clipboardData.getData('text/plain');
-            }
-            else
-            {
-                key = theEvent.keyCode || theEvent.which;
-                key = String.fromCharCode(key);
-            }
-
-            const regex = /^([a-zA-Z0-9 _-]+)$/;
-
-            if (!regex.test(key) || event?.target?.value?.length >= 9)
-            {
-                theEvent.returnValue = false;
-
-                if (theEvent.preventDefault)
-                {
-                    theEvent.preventDefault();
-                }
-            }
-            else
-            {
-                event?.target?.parentElement?.setAttribute('data-error', 'false');
-            }
-        }, []);
-    const latinValidate = useCallback(
-        (event: any) =>
+            birthdaysMonthRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+            birthdaysMonthRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error', 'true');
+            birthdaysMonthRef?.current[index]?.current?.setAttribute('data-error', 'true');
+        }
+        else if (Number(passenger?.birthdayMonth) <= 0)
         {
-            let key;
-            const theEvent = event || window.event;
+            birthdaysMonthRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error_message', 'این تاریخ اشتباه است');
+            birthdaysMonthRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error', 'true');
+            birthdaysMonthRef?.current[index]?.current?.setAttribute('data-error', 'true');
+        }
 
-            if (theEvent.type === 'paste')
-            {
-                key = event.clipboardData.getData('text/plain');
-            }
-            else
-            {
-                key = theEvent.keyCode || theEvent.which;
-                key = String.fromCharCode(key);
-            }
-
-            const numRegex = /[0-9]|\./;
-            const regex = /^[a-zA-Z\s.,]+$/;
-
-            if (!regex.test(key) || numRegex.test(key) || event?.target?.value?.length >= 30)
-            {
-                theEvent.returnValue = false;
-
-                if (theEvent.preventDefault)
-                {
-                    theEvent.preventDefault();
-                }
-            }
-            else
-            {
-                event?.target?.parentElement?.setAttribute('data-error', 'false');
-            }
-        }, []);
-    const persianValidate = useCallback(
-        (event: any) =>
+        if (!passenger?.birthdayYear)
         {
-            let key;
-            const theEvent = event || window.event;
+            birthdaysYearRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+            birthdaysYearRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error', 'true');
+            birthdaysYearRef?.current[index]?.current?.setAttribute('data-error', 'true');
+        }
+        else if (Number(passenger?.birthdayYear) <= 0)
+        {
+            birthdaysYearRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error_message', 'این تاریخ اشتباه است');
+            birthdaysYearRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error', 'true');
+            birthdaysYearRef?.current[index]?.current?.setAttribute('data-error', 'true');
+        }
 
-            if (theEvent.type === 'paste')
+        if (passenger?.birthdayDay &&
+            passenger?.birthdayMonth &&
+            passenger?.birthdayYear &&
+            Number(passenger?.birthdayDay) > 0 &&
+            Number(passenger?.birthdayMonth) > 0 &&
+            Number(passenger?.birthdayYear) > 0 &&
+            regex.test(passenger?.birthdayYear + '/' + passenger?.birthdayMonth + '/' + passenger?.birthdayDay)
+        )
+        {
+            birthdaysDayRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error', 'false');
+            birthdaysDayRef?.current[index]?.current?.setAttribute('data-error', 'false');
+
+            birthdaysMonthRef?.current[index]?.current?.setAttribute('data-error', 'false');
+
+            birthdaysYearRef?.current[index]?.current?.setAttribute('data-error', 'false');
+        }
+    };
+    const deletePassenger = (id: any) =>
+    {
+        setPassengers(passengers?.filter((passenger: any) => passenger?.id !== id));
+    };
+    const purchaseValidate = () =>
+    {
+        let index = 0;
+        let error = false;
+
+        const regex = /^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/;
+
+        for (const passenger of passengers)
+        {
+            if (!passenger?.latinName)
             {
-                key = event.clipboardData.getData('text/plain');
+                error = true;
+
+                latinNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                latinNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
+            }
+            if (!passenger?.latinLastName)
+            {
+                error = true;
+
+                latinLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                latinLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
+            }
+            if (!passenger?.persianName)
+            {
+                error = true;
+
+                persianNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                persianNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
+            }
+            if (!passenger?.persianLastName)
+            {
+                error = true;
+
+                persianLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                persianLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
+            }
+            if (!passenger?.code)
+            {
+                error = true;
+
+                codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
             }
             else
             {
-                key = theEvent.keyCode || theEvent.which;
-                key = String.fromCharCode(key);
-            }
-
-            const numRegex = /[0-9]|\./;
-            const regex = /[آ-ی]/;
-
-            if (!regex.test(key) || numRegex.test(key) || event?.target?.value?.length >= 30)
-            {
-                theEvent.returnValue = false;
-
-                if (theEvent.preventDefault)
+                if (!passenger?.passport)
                 {
-                    theEvent.preventDefault();
-                }
-            }
-            else
-            {
-                event?.target?.parentElement?.setAttribute('data-error', 'false');
-            }
-        }, []);
-    const deletePassenger = useCallback(
-        (id: any) =>
-        {
-            setPassengers(passengers?.filter((passenger: any) => passenger?.id !== id));
-        }, [setPassengers, passengers]);
-    const purchaseValidate = useCallback(
-        () =>
-        {
-            let index = 0;
-            let error = false;
-
-            const persianReg = new RegExp(/^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$/);
-
-            for (const passenger of passengers)
-            {
-                if (!passenger?.latinName)
-                {
-                    error = true;
-
-                    latinNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    latinNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                if (!passenger?.latinLastName)
-                {
-                    error = true;
-
-                    latinLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    latinLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                if (!passenger?.persianName)
-                {
-                    error = true;
-
-                    persianNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    persianNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                if (!passenger?.persianLastName)
-                {
-                    error = true;
-
-                    persianLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    persianLastNamesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                if (!passenger?.birthday)
-                {
-                    error = true;
-
-                    birthdaysRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    birthdaysRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                else if (!persianReg.test(passenger?.birthday))
-                {
-                    error = true;
-
-                    birthdaysRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'این تاریخ مورد تائید نمی باشد');
-                    birthdaysRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                else
-                {
-                    birthdaysRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'false');
-                }
-                if (!passenger?.code)
-                {
-                    error = true;
-
-                    codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                else
-                {
-                    if (!passenger?.passport)
+                    if (passenger?.code?.length !== 10)
                     {
-                        if (passenger?.code?.length !== 10)
-                        {
-                            error = true;
+                        error = true;
 
-                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'این کد ملی مورد تائید نمی باشد');
-                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
+                        codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'این کد ملی مورد تائید نمی باشد');
+                        codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
+                    }
+                    else
+
+                        codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'false');
+                }
+                else
+                {
+                    if (!validator.isPassportNumber(passenger?.code, 'IR'))
+                    {
+                        error = true;
+
+                        codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'این شماره پاسپورت مورد تائید نمی باشد');
+                        codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
+                    }
+                    else
+
+                        codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'false');
+                }
+            }
+            if (!phoneNumberRef?.current?.value)
+            {
+                error = true;
+
+                phoneNumberRef?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                phoneNumberRef?.current?.parentElement?.setAttribute('data-error', 'true');
+            }
+            else if (phoneNumberRef?.current?.value?.length !== 10)
+            {
+                error = true;
+
+                phoneNumberRef?.current?.parentElement?.setAttribute('data-error_message', 'این شماره موبایل مورد تائید نمی باشد');
+                phoneNumberRef?.current?.parentElement?.setAttribute('data-error', 'true');
+            }
+            if (!emailRef?.current?.value)
+            {
+                error = true;
+
+                emailRef?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                emailRef?.current?.parentElement?.setAttribute('data-error', 'true');
+            }
+            else if (!validator.isEmail(emailRef?.current?.value))
+            {
+                error = true;
+
+                emailRef?.current?.parentElement?.setAttribute('data-error_message', 'این ایمیل مورد تائید نمی باشد');
+                emailRef?.current?.parentElement?.setAttribute('data-error', 'true');
+            }
+            if (!passenger?.gender)
+            {
+                error = true;
+
+                gendersRef?.current[index]?.current?.setAttribute('data-error', 'true');
+            }
+            if (!passenger?.age)
+            {
+                error = true;
+
+                agesRef?.current[index]?.current?.setAttribute('data-error', 'true');
+            }
+            if (!(
+                passenger?.birthdayDay &&
+                passenger?.birthdayMonth &&
+                passenger?.birthdayYear
+            ))
+            {
+                error = true;
+
+                birthdaysDayRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                birthdaysDayRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error', 'true');
+                birthdaysDayRef?.current[index]?.current?.setAttribute('data-error', 'true');
+
+                birthdaysMonthRef?.current[index]?.current?.setAttribute('data-error', 'true');
+
+                birthdaysYearRef?.current[index]?.current?.setAttribute('data-error', 'true');
+            }
+            else if (!(
+                Number(passenger?.birthdayDay) > 0 &&
+                Number(passenger?.birthdayMonth) > 0 &&
+                Number(passenger?.birthdayYear) > 0 &&
+                regex.test(passenger?.birthdayYear + '/' + passenger?.birthdayMonth + '/' + passenger?.birthdayDay)
+            ))
+            {
+                error = true;
+
+                birthdaysDayRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error_message', 'این تاریخ اشتباه است');
+                birthdaysDayRef?.current[index]?.current?.parentElement?.parentElement?.setAttribute('data-error', 'true');
+                birthdaysDayRef?.current[index]?.current?.setAttribute('data-error', 'true');
+
+                birthdaysMonthRef?.current[index]?.current?.setAttribute('data-error', 'true');
+
+                birthdaysYearRef?.current[index]?.current?.setAttribute('data-error', 'true');
+            }
+
+            index++;
+        }
+
+        if (!error)
+            setPage('purchase');
+    };
+    const onChange = (event: any, type: string, id: number, passport?: boolean) =>
+    {
+        const array = passengers;
+
+        for (const i in array)
+        {
+            if (array[i].id === id)
+            {
+                if (type?.toUpperCase()?.includes('LATIN'))
+                {
+                    const regex = /^[a-zA-Z\s.,]+$/;
+
+                    if (event?.target?.value)
+                    {
+                        if (regex.test(event?.target?.value) && event?.target?.value?.length < 30)
+                            array[i][type] = event?.target?.value;
+                    }
+                    else
+                        array[i][type] = event?.target?.value;
+                }
+                else if (type?.toUpperCase()?.includes('PERSIAN'))
+                {
+                    const regex = /^[\u0600-\u06FF\s]+$/;
+
+                    if (event?.target?.value)
+                    {
+                        if (regex.test(event?.target?.value) && event?.target?.value?.length < 30)
+                            array[i][type] = event?.target?.value;
+                    }
+                    else
+                        array[i][type] = event?.target?.value;
+                }
+                else if (type?.toUpperCase()?.includes('PASSPORT'))
+                {
+                    array[i].passport = event?.target?.value;
+                    array[i].code = null;
+                }
+                else if (type?.toUpperCase()?.includes('BIRTHDAYDAY') || type?.toUpperCase()?.includes('BIRTHDAYMONTH'))
+                {
+                    const regex = /[0-9]|\./;
+
+                    if (event?.target?.value)
+                    {
+                        if (regex.test(event?.target?.value) && event?.target?.value?.length <= 2)
+                            array[i][type] = event?.target?.value;
+                    }
+                    else
+                        array[i][type] = event?.target?.value;
+                }
+                else if (type?.toUpperCase()?.includes('BIRTHDAYYEAR'))
+                {
+                    const regex = /[0-9]|\./;
+
+                    if (event?.target?.value)
+                    {
+                        if (regex.test(event?.target?.value) && event?.target?.value?.length <= 4)
+                            array[i][type] = event?.target?.value;
+                    }
+                    else
+                        array[i][type] = event?.target?.value;
+                }
+                else if (type?.toUpperCase()?.includes('CODE'))
+                {
+                    if (event?.target?.value)
+                    {
+                        if (passport)
+                        {
+                            const regex = /[0-9]|\./;
+
+                            if (regex.test(event?.target?.value) && event?.target?.value?.length <= 10)
+                                array[i][type] = event?.target?.value;
                         }
                         else
                         {
-                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'false');
+                            const regex = /[0-9]|\./;
+
+                            if (regex.test(event?.target?.value) && event?.target?.value?.length <= 10)
+                                array[i][type] = event?.target?.value;
                         }
                     }
                     else
-                    {
-                        if (!validator.isPassportNumber(passenger?.code, 'IR'))
-                        {
-                            error = true;
-
-                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error_message', 'این کد پاسپورت مورد تائید نمی باشد');
-                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'true');
-                        }
-                        else
-                        {
-                            codesRef?.current[index]?.current?.parentElement?.setAttribute('data-error', 'false');
-                        }
-                    }
+                        array[i][type] = event?.target?.value;
                 }
-                if (!phoneNumberRef?.current?.value)
-                {
-                    error = true;
-
-                    phoneNumberRef?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    phoneNumberRef?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                else if (phoneNumberRef?.current?.value?.length !== 10)
-                {
-                    error = true;
-
-                    phoneNumberRef?.current?.parentElement?.setAttribute('data-error_message', 'این شماره موبایل مورد تائید نمی باشد');
-                    phoneNumberRef?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                if (!emailRef?.current?.value)
-                {
-                    error = true;
-
-                    emailRef?.current?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
-                    emailRef?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                else if (!validator.isEmail(emailRef?.current?.value))
-                {
-                    error = true;
-
-                    emailRef?.current?.parentElement?.setAttribute('data-error_message', 'این ایمیل مورد تائید نمی باشد');
-                    emailRef?.current?.parentElement?.setAttribute('data-error', 'true');
-                }
-                if (!passenger?.gender)
-                {
-                    error = true;
-
-                    gendersRef?.current[index]?.current?.setAttribute('data-error', 'true');
-                }
-                if (!passenger?.age)
-                {
-                    error = true;
-
-                    agesRef?.current[index]?.current?.setAttribute('data-error', 'true');
-                }
-
-                index++;
-            }
-
-            if (!error)
-            {
-                setPage('purchase')
-            }
-        }, [setPage, passengers, emailRef, gendersRef, latinNamesRef, persianNamesRef, codesRef, latinLastNamesRef, persianLastNamesRef, phoneNumberRef, agesRef]);
-
-    const onChange = useCallback(
-        (event: any, type: string, id: number) =>
-        {
-            let array = passengers;
-
-            for (const i in array)
-            {
-                if (array[i].id === id)
-                {
+                else if (type?.toUpperCase()?.includes('GENDER') || type?.toUpperCase()?.includes('AGE'))
                     array[i][type] = event?.target?.value;
 
-                    break;
-                }
+                break;
             }
+        }
 
-            setPassengers(array);
-        }, [passengers]);
+        setPassengers([...array]);
+    };
 
     if (
         agesRef.current.length !== passengers.length &&
         codesRef.current.length !== passengers.length &&
         gendersRef.current.length !== passengers.length &&
-        birthdaysRef.current.length !== passengers.length &&
+        birthdaysDayRef.current.length !== passengers.length &&
+        birthdaysMonthRef.current.length !== passengers.length &&
+        birthdaysYearRef.current.length !== passengers.length &&
         latinNamesRef.current.length !== passengers.length &&
         persianNamesRef.current.length !== passengers.length &&
         latinLastNamesRef.current.length !== passengers.length &&
@@ -382,7 +371,11 @@ const Booking = () =>
         // @ts-ignore
         gendersRef.current = Array(passengers.length).fill().map((_, i) => gendersRef.current[i] || createRef());
         // @ts-ignore
-        birthdaysRef.current = Array(passengers.length).fill().map((_, i) => birthdaysRef.current[i] || createRef());
+        birthdaysDayRef.current = Array(passengers.length).fill().map((_, i) => birthdaysDayRef.current[i] || createRef());
+        // @ts-ignore
+        birthdaysMonthRef.current = Array(passengers.length).fill().map((_, i) => birthdaysMonthRef.current[i] || createRef());
+        // @ts-ignore
+        birthdaysYearRef.current = Array(passengers.length).fill().map((_, i) => birthdaysYearRef.current[i] || createRef());
         // @ts-ignore
         latinNamesRef.current = Array(passengers.length).fill().map((_, i) => latinNamesRef.current[i] || createRef());
         // @ts-ignore
@@ -396,12 +389,14 @@ const Booking = () =>
     return (
         <main ref={mainRef}>
             <div data-activate={popup} className={styles.bookingPopup}>
+                <span onClick={() => setPopup(false)}/>
+
                 <div>
                     <header>
-                          <span>
-                              <User />
+                        <span>
+                            <User />
                               مشخصات مسافران سابق
-                          </span>
+                        </span>
 
                         <i onClick={() => setPopup(false)}>
                             <Close />
@@ -415,55 +410,48 @@ const Booking = () =>
                             </span>
 
                             <span>
-                                1741371104
+                                2284171427
                             </span>
 
                             <span>
-                                1372/03/29
+                                1384/09/05
                             </span>
                         </div>
 
-                        <button>
-                            انتخاب
-                        </button>
-                    </div>
+                        <button onClick={() =>
+                        {
+                            const array = passengers;
 
-                    <div>
-                        <div>
-                            <span>
-                                پارسا فیروزی
-                            </span>
+                            array[popupIndex] =
+                                {
+                                    latinName: 'Parsa',
+                                    latinLastName: 'Firoozi',
+                                    persianName: 'پارسا',
+                                    persianLastName: 'فیروزی',
+                                    gender: 'آقا',
+                                    age: 'بزرگسال',
+                                    passport: false,
+                                    code: '2284171427',
+                                    birthdayDay: '05',
+                                    birthdayMonth: '09',
+                                    birthdayYear: '1384'
+                                };
 
-                            <span>
-                                1741371104
-                            </span>
+                            latinNamesRef?.current[popupIndex]?.parentElement?.setAttribute('data-error', 'false');
+                            latinLastNamesRef?.current[popupIndex]?.parentElement?.setAttribute('data-error', 'false');
+                            persianNamesRef?.current[popupIndex]?.parentElement?.setAttribute('data-error', 'false');
+                            persianLastNamesRef?.current[popupIndex]?.parentElement?.setAttribute('data-error', 'false');
+                            agesRef?.current[popupIndex]?.parentElement?.setAttribute('data-error', 'false');
+                            codesRef?.current[popupIndex]?.parentElement?.setAttribute('data-error', 'false');
+                            gendersRef?.current[popupIndex]?.parentElement?.setAttribute('data-error', 'false');
+                            birthdaysDayRef?.current[popupIndex]?.current?.setAttribute('data-error', 'false');
+                            birthdaysMonthRef?.current[popupIndex]?.current?.setAttribute('data-error', 'false');
+                            birthdaysYearRef?.current[popupIndex]?.current?.setAttribute('data-error', 'false');
+                            birthdaysYearRef?.current[popupIndex]?.parentElement?.parentElement?.setAttribute('data-error', 'false');
 
-                            <span>
-                                1372/03/29
-                            </span>
-                        </div>
-
-                        <button>
-                            انتخاب
-                        </button>
-                    </div>
-
-                    <div>
-                        <div>
-                            <span>
-                                پارسا فیروزی
-                            </span>
-
-                            <span>
-                                1741371104
-                            </span>
-
-                            <span>
-                                1372/03/29
-                            </span>
-                        </div>
-
-                        <button>
+                            setPassengers(array);
+                            setPopup(false);
+                        }}>
                             انتخاب
                         </button>
                     </div>
@@ -504,27 +492,26 @@ const Booking = () =>
                             passengers.map((passenger: any, index: any) =>
                                 (
                                     <BookingBox
-                                        key={passenger?.id}
+                                        key={passenger?.id + '-_-_' + index}
                                         page={page}
                                         index={index}
                                         nanoid={nanoid}
                                         onChange={onChange}
                                         setPopup={setPopup}
+                                        setPopupIndex={setPopupIndex}
                                         deletePassenger={deletePassenger}
                                         passenger={passengers[index]}
                                         passengers={passengers}
                                         setPassengers={setPassengers}
-                                        latinValidate={latinValidate}
-                                        numberValidate={numberValidate}
-                                        persianValidate={persianValidate}
                                         purchaseValidate={purchaseValidate}
-                                        passportValidate={passportValidate}
                                         birthdayValidate={birthdayValidate}
                                         mainRef={mainRef}
                                         agesRef={agesRef}
                                         codesRef={codesRef}
                                         gendersRef={gendersRef}
-                                        birthdaysRef={birthdaysRef}
+                                        birthdaysDayRef={birthdaysDayRef}
+                                        birthdaysMonthRef={birthdaysMonthRef}
+                                        birthdaysYearRef={birthdaysYearRef}
                                         latinNamesRef={latinNamesRef}
                                         persianNamesRef={persianNamesRef}
                                         latinLastNamesRef={latinLastNamesRef}
@@ -542,9 +529,9 @@ const Booking = () =>
 
                             <ul>
                                 {
-                                    passengers.map((passenger: any) =>
+                                    passengers.map((passenger: any, index: number) =>
                                         (
-                                            <li key={passenger?.id}>
+                                            <li key={passenger?.id + '_-_' + index}>
                                                 <User2 />
 
                                                 <div>
@@ -570,7 +557,7 @@ const Booking = () =>
                                                 </span>
 
                                                 <span>
-                                                     {passenger?.age}
+                                                    {passenger?.age}
                                                 </span>
                                             </li>
                                         ))
@@ -596,7 +583,7 @@ const Booking = () =>
                                     </span>
 
                                     <p>
-                                        {phoneNumberRef?.current?.value + ' 98+'}
+                                        {phoneNumber + ' 98+'}
                                     </p>
                                 </li>
 
@@ -607,7 +594,7 @@ const Booking = () =>
                                     </span>
 
                                     <p>
-                                        {emailRef?.current?.value}
+                                        {email}
                                     </p>
                                 </li>
                             </ul>
@@ -630,6 +617,7 @@ const Booking = () =>
                                     </label>
 
                                     <input
+                                        value={phoneNumber}
                                         type='number'
                                         data-lang='en'
                                         onBlur={(event: any) =>
@@ -639,13 +627,28 @@ const Booking = () =>
                                                 event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
                                                 event?.target?.parentElement?.setAttribute('data-error', 'true');
                                             }
+                                            else if (!validator.isMobilePhone(('0' + event?.target?.value), 'fa-IR'))
+                                            {
+                                                event?.target?.parentElement?.setAttribute('data-error_message', 'این شماره موبایل مورد تائید نمی باشد');
+                                                event?.target?.parentElement?.setAttribute('data-error', 'true');
+                                            }
                                             else if (event?.target?.value?.length !== 10)
                                             {
                                                 event?.target?.parentElement?.setAttribute('data-error_message', 'این شماره موبایل مورد تائید نمی باشد');
                                                 event?.target?.parentElement?.setAttribute('data-error', 'true');
                                             }
+                                            else
+                                                event?.target?.parentElement?.setAttribute('data-error', 'false');
                                         }}
-                                        ref={phoneNumberRef} onKeyPress={numberValidate}
+                                        onChange={(event: any) =>
+                                        {
+                                            const regex = /[0-9]|\./;
+
+                                            if (regex.test(event?.target?.value) && event?.target?.value?.length <= 10)
+                                                setPhoneNumber(event?.target?.value);
+                                        }}
+                                        onFocus={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}
+                                        ref={phoneNumberRef}
                                     />
                                 </div>
 
@@ -655,6 +658,7 @@ const Booking = () =>
                                     </label>
 
                                     <input
+                                        value={email}
                                         data-lang='en'
                                         ref={emailRef}
                                         type='text'
@@ -671,11 +675,36 @@ const Booking = () =>
                                                 event?.target?.parentElement?.setAttribute('data-error', 'true');
                                             }
                                             else
-                                            {
                                                 event?.target?.parentElement?.setAttribute('data-error', 'false');
+                                        }}
+                                        onChange={(event: any) => setEmail(event?.target?.value)}
+                                        onFocus={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}
+                                    />
+                                </div>
+
+                                <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
+                                    <span style={{ backgroundImage: 'url(https://cdn.discordapp.com/attachments/776425421968244768/999925711005548574/Screenshot_from_2022-07-22_10-56-49.png)' }}/>
+                                </div>
+
+                                <div data-error='false' data-error_message='پر کردن این فیلد الزامی است'>
+                                    <label>
+                                        کد تصویر
+                                    </label>
+
+                                    <input
+                                        value={captchaCode}
+                                        data-lang='en'
+                                        type='text'
+                                        onBlur={(event: any) =>
+                                        {
+                                            if (!event?.target?.value)
+                                            {
+                                                event?.target?.parentElement?.setAttribute('data-error_message', 'پر کردن این فیلد الزامی است');
+                                                event?.target?.parentElement?.setAttribute('data-error', 'true');
                                             }
                                         }}
-                                        onKeyPress={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}
+                                        onChange={(event: any) => setCaptchaCode(event?.target?.value)}
+                                        onFocus={(event: any) => event?.target?.parentElement?.setAttribute('data-error', 'false')}
                                     />
                                 </div>
                             </form>
@@ -779,8 +808,7 @@ const Booking = () =>
                         <footer>
                             {
                                 page === 'purchase'
-                                    ?
-                                    <div data-purchase={true}>
+                                    ? <div data-purchase={true}>
                                         <span>
                                             کد تخفیف
                                         </span>
@@ -797,8 +825,7 @@ const Booking = () =>
                                             </button>
                                         </form>
                                     </div>
-                                    :
-                                    null
+                                    : null
                             }
 
                             <div>

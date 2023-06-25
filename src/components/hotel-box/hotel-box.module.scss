@@ -1,0 +1,322 @@
+.hotelBox
+{
+    display: flex;
+
+    width: 100%;
+    padding: 2.25rem 2.5rem;
+    background: #f5f6fa 0 0 no-repeat padding-box;
+    border-radius: 20px;
+    transition: all 0.2s;
+
+    @media only screen and (max-width: 1000px)
+    {
+        padding: 1rem;
+        background: #fff 0 0 no-repeat padding-box;
+    }
+
+    @media only screen and (max-width: 600px)
+    {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    &:hover
+    {
+        background: #fff 0 0 no-repeat padding-box;
+    }
+
+    &Img
+    {
+        display: flex;
+
+        position: relative;
+
+        width: 38rem;
+        height: 21rem;
+        object-fit: cover;
+        border-radius: 20px;
+        overflow: hidden;
+        background-color: #4a6192;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        @media only screen and (max-width: 1170px)
+        {
+            width: 30rem;
+            height: 17rem;
+        }
+
+        @media only screen and (max-width: 600px)
+        {
+            width: 100%;
+            max-width: 100%;
+            height: 20rem;
+        }
+
+        & > ul
+        {
+            position: absolute;
+            right: 3rem;
+            top: 50%;
+            transform: translateY(-50%);
+
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            & > li
+            {
+                width: 1rem;
+                height: 1rem;
+                border-radius: 2rem;
+                background: #fff 0 0 no-repeat padding-box;
+                opacity: 0.5;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover
+                {
+                    opacity: 0.75;
+                }
+
+                &[data-activate="true"]
+                {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    &Content
+    {
+        width: 100%;
+
+        &Top
+        {
+            display: flex;
+            justify-content: space-between;
+
+            & > div
+            {
+                display: flex;
+                align-items: center;
+
+                margin-right: 2rem;
+
+                svg
+                {
+                    height: 2rem;
+                    width: 2rem;
+                    fill: #0bbcb2;
+                }
+
+                span
+                {
+                    margin: 0 0.5rem;
+                    letter-spacing: -0.3px;
+                    color: #496193;
+                    font-size: 1.65rem;
+                    margin-top: 0.5rem;
+                }
+
+                p
+                {
+                    font-family: YekanBakhMedium, sans-serif;
+                    letter-spacing: -0.3px;
+                    color: #96a5c6;
+                    font-size: 1.65rem;
+                    margin-top: 0.5rem;
+                }
+            }
+
+            & > i
+            {
+                cursor: pointer;
+
+                & > svg
+                {
+                    width: 3rem;
+                    height: 3rem;
+                    fill: #fa5c5c;
+                    transition: all 0.2s;
+                }
+
+                &:hover > svg
+                {
+                    fill: #e84141;
+                }
+            }
+        }
+
+        &Middle
+        {
+            display: flex;
+            flex-direction: column;
+
+            margin: 0.5rem 2.5rem 0.5rem auto;
+
+            &Header
+            {
+                cursor: pointer;
+                letter-spacing: -0.6px;
+                color: #496193;
+                font-size: 3rem;
+                transition: all 0.2s;
+
+                &:hover
+                {
+                    color: #314674;
+                }
+            }
+
+            &Paragraph
+            {
+                font-family: YekanBakhMedium, sans-serif;
+                letter-spacing: -0.3px;
+                color: #96a5c6;
+                font-size: 1.6rem;
+                margin: 0.5rem 0;
+            }
+
+            & ul
+            {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: flex-start;
+
+                margin-top: 0.5rem;
+
+                li
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    letter-spacing: -0.3px;
+                    color: #96a5c6;
+                    font-size: 1.65rem;
+
+                    &::before
+                    {
+                        content: "";
+
+                        display: none;
+
+                        position: relative;
+
+                        margin-left: 1.5rem;
+                        width: 0.5rem;
+                        height: 0.5rem;
+                        border-radius: 10rem;
+                        background: #96a5c6;
+                    }
+
+                    &:not(:last-child)
+                    {
+                        margin-left: 1.5rem;
+                    }
+
+                    &:not(:first-child)
+                    {
+                        &::before
+                        {
+                            display: flex;
+                        }
+                    }
+                }
+            }
+        }
+
+        &Bottom
+        {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.5rem;
+
+            margin-right: 2.5rem;
+            margin-top: 2rem;
+
+            &Stars
+            {
+                svg
+                {
+                    width: 2.25rem;
+                    height: 2.25rem;
+                }
+
+                margin-left: auto;
+            }
+
+            &Discount
+            {
+                position: relative;
+
+                border: 2px solid #edeff6;
+                border-radius: 10px;
+                font-size: 1.5rem;
+                padding: 0.5rem 1rem;
+
+                &::after
+                {
+                    content: "";
+
+                    position: absolute;
+                    z-index: 99;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -40%);
+
+                    background: #4a6192;
+                    width: 85%;
+                    height: 1.25px;
+                }
+            }
+
+            &Percentage
+            {
+                font-family: YekanBakhBold, sans-serif;
+                background: #fa5c5c 0 0 no-repeat padding-box;
+                border-radius: 10px;
+                color: white;
+                font-size: 2rem;
+                padding: 0.5rem;
+
+                & > span
+                {
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: center;
+
+                    height: 100%;
+
+                    & > span
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        margin-bottom: 0.1rem;
+                        font-family: YekanBakhBold, sans-serif;
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+
+            &Price
+            {
+                letter-spacing: -0.42px;
+                color: #496193;
+                font-size: 2.2rem;
+
+                @media only screen and (max-width: 1210px)
+                {
+                    margin: auto auto auto 0;
+                }
+            }
+        }
+    }
+}

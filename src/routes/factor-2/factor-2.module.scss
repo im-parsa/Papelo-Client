@@ -1,0 +1,401 @@
+.factor2
+{
+    padding-top: 5rem;
+
+    &Divider
+    {
+        height: 1px;
+        width: 100%;
+        background: #CED2E3;
+    }
+
+    &Container,
+    &Header
+    {
+        max-width: 120rem;
+        margin: 0 auto;
+    }
+
+    &Header
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding-bottom: 6rem;
+
+        & div
+        {
+            display: flex;
+            align-items: center;
+
+            span
+            {
+                background: transparent linear-gradient(180deg, #FFFFFF 0%, #F5F6FA 100%) 0 0 no-repeat padding-box;
+                border-radius: 31px;
+
+                svg
+                {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+            }
+
+            p
+            {
+                letter-spacing: -0.36px;
+                color: #496193;
+                font-size: 2rem;
+                margin-right: 3.5rem;
+            }
+        }
+
+        & span:nth-child(2)
+        {
+            letter-spacing: -0.36px;
+            color: #496193;
+            font-size: 2rem;
+        }
+    }
+
+    &H1
+    {
+        letter-spacing: -0.42px;
+        color: #496193;
+        font-size: 2rem;
+        padding-top: 6rem;
+    }
+
+    &Content
+    {
+        display: flex;
+
+        margin-top: 3rem;
+        border: 2px dashed #CED2E3;
+        border-radius: 1rem;
+
+        &Right
+        {
+            flex: 0 0 65%;
+
+            padding: 3rem;
+
+            &Top
+            {
+                background: #FAFCFF 0 0 no-repeat padding-box;
+                border-radius: 1rem;
+                padding: 3rem;
+                margin-bottom: 2rem;
+
+                &Header
+                {
+                    display: flex;
+                    align-items: center;
+
+                    svg
+                    {
+                        height: 3.5rem;
+                        width: 3.5rem;
+                    }
+
+                    & span:nth-child(2)
+                    {
+                        letter-spacing: -0.3px;
+                        color: #96A5C6;
+                        font-size: 1.4rem;
+                        margin: 0 1rem;
+                    }
+
+                    & span:nth-child(3)
+                    {
+                        letter-spacing: -0.3px;
+                        color: #496193;
+                        font-size: 1.4rem;
+                    }
+                }
+
+                &Content
+                {
+                    display: flex;
+                    justify-content: space-between;
+
+                    margin-top: 2rem;
+
+                    &Right
+                    {
+                        display: flex;
+
+                        p
+                        {
+                            display: flex;
+                            flex-direction: column;
+
+                            span:nth-child(1)
+                            {
+                                letter-spacing: -0.6px;
+                                color: #496193;
+                                font-size: 2.5rem;
+                            }
+
+                            span:nth-child(2)
+                            {
+                                letter-spacing: -0.36px;
+                                color: #96A5C6;
+                                font-size: 1.6rem;
+                                font-weight: 500;
+                            }
+                        }
+
+                        &Dir
+                        {
+                            display: flex;
+                            flex-direction: column;
+
+                            margin: 0 8rem;
+
+                            & > p
+                            {
+                                display: flex;
+                                align-items: center;
+                                flex-direction: row;
+
+                                svg
+                                {
+                                    fill: #96A5C6;
+                                    margin-left: 1.5rem;
+                                    color: #96A5C6;
+                                    width: 2rem;
+                                    height: 2rem;
+                                }
+                            }
+
+                            & span
+                            {
+                                letter-spacing: -0.36px;
+                                color: #96A5C6;
+                                font-size: 1.6rem;
+                                margin-top: 0.7rem;
+                            }
+                        }
+                    }
+
+                    &Left
+                    {
+                        p
+                        {
+                            display: flex;
+                            flex-direction: column;
+
+                            span:nth-child(1)
+                            {
+                                letter-spacing: -0.6px;
+                                color: #496193;
+                                font-size: 2.5rem;
+                            }
+
+                            span:nth-child(2)
+                            {
+                                letter-spacing: -0.36px;
+                                color: #96A5C6;
+                                font-size: 1.6rem;
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &Bottom
+            {
+                background: #FAFCFF 0 0 no-repeat padding-box;
+                border-radius: 1rem;
+                padding: 3rem;
+
+                ul
+                {
+                    display: flex;
+                    align-items: center;
+
+                    li
+                    {
+                        svg
+                        {
+                            width: 2rem;
+                            height: 2rem;
+                            fill: #496193;
+                        }
+
+                        span
+                        {
+                            letter-spacing: -0.3px;
+                            color: #496193;
+                            font-size: 1.6rem;
+                        }
+
+                        &:not(:last-child)
+                        {
+                            margin-left: 4rem;
+                        }
+                    }
+
+                    & li:nth-child(2)
+                    {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        & span:nth-child(2)
+                        {
+                            font-size: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        &Left
+        {
+            flex: 0 0 35%;
+            border-right: 2px dashed #CED2E3;
+            padding: 3rem;
+
+            &Header
+            {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                p
+                {
+                    display: flex;
+                    align-items: center;
+
+                    svg
+                    {
+                        fill: #96A5C6;
+                        width: 2rem;
+                        height: 2rem;
+                    }
+
+                    span
+                    {
+                        letter-spacing: -0.3px;
+                        color: #96A5C6;
+                        font-size: 1.4rem;
+                        margin-right: 0.5rem;
+                    }
+                }
+
+                span
+                {
+                    font-size: 1.4rem;
+                }
+            }
+
+            &Box
+            {
+                border: 1px solid #D2D6E5;
+                border-radius: 15px;
+                margin-top: 2rem;
+
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+
+                & span:nth-child(1)
+                {
+                    letter-spacing: -0.3px;
+                    color: #96A5C6;
+                    font-size: 1.4rem;
+                    padding: 1rem;
+                }
+
+                & span:nth-child(2)
+                {
+                    letter-spacing: -0.42px;
+                    color: #496193;
+                    font-size: 1.8rem;
+                    padding-bottom: 1rem;
+                }
+
+                & span:nth-child(4)
+                {
+                    letter-spacing: -0.3px;
+                    color: #496193;
+                    font-size: 1.4rem;
+                    padding: 1rem 0;
+                }
+            }
+
+            &Btn
+            {
+                background: #496193 0 0 no-repeat padding-box;
+                border-radius: 40px;
+                font-size: 1.6rem;
+                border: none;
+                width: 100%;
+                padding: 1.6rem 0;
+                color: white;
+                margin-top: 2rem;
+            }
+
+            &Btn2
+            {
+                background: none;
+                border-radius: 40px;
+                font-size: 1.6rem;
+                border: 2px solid #96A5C6;
+                width: 100%;
+                padding: 1.6rem 0;
+                color: #496193;
+                margin-top: 2rem;
+            }
+        }
+    }
+
+    &List
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-top: 8rem;
+
+        &Item
+        {
+            &:not(:last-child)
+            {
+                margin-left: 8rem;
+            }
+
+
+
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            span
+            {
+                display: flex;
+
+                border: 3px solid #EDEFF6;
+                border-radius: 90px;
+                padding: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            svg
+            {
+                fill: #496193;
+            }
+
+            p
+            {
+                letter-spacing: -0.3px;
+                color: #96A5C6;
+                font-size: 1.6rem;
+            }
+        }
+    }
+}

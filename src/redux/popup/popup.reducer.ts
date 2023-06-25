@@ -13,8 +13,8 @@ export const popupReducer = (state = INITIAL_STATE, action: any) =>
             return {
                 ...state,
                 hiddenLogin: !state.hiddenLogin
-            }
+            };
         default:
             return state;
     }
-}
+};
