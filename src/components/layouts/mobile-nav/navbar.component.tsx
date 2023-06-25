@@ -19,12 +19,12 @@ const Navbar = () =>
                     open
                         ?
                         <span onClick={() => setOpen(false)}>
-                        <ListNested />
-                    </span>
+                            <ListNested />
+                        </span>
                         :
                         <span onClick={() => setOpen(true)}>
-                        <List />
-                    </span>
+                            <List />
+                        </span>
                 }
             </div>
             <ul className={styles.navPopup} data-open={open}>

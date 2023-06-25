@@ -57,9 +57,9 @@ const Navbar = (props: any) =>
                                         </h3>
                                         <ul className={styles.navbarPopupList}>
                                             <li className={styles.navbarPopupItem}>
-                                    <span>
-                                        <Plane />
-                                    </span>
+                                                <span>
+                                                    <Plane />
+                                                </span>
                                                 <div>
                                                     <Link to='/'>
                                                         بلیط هواپیما
@@ -70,9 +70,9 @@ const Navbar = (props: any) =>
                                                 </div>
                                             </li>
                                             <li className={styles.navbarPopupItem}>
-                                    <span>
-                                        <Bus />
-                                    </span>
+                                                <span>
+                                                    <Bus />
+                                                </span>
                                                 <div>
                                                     <Link to='/bus-ticket'>
                                                         بلیط اتوبوس
