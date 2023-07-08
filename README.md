@@ -9,7 +9,7 @@
 </div>
 
 <h3 align="center">
-    Personal website that written in ReactJS & NextJS, Also its user interface design is like apps
+    Papelo website that written in ReactJS
 </h3>
 
 ## 🚨 Forking this repo (please read!)
